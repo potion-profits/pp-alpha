@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://d3a4goan7upx3"]
 
-[ext_resource type="Texture2D" uid="uid://dn7vbk83vo4do" path="res://assets/Screenshot6.png" id="1_wt17y"]
+[ext_resource type="Texture2D" uid="uid://dn7vbk83vo4do" path="res://assets/temp_background.png" id="1_wt17y"]
 [ext_resource type="PackedScene" uid="uid://b0flhrlw7t57t" path="res://scenes/player.tscn" id="2_m8u5f"]
 
 [node name="Playground" type="Node2D"]
