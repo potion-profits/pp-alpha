@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://d3a4goan7upx3"]
+
+[ext_resource type="Texture2D" uid="uid://dn7vbk83vo4do" path="res://Screenshot6.png" id="1_wt17y"]
+[ext_resource type="PackedScene" uid="uid://b0flhrlw7t57t" path="res://player.tscn" id="2_m8u5f"]
+
+[node name="Playground" type="Node2D"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 1153.0
+offset_bottom = 650.0
+scale = Vector2(1.665487, 1.665805)
+texture = ExtResource("1_wt17y")
+expand_mode = 1
+
+[node name="Player" parent="." instance=ExtResource("2_m8u5f")]
+position = Vector2(604, 327)
