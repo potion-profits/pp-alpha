@@ -6,11 +6,12 @@
 [node name="Playground" type="Node2D"]
 
 [node name="TextureRect" type="TextureRect" parent="."]
-offset_right = 540.38245
-offset_bottom = 363.18777
+offset_right = 1160.021
+offset_bottom = 653.73804
 scale = Vector2(1.665487, 1.665805)
 texture = ExtResource("1_wt17y")
 expand_mode = 1
 
 [node name="Player" parent="." instance=ExtResource("2_m8u5f")]
-position = Vector2(432, 308)
+position = Vector2(977.99994, 486)
+scale = Vector2(3.08, 3.08)

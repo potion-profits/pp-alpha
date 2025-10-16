@@ -168,8 +168,8 @@ position = Vector2(0, -12.125)
 sprite_frames = SubResource("SpriteFrames_onrkg")
 animation = &"walk"
 autoplay = "default"
-frame = 14
-frame_progress = 0.0854963
+frame = 15
+frame_progress = 0.53235424
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.3749987, -7.9583373)
