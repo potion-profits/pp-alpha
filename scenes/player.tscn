@@ -178,3 +178,8 @@ shape = SubResource("RectangleShape2D_i3pqv")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
+
+[node name="SprintTimer" type="Timer" parent="."]
+wait_time = 2.0
+
+[connection signal="timeout" from="SprintTimer" to="." method="_on_sprint_timer_timeout"]

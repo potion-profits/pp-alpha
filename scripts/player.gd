@@ -1,8 +1,20 @@
 extends PhysicsBody2D
 
-var velocity
 const SPEED = 300
+const STAMINA = 50
+
+var velocity
+var stamina = STAMINA
 @onready var animated_sprite = $AnimatedSprite2D
+@onready var sprint_timer = $SprintTimer
+signal stamina_change
+
+enum movement_state {
+	idle,
+	walk,
+	sprint,
+	exhausted
+}
 
 func _physics_process(delta):
 	# allow variable screen sizes
@@ -29,35 +41,36 @@ func _physics_process(delta):
 	var sprint = Input.is_action_pressed("sprint")
 	
 	if x_dir or y_dir:
-		animated_sprite.play("walk")
+		if sprint and stamina > 0:
+			change_state(movement_state.sprint)
+		else:
+			change_state(movement_state.walk)
 	else:
-		animated_sprite.play("default")
-		
-	if sprint and (x_dir or y_dir):
-		animated_sprite.speed_scale = 2.0
-		velocity = velocity * 2
-	else:
-		animated_sprite.speed_scale = 1.0
+		change_state(movement_state.idle)
 	
 	move_and_collide(velocity)
+	if stamina < STAMINA and sprint_timer.is_stopped():
+		sprint_timer.start(2.0)
+	
+	stamina_change.emit(stamina)
 	
 	# locks character to rectangle from (0,0) to (sreen_size.x, screen_size.y)
 	global_position = global_position.clamp(Vector2(0,0), screen_size)
-	
-	"""
-	if collision_info:
-		velocity = Vector2(0,0)
-	if global_position.x < 0:
-		global_position.x = 0
-	if global_position.y < 0:
-		global_position.y = 0
-	if global_position.y > screen_size.y:
-		global_position.y = screen_size.y
-	if global_position.x > screen_size.x:
-		global_position.x = screen_size.x
-	-------------------------------------------  ^
-	or we can use clamp / clampf() ______________|
-	-------------------------------------------
-	global_position.x = clampf(global_position.x, 0, screen_size.x)
-	global_position.y = clampf(global_position.y, 0, screen_size.y)
-	"""
+
+func change_state(state):
+	match state:
+		movement_state.idle:
+			animated_sprite.play("default")
+			animated_sprite.speed_scale = 1.0
+		movement_state.walk:
+			animated_sprite.play("walk")
+			animated_sprite.speed_scale = 1.0
+		movement_state.sprint:
+			animated_sprite.play("walk")
+			animated_sprite.speed_scale = 2.0
+			velocity *= 2
+			stamina -=1
+
+func _on_sprint_timer_timeout():
+	stamina = STAMINA
+	sprint_timer.stop()

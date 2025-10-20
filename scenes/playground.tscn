@@ -1,9 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://d3a4goan7upx3"]
+[gd_scene load_steps=5 format=3 uid="uid://d3a4goan7upx3"]
 
 [ext_resource type="Texture2D" uid="uid://dn7vbk83vo4do" path="res://assets/temp_background.png" id="1_wt17y"]
 [ext_resource type="PackedScene" uid="uid://b0flhrlw7t57t" path="res://scenes/player.tscn" id="2_m8u5f"]
+[ext_resource type="Script" uid="uid://w25tk4feanbe" path="res://scripts/playground.gd" id="3_kddj0"]
+
+[sub_resource type="MeshTexture" id="MeshTexture_qchbg"]
 
 [node name="Playground" type="Node2D"]
+script = ExtResource("3_kddj0")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 offset_right = 1160.021
@@ -15,3 +19,15 @@ expand_mode = 1
 [node name="Player" parent="." instance=ExtResource("2_m8u5f")]
 position = Vector2(977.99994, 486)
 scale = Vector2(3.08, 3.08)
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Player"]
+offset_left = 16.233795
+offset_top = 66.233765
+offset_right = 148.70132
+offset_bottom = 81.16882
+value = 100.0
+nine_patch_stretch = true
+texture_progress = SubResource("MeshTexture_qchbg")
+tint_progress = Color(0.12156863, 1, 0.14901961, 1)
+
+[connection signal="stamina_change" from="Player" to="." method="_on_player_stamina_change"]
