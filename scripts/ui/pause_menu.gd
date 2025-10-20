@@ -11,7 +11,6 @@ func _ready():
 
 func _on_menu_pressed():
 	#save and return to menu!! for now just menu
-	print("menu was pressed")
 	get_tree().change_scene_to_file("res://scenes/start_menu.tscn")
 
 

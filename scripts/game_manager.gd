@@ -13,7 +13,6 @@ func set_pause_menu(menu: Control):
 
 func _unhandled_input(event):
 	if event.is_action_pressed("ui_cancel"):
-		print("Esc was pressed")
 		get_tree().paused = !get_tree().paused
 		pause_menu.visible = get_tree().paused
 
