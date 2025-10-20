@@ -12,9 +12,13 @@ config_version=5
 
 config/name="potion-profits-game"
 config/version="0.0.1"
-run/main_scene="uid://b12axxf6dhbg2"
+run/main_scene="uid://c4idipr74234u"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+LanguageManager="*res://scripts/ui/language_manager.gd"
 
 [display]
 

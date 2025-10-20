@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cc1d2tcmmpx2j"
-path="res://.godot/imported/UI-Dialog-box2 1.38.01 PM.png-a8e7757f6de1a131f2f87ba5e4cda552.ctex"
+uid="uid://dasocpa47vscp"
+path="res://.godot/imported/UI-Menu and Buttons 1.38.01 PM.png-0bc884b8238d6d583cdfb404ad05e27d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI_asset_pack/UI-Dialog-box2 1.38.01 PM.png"
-dest_files=["res://.godot/imported/UI-Dialog-box2 1.38.01 PM.png-a8e7757f6de1a131f2f87ba5e4cda552.ctex"]
+source_file="res://assets/ui/UI-Menu and Buttons 1.38.01 PM.png"
+dest_files=["res://.godot/imported/UI-Menu and Buttons 1.38.01 PM.png-0bc884b8238d6d583cdfb404ad05e27d.ctex"]
 
 [params]
 

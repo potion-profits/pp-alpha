@@ -1,6 +1,20 @@
-[gd_scene load_steps=2 format=3 uid="uid://b12axxf6dhbg2"]
+[gd_scene load_steps=9 format=3 uid="uid://c4idipr74234u"]
 
-[ext_resource type="Texture2D" uid="uid://db0iojmrs813b" path="res://assets/UI_asset_pack/temp_menu_background.jpg" id="1_ouf4f"]
+[ext_resource type="Texture2D" uid="uid://db0iojmrs813b" path="res://assets/ui/temp_menu_background.jpg" id="1_ouf4f"]
+[ext_resource type="Script" uid="uid://dboa8t5rir3yh" path="res://scripts/ui/start_menu.gd" id="1_thu50"]
+[ext_resource type="Texture2D" uid="uid://uhdybuaqdi46" path="res://assets/ui/play_button.tres" id="3_m7x51"]
+[ext_resource type="Texture2D" uid="uid://brnutn3s0x71a" path="res://assets/ui/options_button.tres" id="4_h61rw"]
+[ext_resource type="Texture2D" uid="uid://c0t4a2fh3rqfu" path="res://assets/ui/quit_button.tres" id="5_fcv5n"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_h61rw"]
+texture = ExtResource("3_m7x51")
+region_rect = Rect2(0, 0, 46.708675, 15)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fcv5n"]
+texture = ExtResource("4_h61rw")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4v6gu"]
+texture = ExtResource("5_fcv5n")
 
 [node name="StartMenu" type="Control"]
 layout_mode = 3
@@ -9,19 +23,52 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_thu50")
 
 [node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_ouf4f")
+expand_mode = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -986.0
-offset_top = -634.0
-offset_right = 4943.3926
-offset_bottom = 3318.9285
+offset_left = -208.0
+offset_top = -231.00002
+offset_right = 208.0
+offset_bottom = 231.00002
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.3318519, 0.3318519)
-texture = ExtResource("1_ouf4f")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 23
+alignment = 1
+
+[node name="Play" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/normal = SubResource("StyleBoxTexture_h61rw")
+
+[node name="Options" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/normal = SubResource("StyleBoxTexture_fcv5n")
+
+[node name="Quit" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/normal = SubResource("StyleBoxTexture_4v6gu")
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

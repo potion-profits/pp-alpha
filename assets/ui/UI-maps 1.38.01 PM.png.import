@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cqwtg2aprjmob"
-path="res://.godot/imported/UI-Life-and-mana-Sheet 1.38.01 PM.png-f0498be5c84104af0a89fffe2d119285.ctex"
+uid="uid://r7q51gbk6yqr"
+path="res://.godot/imported/UI-maps 1.38.01 PM.png-27ac473b56c33cc153f13b9341556139.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI_asset_pack/UI-Life-and-mana-Sheet 1.38.01 PM.png"
-dest_files=["res://.godot/imported/UI-Life-and-mana-Sheet 1.38.01 PM.png-f0498be5c84104af0a89fffe2d119285.ctex"]
+source_file="res://assets/ui/UI-maps 1.38.01 PM.png"
+dest_files=["res://.godot/imported/UI-maps 1.38.01 PM.png-27ac473b56c33cc153f13b9341556139.ctex"]
 
 [params]
 

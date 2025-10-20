@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dasocpa47vscp"
-path="res://.godot/imported/UI-Menu and Buttons 1.38.01 PM.png-66bc3c9a297db3e1df09d77ad8f2cc9e.ctex"
+uid="uid://cqwtg2aprjmob"
+path="res://.godot/imported/UI-Life-and-mana-Sheet 1.38.01 PM.png-bef6f0b6287f54addf53edcaf1d631ab.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI_asset_pack/UI-Menu and Buttons 1.38.01 PM.png"
-dest_files=["res://.godot/imported/UI-Menu and Buttons 1.38.01 PM.png-66bc3c9a297db3e1df09d77ad8f2cc9e.ctex"]
+source_file="res://assets/ui/UI-Life-and-mana-Sheet 1.38.01 PM.png"
+dest_files=["res://.godot/imported/UI-Life-and-mana-Sheet 1.38.01 PM.png-bef6f0b6287f54addf53edcaf1d631ab.ctex"]
 
 [params]
 
