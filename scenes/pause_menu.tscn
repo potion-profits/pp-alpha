@@ -49,5 +49,5 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/normal = SubResource("StyleBoxTexture_7l7mv")
 
-[connection signal="pressed" from="PauseMenuControl/MarginContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
-[connection signal="pressed" from="PauseMenuControl/MarginContainer/VBoxContainer/Menu" to="." method="_on_menu_pressed"]
+[connection signal="pressed" from="PauseMenuControl/MarginContainer/VBoxContainer/Resume" to="PauseMenuControl" method="_on_resume_pressed"]
+[connection signal="pressed" from="PauseMenuControl/MarginContainer/VBoxContainer/Menu" to="PauseMenuControl" method="_on_menu_pressed"]

@@ -8,8 +8,7 @@ func _ready():
 # Called when the node enters the scene tree for the first time.
 func set_pause_menu(menu: Control):
 	pause_menu = menu
-	pause_menu.hide()
-	pause_menu.visible = false
+	unpause()
 
 
 func _unhandled_input(event):
@@ -17,3 +16,8 @@ func _unhandled_input(event):
 		print("Esc was pressed")
 		get_tree().paused = !get_tree().paused
 		pause_menu.visible = get_tree().paused
+
+func unpause():
+	get_tree().paused = false;
+	pause_menu.hide()
+	pause_menu.visible = false

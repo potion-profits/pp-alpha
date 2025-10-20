@@ -14,6 +14,7 @@ const STATE_OFFSET = {
 }
 
 func _ready():
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	LanguageManager.connect("language_changed",self._on_lang_changed)
 	_update_textures(LanguageManager.current_lang)
 
