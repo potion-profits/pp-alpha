@@ -1,0 +1,98 @@
+[gd_scene load_steps=3 format=3 uid="uid://d156sgmvltr8x"]
+
+[ext_resource type="Texture2D" uid="uid://die8e38i4rni0" path="res://assets/casino/casino_temp.jpg" id="1_yq41b"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yq41b"]
+bg_color = Color(0.19607843, 0.49019608, 0.36862746, 1)
+border_width_left = 20
+border_width_top = 20
+border_width_right = 20
+border_width_bottom = 20
+border_color = Color(0.14901961, 0.050980393, 0.0627451, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[node name="Casino" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_yq41b")
+expand_mode = 5
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -750.0
+offset_top = -375.0
+offset_right = 750.0
+offset_bottom = 375.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_yq41b")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.312
+anchor_right = 0.5
+anchor_bottom = 0.312
+offset_left = -562.5
+offset_top = -140.25
+offset_right = 562.5
+offset_bottom = 141.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GridContainer" type="GridContainer" parent="Panel/MarginContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="Slots" type="Button" parent="Panel/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Slots"
+
+[node name="Roulette" type="Button" parent="Panel/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Roulette"
+
+[node name="MarginContainer2" type="MarginContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -281.25
+offset_top = 6.0
+offset_right = 281.25
+offset_bottom = 287.25
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Exit" type="Button" parent="Panel/MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Exit"
