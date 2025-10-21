@@ -1,6 +1,6 @@
 extends "res://scripts/ui/base_menu.gd"
 
-func _ready():
+func _ready()->void:
 	button_map = {
 		"MarginContainer/VBoxContainer/Play": "res://assets/ui/play_button.tres",
 		"MarginContainer/VBoxContainer/Options": "res://assets/ui/options_button.tres",
@@ -9,11 +9,11 @@ func _ready():
 	super._ready()
 
 
-func _on_play_pressed():
+func _on_play_pressed()->void:
 	get_tree().change_scene_to_file("res://scenes/playground.tscn")
 
-func _on_options_pressed():
+func _on_options_pressed()->void:
 	get_tree().change_scene_to_file("res://scenes/options_menu.tscn")
 
-func _on_quit_pressed():
+func _on_quit_pressed()->void:
 	get_tree().quit()

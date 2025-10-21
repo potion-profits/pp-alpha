@@ -2,8 +2,8 @@ extends Node
 
 const CONFIG_PATH = "user://settings.cfg"
 
-var current_lang := "en"
-var supported_langs = ["en", "fr", "es", "zh", "pt", "ar", "ru"]
+var current_lang : String= "en"
+var supported_langs : Array = ["en", "fr", "es", "zh", "pt", "ar", "ru"]
 
 const BTN_H = 16
 const BTN_W = 48
@@ -21,10 +21,10 @@ const LANG_OFFSET = {
 
 signal language_changed(lang:String)
 
-func _ready():
+func _ready()->void:
 	load_language()
 	
-func set_languages(lang: String):
+func set_languages(lang: String)->void:
 	if lang not in supported_langs:
 		push_warning("Unsupported language: %s" % lang)
 		return
@@ -32,17 +32,17 @@ func set_languages(lang: String):
 	save_language()
 	emit_signal("language_changed", lang)
 	
-func next_language():
-	var next_i = (supported_langs.find(current_lang) + 1) % supported_langs.size()
+func next_language()->void:
+	var next_i: int = (supported_langs.find(current_lang) + 1) % supported_langs.size()
 	set_languages(supported_langs[next_i])
 
-func save_language():
-	var cfg = ConfigFile.new()
+func save_language()->void:
+	var cfg:ConfigFile = ConfigFile.new()
 	cfg.set_value("settings","language", current_lang)
 	cfg.save(CONFIG_PATH)
 	
-func load_language():
-	var cfg = ConfigFile.new()
-	var err = cfg.load(CONFIG_PATH)
+func load_language()->void:
+	var cfg:ConfigFile = ConfigFile.new()
+	var err:Error = cfg.load(CONFIG_PATH)
 	if err == OK:
 		current_lang = cfg.get_value("settings","language","en")

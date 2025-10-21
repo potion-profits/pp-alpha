@@ -1,12 +1,13 @@
 extends PhysicsBody2D
 
+
 const SPEED = 300
 const STAMINA = 50
 
-var velocity
-var stamina = STAMINA
-@onready var animated_sprite = $AnimatedSprite2D
-@onready var sprint_timer = $SprintTimer
+var velocity : Vector2
+var stamina : float = STAMINA
+@onready var animated_sprite :  = $AnimatedSprite2D
+@onready var sprint_timer : = $SprintTimer
 signal stamina_change
 
 enum movement_state {
@@ -16,19 +17,20 @@ enum movement_state {
 	exhausted
 }
 
-func _physics_process(delta):
+
+func _physics_process(delta : float)->void:
 	# allow variable screen sizes
-	var screen_size = get_viewport_rect().size
+	var screen_size : Vector2 = get_viewport_rect().size
 	# reset speed each tick
 	velocity = Vector2(0,0)
 	
 	# flips y direction to neg or positive based on keypress input
-	var y_dir = Input.get_axis("move_up", "move_down")
+	var y_dir : float = Input.get_axis("move_up", "move_down")
 	if y_dir:
 		velocity.y = y_dir
 	
 	# flips x direction to neg or positive based on keypress input
-	var x_dir = Input.get_axis("move_left", "move_right")
+	var x_dir : float = Input.get_axis("move_left", "move_right")
 	if x_dir:
 		velocity.x = x_dir
 		if x_dir > 0:
@@ -38,7 +40,7 @@ func _physics_process(delta):
 	
 	velocity = velocity.normalized() * SPEED * delta
 	
-	var sprint = Input.is_action_pressed("sprint")
+	var sprint : bool = Input.is_action_pressed("sprint")
 	
 	if x_dir or y_dir:
 		if sprint and stamina > 0:
@@ -57,7 +59,7 @@ func _physics_process(delta):
 	# locks character to rectangle from (0,0) to (sreen_size.x, screen_size.y)
 	global_position = global_position.clamp(Vector2(0,0), screen_size)
 
-func change_state(state):
+func change_state(state : movement_state) -> void:
 	match state:
 		movement_state.idle:
 			animated_sprite.play("default")
@@ -71,6 +73,6 @@ func change_state(state):
 			velocity *= 2
 			stamina -=1
 
-func _on_sprint_timer_timeout():
+func _on_sprint_timer_timeout() -> void:
 	stamina = STAMINA
 	sprint_timer.stop()
