@@ -1,14 +1,31 @@
 extends PhysicsBody2D
 
-var velocity : Vector2
 const SPEED = 300
+const STAMINA = 50
+const STAMINA_RECHARGE_RATE = 10
+
+var velocity : Vector2
+var stamina : float = STAMINA
 @onready var animated_sprite :  = $AnimatedSprite2D
+@onready var sprint_timer : = $SprintTimer
+
+signal stamina_change
+
+enum movement_state {
+	IDLE,
+	WALK,
+	SPRINT
+}
+
+var current_state : movement_state = movement_state.IDLE
 
 func _physics_process(delta : float)->void:
 	# allow variable screen sizes
 	var screen_size : Vector2 = get_viewport_rect().size
-	# reset speed each tick
+	# reset speed and sprint flag each tick
 	velocity = Vector2(0,0)
+	
+	var stamina_delta : float = STAMINA_RECHARGE_RATE * delta
 	
 	# flips y direction to neg or positive based on keypress input
 	var y_dir : float = Input.get_axis("move_up", "move_down")
@@ -26,38 +43,44 @@ func _physics_process(delta : float)->void:
 	
 	velocity = velocity.normalized() * SPEED * delta
 	
-	var sprint :bool = Input.is_action_pressed("sprint")
+	var sprint : bool = Input.is_action_pressed("sprint")
 	
 	if x_dir or y_dir:
-		animated_sprite.play("walk")
+		if sprint and stamina > 0:
+			current_state = movement_state.SPRINT
+		else:
+			current_state = movement_state.WALK
 	else:
-		animated_sprite.play("default")
-		
-	if sprint and (x_dir or y_dir):
-		animated_sprite.speed_scale = 2.0
-		velocity = velocity * 2
-	else:
-		animated_sprite.speed_scale = 1.0
+		current_state = movement_state.IDLE
+	
+	match current_state:
+		movement_state.IDLE:
+			animated_sprite.play("default")
+			animated_sprite.speed_scale = 1.0
+			if sprint_timer.is_stopped():
+				stamina += stamina_delta
+		movement_state.WALK:
+			animated_sprite.play("walk")
+			animated_sprite.speed_scale = 1.0
+			if sprint_timer.is_stopped():
+				stamina += stamina_delta
+		movement_state.SPRINT:
+			animated_sprite.play("walk")
+			animated_sprite.speed_scale = 2.0
+			velocity *= 2
+			stamina -= 2 * stamina_delta
+			if stamina < STAMINA and sprint_timer.is_stopped():
+				sprint_timer.start(2.0)
+	stamina = min(stamina, STAMINA)
 	
 	move_and_collide(velocity)
 	
+	stamina_change.emit(stamina)
+	
+	print(sprint_timer.time_left)
+	
 	# locks character to rectangle from (0,0) to (sreen_size.x, screen_size.y)
 	global_position = global_position.clamp(Vector2(0,0), screen_size)
-	
-	"""
-	if collision_info:
-		velocity = Vector2(0,0)
-	if global_position.x < 0:
-		global_position.x = 0
-	if global_position.y < 0:
-		global_position.y = 0
-	if global_position.y > screen_size.y:
-		global_position.y = screen_size.y
-	if global_position.x > screen_size.x:
-		global_position.x = screen_size.x
-	-------------------------------------------  ^
-	or we can use clamp / clampf() ______________|
-	-------------------------------------------
-	global_position.x = clampf(global_position.x, 0, screen_size.x)
-	global_position.y = clampf(global_position.y, 0, screen_size.y)
-	"""
+
+func _on_sprint_timer_timeout() -> void:
+	sprint_timer.stop()
