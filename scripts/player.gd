@@ -1,22 +1,22 @@
 extends PhysicsBody2D
 
-var velocity
+var velocity : Vector2
 const SPEED = 300
-@onready var animated_sprite = $AnimatedSprite2D
+@onready var animated_sprite :  = $AnimatedSprite2D
 
-func _physics_process(delta):
+func _physics_process(delta : float)->void:
 	# allow variable screen sizes
-	var screen_size = get_viewport_rect().size
+	var screen_size : Vector2 = get_viewport_rect().size
 	# reset speed each tick
 	velocity = Vector2(0,0)
 	
 	# flips y direction to neg or positive based on keypress input
-	var y_dir = Input.get_axis("move_up", "move_down")
+	var y_dir : float = Input.get_axis("move_up", "move_down")
 	if y_dir:
 		velocity.y = y_dir
 	
 	# flips x direction to neg or positive based on keypress input
-	var x_dir = Input.get_axis("move_left", "move_right")
+	var x_dir : float = Input.get_axis("move_left", "move_right")
 	if x_dir:
 		velocity.x = x_dir
 		if x_dir > 0:
@@ -26,7 +26,7 @@ func _physics_process(delta):
 	
 	velocity = velocity.normalized() * SPEED * delta
 	
-	var sprint = Input.is_action_pressed("sprint")
+	var sprint :bool = Input.is_action_pressed("sprint")
 	
 	if x_dir or y_dir:
 		animated_sprite.play("walk")
