@@ -17,14 +17,15 @@ texture = ExtResource("1_wt17y")
 expand_mode = 1
 
 [node name="Player" parent="." instance=ExtResource("2_m8u5f")]
-position = Vector2(977.99994, 486)
-scale = Vector2(3.08, 3.08)
+position = Vector2(944.00006, 459)
+scale = Vector2(0.18819761, 0.18819761)
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="Player"]
-offset_left = 57.792236
-offset_top = 73.376625
-offset_right = 147.07794
-offset_bottom = 81.16883
+offset_left = 1567.501
+offset_top = 1211.4924
+offset_right = 1656.7866
+offset_bottom = 1219.2847
+scale = Vector2(9.174526, 9.174526)
 value = 100.0
 nine_patch_stretch = true
 texture_progress = SubResource("MeshTexture_qchbg")
