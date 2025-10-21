@@ -1,28 +1,31 @@
 extends PhysicsBody2D
 
-
 const SPEED = 300
 const STAMINA = 50
+const STAMINA_RECHARGE_RATE = 10
 
 var velocity : Vector2
 var stamina : float = STAMINA
 @onready var animated_sprite :  = $AnimatedSprite2D
 @onready var sprint_timer : = $SprintTimer
+
 signal stamina_change
 
 enum movement_state {
-	idle,
-	walk,
-	sprint,
-	exhausted
+	IDLE,
+	WALK,
+	SPRINT
 }
 
+var current_state : movement_state = movement_state.IDLE
 
 func _physics_process(delta : float)->void:
 	# allow variable screen sizes
 	var screen_size : Vector2 = get_viewport_rect().size
-	# reset speed each tick
+	# reset speed and sprint flag each tick
 	velocity = Vector2(0,0)
+	
+	var stamina_delta : float = STAMINA_RECHARGE_RATE * delta
 	
 	# flips y direction to neg or positive based on keypress input
 	var y_dir : float = Input.get_axis("move_up", "move_down")
@@ -44,35 +47,40 @@ func _physics_process(delta : float)->void:
 	
 	if x_dir or y_dir:
 		if sprint and stamina > 0:
-			change_state(movement_state.sprint)
+			current_state = movement_state.SPRINT
 		else:
-			change_state(movement_state.walk)
+			current_state = movement_state.WALK
 	else:
-		change_state(movement_state.idle)
+		current_state = movement_state.IDLE
+	
+	match current_state:
+		movement_state.IDLE:
+			animated_sprite.play("default")
+			animated_sprite.speed_scale = 1.0
+			if sprint_timer.is_stopped():
+				stamina += stamina_delta
+		movement_state.WALK:
+			animated_sprite.play("walk")
+			animated_sprite.speed_scale = 1.0
+			if sprint_timer.is_stopped():
+				stamina += stamina_delta
+		movement_state.SPRINT:
+			animated_sprite.play("walk")
+			animated_sprite.speed_scale = 2.0
+			velocity *= 2
+			stamina -= 2 * stamina_delta
+			if stamina < STAMINA and sprint_timer.is_stopped():
+				sprint_timer.start(2.0)
+	stamina = min(stamina, STAMINA)
 	
 	move_and_collide(velocity)
-	if stamina < STAMINA and sprint_timer.is_stopped():
-		sprint_timer.start(2.0)
 	
 	stamina_change.emit(stamina)
+	
+	print(sprint_timer.time_left)
 	
 	# locks character to rectangle from (0,0) to (sreen_size.x, screen_size.y)
 	global_position = global_position.clamp(Vector2(0,0), screen_size)
 
-func change_state(state : movement_state) -> void:
-	match state:
-		movement_state.idle:
-			animated_sprite.play("default")
-			animated_sprite.speed_scale = 1.0
-		movement_state.walk:
-			animated_sprite.play("walk")
-			animated_sprite.speed_scale = 1.0
-		movement_state.sprint:
-			animated_sprite.play("walk")
-			animated_sprite.speed_scale = 2.0
-			velocity *= 2
-			stamina -=1
-
 func _on_sprint_timer_timeout() -> void:
-	stamina = STAMINA
 	sprint_timer.stop()
