@@ -1,6 +1,5 @@
 extends Node2D
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready()->void:
 	var pause_scene : Resource = preload("res://scenes/pause_menu.tscn")
