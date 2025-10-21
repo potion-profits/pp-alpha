@@ -21,10 +21,10 @@ position = Vector2(977.99994, 486)
 scale = Vector2(3.08, 3.08)
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="Player"]
-offset_left = 16.233795
-offset_top = 66.233765
-offset_right = 148.70132
-offset_bottom = 81.16882
+offset_left = 57.792236
+offset_top = 73.376625
+offset_right = 147.07794
+offset_bottom = 81.16883
 value = 100.0
 nine_patch_stretch = true
 texture_progress = SubResource("MeshTexture_qchbg")
