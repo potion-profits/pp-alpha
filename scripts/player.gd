@@ -1,5 +1,7 @@
 extends PhysicsBody2D
 
+@export var inv: Inv
+
 const SPEED = 300
 const STAMINA = 50
 const STAMINA_RECHARGE_RATE = 10

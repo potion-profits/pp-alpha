@@ -1,7 +1,9 @@
-[gd_scene load_steps=25 format=3 uid="uid://b0flhrlw7t57t"]
+[gd_scene load_steps=27 format=3 uid="uid://b0flhrlw7t57t"]
 
 [ext_resource type="Script" uid="uid://c2lajecmvs0ct" path="res://scripts/player.gd" id="1_onrkg"]
+[ext_resource type="Resource" uid="uid://c6tja3xo4wrmv" path="res://inventory/player_inv.tres" id="2_dqkch"]
 [ext_resource type="Texture2D" uid="uid://cga40mgcx4j4r" path="res://assets/brackeys_asset_pack/sprites/knight.png" id="2_g2els"]
+[ext_resource type="PackedScene" uid="uid://bk1hol15q64bh" path="res://scenes/inv_ui.tscn" id="3_qhqgy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qhqgy"]
 atlas = ExtResource("2_g2els")
@@ -162,6 +164,7 @@ size = Vector2(128, 247.33266)
 [node name="Player" type="CharacterBody2D"]
 scale = Vector2(1.9199998, 1.9199998)
 script = ExtResource("1_onrkg")
+inv = ExtResource("2_dqkch")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -12.125)
@@ -181,5 +184,11 @@ zoom = Vector2(2, 2)
 
 [node name="SprintTimer" type="Timer" parent="."]
 wait_time = 2.0
+
+[node name="Inv_UI" parent="." instance=ExtResource("3_qhqgy")]
+offset_left = -53.125004
+offset_top = -50.000004
+offset_right = 52.874996
+offset_bottom = -21.000004
 
 [connection signal="timeout" from="SprintTimer" to="." method="_on_sprint_timer_timeout"]
