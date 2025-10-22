@@ -48,7 +48,6 @@ animations = [{
 size = Vector2(11.458334, 16.666668)
 
 [node name="Player" type="CharacterBody2D"]
-scale = Vector2(1.9199998, 1.9199998)
 script = ExtResource("1_onrkg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
