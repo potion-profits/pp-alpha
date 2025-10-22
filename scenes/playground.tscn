@@ -17,8 +17,7 @@ texture = ExtResource("1_wt17y")
 expand_mode = 1
 
 [node name="Player" parent="." instance=ExtResource("2_m8u5f")]
-position = Vector2(944.00006, 459)
-scale = Vector2(0.18819761, 0.18819761)
+position = Vector2(944, 459)
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="Player"]
 offset_left = 1567.501
