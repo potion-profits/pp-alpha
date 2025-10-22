@@ -1,10 +1,39 @@
-[gd_scene load_steps=5 format=3 uid="uid://d3a4goan7upx3"]
+[gd_scene load_steps=12 format=4 uid="uid://d3a4goan7upx3"]
 
 [ext_resource type="Texture2D" uid="uid://dn7vbk83vo4do" path="res://assets/temp_background.png" id="1_wt17y"]
 [ext_resource type="PackedScene" uid="uid://b0flhrlw7t57t" path="res://scenes/player.tscn" id="2_m8u5f"]
 [ext_resource type="Script" path="res://scripts/playground.gd" id="3_kddj0"]
+[ext_resource type="Texture2D" uid="uid://heul7682tivt" path="res://assets/jazzy/interior/shop/floor01.png" id="4_o6wi6"]
+[ext_resource type="Texture2D" uid="uid://cf8ym0c01a61i" path="res://assets/jazzy/interior/shop/floor01h.png" id="5_emj6c"]
+[ext_resource type="Texture2D" uid="uid://dgclhfothab88" path="res://assets/jazzy/interior/shop/wall01.png" id="6_mrac1"]
 
 [sub_resource type="MeshTexture" id="MeshTexture_qchbg"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2q4k0"]
+texture = ExtResource("4_o6wi6")
+0:0/0 = 0
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_x1amm"]
+texture = ExtResource("5_emj6c")
+0:0/0 = 0
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2bfhc"]
+texture = ExtResource("6_mrac1")
+0:0/0 = 0
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_osidk"]
+sources/0 = SubResource("TileSetAtlasSource_2q4k0")
+sources/1 = SubResource("TileSetAtlasSource_x1amm")
+sources/2 = SubResource("TileSetAtlasSource_2bfhc")
 
 [node name="Playground" type="Node2D"]
 script = ExtResource("3_kddj0")
@@ -17,9 +46,12 @@ texture = ExtResource("1_wt17y")
 expand_mode = 1
 
 [node name="Player" parent="." instance=ExtResource("2_m8u5f")]
+z_index = 1
 position = Vector2(944, 459)
+scale = Vector2(1, 1)
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="Player"]
+visible = false
 offset_left = 1567.501
 offset_top = 1211.4924
 offset_right = 1656.7866
@@ -29,5 +61,9 @@ value = 100.0
 nine_patch_stretch = true
 texture_progress = SubResource("MeshTexture_qchbg")
 tint_progress = Color(0.12156863, 1, 0.14901961, 1)
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAA0ABcAAgAAAAAAAAA0ABgAAgAAAAEAAAA1ABcAAgABAAAAAAA1ABgAAgABAAEAAAA2ABcAAgAAAAAAAAA2ABgAAgAAAAEAAAA3ABcAAgABAAAAAAA3ABgAAgABAAEAAAA4ABcAAgAAAAAAAAA4ABgAAgAAAAEAAAA5ABcAAgABAAAAAAA5ABgAAgABAAEAAAA6ABcAAgAAAAAAAAA6ABgAAgAAAAEAAAA7ABcAAgABAAAAAAA7ABgAAgABAAEAAAA8ABcAAgAAAAAAAAA8ABgAAgAAAAEAAAA9ABcAAgABAAAAAAA9ABgAAgABAAEAAAA+ABcAAgAAAAAAAAA+ABgAAgAAAAEAAAA/ABcAAgABAAAAAAA/ABgAAgABAAEAAABAABcAAgAAAAAAAABAABgAAgAAAAEAAABBABcAAgABAAAAAABBABgAAgABAAEAAAA0ABkAAgAAAAAAAAA0ABoAAgAAAAEAAAA1ABkAAgABAAAAAAA1ABoAAgABAAEAAAA2ABkAAgAAAAAAAAA2ABoAAgAAAAEAAAA3ABkAAgABAAAAAAA3ABoAAgABAAEAAAA4ABkAAgAAAAAAAAA4ABoAAgAAAAEAAAA5ABkAAgABAAAAAAA5ABoAAgABAAEAAAA6ABkAAgAAAAAAAAA6ABoAAgAAAAEAAAA7ABkAAgABAAAAAAA7ABoAAgABAAEAAAA8ABkAAgAAAAAAAAA8ABoAAgAAAAEAAAA9ABkAAgABAAAAAAA9ABoAAgABAAEAAABAABkAAgAAAAAAAABAABoAAgAAAAEAAABBABkAAgABAAAAAABBABoAAgABAAEAAAA+ABkAAgAAAAAAAAA+ABoAAgAAAAEAAAA/ABkAAgABAAAAAAA/ABoAAgABAAEAAAAzABsAAQAAAAAAAAAzABwAAQAAAAEAAAA0ABsAAQABAAAAAAA0ABwAAQABAAEAAAA1ABsAAQAAAAAAAAA1ABwAAQAAAAEAAAA2ABsAAQABAAAAAAA2ABwAAQABAAEAAAA3ABsAAQAAAAAAAAA3ABwAAQAAAAEAAAA4ABsAAQABAAAAAAA4ABwAAQABAAEAAAA5ABsAAQAAAAAAAAA5ABwAAQAAAAEAAAA6ABsAAQABAAAAAAA6ABwAAQABAAEAAAA7ABsAAQAAAAAAAAA7ABwAAQAAAAEAAAA8ABsAAQABAAAAAAA8ABwAAQABAAEAAAA9ABsAAQAAAAAAAAA9ABwAAQAAAAEAAAA+ABsAAQABAAAAAAA+ABwAAQABAAEAAAA/ABsAAQAAAAAAAAA/ABwAAQAAAAEAAABAABsAAQABAAAAAABAABwAAQABAAEAAABBABsAAQAAAAAAAABBABwAAQAAAAEAAABCABsAAQABAAAAAABCABwAAQABAAEAAABBAB0AAQAAAAAAAABBAB4AAQAAAAEAAABCAB0AAQABAAAAAABCAB4AAQABAAEAAAA/AB0AAQAAAAAAAAA/AB4AAQAAAAEAAABAAB0AAQABAAAAAABAAB4AAQABAAEAAAA9AB0AAQAAAAAAAAA9AB4AAQAAAAEAAAA+AB0AAQABAAAAAAA+AB4AAQABAAEAAAA7AB0AAQAAAAAAAAA7AB4AAQAAAAEAAAA8AB0AAQABAAAAAAA8AB4AAQABAAEAAAA5AB0AAQAAAAAAAAA5AB4AAgABAAAAAAA6AB0AAQABAAAAAAA6AB4AAQABAAEAAAA3AB0AAQAAAAAAAAA3AB4AAQAAAAEAAAA4AB0AAQABAAAAAAA4AB4AAgAAAAAAAAA1AB0AAQAAAAAAAAA1AB4AAQAAAAEAAAA2AB0AAQABAAAAAAA2AB4AAQABAAEAAAAzAB0AAQAAAAAAAAAzAB4AAQAAAAEAAAA0AB0AAQABAAAAAAA0AB4AAQABAAEAAAA4ACAAAQAAAAAAAAA4ACEAAQAAAAEAAAA5ACAAAQABAAAAAAA5ACEAAQABAAEAAAA4AB8AAgAAAAEAAAA5AB8AAgABAAEAAAA=")
+tile_set = SubResource("TileSet_osidk")
 
 [connection signal="stamina_change" from="Player" to="." method="_on_player_stamina_change"]
