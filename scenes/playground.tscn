@@ -93,7 +93,6 @@ position = Vector2(944, 459)
 scale = Vector2(1, 1)
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="Player"]
-visible = false
 offset_left = 1567.501
 offset_top = 1211.4924
 offset_right = 1656.7866
