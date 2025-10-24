@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=4 uid="uid://d3a4goan7upx3"]
+[gd_scene load_steps=11 format=4 uid="uid://d3a4goan7upx3"]
 
 [ext_resource type="Texture2D" uid="uid://dn7vbk83vo4do" path="res://assets/temp_background.png" id="1_wt17y"]
 [ext_resource type="PackedScene" uid="uid://b0flhrlw7t57t" path="res://scenes/player.tscn" id="2_m8u5f"]
 [ext_resource type="Script" path="res://scripts/playground.gd" id="3_kddj0"]
 [ext_resource type="Texture2D" uid="uid://ee5tse33xtj5" path="res://assets/jazzy/interior/shop/floorwallshop01.png" id="7_emj6c"]
+[ext_resource type="Texture2D" uid="uid://b6sxxon0bv8sh" path="res://assets/jazzy/interior/shop/counter_all01.png" id="7_mrac1"]
 
 [sub_resource type="MeshTexture" id="MeshTexture_qchbg"]
 
@@ -77,6 +78,40 @@ texture = ExtResource("7_emj6c")
 [sub_resource type="TileSet" id="TileSet_osidk"]
 sources/5 = SubResource("TileSetAtlasSource_emj6c")
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2bfhc"]
+texture = ExtResource("7_mrac1")
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+5:2/0 = 0
+6:2/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+5:4/0 = 0
+6:4/0 = 0
+7:4/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+4:5/0 = 0
+5:5/0 = 0
+6:5/0 = 0
+2:6/0 = 0
+3:6/0 = 0
+6:6/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_2bfhc"]
+sources/2 = SubResource("TileSetAtlasSource_2bfhc")
+
 [node name="Playground" type="Node2D"]
 script = ExtResource("3_kddj0")
 
@@ -90,7 +125,6 @@ expand_mode = 1
 [node name="Player" parent="." instance=ExtResource("2_m8u5f")]
 z_index = 1
 position = Vector2(944, 459)
-scale = Vector2(1, 1)
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="Player"]
 offset_left = 81.0
@@ -103,9 +137,12 @@ nine_patch_stretch = true
 texture_progress = SubResource("MeshTexture_qchbg")
 tint_progress = Color(0.12156863, 1, 0.14901961, 1)
 
-[node name="TileMapLayer" type="TileMapLayer" parent="."]
+[node name="FloorWalls" type="TileMapLayer" parent="."]
 position = Vector2(18, 15)
 tile_map_data = PackedByteArray("AAA3ABwABQABAAYAAAA3AB0ABQABAAcAAAA4ABwABQACAAYAAAA4AB0ABQACAAcAAAA5ABwABQABAAYAAAA5AB0ABQABAAcAAAA6ABwABQACAAYAAAA6AB0ABQACAAcAAAA7ABwABQADAAYAAAA7AB0ABQADAAcAAAA8ABwABQAEAAYAAAA8AB0ABQAEAAcAAAA3ABoABQAGAAUAAAA3ABsABQAGAAYAAAA4ABoABQAHAAUAAAA4ABsABQAHAAYAAAA5ABoABQAGAAUAAAA5ABsABQAGAAYAAAA6ABoABQAHAAUAAAA6ABsABQAHAAYAAAA7ABoABQAIAAUAAAA7ABsABQAIAAYAAAA8ABoABQAJAAUAAAA8ABsABQAJAAYAAAA3ABgABQAGAAIAAAA3ABkABQAGAAMAAAA4ABgABQAHAAIAAAA4ABkABQAHAAMAAAA5ABgABQAGAAIAAAA5ABkABQAGAAMAAAA6ABgABQAHAAIAAAA6ABkABQAHAAMAAAA7ABgABQAIAAIAAAA7ABkABQAIAAMAAAA8ABgABQAJAAIAAAA8ABkABQAJAAMAAAA9ABwABQABAAYAAAA9AB0ABQABAAcAAAA+ABwABQACAAYAAAA+AB0ABQACAAcAAAA9AB4ABQABAAYAAAA9AB8ABQABAAcAAAA+AB4ABQACAAYAAAA+AB8ABQACAAcAAAA7AB4ABQABAAYAAAA7AB8ABQABAAcAAAA8AB4ABQACAAYAAAA8AB8ABQACAAcAAAA1ABwABQABAAYAAAA1AB0ABQABAAcAAAA2ABwABQACAAYAAAA2AB0ABQACAAcAAAA1AB4ABQABAAYAAAA1AB8ABQABAAcAAAA2AB4ABQACAAYAAAA2AB8ABQACAAcAAAA3AB4ABQABAAYAAAA3AB8ABQABAAcAAAA4AB4ABQACAAYAAAA4AB8ABQACAAcAAAA5AB4ABQABAAYAAAA5AB8ABQABAAcAAAA6AB4ABQACAAYAAAA6AB8ABQACAAcAAAA=")
 tile_set = SubResource("TileSet_osidk")
+
+[node name="Counters" type="TileMapLayer" parent="."]
+tile_set = SubResource("TileSet_2bfhc")
 
 [connection signal="stamina_change" from="Player" to="." method="_on_player_stamina_change"]

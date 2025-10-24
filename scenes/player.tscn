@@ -49,8 +49,6 @@ radius = 4.166667
 height = 13.541668
 
 [node name="Player" type="CharacterBody2D"]
-position = Vector2(0, -14.999999)
-scale = Vector2(1.9199998, 1.9199998)
 script = ExtResource("1_onrkg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
