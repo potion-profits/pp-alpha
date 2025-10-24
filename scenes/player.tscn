@@ -44,20 +44,24 @@ animations = [{
 "speed": 3.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_i3pqv"]
-size = Vector2(11.458334, 16.666668)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2els"]
+radius = 4.166667
+height = 13.541668
 
 [node name="Player" type="CharacterBody2D"]
+position = Vector2(0, -14.999999)
 scale = Vector2(1.9199998, 1.9199998)
 script = ExtResource("1_onrkg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_onrkg")
+animation = &"walk"
 autoplay = "default"
+frame_progress = 0.10631804
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.52083325, -0.520833)
-shape = SubResource("RectangleShape2D_i3pqv")
+position = Vector2(-0.5208334, -0.520834)
+shape = SubResource("CapsuleShape2D_g2els")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(5, 5)

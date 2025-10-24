@@ -93,10 +93,10 @@ position = Vector2(944, 459)
 scale = Vector2(1, 1)
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="Player"]
-offset_left = 1567.501
-offset_top = 1211.4924
-offset_right = 1656.7866
-offset_bottom = 1219.2847
+offset_left = 81.0
+offset_top = 90.0
+offset_right = 91.60345
+offset_bottom = 90.9254
 scale = Vector2(9.174526, 9.174526)
 value = 100.0
 nine_patch_stretch = true
