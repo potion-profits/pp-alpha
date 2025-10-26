@@ -22,21 +22,23 @@ func update_slots()->void:
 		slots[i].update(inv.items[i])
 		
 		
-func _process(_delta: float) -> void:
+func _input(event: InputEvent) -> void:
 	if inventory_toggle:
-		if Input.is_action_just_pressed("inventory"):
-			if is_open:
+		if is_open:
+			if event.is_action_pressed("inventory") or event.is_action_pressed("ui_cancel"):
+				get_viewport().set_input_as_handled();
 				close()
-			else:
+		else:
+			if event.is_action_pressed("inventory"):
 				open()
 	else:
-		if Input.is_action_pressed("inventory"):
+		if event.is_action_pressed("inventory"):
 			open()
 		else:
 			close()
 			
 	if is_open:
-		for key in input_slot_map:
+		for key: Key in input_slot_map:
 			var slot : int = input_slot_map[key]
 			if Input.is_key_pressed(key):
 				slots[slot].select(inv.items[slot], Vector2(1.1, 1.1))

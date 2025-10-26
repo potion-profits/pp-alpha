@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="Inv" load_steps=4 format=3 uid="uid://c6tja3xo4wrmv"]
 
 [ext_resource type="Script" uid="uid://c6mb0djs0p2ds" path="res://inventory/inventory_item.gd" id="1_gjtu6"]
-[ext_resource type="Resource" uid="uid://dyjlx81v8qcp1" path="res://inventory/items/apple.tres" id="2_knutq"]
-[ext_resource type="Script" uid="uid://ddcb7drogqquk" path="res://inventory.gd" id="3_7fuvg"]
+[ext_resource type="Script" uid="uid://ddcb7drogqquk" path="res://inventory/inventory.gd" id="2_h4yv7"]
+[ext_resource type="Resource" uid="uid://dyjlx81v8qcp1" path="res://inventory/items/potion.tres" id="2_knutq"]
 
 [resource]
-script = ExtResource("3_7fuvg")
+script = ExtResource("2_h4yv7")
 items = Array[ExtResource("1_gjtu6")]([ExtResource("2_knutq"), null, ExtResource("2_knutq"), ExtResource("2_knutq"), null])
 metadata/_custom_type_script = "uid://ddcb7drogqquk"

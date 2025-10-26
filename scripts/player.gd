@@ -86,3 +86,8 @@ func _physics_process(delta : float)->void:
 
 func _on_sprint_timer_timeout() -> void:
 	sprint_timer.stop()
+	
+#should be called when we want to pick up an item
+#first we need to make items pickupable
+func collect(item: InvItem) -> void:
+	inv.insert(item)

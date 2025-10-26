@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://d3a4goan7upx3"]
+[gd_scene load_steps=5 format=3 uid="uid://d3a4goan7upx3"]
 
 [ext_resource type="Texture2D" uid="uid://dn7vbk83vo4do" path="res://assets/temp_background.png" id="1_wt17y"]
 [ext_resource type="PackedScene" uid="uid://b0flhrlw7t57t" path="res://scenes/player.tscn" id="2_m8u5f"]
-[ext_resource type="Script" uid="uid://c661i7ep660te" path="res://scripts/playground.gd" id="3_kddj0"]
-[ext_resource type="Resource" uid="uid://c6tja3xo4wrmv" path="res://inventory/player_inv.tres" id="4_q8s1k"]
+[ext_resource type="Script" path="res://scripts/playground.gd" id="3_kddj0"]
 
 [sub_resource type="MeshTexture" id="MeshTexture_qchbg"]
 
@@ -20,7 +19,6 @@ expand_mode = 1
 [node name="Player" parent="." instance=ExtResource("2_m8u5f")]
 position = Vector2(977.99994, 486)
 scale = Vector2(3.08, 3.08)
-inv = ExtResource("4_q8s1k")
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="Player"]
 offset_left = 57.792236
