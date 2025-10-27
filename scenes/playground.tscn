@@ -1,9 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://d3a4goan7upx3"]
+[gd_scene load_steps=11 format=3 uid="uid://d3a4goan7upx3"]
 
 [ext_resource type="Texture2D" uid="uid://dn7vbk83vo4do" path="res://assets/temp_background.png" id="1_wt17y"]
 [ext_resource type="PackedScene" uid="uid://b0flhrlw7t57t" path="res://scenes/player.tscn" id="2_m8u5f"]
 [ext_resource type="Script" uid="uid://c661i7ep660te" path="res://scripts/playground.gd" id="3_kddj0"]
 [ext_resource type="PackedScene" uid="uid://mintv4605mkm" path="res://inventory/potion_collectable.tscn" id="4_q8s1k"]
+[ext_resource type="PackedScene" uid="uid://bl6p3n67wq47v" path="res://inventory/temp2_collectable.tscn" id="5_2q4k0"]
+[ext_resource type="PackedScene" uid="uid://ce3wrp3v7cm2a" path="res://inventory/temp3_collectable.tscn" id="6_x1amm"]
+[ext_resource type="PackedScene" uid="uid://dfjvspn4n34iw" path="res://inventory/temp4_collectable.tscn" id="7_2bfhc"]
+[ext_resource type="PackedScene" uid="uid://yk63tsi3n4uq" path="res://inventory/temp5_collectable.tscn" id="8_osidk"]
+[ext_resource type="PackedScene" uid="uid://bvou8vv7jpdm4" path="res://inventory/temp1_collectable.tscn" id="9_rlvb3"]
 
 [sub_resource type="MeshTexture" id="MeshTexture_qchbg"]
 
@@ -20,11 +25,47 @@ expand_mode = 1
 [node name="potion_collectable" parent="." instance=ExtResource("4_q8s1k")]
 position = Vector2(559, 517)
 
-[node name="potion_collectable2" parent="." instance=ExtResource("4_q8s1k")]
-position = Vector2(393, 268)
+[node name="potion_collectable2" parent="." instance=ExtResource("5_2q4k0")]
+position = Vector2(281, 260)
 
-[node name="potion_collectable3" parent="." instance=ExtResource("4_q8s1k")]
-position = Vector2(659, 197)
+[node name="potion_collectable3" parent="." instance=ExtResource("6_x1amm")]
+position = Vector2(515, 254)
+
+[node name="potion_collectable4" parent="." instance=ExtResource("7_2bfhc")]
+position = Vector2(256, 397)
+
+[node name="potion_collectable5" parent="." instance=ExtResource("8_osidk")]
+position = Vector2(520, 370)
+
+[node name="collectable" parent="." instance=ExtResource("9_rlvb3")]
+position = Vector2(325, 481)
+
+[node name="potion_collectable6" parent="." instance=ExtResource("5_2q4k0")]
+position = Vector2(398, 348)
+
+[node name="collectable2" parent="." instance=ExtResource("9_rlvb3")]
+position = Vector2(366, 278)
+
+[node name="potion_collectable7" parent="." instance=ExtResource("6_x1amm")]
+position = Vector2(579, 370)
+
+[node name="potion_collectable8" parent="." instance=ExtResource("7_2bfhc")]
+position = Vector2(476, 464)
+
+[node name="potion_collectable9" parent="." instance=ExtResource("8_osidk")]
+position = Vector2(458, 319)
+
+[node name="potion_collectable10" parent="." instance=ExtResource("4_q8s1k")]
+position = Vector2(375, 433)
+
+[node name="potion_collectable11" parent="." instance=ExtResource("8_osidk")]
+position = Vector2(305, 365)
+
+[node name="potion_collectable12" parent="." instance=ExtResource("8_osidk")]
+position = Vector2(404, 497)
+
+[node name="potion_collectable13" parent="." instance=ExtResource("8_osidk")]
+position = Vector2(574, 433)
 
 [node name="Player" parent="." instance=ExtResource("2_m8u5f")]
 position = Vector2(977.99994, 486)

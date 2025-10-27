@@ -1,5 +1,6 @@
 extends PhysicsBody2D
 
+#the resource that will be used to make an inventory (player_inventory.tres)
 @export var inv_resource: Inv
 var inv: Inv
 
@@ -22,9 +23,10 @@ enum movement_state {
 
 var current_state : movement_state = movement_state.IDLE
 
+#sets up player inventory on each run
 func _ready() -> void:
-	inv = inv_resource.duplicate(true)
-	$Inv_UI.inv = inv
+	inv = inv_resource.duplicate(true) #makes mutable
+	$Inv_UI.inv = inv #links player inventory and respective ui
 
 func _physics_process(delta : float)->void:
 	# allow variable screen sizes
@@ -92,10 +94,10 @@ func _physics_process(delta : float)->void:
 func _on_sprint_timer_timeout() -> void:
 	sprint_timer.stop()
 	
-#should be called when we want to pick up an item
-#first we need to make items pickupable
-func collect(item: InvItem) -> void:
-	inv.insert(item)
+#called to pick up an item and add to player inventory
+func collect(item: InvItem) -> bool:
+	return inv.insert(item)
 
+#currently used to check that given node is a player, should probably be changed
 func player()->void:
 	pass
