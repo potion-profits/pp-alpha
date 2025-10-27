@@ -78,7 +78,7 @@ texture = ExtResource("7_emj6c")
 [sub_resource type="TileSet" id="TileSet_osidk"]
 sources/5 = SubResource("TileSetAtlasSource_emj6c")
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2bfhc"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mm0a5"]
 texture = ExtResource("7_mrac1")
 3:0/0 = 0
 4:0/0 = 0
@@ -110,7 +110,7 @@ texture = ExtResource("7_mrac1")
 6:6/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_2bfhc"]
-sources/2 = SubResource("TileSetAtlasSource_2bfhc")
+sources/2 = SubResource("TileSetAtlasSource_mm0a5")
 
 [node name="Playground" type="Node2D"]
 script = ExtResource("3_kddj0")
