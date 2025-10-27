@@ -1,7 +1,9 @@
 extends PhysicsBody2D
 
 const SPEED = 150
-const DASH_MULT = 2.0
+const DASH_MULT = 2.2
+const DASH_DURATION = 0.17
+const DASH_COOLDOWN = 0.5
 
 var velocity : Vector2
 var is_dashing : bool = false
@@ -60,7 +62,7 @@ func get_movement_input(delta : float) -> void:
 	
 	if x_dir or y_dir:
 		if sprint and dash_cooldown.is_stopped():
-			dash_duration.start(0.5)
+			dash_duration.start(DASH_DURATION)
 			velocity *= DASH_MULT
 			current_state = movement_state.DASH
 		else:
@@ -74,4 +76,4 @@ func _on_dash_cooldown_timeout() -> void:
 func _on_dash_duration_timeout() -> void:
 	dash_duration.stop()
 	current_state = movement_state.IDLE
-	dash_cooldown.start(2.0)
+	dash_cooldown.start(DASH_COOLDOWN)
