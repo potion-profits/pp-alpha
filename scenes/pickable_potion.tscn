@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://bhwi5esjvybdg"]
+
+[ext_resource type="Script" uid="uid://ct3dcsfswyvrt" path="res://inventory/pickable_potion.gd" id="1_0xk3b"]
+[ext_resource type="Texture2D" uid="uid://diqq3gg08tdy4" path="res://assets/inventory/potion.tres" id="2_frwjd"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cobcs"]
+height = 20.0
+
+[node name="pickable_potion" type="Node2D"]
+script = ExtResource("1_0xk3b")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_frwjd")
+
+[node name="pickable_area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pickable_area"]
+shape = SubResource("CapsuleShape2D_cobcs")

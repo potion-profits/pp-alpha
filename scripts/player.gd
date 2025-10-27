@@ -91,3 +91,6 @@ func _on_sprint_timer_timeout() -> void:
 #first we need to make items pickupable
 func collect(item: InvItem) -> void:
 	inv.insert(item)
+
+func player()->void:
+	pass

@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://d3a4goan7upx3"]
+[gd_scene load_steps=7 format=3 uid="uid://d3a4goan7upx3"]
 
 [ext_resource type="Texture2D" uid="uid://dn7vbk83vo4do" path="res://assets/temp_background.png" id="1_wt17y"]
 [ext_resource type="PackedScene" uid="uid://b0flhrlw7t57t" path="res://scenes/player.tscn" id="2_m8u5f"]
 [ext_resource type="Script" path="res://scripts/playground.gd" id="3_kddj0"]
+[ext_resource type="PackedScene" uid="uid://bhwi5esjvybdg" path="res://scenes/pickable_potion.tscn" id="4_q8s1k"]
+[ext_resource type="Resource" uid="uid://dyjlx81v8qcp1" path="res://inventory/items/potion.tres" id="5_mm0a5"]
 
 [sub_resource type="MeshTexture" id="MeshTexture_qchbg"]
 
@@ -29,5 +31,9 @@ value = 100.0
 nine_patch_stretch = true
 texture_progress = SubResource("MeshTexture_qchbg")
 tint_progress = Color(0.12156863, 1, 0.14901961, 1)
+
+[node name="pickable_potion" parent="." instance=ExtResource("4_q8s1k")]
+position = Vector2(740, 377)
+item = ExtResource("5_mm0a5")
 
 [connection signal="stamina_change" from="Player" to="." method="_on_player_stamina_change"]

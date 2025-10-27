@@ -14,12 +14,13 @@ var input_slot_map : Dictionary = {
 }
 
 func _ready()->void:
+	inv.update.connect(update_slots)
 	update_slots()
 	close()
 	
 func update_slots()->void:
-	for i in range(min(inv.items.size(),slots.size())):
-		slots[i].update(inv.items[i])
+	for i in range(min(inv.slots.size(),slots.size())):
+		slots[i].update(inv.slots[i])
 		
 		
 func _input(event: InputEvent) -> void:
