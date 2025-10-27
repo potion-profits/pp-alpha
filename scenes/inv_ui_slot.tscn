@@ -25,3 +25,12 @@ layout_mode = 2
 
 [node name="item_display" type="Sprite2D" parent="CenterContainer/Panel"]
 scale = Vector2(0.75, 0.75)
+
+[node name="Label" type="Label" parent="CenterContainer/Panel"]
+custom_minimum_size = Vector2(39, 23)
+layout_mode = 0
+offset_left = -5.0
+offset_right = 34.0
+offset_bottom = 23.0
+scale = Vector2(0.25, 0.25)
+horizontal_alignment = 2

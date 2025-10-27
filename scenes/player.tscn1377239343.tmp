@@ -164,7 +164,7 @@ size = Vector2(128, 247.33266)
 [node name="Player" type="CharacterBody2D"]
 scale = Vector2(1.9199998, 1.9199998)
 script = ExtResource("1_onrkg")
-inv_resource = ExtResource("2_dqkch")
+inv = ExtResource("2_dqkch")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -12.125)

@@ -1,6 +1,7 @@
 extends PhysicsBody2D
 
-@export var inv: Inv
+@export var inv_resource: Inv
+var inv: Inv
 
 const SPEED = 300
 const STAMINA = 50
@@ -20,6 +21,10 @@ enum movement_state {
 }
 
 var current_state : movement_state = movement_state.IDLE
+
+func _ready() -> void:
+	inv = inv_resource.duplicate(true)
+	$Inv_UI.inv = inv
 
 func _physics_process(delta : float)->void:
 	# allow variable screen sizes

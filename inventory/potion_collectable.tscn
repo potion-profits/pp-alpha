@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://mintv4605mkm"]
+
+[ext_resource type="Script" uid="uid://bojq6jrtv3d58" path="res://inventory/potion_collectable.gd" id="1_uarqr"]
+[ext_resource type="Texture2D" uid="uid://diqq3gg08tdy4" path="res://assets/inventory/potion.tres" id="2_ao8wf"]
+[ext_resource type="Resource" uid="uid://dyjlx81v8qcp1" path="res://inventory/items/potion.tres" id="2_umhit"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_umhit"]
+radius = 21.0
+
+[node name="potion_collectable" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_ao8wf")
+
+[node name="interactable_area" type="Area2D" parent="."]
+script = ExtResource("1_uarqr")
+item = ExtResource("2_umhit")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="interactable_area"]
+shape = SubResource("CircleShape2D_umhit")
+
+[connection signal="body_entered" from="interactable_area" to="interactable_area" method="_on_interactable_area_body_entered"]
+[connection signal="body_exited" from="interactable_area" to="interactable_area" method="_on_interactable_area_body_exited"]
