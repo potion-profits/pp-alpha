@@ -1,20 +1,20 @@
-[gd_scene load_steps=5 format=3 uid="uid://dfjvspn4n34iw"]
+[gd_scene load_steps=5 format=3 uid="uid://mintv4605mkm"]
 
-[ext_resource type="Texture2D" uid="uid://4vw3pe4i44go" path="res://assets/inventory/temp4.tres" id="1_uataw"]
-[ext_resource type="Script" uid="uid://bojq6jrtv3d58" path="res://inventory/collectable_item.gd" id="2_laeyu"]
-[ext_resource type="Resource" uid="uid://c3efbp7uqpkkm" path="res://inventory/items/new_resource4.tres" id="3_uataw"]
+[ext_resource type="Texture2D" uid="uid://diqq3gg08tdy4" path="res://assets/inventory/potion.tres" id="1_6177x"]
+[ext_resource type="Script" uid="uid://bojq6jrtv3d58" path="res://inventory/scripts/collectable_item.gd" id="2_l4gnj"]
+[ext_resource type="Resource" uid="uid://dyjlx81v8qcp1" path="res://inventory/items/red_potion.tres" id="3_gwacj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_umhit"]
 radius = 21.0
 
-[node name="potion_collectable" type="StaticBody2D"]
+[node name="r_potion_collectable" type="StaticBody2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_uataw")
+texture = ExtResource("1_6177x")
 
 [node name="interactable_area" type="Area2D" parent="."]
-script = ExtResource("2_laeyu")
-item = ExtResource("3_uataw")
+script = ExtResource("2_l4gnj")
+item = ExtResource("3_gwacj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="interactable_area"]
 shape = SubResource("CircleShape2D_umhit")
