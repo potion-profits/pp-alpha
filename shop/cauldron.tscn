@@ -254,7 +254,7 @@ height = 25.999758
 
 [node name="Cauldron" type="StaticBody2D"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CauldronCollision" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2.9999998)
 rotation = -1.5812501
 scale = Vector2(0.9999999, 0.9999999)
@@ -272,15 +272,15 @@ sprite_frames = SubResource("SpriteFrames_s2q2t")
 autoplay = "default"
 frame_progress = 0.18468548
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="InteractableArea" type="Area2D" parent="."]
 script = ExtResource("2_mdhnj")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="InteractCollision" type="CollisionShape2D" parent="InteractableArea"]
 visible = false
 position = Vector2(-1.8626465e-09, 3.9999995)
 rotation = 1.575145
 scale = Vector2(0.9999999, 0.9999999)
 shape = SubResource("CapsuleShape2D_2au3n")
 
-[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_interactable_area_body_entered"]
-[connection signal="body_exited" from="Area2D" to="Area2D" method="_on_interactable_area_body_exited"]
+[connection signal="body_entered" from="InteractableArea" to="InteractableArea" method="_on_interactable_area_body_entered"]
+[connection signal="body_exited" from="InteractableArea" to="InteractableArea" method="_on_interactable_area_body_exited"]
