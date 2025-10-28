@@ -1,11 +1,11 @@
 [gd_scene load_steps=6 format=3 uid="uid://c6avp17g1kgas"]
 
 [ext_resource type="Script" uid="uid://072o1pqfsudo" path="res://scripts/ui/pause_menu.gd" id="1_kukqi"]
-[ext_resource type="Texture2D" uid="uid://wimgwt4ij33f" path="res://assets/ui/music_button.tres" id="1_myx47"]
+[ext_resource type="Texture2D" uid="uid://uhdybuaqdi46" path="res://assets/ui/play_button.tres" id="2_5d2l8"]
 [ext_resource type="Texture2D" uid="uid://bntl7fv41g75j" path="res://assets/ui/menu_button.tres" id="2_kukqi"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5d2l8"]
-texture = ExtResource("1_myx47")
+texture = ExtResource("2_5d2l8")
 region_rect = Rect2(0, 0, 46.708675, 15)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7l7mv"]
@@ -15,9 +15,11 @@ texture = ExtResource("2_kukqi")
 
 [node name="PauseMenuControl" type="Control" parent="."]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_kukqi")
 
 [node name="MarginContainer" type="MarginContainer" parent="PauseMenuControl"]
@@ -27,10 +29,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 732.0
-offset_top = 366.0
-offset_right = 1148.0
-offset_bottom = 674.0
+offset_left = -208.0
+offset_top = -154.0
+offset_right = 208.0
+offset_bottom = 154.0
 grow_horizontal = 2
 grow_vertical = 2
 
