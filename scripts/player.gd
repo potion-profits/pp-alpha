@@ -58,7 +58,7 @@ func get_movement_input(delta : float) -> void:
 	
 	velocity = velocity.normalized() * SPEED * delta
 	
-	var sprint : bool = Input.is_action_pressed("sprint")
+	var sprint : bool = Input.is_action_just_pressed("sprint")
 	
 	if x_dir or y_dir:
 		if sprint and dash_cooldown.is_stopped():
