@@ -25,10 +25,6 @@ GameManager="*res://scripts/game_manager.gd"
 
 gdscript/warnings/untyped_declaration=1
 
-[display]
-
-window/size/mode=3
-
 [input]
 
 move_up={
