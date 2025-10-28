@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://hse5bruyxk2r"]
 
-[ext_resource type="Script" uid="uid://jnbffpyw7u5j" path="res://scenes/blackjack.gd" id="1_8i86w"]
+[ext_resource type="Script" uid="uid://jnbffpyw7u5j" path="res://scripts/blackjack.gd" id="1_8i86w"]
 [ext_resource type="Texture2D" uid="uid://qfdg62auv4vh" path="res://assets/ui/blackjack_temp.jpg" id="1_d46qn"]
 
 [node name="BlackJack" type="Node2D"]
