@@ -4,6 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://i3o26m2iyuj0" path="res://assets/jazzy/interior/shop/cauldron_fire_LARGE-Sheet.png" id="1_mdhnj"]
 [ext_resource type="Script" uid="uid://4a6ko6dsce0r" path="res://shop/scripts/interactable_cauldron.gd" id="2_mdhnj"]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_afk7o"]
+radius = 2.9998364
+height = 17.999018
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_bi80w"]
 atlas = ExtResource("1_afk7o")
 region = Rect2(0, 0, 32, 32)
@@ -244,31 +248,29 @@ animations = [{
 "speed": 7.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_afk7o"]
-radius = 2.9998364
-height = 17.999018
-
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2au3n"]
 radius = 9.999908
 height = 25.999758
 
 [node name="Cauldron" type="StaticBody2D"]
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2.9999998)
+rotation = -1.5812501
+scale = Vector2(0.9999999, 0.9999999)
+shape = SubResource("CapsuleShape2D_afk7o")
+
 [node name="CauldronAnim" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.6, 0.6)
 sprite_frames = SubResource("SpriteFrames_j0rhq")
+frame = 15
+frame_progress = 1.0
 
 [node name="FlameAnim" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.6, 0.6)
 sprite_frames = SubResource("SpriteFrames_s2q2t")
 autoplay = "default"
 frame_progress = 0.18468548
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 2.9999998)
-rotation = -1.5812501
-scale = Vector2(0.99999994, 0.99999994)
-shape = SubResource("CapsuleShape2D_afk7o")
 
 [node name="Area2D" type="Area2D" parent="."]
 script = ExtResource("2_mdhnj")
