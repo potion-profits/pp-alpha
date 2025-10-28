@@ -346,9 +346,8 @@ script = ExtResource("1_onrkg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_onrkg")
-animation = &"walk_down"
+animation = &"idle_down"
 autoplay = "idle_down"
-frame_progress = 0.80584776
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3)

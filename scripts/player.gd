@@ -55,17 +55,17 @@ func _physics_process(delta : float)->void:
 	
 	match current_state:
 		movement_state.IDLE:
-			animated_sprite.play("default")
+			animated_sprite.play("idle_down")
 			animated_sprite.speed_scale = 1.0
 			if sprint_timer.is_stopped():
 				stamina += stamina_delta
 		movement_state.WALK:
-			animated_sprite.play("walk")
+			animated_sprite.play("walk_down")
 			animated_sprite.speed_scale = 1.0
 			if sprint_timer.is_stopped():
 				stamina += stamina_delta
 		movement_state.SPRINT:
-			animated_sprite.play("walk")
+			animated_sprite.play("walk_down")
 			animated_sprite.speed_scale = 2.0
 			velocity *= 2
 			stamina -= 2 * stamina_delta
@@ -82,3 +82,6 @@ func _physics_process(delta : float)->void:
 
 func _on_sprint_timer_timeout() -> void:
 	sprint_timer.stop()
+	
+func player() -> void:
+	pass
