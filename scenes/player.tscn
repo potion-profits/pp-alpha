@@ -1,7 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://b0flhrlw7t57t"]
+[gd_scene load_steps=11 format=3 uid="uid://b0flhrlw7t57t"]
 
 [ext_resource type="Script" uid="uid://c2lajecmvs0ct" path="res://scripts/player.gd" id="1_onrkg"]
 [ext_resource type="Texture2D" uid="uid://cfdyp3f5yy2oy" path="res://assets/jazzy/char_sprites/Chay - 16x16 Walk.png" id="2_g2els"]
+[ext_resource type="Resource" uid="uid://c6tja3xo4wrmv" path="res://inventory/player_inv.tres" id="2_qhqgy"]
+[ext_resource type="PackedScene" uid="uid://bk1hol15q64bh" path="res://inventory/ui_scenes/inv_ui.tscn" id="4_dqkch"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g2els"]
 atlas = ExtResource("2_g2els")
@@ -50,6 +52,7 @@ height = 13.541668
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_onrkg")
+inv_resource = ExtResource("2_qhqgy")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_onrkg")
@@ -63,6 +66,17 @@ shape = SubResource("CapsuleShape2D_g2els")
 
 [node name="DashCooldown" type="Timer" parent="."]
 wait_time = 2.0
+
+[node name="Inv_UI" parent="." instance=ExtResource("4_dqkch")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -53.0
+offset_top = -44.0
+offset_right = 53.0
+offset_bottom = -15.0
 
 [node name="DashDuration" type="Timer" parent="."]
 

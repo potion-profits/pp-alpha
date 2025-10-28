@@ -1,5 +1,9 @@
 extends PhysicsBody2D
 
+#the resource that will be used to make an inventory (player_inventory.tres)
+@export var inv_resource: Inv
+var inv: Inv
+
 const SPEED = 150
 const DASH_MULT = 2.2
 const DASH_DURATION = 0.17
@@ -21,6 +25,11 @@ enum movement_state {
 }
 
 var current_state : movement_state = movement_state.IDLE
+
+#sets up player inventory on each run
+func _ready() -> void:
+	inv = inv_resource.duplicate(true) #makes mutable
+	$Inv_UI.inv = inv #links player inventory and respective ui
 
 func _physics_process(delta : float)->void:
 	move(current_state, delta)
@@ -101,3 +110,11 @@ func set_chips(chips_delta : int) -> int:
 		return chips
 	chips = new_chips
 	return new_chips
+	
+#called to pick up an item and add to player inventory
+func collect(item: InvItem) -> bool:
+	return inv.insert(item)
+
+#currently used to check that given node is a player, should probably be changed
+func player()->void:
+	pass
