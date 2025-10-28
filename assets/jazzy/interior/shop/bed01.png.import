@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://byvvv08y3mldm"
-path="res://.godot/imported/Chay Idle-Sheet.png-c20144adbf9a1057792a8386451159aa.ctex"
+uid="uid://b3qcq0pejevjn"
+path="res://.godot/imported/bed01.png-aa0c7e297f9dc88ccfb62e8653a5028f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Chay Idle-Sheet.png"
-dest_files=["res://.godot/imported/Chay Idle-Sheet.png-c20144adbf9a1057792a8386451159aa.ctex"]
+source_file="res://assets/jazzy/interior/shop/bed01.png"
+dest_files=["res://.godot/imported/bed01.png-aa0c7e297f9dc88ccfb62e8653a5028f.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c7i11pp00562x"
-path="res://.godot/imported/16x16 Idle-Sheet.png-f3ba38d251986f01122b828cae6f4121.ctex"
+uid="uid://cx6xf4hpuaq4i"
+path="res://.godot/imported/crates01.png-a43bcf19b5f455fb38c8253cb877ea62.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://16x16 Idle-Sheet.png"
-dest_files=["res://.godot/imported/16x16 Idle-Sheet.png-f3ba38d251986f01122b828cae6f4121.ctex"]
+source_file="res://assets/jazzy/interior/shop/crates01.png"
+dest_files=["res://.godot/imported/crates01.png-a43bcf19b5f455fb38c8253cb877ea62.ctex"]
 
 [params]
 
