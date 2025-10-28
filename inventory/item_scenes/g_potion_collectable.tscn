@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://bvou8vv7jpdm4"]
+
+[ext_resource type="Texture2D" uid="uid://cqwtg2aprjmob" path="res://assets/ui/UI-Life-and-mana-Sheet 1.38.01 PM.png" id="1_32gdw"]
+[ext_resource type="Script" uid="uid://bojq6jrtv3d58" path="res://inventory/scripts/collectable_item.gd" id="2_cxkve"]
+[ext_resource type="Resource" uid="uid://onx7y1bn0uhm" path="res://inventory/items/green_potion.tres" id="3_fiyr2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1nju0"]
+atlas = ExtResource("1_32gdw")
+region = Rect2(160, 80, 16, 16)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_umhit"]
+radius = 21.0
+
+[node name="g_potion_collectable" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_1nju0")
+
+[node name="interactable_area" type="Area2D" parent="."]
+script = ExtResource("2_cxkve")
+item = ExtResource("3_fiyr2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="interactable_area"]
+shape = SubResource("CircleShape2D_umhit")
+
+[connection signal="body_entered" from="interactable_area" to="interactable_area" method="_on_interactable_area_body_entered"]
+[connection signal="body_exited" from="interactable_area" to="interactable_area" method="_on_interactable_area_body_exited"]
