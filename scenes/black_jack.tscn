@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://hse5bruyxk2r"]
+
+[ext_resource type="Script" uid="uid://jnbffpyw7u5j" path="res://scenes/blackjack.gd" id="1_8i86w"]
+[ext_resource type="Texture2D" uid="uid://qfdg62auv4vh" path="res://assets/ui/blackjack_temp.jpg" id="1_d46qn"]
+
+[node name="BlackJack" type="Node2D"]
+script = ExtResource("1_8i86w")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = ExtResource("1_d46qn")
+
+[node name="Exit" type="Button" parent="."]
+offset_left = 1788.0
+offset_top = 1028.0
+offset_right = 1902.0
+offset_bottom = 1059.0
+text = "Exit BlackJack
+"
+
+[connection signal="pressed" from="Exit" to="." method="_on_exit_pressed"]
