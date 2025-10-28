@@ -1,48 +1,9 @@
-[gd_scene load_steps=46 format=3 uid="uid://b0flhrlw7t57t"]
+[gd_scene load_steps=11 format=3 uid="uid://b0flhrlw7t57t"]
 
 [ext_resource type="Script" uid="uid://c2lajecmvs0ct" path="res://scripts/player.gd" id="1_onrkg"]
-[ext_resource type="Texture2D" uid="uid://bl24jrao46dmm" path="res://assets/jazzy/char_sprites/Chay Idle-Sheet.png" id="2_qhqgy"]
-[ext_resource type="Texture2D" uid="uid://mgupfasihl7i" path="res://assets/jazzy/char_sprites/Chay Walk Cycle-Sheet.png" id="3_qhqgy"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_oprun"]
-atlas = ExtResource("2_qhqgy")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_a8ls1"]
-atlas = ExtResource("2_qhqgy")
-region = Rect2(16, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qfm1y"]
-atlas = ExtResource("2_qhqgy")
-region = Rect2(32, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fulsm"]
-atlas = ExtResource("2_qhqgy")
-region = Rect2(48, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4r5pv"]
-atlas = ExtResource("2_qhqgy")
-region = Rect2(0, 16, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_60mlk"]
-atlas = ExtResource("2_qhqgy")
-region = Rect2(16, 16, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_i4ail"]
-atlas = ExtResource("2_qhqgy")
-region = Rect2(32, 16, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_a38lo"]
-atlas = ExtResource("2_qhqgy")
-region = Rect2(48, 16, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4ni07"]
-atlas = ExtResource("2_qhqgy")
-region = Rect2(0, 32, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_l71n6"]
-atlas = ExtResource("2_qhqgy")
-region = Rect2(16, 32, 16, 16)
+[ext_resource type="Texture2D" uid="uid://cfdyp3f5yy2oy" path="res://assets/jazzy/char_sprites/Chay - 16x16 Walk.png" id="2_g2els"]
+[ext_resource type="Resource" uid="uid://c6tja3xo4wrmv" path="res://inventory/player_inv.tres" id="2_qhqgy"]
+[ext_resource type="PackedScene" uid="uid://bk1hol15q64bh" path="res://inventory/ui_scenes/inv_ui.tscn" id="4_dqkch"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ke2ow"]
 atlas = ExtResource("2_qhqgy")
@@ -343,6 +304,7 @@ height = 13.541668
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_onrkg")
+inv_resource = ExtResource("2_qhqgy")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_onrkg")
@@ -356,7 +318,21 @@ shape = SubResource("CapsuleShape2D_g2els")
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(5, 5)
 
-[node name="SprintTimer" type="Timer" parent="."]
+[node name="DashCooldown" type="Timer" parent="."]
 wait_time = 2.0
 
-[connection signal="timeout" from="SprintTimer" to="." method="_on_sprint_timer_timeout"]
+[node name="Inv_UI" parent="." instance=ExtResource("4_dqkch")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -53.0
+offset_top = -44.0
+offset_right = 53.0
+offset_bottom = -15.0
+
+[node name="DashDuration" type="Timer" parent="."]
+
+[connection signal="timeout" from="DashCooldown" to="." method="_on_dash_cooldown_timeout"]
+[connection signal="timeout" from="DashDuration" to="." method="_on_dash_duration_timeout"]
