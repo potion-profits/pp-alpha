@@ -4,8 +4,8 @@ extends PhysicsBody2D
 @export var inv_resource: Inv
 var inv: Inv
 
-const SPEED = 300
-const STAMINA = 50
+const SPEED = 150
+const STAMINA = 25
 const STAMINA_RECHARGE_RATE = 10
 
 var velocity : Vector2
@@ -85,8 +85,6 @@ func _physics_process(delta : float)->void:
 	move_and_collide(velocity)
 	
 	stamina_change.emit(stamina)
-	
-	#print(sprint_timer.time_left)
 	
 	# locks character to rectangle from (0,0) to (sreen_size.x, screen_size.y)
 	global_position = global_position.clamp(Vector2(0,0), screen_size)
