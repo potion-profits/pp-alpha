@@ -1,10 +1,16 @@
-[gd_scene load_steps=11 format=4 uid="uid://d3a4goan7upx3"]
+[gd_scene load_steps=17 format=4 uid="uid://d3a4goan7upx3"]
 
 [ext_resource type="Texture2D" uid="uid://dn7vbk83vo4do" path="res://assets/temp_background.png" id="1_wt17y"]
 [ext_resource type="PackedScene" uid="uid://b0flhrlw7t57t" path="res://scenes/player.tscn" id="2_m8u5f"]
 [ext_resource type="Script" path="res://scripts/playground.gd" id="3_kddj0"]
+[ext_resource type="PackedScene" uid="uid://dfjvspn4n34iw" path="res://inventory/item_scenes/b_potion_collectable.tscn" id="6_2bfhc"]
 [ext_resource type="Texture2D" uid="uid://ee5tse33xtj5" path="res://assets/jazzy/interior/shop/floorwallshop01.png" id="7_emj6c"]
 [ext_resource type="Texture2D" uid="uid://b6sxxon0bv8sh" path="res://assets/jazzy/interior/shop/counter_all01.png" id="7_mrac1"]
+[ext_resource type="PackedScene" uid="uid://bvou8vv7jpdm4" path="res://inventory/item_scenes/g_potion_collectable.tscn" id="7_osidk"]
+[ext_resource type="PackedScene" uid="uid://ce3wrp3v7cm2a" path="res://inventory/item_scenes/p_potion_collectable.tscn" id="8_rlvb3"]
+[ext_resource type="PackedScene" uid="uid://mintv4605mkm" path="res://inventory/item_scenes/r_potion_collectable.tscn" id="9_k63md"]
+[ext_resource type="PackedScene" uid="uid://bl6p3n67wq47v" path="res://inventory/item_scenes/y_potion_collectable.tscn" id="10_fn4oh"]
+[ext_resource type="PackedScene" uid="uid://yk63tsi3n4uq" path="res://inventory/item_scenes/bottle_collectable.tscn" id="11_j30dx"]
 
 [sub_resource type="MeshTexture" id="MeshTexture_qchbg"]
 
@@ -144,5 +150,29 @@ tile_set = SubResource("TileSet_osidk")
 
 [node name="Counters" type="TileMapLayer" parent="."]
 tile_set = SubResource("TileSet_2bfhc")
+
+[node name="b_potion_collectable" parent="." instance=ExtResource("6_2bfhc")]
+position = Vector2(977, 515)
+
+[node name="g_potion_collectable" parent="." instance=ExtResource("7_osidk")]
+position = Vector2(910, 489)
+
+[node name="p_potion_collectable" parent="." instance=ExtResource("8_rlvb3")]
+position = Vector2(909, 516)
+
+[node name="r_potion_collectable" parent="." instance=ExtResource("9_k63md")]
+position = Vector2(942, 489)
+
+[node name="y_potion_collectable" parent="." instance=ExtResource("10_fn4oh")]
+position = Vector2(973, 489)
+
+[node name="bottle_collectable" parent="." instance=ExtResource("11_j30dx")]
+position = Vector2(878, 517)
+
+[node name="b_potion_collectable2" parent="." instance=ExtResource("6_2bfhc")]
+position = Vector2(942, 516)
+
+[node name="p_potion_collectable2" parent="." instance=ExtResource("8_rlvb3")]
+position = Vector2(878, 489)
 
 [connection signal="stamina_change" from="Player" to="." method="_on_player_stamina_change"]
