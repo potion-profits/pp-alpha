@@ -1,86 +1,117 @@
 extends PhysicsBody2D
 
-const SPEED = 300
-const STAMINA = 50
-const STAMINA_RECHARGE_RATE = 10
+#the resource that will be used to make an inventory (player_inventory.tres)
+@export var inv_resource: Inv
+var inv: Inv
+
+const SPEED = 150
+const DASH_MULT = 2.2
+const DASH_DURATION = 0.17
+const DASH_COOLDOWN = 0.5
 
 var velocity : Vector2
-var stamina : float = STAMINA
+var is_dashing : bool = false
 @onready var animated_sprite :  = $AnimatedSprite2D
-@onready var sprint_timer : = $SprintTimer
-
-signal stamina_change
+@onready var dash_cooldown: Timer = $DashCooldown
+@onready var dash_duration: Timer = $DashDuration
 
 enum movement_state {
 	IDLE,
 	WALK,
-	SPRINT
+	DASH
 }
 
 var current_state : movement_state = movement_state.IDLE
+var last_dir := "down"
+
+#sets up player inventory on each run
+func _ready() -> void:
+	inv = inv_resource.duplicate(true) #makes mutable
+	$Inv_UI.inv = inv #links player inventory and respective ui
 
 func _physics_process(delta : float)->void:
-	# allow variable screen sizes
-	var screen_size : Vector2 = get_viewport_rect().size
-	# reset speed and sprint flag each tick
-	velocity = Vector2(0,0)
-	
-	var stamina_delta : float = STAMINA_RECHARGE_RATE * delta
-	
-	# flips y direction to neg or positive based on keypress input
-	var y_dir : float = Input.get_axis("move_up", "move_down")
-	if y_dir:
-		velocity.y = y_dir
-	
-	# flips x direction to neg or positive based on keypress input
-	var x_dir : float = Input.get_axis("move_left", "move_right")
-	if x_dir:
-		velocity.x = x_dir
-		if x_dir > 0:
-			animated_sprite.flip_h = false
-		else:
-			animated_sprite.flip_h = true
-	
-	velocity = velocity.normalized() * SPEED * delta
-	
-	var sprint : bool = Input.is_action_pressed("sprint")
-	
-	if x_dir or y_dir:
-		if sprint and stamina > 0:
-			current_state = movement_state.SPRINT
-		else:
-			current_state = movement_state.WALK
-	else:
-		current_state = movement_state.IDLE
-	
-	match current_state:
-		movement_state.IDLE:
-			animated_sprite.play("default")
-			animated_sprite.speed_scale = 1.0
-			if sprint_timer.is_stopped():
-				stamina += stamina_delta
-		movement_state.WALK:
-			animated_sprite.play("walk")
-			animated_sprite.speed_scale = 1.0
-			if sprint_timer.is_stopped():
-				stamina += stamina_delta
-		movement_state.SPRINT:
-			animated_sprite.play("walk")
-			animated_sprite.speed_scale = 2.0
-			velocity *= 2
-			stamina -= 2 * stamina_delta
-			if stamina < STAMINA and sprint_timer.is_stopped():
-				sprint_timer.start(2.0)
-	stamina = min(stamina, STAMINA)
-	
+	move(current_state, delta)
 	move_and_collide(velocity)
 	
-	stamina_change.emit(stamina)
-	
-	print(sprint_timer.time_left)
-	
-	# locks character to rectangle from (0,0) to (sreen_size.x, screen_size.y)
-	global_position = global_position.clamp(Vector2(0,0), screen_size)
+func move(curr_state : movement_state, delta : float) -> void:
+	match curr_state:
+		movement_state.IDLE:
+			get_movement_input(delta)
+			animated_sprite.speed_scale = 1.0
+		movement_state.WALK:
+			get_movement_input(delta)
+			animated_sprite.speed_scale = 1.0
+		movement_state.DASH:
+			animated_sprite.speed_scale = DASH_MULT
 
-func _on_sprint_timer_timeout() -> void:
-	sprint_timer.stop()
+# Updated function for 8 directional movement
+func get_movement_input(delta : float) -> void:
+	velocity = Vector2.ZERO
+	
+	var x_dir : float = Input.get_axis("move_left", "move_right")
+	var y_dir : float = Input.get_axis("move_up", "move_down")
+	velocity = Vector2(x_dir, y_dir)
+	
+	if velocity != Vector2.ZERO:
+		velocity = velocity.normalized() * SPEED * delta
+		
+		# Determine direction name for animation
+		# Appends direction based on directional input
+		var anim_dir := ""
+		if y_dir < 0:
+			anim_dir = "up"
+		elif y_dir > 0:
+			anim_dir = "down"
+		
+		if x_dir < 0:
+			if anim_dir == "":
+				anim_dir = "left"
+			else:
+				anim_dir += "left"
+			animated_sprite.flip_h = false
+		elif x_dir > 0:
+			if anim_dir == "":
+				anim_dir = "left"
+			else:
+				anim_dir += "left"
+			animated_sprite.flip_h = true
+		
+		last_dir = anim_dir
+
+		var sprint := Input.is_action_just_pressed("sprint")
+		if sprint and dash_cooldown.is_stopped():
+			dash_duration.start(DASH_DURATION)
+			velocity *= DASH_MULT
+			current_state = movement_state.DASH
+		else:
+			current_state = movement_state.WALK
+
+		if anim_dir != "":
+			if animated_sprite.sprite_frames.has_animation("walk_" + anim_dir):
+				animated_sprite.play("walk_" + anim_dir)
+			else:
+				animated_sprite.play("walk")
+	else:
+		current_state = movement_state.IDLE
+		if animated_sprite.sprite_frames.has_animation("idle_" + last_dir):
+			animated_sprite.play("idle_" + last_dir)
+		else:
+			animated_sprite.play("default")
+
+
+
+func _on_dash_cooldown_timeout() -> void:
+	dash_cooldown.stop()
+
+func _on_dash_duration_timeout() -> void:
+	dash_duration.stop()
+	current_state = movement_state.IDLE
+	dash_cooldown.start(DASH_COOLDOWN)
+	
+#called to pick up an item and add to player inventory
+func collect(item: InvItem) -> bool:
+	return inv.insert(item)
+
+#currently used to check that given node is a player, should probably be changed
+func player()->void:
+	pass
