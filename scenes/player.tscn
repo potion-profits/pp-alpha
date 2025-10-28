@@ -340,8 +340,8 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2els"]
-radius = 4.166667
-height = 13.541668
+radius = 4.0
+height = 8.0
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_onrkg")
@@ -353,7 +353,7 @@ animation = &"idle_down"
 autoplay = "idle_down"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5208334, -0.520834)
+position = Vector2(0, 4)
 shape = SubResource("CapsuleShape2D_g2els")
 
 [node name="Camera2D" type="Camera2D" parent="."]
