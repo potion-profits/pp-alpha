@@ -44,8 +44,7 @@ func move(curr_state : movement_state, delta : float) -> void:
 		movement_state.DASH:
 			animated_sprite.speed_scale = DASH_MULT
 
-			
-
+# Updated function for 8 directional movement
 func get_movement_input(delta : float) -> void:
 	velocity = Vector2.ZERO
 	
@@ -57,6 +56,7 @@ func get_movement_input(delta : float) -> void:
 		velocity = velocity.normalized() * SPEED * delta
 		
 		# Determine direction name for animation
+		# Appends direction based on directional input
 		var anim_dir := ""
 		if y_dir < 0:
 			anim_dir = "up"
