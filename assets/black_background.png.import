@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://f5o1sr6ssmoq"
-path="res://.godot/imported/black_background.png-47823fa37520cd9ebcfeb738fcb854ca.ctex"
+path="res://.godot/imported/black_background.png-1c52f6828b30919583c882694423fff3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/jazzy/interior/shop/black_background.png"
-dest_files=["res://.godot/imported/black_background.png-47823fa37520cd9ebcfeb738fcb854ca.ctex"]
+source_file="res://assets/black_background.png"
+dest_files=["res://.godot/imported/black_background.png-1c52f6828b30919583c882694423fff3.ctex"]
 
 [params]
 

@@ -1,0 +1,51 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://7ifhkxgebhu7"]
+
+[ext_resource type="Texture2D" uid="uid://b6sxxon0bv8sh" path="res://assets/jazzy/interior/shop/counter_all01.png" id="1_utike"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_q056b"]
+texture = ExtResource("1_utike")
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 8, 8, 8, 8, -4.996186, -8, -5.0343246)
+3:1/0 = 0
+3:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 8, 8, 8, 8, -4.996186, -8, -5.0343246)
+5:1/0 = 0
+5:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, -8, 8, 8, -0.02604866, 8, -0.041953087, -8)
+1:2/0 = 0
+1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 8, 8, 8, 8, -4.996186, -8, -5.0343246)
+2:2/0 = 0
+2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 8, 8, 8, 8, -4.996186, -8, -5.0343246)
+5:2/0 = 0
+5:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, -8, 8, 8, -0.02604866, 8, -0.041953087, -8)
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+5:3/0 = 0
+5:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, -8, 7.01182, -8, 7, -7, 0, -7)
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+6:4/0 = 0
+6:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -8, 8, 0.02604866, 8, 0.041953087, -8)
+2:5/0 = 0
+3:5/0 = 0
+4:5/0 = 0
+6:5/0 = 0
+6:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -8, 8, 0.02604866, 8, 0.041953087, -8)
+2:6/0 = 0
+4:6/0 = 0
+6:6/0 = 0
+6:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, -8, -7.01182, -8, -7, -7, 0, -7)
+2:7/0 = 0
+4:7/0 = 0
+5:0/0 = 0
+5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, -5.0014706, 8, 8, -0.02604866, 8, 0.014704227, -5.01412)
+6:3/0 = 0
+6:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -5.0014706, -8, 8, 0.02604866, 8, -0.014704227, -5.01412)
+7:5/0 = 0
+
+[resource]
+physics_layer_0/collision_layer = 1
+sources/1 = SubResource("TileSetAtlasSource_q056b")
