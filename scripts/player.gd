@@ -2,7 +2,10 @@ extends PhysicsBody2D
 
 const SPEED = 150
 const DASH_MULT = 2.0
+const MAX_COINS = pow(2, 62)
 
+var coins : int = 1000 # replace value with db call once implemented
+var chips : int = 0 # replace value with db call once implemented
 var velocity : Vector2
 var is_dashing : bool = false
 @onready var animated_sprite :  = $AnimatedSprite2D
@@ -75,3 +78,22 @@ func _on_dash_duration_timeout() -> void:
 	dash_duration.stop()
 	current_state = movement_state.IDLE
 	dash_cooldown.start(2.0)
+
+# update getters/setters for currency once db is implemented
+func get_coins() -> int:
+	return coins
+
+func update_coins(coins_delta : int) -> int:
+	var new_coins : int = coins + coins_delta
+	if new_coins < 0 or new_coins > MAX_COINS:
+		return coins
+	return new_coins
+
+func get_chips() -> int:
+	return chips
+
+func update_chips(chips_delta : int) -> int:
+	var new_chips : int = chips + chips_delta
+	if new_chips < 0 or new_chips > MAX_COINS:
+		return chips
+	return new_chips

@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://bjcn86x7vrd6"]
+
+[node name="Casino_Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1919.0
+offset_bottom = 1080.0
+color = Color(0.38431373, 1, 0.5058824, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -380.0
+offset_top = -320.0
+offset_right = -259.0
+offset_bottom = -219.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(5.16, 5.16)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="BlackJack" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Play Blackjack"
+
+[node name="ChipExchange" type="MenuButton" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Chip Exchange"
+
+[node name="PopupMenu" type="PopupMenu" parent="MarginContainer/VBoxContainer/ChipExchange"]
+oversampling_override = 1.0
+title = "Exchange Coins for Chips"
+initial_position = 1
+visible = true
+
+[node name="CasinoExit" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Exit Casino"
