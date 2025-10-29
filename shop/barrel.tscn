@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://3fwo0t4vejam"]
+
+[ext_resource type="Texture2D" uid="uid://c2rpia7o1l12k" path="res://assets/jazzy/interior/shop/barrel.png" id="1_qkm2t"]
+[ext_resource type="Script" uid="uid://bb8ydjckmlwa8" path="res://shop/scripts/interactable_barrel.gd" id="2_6d3h5"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qkm2t"]
+radius = 6.0
+height = 16.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6d3h5"]
+atlas = ExtResource("1_qkm2t")
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6d3h5"]
+radius = 11.0
+height = 22.0
+
+[node name="Barrel" type="StaticBody2D"]
+
+[node name="Barrel_Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_qkm2t")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_6d3h5")
+
+[node name="Area2D" type="Area2D" parent="."]
+script = ExtResource("2_6d3h5")
+
+[node name="interactable_area" type="CollisionShape2D" parent="Area2D"]
+visible = false
+shape = SubResource("CapsuleShape2D_6d3h5")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://btd4lrh61sp1k"]
+[gd_scene load_steps=13 format=4 uid="uid://btd4lrh61sp1k"]
 
 [ext_resource type="TileSet" uid="uid://c58r0d5k3bx2d" path="res://assets/0x72_DungeonTilesetII_v1.7/dungeon_tileset.tres" id="1_jbqir"]
 [ext_resource type="Texture2D" uid="uid://cacxbjqg40xf8" path="res://assets/jazzy/interior/shop/counter01.png" id="2_48ne7"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://ca5o1g80t6xoq" path="res://scenes/levels/area_2d_Test1.gd" id="3_fr1um"]
 [ext_resource type="PackedScene" uid="uid://vfgn6o21osmy" path="res://shop/shelf.tscn" id="6_6xh4u"]
 [ext_resource type="PackedScene" uid="uid://c0nam2jyacktb" path="res://shop/cauldron.tscn" id="7_cyt5c"]
+[ext_resource type="PackedScene" uid="uid://3fwo0t4vejam" path="res://shop/barrel.tscn" id="8_7x1jh"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cyt5c"]
 texture = ExtResource("2_48ne7")
@@ -127,6 +128,9 @@ position = Vector2(507, 95)
 
 [node name="Cauldron" parent="." instance=ExtResource("7_cyt5c")]
 position = Vector2(545, 100)
+
+[node name="Barrel" parent="." instance=ExtResource("8_7x1jh")]
+position = Vector2(577, 103)
 
 [node name="Player" parent="." instance=ExtResource("2_yautc")]
 position = Vector2(587, 81)

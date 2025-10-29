@@ -19,12 +19,12 @@ height = 34.0
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_tj075")
 
-[node name="Interactable Area" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="."]
 script = ExtResource("2_xigal")
 
-[node name="CollisionShape2d" type="CollisionShape2D" parent="Interactable Area"]
+[node name="interactable_area" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0, 10)
 shape = SubResource("CircleShape2D_ehm0u")
 
-[node name="Shelf Collision" type="CollisionShape2D" parent="."]
+[node name="Shelf_Collision" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_gve7n")
