@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=4 uid="uid://vd74vggecl5d"]
 
 [ext_resource type="TileSet" uid="uid://c58r0d5k3bx2d" path="res://assets/0x72_DungeonTilesetII_v1.7/dungeon_tileset.tres" id="1_dvnpx"]
-[ext_resource type="PackedScene" uid="uid://b0flhrlw7t57t" path="res://scenes/player.tscn" id="2_gkrlq"]
-[ext_resource type="Script" uid="uid://12mi57nxjrvv" path="res://scenes/levels/area_2d_Test2.gd" id="3_q0jxe"]
+[ext_resource type="PackedScene" uid="uid://b0flhrlw7t57t" path="res://scenes/player/player.tscn" id="2_gkrlq"]
+[ext_resource type="Script" uid="uid://12mi57nxjrvv" path="res://scenes/levels/elijah_test_levels/area_2d_Test2.gd" id="3_q0jxe"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5idrc"]
 radius = 23.021729

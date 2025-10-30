@@ -21,5 +21,5 @@ func _on_interactable_area_body_entered(body: Node) -> void:
 
 #tracks when player leaves area
 func _on_interactable_area_body_exited(body : Node) -> void:
-	if body.has_method("player"):
+	if body.name == "Player":
 		player_in_area = false
