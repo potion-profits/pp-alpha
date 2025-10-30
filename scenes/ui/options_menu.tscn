@@ -1,0 +1,83 @@
+[gd_scene load_steps=10 format=3 uid="uid://cdcxspyeghlmj"]
+
+[ext_resource type="Script" uid="uid://c0wcuo40gjbgi" path="res://scenes/ui_scenes/options_menu.gd" id="1_cvtro"]
+[ext_resource type="Texture2D" uid="uid://db0iojmrs813b" path="res://assets/ui/temp_menu_background.jpg" id="2_4ox00"]
+[ext_resource type="Texture2D" uid="uid://wimgwt4ij33f" path="res://assets/ui/music_button.tres" id="3_23mew"]
+[ext_resource type="Texture2D" uid="uid://psaeiubtwkc5" path="res://assets/ui/volume_button.tres" id="4_p2by6"]
+[ext_resource type="Texture2D" uid="uid://bntl7fv41g75j" path="res://assets/ui/menu_button.tres" id="5_mrn03"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7txom"]
+texture = ExtResource("3_23mew")
+region_rect = Rect2(0, 0, 46.708675, 15)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_binsn"]
+texture = ExtResource("4_p2by6")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2f1bn"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_i80p0"]
+texture = ExtResource("5_mrn03")
+
+[node name="StartMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cvtro")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_4ox00")
+expand_mode = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -208.0
+offset_top = -308.0
+offset_right = 208.0
+offset_bottom = 308.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 23
+alignment = 1
+
+[node name="Music" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/normal = SubResource("StyleBoxTexture_7txom")
+
+[node name="Volume" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/normal = SubResource("StyleBoxTexture_binsn")
+
+[node name="Lang" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/normal = SubResource("StyleBoxTexture_2f1bn")
+text = "Language"
+
+[node name="Menu" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/normal = SubResource("StyleBoxTexture_i80p0")
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Music" to="." method="_on_music_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Volume" to="." method="_on_volume_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Lang" to="." method="_on_lang_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Menu" to="." method="_on_menu_pressed"]
