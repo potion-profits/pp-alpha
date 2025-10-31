@@ -1,9 +1,9 @@
-[gd_scene load_steps=25 format=3 uid="uid://bjcn86x7vrd6"]
+[gd_scene load_steps=36 format=3 uid="uid://bjcn86x7vrd6"]
 
 [ext_resource type="Script" uid="uid://bv45y0be53vxg" path="res://scripts/casino_menu.gd" id="1_tl5e1"]
 [ext_resource type="Texture2D" uid="uid://bd35p3hb6ti81" path="res://assets/ui/casino_temp.jpg" id="2_go3vn"]
 [ext_resource type="Texture2D" uid="uid://dnujp86adjdf5" path="res://assets/brackeys_asset_pack/sprites/coin.png" id="2_nwq0x"]
-[ext_resource type="Texture2D" uid="uid://cf32pjii8jax" path="res://assets/brackeys_asset_pack/sprites/fruit.png" id="3_fqugk"]
+[ext_resource type="Texture2D" uid="uid://cv55asmmy332" path="res://assets/brackeys_asset_pack/sprites/chip.png" id="4_go3vn"]
 [ext_resource type="PackedScene" uid="uid://b0flhrlw7t57t" path="res://scenes/player.tscn" id="4_sbc11"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_go3vn"]
@@ -104,7 +104,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
-"speed": 10.0
+"speed": 5.0
 }]
 
 [sub_resource type="LabelSettings" id="LabelSettings_mj7ai"]
@@ -113,14 +113,91 @@ shadow_size = 5
 shadow_color = Color(0, 0, 0, 0.6)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2fyga"]
-atlas = ExtResource("3_fqugk")
-region = Rect2(0, 48, 16, 16)
+atlas = ExtResource("4_go3vn")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mj7ai"]
+atlas = ExtResource("4_go3vn")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fwwij"]
+atlas = ExtResource("4_go3vn")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ax0sc"]
+atlas = ExtResource("4_go3vn")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wqypd"]
+atlas = ExtResource("4_go3vn")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t0hhp"]
+atlas = ExtResource("4_go3vn")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kbcrj"]
+atlas = ExtResource("4_go3vn")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_afvhm"]
+atlas = ExtResource("4_go3vn")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q6gu7"]
+atlas = ExtResource("4_go3vn")
+region = Rect2(128, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_47hrb"]
+atlas = ExtResource("4_go3vn")
+region = Rect2(144, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m51fu"]
+atlas = ExtResource("4_go3vn")
+region = Rect2(160, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_741wq"]
+atlas = ExtResource("4_go3vn")
+region = Rect2(176, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_mj7ai"]
 animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_2fyga")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mj7ai")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fwwij")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ax0sc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wqypd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t0hhp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kbcrj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_afvhm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q6gu7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_47hrb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m51fu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_741wq")
 }],
 "loop": true,
 "name": &"default",
@@ -247,6 +324,7 @@ label_settings = SubResource("LabelSettings_mj7ai")
 position = Vector2(49, 104.00001)
 scale = Vector2(3.8125, 3.8125)
 sprite_frames = SubResource("SpriteFrames_mj7ai")
+frame_progress = 0.94635403
 
 [node name="NumChips" type="Label" parent="."]
 layout_mode = 1

@@ -8,11 +8,13 @@ extends Control
 @onready var player : = $Player
 @onready var num_coins_to_exchange : = $MarginContainer/VBoxContainer2/HBoxContainer/NumCoinsToExchange
 var exchange_amount : int = 0
+@onready var chips: AnimatedSprite2D = $Chips
 
 
 func _ready() -> void:
 	player.set_physics_process(false)
 	coins.play("default")
+	chips.play("default")
 	update_coins_and_chips()
 	update_exchange_label(exchange_amount)
 
