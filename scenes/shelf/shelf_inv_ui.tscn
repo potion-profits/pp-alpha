@@ -13,10 +13,10 @@ anchors_preset = 0
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
 layout_mode = 0
-offset_left = -8.0
-offset_top = -8.0
-offset_right = 200.0
-offset_bottom = 231.0
+offset_left = -7.0
+offset_top = 11.0
+offset_right = 180.0
+offset_bottom = 225.8702
 texture = SubResource("AtlasTexture_uanp5")
 
 [node name="GridContainer" type="GridContainer" parent="NinePatchRect"]
@@ -24,14 +24,14 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 31.0
-offset_top = 39.0
-offset_right = -33.0
-offset_bottom = -24.0
+offset_left = 30.0
+offset_top = 38.0
+offset_right = -31.0
+offset_bottom = -23.870193
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/h_separation = 11
-theme_override_constants/v_separation = 5
+theme_override_constants/h_separation = 18
+theme_override_constants/v_separation = 11
 columns = 3
 
 [node name="ShelfInvUiSlot" parent="NinePatchRect/GridContainer" instance=ExtResource("1_pvaux")]

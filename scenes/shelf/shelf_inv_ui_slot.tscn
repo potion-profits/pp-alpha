@@ -2,19 +2,20 @@
 
 [ext_resource type="Script" uid="uid://cuwugensni6io" path="res://scenes/shelf/shelf_inv_ui_slot.gd" id="1_ug4n0"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ug4n0"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ug4n0"]
+bg_color = Color(0, 0, 0, 0.09411765)
 
 [node name="ShelfInvUiSlot" type="TextureRect"]
-custom_minimum_size = Vector2(40, 40)
-offset_right = 40.0
-offset_bottom = 40.0
+custom_minimum_size = Vector2(30, 30)
+offset_right = 31.0
+offset_bottom = 31.0
 expand_mode = 1
 script = ExtResource("1_ug4n0")
 
 [node name="Panel" type="Panel" parent="."]
 show_behind_parent = true
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 30.0
+offset_bottom = 30.0
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_ug4n0")
+theme_override_styles/panel = SubResource("StyleBoxFlat_ug4n0")

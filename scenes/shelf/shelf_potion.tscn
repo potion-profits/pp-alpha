@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://bkfe7uej3qqwb"]
+
+[ext_resource type="Script" uid="uid://b2bfvaoaklib7" path="res://scenes/shelf/drag_potion.gd" id="1_6j2le"]
+[ext_resource type="Texture2D" uid="uid://diqq3gg08tdy4" path="res://assets/inventory/potion.tres" id="1_7bqrr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6j2le"]
+atlas = ExtResource("1_7bqrr")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pffho"]
+radius = 9.0
+
+[node name="ShelfPotion" type="Node2D"]
+scale = Vector2(3, 3)
+script = ExtResource("1_6j2le")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_6j2le")
+
+[node name="Area2D" type="Area2D" parent="Sprite2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/Area2D"]
+shape = SubResource("CircleShape2D_pffho")
+
+[connection signal="input_event" from="Sprite2D/Area2D" to="." method="_on_area_2d_input_event"]
