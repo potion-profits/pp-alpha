@@ -28,6 +28,7 @@ var last_dir := "down"
 func _ready() -> void:
 	inv = inv_resource.duplicate(true) #makes mutable
 	$Inv_UI.inv = inv #links player inventory and respective ui
+	$Inv_UI.allow_hotkeys = true #allows 1-5 use for hotbar-like inv
 
 func _physics_process(delta : float)->void:
 	move(current_state, delta)
