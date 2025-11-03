@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cv55asmmy332"
-path="res://.godot/imported/chip.png-7106f1e78faedfabad9651ed3debeca8.ctex"
+uid="uid://dserxt6krrf7e"
+path="res://.godot/imported/coin.png-65e99e778ab6d149bf3edbe34e20a39d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/casino/chip.png"
-dest_files=["res://.godot/imported/chip.png-7106f1e78faedfabad9651ed3debeca8.ctex"]
+source_file="res://assets/casino/coin.png"
+dest_files=["res://.godot/imported/coin.png-65e99e778ab6d149bf3edbe34e20a39d.ctex"]
 
 [params]
 

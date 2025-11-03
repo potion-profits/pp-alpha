@@ -23,14 +23,14 @@ func update_coins_and_chips() -> void:
 	num_chips.text = str(player.get_chips())
 
 func _on_black_jack_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/black_jack.tscn")
+	get_tree().change_scene_to_file("res://scenes/casino/black_jack.tscn")
 
 func _on_exchange_pressed() -> void:
 	v_box_container.visible = false
 	v_box_container_2.visible = true
 
 func _on_casino_exit_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/playground.tscn")
+	get_tree().change_scene_to_file("res://scenes/playground/playground.tscn")
 
 func _on_cancel_exchange_pressed() -> void:
 	v_box_container.visible = true
