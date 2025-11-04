@@ -356,9 +356,6 @@ autoplay = "idle_down"
 position = Vector2(0, 4)
 shape = SubResource("CapsuleShape2D_g2els")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(5, 5)
-
 [node name="DashCooldown" type="Timer" parent="."]
 wait_time = 2.0
 
