@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://hse5bruyxk2r"]
+[gd_scene load_steps=5 format=3 uid="uid://hse5bruyxk2r"]
 
-[ext_resource type="Script" uid="uid://jnbffpyw7u5j" path="res://scripts/blackjack.gd" id="1_8i86w"]
-[ext_resource type="Texture2D" uid="uid://qfdg62auv4vh" path="res://assets/ui/blackjack_temp.jpg" id="1_d46qn"]
+[ext_resource type="Script" uid="uid://jnbffpyw7u5j" path="res://scenes/casino/blackjack.gd" id="1_8i86w"]
+[ext_resource type="Texture2D" uid="uid://qfdg62auv4vh" path="res://assets/casino/temp/blackjack_temp.jpg" id="1_d46qn"]
+[ext_resource type="PackedScene" uid="uid://bk0h32dk6ry1n" path="res://scenes/casino/deck.tscn" id="3_h5ddj"]
+[ext_resource type="PackedScene" uid="uid://b0flhrlw7t57t" path="res://scenes/player/player.tscn" id="4_3oeph"]
 
 [node name="BlackJack" type="Node2D"]
 script = ExtResource("1_8i86w")
@@ -19,4 +21,74 @@ offset_bottom = 1059.0
 text = "Exit BlackJack
 "
 
+[node name="Deck" parent="." instance=ExtResource("3_h5ddj")]
+position = Vector2(1627, 232.00002)
+
+[node name="PlayerPos" type="Marker2D" parent="."]
+position = Vector2(745, 795)
+
+[node name="PlayerCardContainer" type="Node2D" parent="."]
+
+[node name="DealerPos" type="Marker2D" parent="."]
+position = Vector2(748, 233)
+scale = Vector2(0.9999999, 0.9999999)
+
+[node name="DealerCardContainer" type="Node2D" parent="."]
+position = Vector2(3.0517578e-05, 6.1035156e-05)
+scale = Vector2(0.9999999, 0.9999999)
+
+[node name="Hit" type="Button" parent="."]
+visible = false
+offset_left = 184.0
+offset_top = 951.00006
+offset_right = 290.0
+offset_bottom = 982.00006
+scale = Vector2(2.72, 2.72)
+text = "Hit"
+
+[node name="Stand" type="Button" parent="."]
+visible = false
+offset_left = 511.00006
+offset_top = 949.99994
+offset_right = 564.00006
+offset_bottom = 980.99994
+scale = Vector2(2.8, 2.8)
+text = "Stand
+"
+
+[node name="Player" parent="." instance=ExtResource("4_3oeph")]
+position = Vector2(-20, -17)
+
+[node name="BetMenu" type="VBoxContainer" parent="."]
+visible = false
+offset_left = 1209.0001
+offset_top = 689.00006
+offset_right = 1296.0001
+offset_bottom = 755.00006
+scale = Vector2(2.5, 2.5)
+
+[node name="Bet" type="HBoxContainer" parent="BetMenu"]
+layout_mode = 2
+
+[node name="MinusChips" type="Button" parent="BetMenu/Bet"]
+layout_mode = 2
+text = "-"
+
+[node name="ChipAmount" type="Label" parent="BetMenu/Bet"]
+layout_mode = 2
+text = "0 Chips"
+
+[node name="PlusChips" type="Button" parent="BetMenu/Bet"]
+layout_mode = 2
+text = "+"
+
+[node name="Confirm" type="Button" parent="BetMenu"]
+layout_mode = 2
+text = "Confirm"
+
 [connection signal="pressed" from="Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="Hit" to="." method="_on_hit_pressed"]
+[connection signal="pressed" from="Stand" to="." method="_on_stand_pressed"]
+[connection signal="pressed" from="BetMenu/Bet/MinusChips" to="." method="_on_minus_chips_pressed"]
+[connection signal="pressed" from="BetMenu/Bet/PlusChips" to="." method="_on_plus_chips_pressed"]
+[connection signal="pressed" from="BetMenu/Confirm" to="." method="_on_confirm_pressed"]
