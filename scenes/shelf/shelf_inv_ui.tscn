@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://ctxfqbqvqddom"]
+[gd_scene load_steps=5 format=3 uid="uid://ctxfqbqvqddom"]
 
-[ext_resource type="PackedScene" uid="uid://dcxv1yxpci22v" path="res://scenes/shelf/shelf_inv_ui_slot.tscn" id="1_pvaux"]
 [ext_resource type="Texture2D" uid="uid://cna3dlftjloo6" path="res://assets/interior/shop/shelfandpotion01.png" id="1_uanp5"]
+[ext_resource type="PackedScene" uid="uid://dr1o5wi8svtd5" path="res://scenes/shelf/test_slot.tscn" id="2_p7pu3"]
+[ext_resource type="Script" uid="uid://bjdhe5ua1rav0" path="res://scenes/shelf/click_relay.gd" id="3_p7pu3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uanp5"]
 atlas = ExtResource("1_uanp5")
@@ -20,52 +21,23 @@ offset_bottom = 225.8702
 texture = SubResource("AtlasTexture_uanp5")
 
 [node name="GridContainer" type="GridContainer" parent="NinePatchRect"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 30.0
-offset_top = 38.0
-offset_right = -31.0
-offset_bottom = -23.870193
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/h_separation = 18
-theme_override_constants/v_separation = 11
+layout_mode = 0
+offset_left = 18.0
+offset_top = 36.0
+offset_right = 169.0
+offset_bottom = 193.0
+theme_override_constants/v_separation = 20
 columns = 3
 
-[node name="ShelfInvUiSlot" parent="NinePatchRect/GridContainer" instance=ExtResource("1_pvaux")]
+[node name="Marker2D" parent="NinePatchRect/GridContainer" instance=ExtResource("2_p7pu3")]
 layout_mode = 2
 
-[node name="ShelfInvUiSlot2" parent="NinePatchRect/GridContainer" instance=ExtResource("1_pvaux")]
+[node name="Marker2D2" parent="NinePatchRect/GridContainer" instance=ExtResource("2_p7pu3")]
 layout_mode = 2
 
-[node name="ShelfInvUiSlot3" parent="NinePatchRect/GridContainer" instance=ExtResource("1_pvaux")]
+[node name="Marker2D3" parent="NinePatchRect/GridContainer" instance=ExtResource("2_p7pu3")]
 layout_mode = 2
 
-[node name="ShelfInvUiSlot4" parent="NinePatchRect/GridContainer" instance=ExtResource("1_pvaux")]
+[node name="Control" type="Control" parent="NinePatchRect/GridContainer"]
 layout_mode = 2
-
-[node name="ShelfInvUiSlot5" parent="NinePatchRect/GridContainer" instance=ExtResource("1_pvaux")]
-layout_mode = 2
-
-[node name="ShelfInvUiSlot6" parent="NinePatchRect/GridContainer" instance=ExtResource("1_pvaux")]
-layout_mode = 2
-
-[node name="ShelfInvUiSlot7" parent="NinePatchRect/GridContainer" instance=ExtResource("1_pvaux")]
-layout_mode = 2
-
-[node name="ShelfInvUiSlot8" parent="NinePatchRect/GridContainer" instance=ExtResource("1_pvaux")]
-layout_mode = 2
-
-[node name="ShelfInvUiSlot9" parent="NinePatchRect/GridContainer" instance=ExtResource("1_pvaux")]
-layout_mode = 2
-
-[node name="ShelfInvUiSlot10" parent="NinePatchRect/GridContainer" instance=ExtResource("1_pvaux")]
-layout_mode = 2
-
-[node name="ShelfInvUiSlot11" parent="NinePatchRect/GridContainer" instance=ExtResource("1_pvaux")]
-layout_mode = 2
-
-[node name="ShelfInvUiSlot12" parent="NinePatchRect/GridContainer" instance=ExtResource("1_pvaux")]
-layout_mode = 2
+script = ExtResource("3_p7pu3")

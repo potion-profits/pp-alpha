@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" uid="uid://rpyytl6b8rlw" path="res://scenes/shelf/test_slot.gd" id="1_55d5o"]
 
-[node name="TestSlot" type="Marker2D" groups=["shelf_zones"]]
+[node name="Marker2D" type="Panel" groups=["shelf_zones"]]
 script = ExtResource("1_55d5o")

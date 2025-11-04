@@ -7,18 +7,25 @@
 atlas = ExtResource("1_7bqrr")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pffho"]
-radius = 9.0
+radius = 11.636364
 
-[node name="ShelfPotion" type="Node2D"]
+[node name="ShelfPotion" type="Control"]
+layout_mode = 3
+anchors_preset = 0
 scale = Vector2(3, 3)
 script = ExtResource("1_6j2le")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-4.7683716e-07, 0.33333302)
+scale = Vector2(0.45833334, 0.45833334)
 texture = SubResource("AtlasTexture_6j2le")
 
-[node name="Area2D" type="Area2D" parent="Sprite2D"]
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(-4.7683716e-07, 0.33333302)
+scale = Vector2(0.45833334, 0.45833334)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+z_index = 100
 shape = SubResource("CircleShape2D_pffho")
 
-[connection signal="input_event" from="Sprite2D/Area2D" to="." method="_on_area_2d_input_event"]
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

@@ -1,12 +1,6 @@
-extends Marker2D
+extends Panel
 
-var marker_color = Color(0,0,0,1)
+var marker_color: Color = Color(0,0,0,0.4)
 
 func _draw() -> void:
-	draw_circle(Vector2.ZERO, 50, marker_color)
-
-#func select() -> void:
-	#for child in get_tree().get_nodes_in_group("shelf_zones"):
-		#child.deslect()
-#
-#func deselect(): 
+	draw_circle(Vector2.ZERO, 8, marker_color)
