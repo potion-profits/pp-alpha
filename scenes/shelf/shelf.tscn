@@ -22,13 +22,17 @@ shape = SubResource("CapsuleShape2D_gve7n")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_tj075")
 
-[node name="shelf_inventory" parent="." instance=ExtResource("3_y5jy8")]
-
 [node name="Area2D" type="Area2D" parent="."]
 script = ExtResource("2_xigal")
 
 [node name="interactable_area" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_ehm0u")
+
+[node name="ui_layer" type="CanvasLayer" parent="."]
+
+[node name="shelf_inv_ui" parent="ui_layer" instance=ExtResource("3_y5jy8")]
+position = Vector2(1353, 536)
+scale = Vector2(7, 7)
 
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_interactable_area_body_entered"]
 [connection signal="body_exited" from="Area2D" to="Area2D" method="_on_interactable_area_body_exited"]

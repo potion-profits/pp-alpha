@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=4 uid="uid://btd4lrh61sp1k"]
+[gd_scene load_steps=16 format=4 uid="uid://btd4lrh61sp1k"]
 
 [ext_resource type="Texture2D" uid="uid://ee5tse33xtj5" path="res://assets/interior/shop/floorwallshop01.png" id="1_yh8d3"]
 [ext_resource type="PackedScene" uid="uid://b0flhrlw7t57t" path="res://scenes/player/player.tscn" id="2_yautc"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://vfgn6o21osmy" path="res://scenes/shelf/shelf.tscn" id="6_6xh4u"]
 [ext_resource type="PackedScene" uid="uid://c0nam2jyacktb" path="res://scenes/cauldron/cauldron.tscn" id="7_cyt5c"]
 [ext_resource type="PackedScene" uid="uid://3fwo0t4vejam" path="res://scenes/barrel/barrel.tscn" id="8_7x1jh"]
-[ext_resource type="PackedScene" uid="uid://bkfe7uej3qqwb" path="res://scenes/shelf/shelf_potion.tscn" id="10_1yldy"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_i23ql"]
 load_path = "res://.godot/imported/atlas_walls_high-16x32.png-a557c9a1581fb2e95b50905a11d273e5.ctex"
@@ -534,14 +533,6 @@ position = Vector2(312, 107)
 
 [node name="Player" parent="." instance=ExtResource("2_yautc")]
 position = Vector2(188, 105)
-
-[node name="ui_layer" type="CanvasLayer" parent="."]
-
-[node name="ShelfPotion" parent="." instance=ExtResource("10_1yldy")]
-offset_left = 331.0
-offset_top = 151.0
-offset_right = 331.0
-offset_bottom = 151.0
 
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
 [connection signal="body_exited" from="Area2D" to="Area2D" method="_on_body_exited"]

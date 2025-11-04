@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bkfe7uej3qqwb"]
 
-[ext_resource type="Script" uid="uid://b2bfvaoaklib7" path="res://scenes/shelf/drag_potion.gd" id="1_6j2le"]
+[ext_resource type="Script" uid="uid://b2bfvaoaklib7" path="res://scenes/shelf/drag_item.gd" id="1_6j2le"]
 [ext_resource type="Texture2D" uid="uid://diqq3gg08tdy4" path="res://assets/inventory/potion.tres" id="1_7bqrr"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6j2le"]

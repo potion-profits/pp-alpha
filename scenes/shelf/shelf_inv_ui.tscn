@@ -1,15 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://ctxfqbqvqddom"]
+[gd_scene load_steps=5 format=3 uid="uid://ctxfqbqvqddom"]
 
 [ext_resource type="Texture2D" uid="uid://cna3dlftjloo6" path="res://assets/interior/shop/shelfandpotion01.png" id="1_uanp5"]
 [ext_resource type="PackedScene" uid="uid://dr1o5wi8svtd5" path="res://scenes/shelf/shelf_inv_ui_slot.tscn" id="2_p7pu3"]
+[ext_resource type="PackedScene" uid="uid://bkfe7uej3qqwb" path="res://scenes/shelf/shelf_potion.tscn" id="3_p7pu3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uanp5"]
 atlas = ExtResource("1_uanp5")
 region = Rect2(2.9470901, 17.837067, 26.115494, 31.328754)
 
-[node name="ShelfInventory" type="Node2D"]
+[node name="shelf_inv_ui" type="Node2D"]
 
-[node name="NinePatchRect" type="Sprite2D" parent="."]
+[node name="shelf_sprite" type="Sprite2D" parent="."]
 scale = Vector2(5, 5)
 texture = SubResource("AtlasTexture_uanp5")
 
@@ -48,3 +49,7 @@ position = Vector2(0, -39)
 
 [node name="Marker2D12" parent="." instance=ExtResource("2_p7pu3")]
 position = Vector2(-33, -39)
+
+[node name="ShelfPotion" parent="." instance=ExtResource("3_p7pu3")]
+offset_left = -120.0
+offset_right = -120.0

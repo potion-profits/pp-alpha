@@ -4,9 +4,6 @@ var selected: bool = false
 var rest_point: Vector2
 var rest_nodes: Array = []
 
-# offset for sprite to be centered on slot
-#var offset: float = 15
-
 func _ready() -> void:
 	rest_nodes = get_tree().get_nodes_in_group("shelf_zones")
 	rest_point = rest_nodes[0].global_position
