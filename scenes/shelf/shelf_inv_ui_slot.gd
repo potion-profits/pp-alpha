@@ -1,4 +1,4 @@
-extends Panel
+extends Marker2D
 
 var marker_color: Color = Color(0,0,0,0.4)
 

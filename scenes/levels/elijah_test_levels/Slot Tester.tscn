@@ -1,28 +1,20 @@
 [gd_scene load_steps=4 format=3 uid="uid://c85l35mgtaf46"]
 
-[ext_resource type="PackedScene" uid="uid://dr1o5wi8svtd5" path="res://scenes/shelf/test_slot.tscn" id="1_3iqd4"]
+[ext_resource type="PackedScene" uid="uid://dr1o5wi8svtd5" path="res://scenes/shelf/shelf_inv_ui_slot.tscn" id="1_3iqd4"]
 [ext_resource type="PackedScene" uid="uid://ctxfqbqvqddom" path="res://scenes/shelf/shelf_inv_ui.tscn" id="1_kussh"]
 [ext_resource type="PackedScene" uid="uid://bkfe7uej3qqwb" path="res://scenes/shelf/shelf_potion.tscn" id="2_kussh"]
 
 [node name="SlotTester" type="Node2D"]
 
 [node name="Marker2D" parent="." instance=ExtResource("1_3iqd4")]
-offset_left = 481.0
-offset_top = 331.0
-offset_right = 481.0
-offset_bottom = 331.0
 
 [node name="Marker2D2" parent="." instance=ExtResource("1_3iqd4")]
-offset_left = 294.0
-offset_top = 322.0
-offset_right = 294.0
-offset_bottom = 322.0
 
 [node name="ShelfInventory" parent="." instance=ExtResource("1_kussh")]
-offset_left = 15.0
-offset_top = 95.0
-offset_right = 219.0
-offset_bottom = 303.0
+position = Vector2(177, 97)
 
 [node name="ShelfPotion" parent="." instance=ExtResource("2_kussh")]
-position = Vector2(326, 124)
+offset_left = 326.0
+offset_top = 124.0
+offset_right = 326.0
+offset_bottom = 124.0

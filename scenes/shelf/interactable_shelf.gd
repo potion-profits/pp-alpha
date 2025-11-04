@@ -4,7 +4,7 @@ extends Area2D
 var player: PhysicsBody2D = null
 #tracks if player can interact
 var player_in_area:bool = false
-var shelf_ui: Control 
+var shelf_ui: Node2D
 
 var count:int = 0
 
