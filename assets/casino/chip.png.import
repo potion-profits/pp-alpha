@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://lm7itgm8gu8g"
-path="res://.godot/imported/new_barrel.png-246ff835cebb831db61f8e00d6fb0302.ctex"
+uid="uid://d316vccttgh17"
+path="res://.godot/imported/chip.png-7106f1e78faedfabad9651ed3debeca8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/interior/shop/new_barrel.png"
-dest_files=["res://.godot/imported/new_barrel.png-246ff835cebb831db61f8e00d6fb0302.ctex"]
+source_file="res://assets/casino/chip.png"
+dest_files=["res://.godot/imported/chip.png-7106f1e78faedfabad9651ed3debeca8.ctex"]
 
 [params]
 
