@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dfjvspn4n34iw"]
 
 [ext_resource type="Texture2D" uid="uid://4vw3pe4i44go" path="res://assets/inventory/temp4.tres" id="1_y566k"]
-[ext_resource type="Script" uid="uid://bojq6jrtv3d58" path="res://scenes/item_scenes/collectable_item.gd" id="2_3owx6"]
+[ext_resource type="Script" uid="uid://bojq6jrtv3d58" path="res://scenes/items/collectable_item.gd" id="2_3owx6"]
 [ext_resource type="Resource" uid="uid://c3efbp7uqpkkm" path="res://inventory/items/blue_potion.tres" id="3_y8i22"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_umhit"]
