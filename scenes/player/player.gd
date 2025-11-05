@@ -1,5 +1,6 @@
 extends PhysicsBody2D
 
+class_name Player
 #the resource that will be used to make an inventory (player_inventory.tres)
 @export var inv_resource: Inv
 var inv: Inv
