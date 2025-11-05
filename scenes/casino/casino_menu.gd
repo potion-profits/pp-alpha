@@ -30,7 +30,7 @@ func _on_exchange_pressed() -> void:
 	v_box_container_2.visible = true
 
 func _on_casino_exit_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/playground/playground.tscn")
+	get_tree().change_scene_to_file("res://scenes/player_shop/main_shop.tscn")
 
 func _on_cancel_exchange_pressed() -> void:
 	v_box_container.visible = true
