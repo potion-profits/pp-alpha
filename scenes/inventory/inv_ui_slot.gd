@@ -4,6 +4,9 @@ extends Panel
 @onready var item_visuals : Sprite2D = $CenterContainer/Panel/item_display
 @onready var amount_text: Label = $CenterContainer/Panel/Label
 
+#keeps track if its currently selected, should only ever be 1 slot
+var selected:bool = false;
+
 #updates the texture and amount on given slot and sets visibility
 func update(slot: InvSlot) -> void:
 	if !slot.item:
@@ -21,3 +24,9 @@ func update(slot: InvSlot) -> void:
 func select(slot : InvSlot, scaleV: Vector2 = Vector2(.75, .75)) -> void:
 	if slot:	
 		item_visuals.scale = scaleV
+		selected = true;
+
+func deselect(slot: InvSlot)->void:
+	if slot:
+		item_visuals.scale = Vector2(.75, .75);
+		selected = false;
