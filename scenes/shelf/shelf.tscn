@@ -4,28 +4,30 @@
 [ext_resource type="Script" uid="uid://brj7044d277dt" path="res://scenes/shelf/interactable_shelf.gd" id="2_xigal"]
 [ext_resource type="PackedScene" uid="uid://ctxfqbqvqddom" path="res://scenes/shelf/shelf_inv_ui.tscn" id="3_y5jy8"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gve7n"]
-radius = 12.0
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_tj075"]
 atlas = ExtResource("1_05ovt")
 region = Rect2(3.3931427, 17.954672, 25.547321, 31.604937)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y5jy8"]
+size = Vector2(24, 29)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ehm0u"]
 radius = 29.068884
 
 [node name="shelf" type="StaticBody2D"]
 
-[node name="shelf_collision" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_gve7n")
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_tj075")
+
+[node name="shelf_collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_y5jy8")
 
 [node name="Area2D" type="Area2D" parent="."]
 script = ExtResource("2_xigal")
 
 [node name="interactable_area" type="CollisionShape2D" parent="Area2D"]
+visible = false
 shape = SubResource("CircleShape2D_ehm0u")
 
 [node name="ui_layer" type="CanvasLayer" parent="."]
