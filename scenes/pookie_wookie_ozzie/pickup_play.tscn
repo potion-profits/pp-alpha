@@ -1,13 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://c5k71lci1ay6c"]
+[gd_scene load_steps=7 format=3 uid="uid://c5k71lci1ay6c"]
 
 [ext_resource type="Script" uid="uid://dixgoo32vo38j" path="res://scenes/pookie_wookie_ozzie/pickup_play.gd" id="1_cwurd"]
 [ext_resource type="PackedScene" uid="uid://yk63tsi3n4uq" path="res://scenes/items/bottle_collectable.tscn" id="1_m4jfi"]
 [ext_resource type="PackedScene" uid="uid://dfjvspn4n34iw" path="res://scenes/items/b_potion_collectable.tscn" id="2_cwurd"]
+[ext_resource type="PackedScene" uid="uid://c0nam2jyacktb" path="res://scenes/cauldron/cauldron.tscn" id="2_ehqtk"]
 [ext_resource type="PackedScene" uid="uid://bvou8vv7jpdm4" path="res://scenes/items/g_potion_collectable.tscn" id="3_ehqtk"]
 [ext_resource type="PackedScene" uid="uid://b0flhrlw7t57t" path="res://scenes/player/player.tscn" id="4_rdu3f"]
 
 [node name="PickupPlay" type="Node2D"]
 script = ExtResource("1_cwurd")
+
+[node name="Cauldron" parent="." instance=ExtResource("2_ehqtk")]
+position = Vector2(288, 94)
 
 [node name="bottle_collectable" parent="." instance=ExtResource("1_m4jfi")]
 position = Vector2(228, 212)

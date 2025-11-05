@@ -343,7 +343,7 @@ animations = [{
 radius = 4.0
 height = 8.0
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["savable"]]
 script = ExtResource("1_onrkg")
 inv_resource = ExtResource("2_qhqgy")
 

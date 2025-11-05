@@ -20,6 +20,8 @@ config/icon="res://icon.svg"
 
 LanguageManager="*res://globals/language_manager.gd"
 GameManager="*res://globals/game_manager.gd"
+Database="*res://globals/database.gd"
+ItemRegistry="*res://globals/item_registry.gd"
 
 [debug]
 
@@ -30,6 +32,10 @@ gdscript/warnings/untyped_declaration=1
 window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/size/resizable=false
+
+[global_group]
+
+savable="all things that will be saved & loaded"
 
 [input]
 

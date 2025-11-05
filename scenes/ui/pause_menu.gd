@@ -11,6 +11,8 @@ func _ready()->void:
 
 func _on_menu_pressed()->void:
 	#save and return to menu!! for now just menu
+	GameManager.save_game()
+	await get_tree().process_frame
 	get_tree().change_scene_to_file("res://scenes/ui/start_menu.tscn")
 
 

@@ -22,3 +22,11 @@ func unpause()->void:
 		get_tree().paused = false
 		pause_menu.hide()
 		pause_menu.visible = false
+
+func save_game()->void:
+	for entity:Node in get_tree().get_nodes_in_group("savable"):
+		print(entity.name, " was saved!")
+	pass
+	
+func load_game()->void:
+	pass

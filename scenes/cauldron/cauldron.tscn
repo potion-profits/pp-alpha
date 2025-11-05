@@ -252,7 +252,7 @@ animations = [{
 radius = 9.999908
 height = 25.999758
 
-[node name="Cauldron" type="StaticBody2D"]
+[node name="Cauldron" type="StaticBody2D" groups=["savable"]]
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2.9999998)

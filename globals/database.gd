@@ -6,8 +6,12 @@ func _ready() -> void:
 	database = SQLite.new()
 	database.path="res://globals/data.db"
 	database.open_db()
-	database.query("select * from inventory;")
-	var res :Array = database.query_result
-	print("got from db: ", res)
-	database.close_db()
 	
+func query(sql:String)->Array[Dictionary]:
+	if database.query(sql):
+		return database.query_result
+	return []
+	
+func close() -> void:
+	if database:
+		database.close_db()
