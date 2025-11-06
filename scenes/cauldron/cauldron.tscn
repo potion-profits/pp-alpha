@@ -1,7 +1,8 @@
-[gd_scene load_steps=40 format=3 uid="uid://c0nam2jyacktb"]
+[gd_scene load_steps=41 format=3 uid="uid://c0nam2jyacktb"]
 
 [ext_resource type="Texture2D" uid="uid://de68bfn16ivla" path="res://assets/interior/shop/cauldron_LARGE-Sheet.png" id="1_afk7o"]
 [ext_resource type="Texture2D" uid="uid://i3o26m2iyuj0" path="res://assets/interior/shop/cauldron_fire_LARGE-Sheet.png" id="1_mdhnj"]
+[ext_resource type="Script" uid="uid://d0yy5m7nhxs2i" path="res://scenes/cauldron/cauldron.gd" id="1_to7hx"]
 [ext_resource type="Script" uid="uid://4a6ko6dsce0r" path="res://scenes/cauldron/interactable_cauldron.gd" id="2_mdhnj"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_afk7o"]
@@ -253,6 +254,7 @@ radius = 9.999908
 height = 25.999758
 
 [node name="Cauldron" type="StaticBody2D" groups=["savable"]]
+script = ExtResource("1_to7hx")
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2.9999998)

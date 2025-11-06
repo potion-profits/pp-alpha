@@ -25,7 +25,7 @@ func unpause()->void:
 
 func save_game()->void:
 	for entity:Node in get_tree().get_nodes_in_group("savable"):
-		print(entity.name, " was saved!")
+		entity.save()
 	pass
 	
 func load_game()->void:

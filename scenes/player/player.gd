@@ -116,3 +116,6 @@ func collect(item: InvItem) -> bool:
 #currently used to check that given node is a player, should probably be changed
 func player()->void:
 	pass
+	
+func save()->void:
+	ResourceSaver.save(inv, inv_resource.resource_path)
