@@ -23,7 +23,7 @@ func _on_interactable_area_body_entered(body: Node) -> void:
 
 #tracks whent player leaves area
 func _on_interactable_area_body_exited(body : Node) -> void:
-	if body.name == "Player":
+	if body.is_in_group("player"):
 		player_in_area = false
 
 #tries making player collect and frees from scene if successful (inventory has space)
