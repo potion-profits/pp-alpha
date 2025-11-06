@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://c5k71lci1ay6c"]
+[gd_scene load_steps=8 format=3 uid="uid://c5k71lci1ay6c"]
 
 [ext_resource type="Script" uid="uid://dixgoo32vo38j" path="res://scenes/pookie_wookie_ozzie/pickup_play.gd" id="1_cwurd"]
 [ext_resource type="PackedScene" uid="uid://yk63tsi3n4uq" path="res://scenes/items/bottle_collectable.tscn" id="1_m4jfi"]
@@ -6,12 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://c0nam2jyacktb" path="res://scenes/cauldron/cauldron.tscn" id="2_ehqtk"]
 [ext_resource type="PackedScene" uid="uid://bvou8vv7jpdm4" path="res://scenes/items/g_potion_collectable.tscn" id="3_ehqtk"]
 [ext_resource type="PackedScene" uid="uid://b0flhrlw7t57t" path="res://scenes/player/player.tscn" id="4_rdu3f"]
+[ext_resource type="Script" uid="uid://v2b04jaxuakv" path="res://globals/entity_manager.gd" id="6_rdu3f"]
 
 [node name="PickupPlay" type="Node2D"]
 script = ExtResource("1_cwurd")
-
-[node name="Cauldron" parent="." instance=ExtResource("2_ehqtk")]
-position = Vector2(288, 94)
 
 [node name="bottle_collectable" parent="." instance=ExtResource("1_m4jfi")]
 position = Vector2(228, 212)
@@ -24,3 +22,10 @@ position = Vector2(153, 147)
 
 [node name="Player" parent="." instance=ExtResource("4_rdu3f")]
 position = Vector2(197, 93)
+
+[node name="EntityManager" type="Node" parent="."]
+script = ExtResource("6_rdu3f")
+metadata/_custom_type_script = "uid://v2b04jaxuakv"
+
+[node name="Cauldron" parent="EntityManager" instance=ExtResource("2_ehqtk")]
+position = Vector2(281, 80)

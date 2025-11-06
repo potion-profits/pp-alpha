@@ -1,27 +1,27 @@
-[gd_resource type="Resource" script_class="Inv" load_steps=11 format=3]
+[gd_resource type="Resource" script_class="Inv" load_steps=11 format=3 uid="uid://4jsm7xxboko"]
 
-[ext_resource type="Script" path="res://scenes/inventory/inv_slot.gd" id="2_gjtu6"]
-[ext_resource type="Script" path="res://scenes/inventory/inventory.gd" id="2_h4yv7"]
-[ext_resource type="Resource" path="res://inventory/items/green_potion.tres" id="3_0nip6"]
-[ext_resource type="Resource" path="res://inventory/items/blue_potion.tres" id="4_ur1gl"]
-[ext_resource type="Resource" path="res://inventory/items/bottle_potion.tres" id="5_x03mu"]
+[ext_resource type="Script" uid="uid://cucbuqsn25xvu" path="res://scenes/inventory/inv_slot.gd" id="2_gjtu6"]
+[ext_resource type="Script" uid="uid://ddcb7drogqquk" path="res://scenes/inventory/inventory.gd" id="2_h4yv7"]
+[ext_resource type="Resource" uid="uid://onx7y1bn0uhm" path="res://inventory/items/green_potion.tres" id="3_0nip6"]
+[ext_resource type="Resource" uid="uid://c3efbp7uqpkkm" path="res://inventory/items/blue_potion.tres" id="4_ur1gl"]
+[ext_resource type="Resource" uid="uid://clvs67gdhjmd6" path="res://inventory/items/bottle_potion.tres" id="5_x03mu"]
 
 [sub_resource type="Resource" id="Resource_0nip6"]
 script = ExtResource("2_gjtu6")
 item = ExtResource("3_0nip6")
-amount = 3
+amount = 5
 metadata/_custom_type_script = "uid://cucbuqsn25xvu"
 
 [sub_resource type="Resource" id="Resource_ur1gl"]
 script = ExtResource("2_gjtu6")
 item = ExtResource("4_ur1gl")
-amount = 2
+amount = 3
 metadata/_custom_type_script = "uid://cucbuqsn25xvu"
 
 [sub_resource type="Resource" id="Resource_x03mu"]
 script = ExtResource("2_gjtu6")
 item = ExtResource("5_x03mu")
-amount = 2
+amount = 3
 metadata/_custom_type_script = "uid://cucbuqsn25xvu"
 
 [sub_resource type="Resource" id="Resource_xc7rl"]

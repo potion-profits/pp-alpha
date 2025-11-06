@@ -11,7 +11,12 @@ func query(sql:String)->Array[Dictionary]:
 	if database.query(sql):
 		return database.query_result
 	return []
-	
+
+func query_with_bindings(sql:String,params:Array)->Array[Dictionary]:
+	if database.query_with_bindings(sql, params):
+		return database.query_result
+	return []
+
 func close() -> void:
 	if database:
 		database.close_db()

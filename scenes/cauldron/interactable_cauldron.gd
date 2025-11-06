@@ -19,14 +19,12 @@ func _input(event: InputEvent) -> void:
 
 #tracks when player is in area and sets the player
 func _on_interactable_area_body_entered(body: Node) -> void:
-	print(body.name)
 	if body.name == "Player":
 		player = body
 		player_in_area = true
 
 #tracks when player leaves area
 func _on_interactable_area_body_exited(body : Node) -> void:
-	print(body.name)
 	if body.name == "Player":
 		player_in_area = false
 		

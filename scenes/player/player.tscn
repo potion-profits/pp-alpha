@@ -1,7 +1,7 @@
 [gd_scene load_steps=48 format=3 uid="uid://b0flhrlw7t57t"]
 
 [ext_resource type="Script" uid="uid://c2lajecmvs0ct" path="res://scenes/player/player.gd" id="1_onrkg"]
-[ext_resource type="Resource" uid="uid://c6tja3xo4wrmv" path="res://scenes/player/player_inv.tres" id="2_qhqgy"]
+[ext_resource type="Resource" path="res://scenes/player/player_inv.tres" id="2_qhqgy"]
 [ext_resource type="PackedScene" uid="uid://bk1hol15q64bh" path="res://scenes/inventory/inv_ui.tscn" id="4_dqkch"]
 [ext_resource type="Texture2D" uid="uid://mgupfasihl7i" path="res://assets/char_sprites/Chay Walk Cycle-Sheet.png" id="4_qlg0r"]
 [ext_resource type="Texture2D" uid="uid://bl24jrao46dmm" path="res://assets/char_sprites/Chay Idle-Sheet.png" id="4_tuyoq"]

@@ -112,10 +112,6 @@ func _on_dash_duration_timeout() -> void:
 #called to pick up an item and add to player inventory
 func collect(item: InvItem) -> bool:
 	return inv.insert(item)
-
-#currently used to check that given node is a player, should probably be changed
-func player()->void:
-	pass
 	
 func save()->void:
-	ResourceSaver.save(inv, inv_resource.resource_path)
+	ResourceSaver.save(inv, "res://scenes/player/player_inv.tres")
