@@ -1,0 +1,71 @@
+[gd_scene load_steps=11 format=3 uid="uid://djmch00bhtyqp"]
+
+[ext_resource type="Script" uid="uid://cs3a74kpkgjbx" path="res://scenes/npc_shark/npc_shark.gd" id="1_wasjs"]
+[ext_resource type="Script" uid="uid://blmhjt4sxfqlg" path="res://scenes/npc_shark/npc_shark_dialogue.gd" id="3_33d4u"]
+[ext_resource type="Texture2D" uid="uid://c10jtk0o80heb" path="res://assets/char_sprites/npc_sprites/loanshark/Scary Loan Shark 16x32 Idle-Sheet.png" id="3_coc7p"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_33d4u"]
+atlas = ExtResource("3_coc7p")
+region = Rect2(0, 0, 18, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eb7gd"]
+atlas = ExtResource("3_coc7p")
+region = Rect2(18, 0, 18, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qls2d"]
+atlas = ExtResource("3_coc7p")
+region = Rect2(36, 0, 18, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m6j6b"]
+atlas = ExtResource("3_coc7p")
+region = Rect2(54, 0, 18, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_onrkg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_33d4u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eb7gd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qls2d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m6j6b")
+}],
+"loop": true,
+"name": &"idle_down",
+"speed": 3.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2els"]
+radius = 4.0
+height = 14.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ic0sc"]
+radius = 21.0
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_wasjs")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_onrkg")
+animation = &"idle_down"
+autoplay = "idle_down"
+frame_progress = 0.7215677
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 9)
+shape = SubResource("CapsuleShape2D_g2els")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(5, 5)
+
+[node name="Area2D" type="Area2D" parent="."]
+script = ExtResource("3_33d4u")
+
+[node name="InteractArea" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 2)
+shape = SubResource("CircleShape2D_ic0sc")

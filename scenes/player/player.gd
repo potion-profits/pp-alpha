@@ -1,5 +1,6 @@
 extends PhysicsBody2D
 
+class_name Player
 #the resource that will be used to make an inventory (player_inventory.tres)
 @export var inv_resource: Inv
 var inv: Inv
@@ -8,7 +9,10 @@ const SPEED = 150
 const DASH_MULT = 2.2
 const DASH_DURATION = 0.17
 const DASH_COOLDOWN = 0.5
+const MAX_COINS = pow(2, 62)
 
+var coins : int = 500 # replace value with db call once implemented
+var chips : int = 10 # replace value with db call once implemented
 var velocity : Vector2
 var is_dashing : bool = false
 @onready var animated_sprite :  = $AnimatedSprite2D
@@ -108,6 +112,27 @@ func _on_dash_duration_timeout() -> void:
 	dash_duration.stop()
 	current_state = movement_state.IDLE
 	dash_cooldown.start(DASH_COOLDOWN)
+
+# update getters/setters for currency once db is implemented
+func get_coins() -> int:
+	return coins
+
+func set_coins(coins_delta : int) -> int:
+	var new_coins : int = coins + coins_delta
+	if new_coins < 0 or new_coins > MAX_COINS:
+		return coins
+	coins = new_coins
+	return new_coins
+
+func get_chips() -> int:
+	return chips
+
+func set_chips(chips_delta : int) -> int:
+	var new_chips : int = chips + chips_delta
+	if new_chips < 0 or new_chips > MAX_COINS:
+		return chips
+	chips = new_chips
+	return new_chips
 	
 #called to pick up an item and add to player inventory
 func collect(item: InvItem) -> bool:
