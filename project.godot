@@ -20,6 +20,8 @@ config/icon="res://icon.svg"
 
 LanguageManager="*res://globals/language_manager.gd"
 GameManager="*res://globals/game_manager.gd"
+Database="*res://globals/database.gd"
+ItemRegistry="*res://globals/item_registry.gd"
 
 [debug]
 
@@ -34,6 +36,7 @@ window/size/resizable=false
 [global_group]
 
 shelf_zones="Droppable zones for shelf items to move around"
+savable="all things that will be saved & loaded"
 
 [input]
 
