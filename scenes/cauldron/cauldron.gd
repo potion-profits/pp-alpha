@@ -53,14 +53,16 @@ func start_mixing()->void:
 
 
 func receive_item(item:InvItem)->bool:
-	if not held_item:
-		held_item = item
+	if not held_item and item.mixable:
+		held_item = item._duplicate()
 		start_mixing()
 		return true
 	return false
 
 func _on_mix_timer_timeout() -> void:
 	mixing = false
+	held_item.mixable = false
+	held_item.sellable = true
 	#held_item = null
 	print("Mixing finished for ", held_item.name)
 	mix_timer.stop()

@@ -45,6 +45,8 @@ func _ready() -> void:
 	inv = inv_resource.duplicate(true) #makes mutable
 	inv_ui.inv = inv #links player inventory and respective ui
 	inv_ui.allow_hotkeys = true #allows 1-5 use for hotbar-like inv
+	
+	_debug_set_player_inv()
 
 #handles toggled and held inventory
 #esc when toggled will close ui not pause
@@ -195,3 +197,13 @@ func interact_with_entity(entity: Entity)->void:
 
 func save()->void:
 	ResourceSaver.save(inv, "res://scenes/player/player_inv.tres")
+
+func _debug_set_player_inv()->void:
+	var bottle_texture:AtlasTexture = ItemRegistry.get_icon("item_empty_bottle")
+	var red_potion_texture:AtlasTexture = ItemRegistry.get_icon("item_red_potion")
+	var bottle:InvItem = InvItem.new("empty_bottle", bottle_texture, false, false)
+	var red:InvItem = InvItem.new("red_potion", red_potion_texture, true, false)
+	inv.insert(bottle)
+	inv.insert(red)
+	inv.insert(red)
+	
