@@ -10,12 +10,10 @@ func _ready()->void:
 
 
 func _on_play_pressed()->void:
-	get_tree().change_scene_to_file("res://scenes/pookie_wookie_ozzie/pickup_play.tscn")
+	get_tree().change_scene_to_file("res://scenes/playground/playground.tscn")
 
 func _on_options_pressed()->void:
 	get_tree().change_scene_to_file("res://scenes/ui/options_menu.tscn")
 
 func _on_quit_pressed()->void:
-	Database.close()
-	await get_tree().process_frame
 	get_tree().quit()

@@ -17,13 +17,13 @@ func _input(event: InputEvent) -> void:
 
 #tracks when player is in area and sets the player
 func _on_interactable_area_body_entered(body: Node) -> void:
-	if body.name == "Player":
+	if body.has_method("player"):
 		player = body
 		player_in_area = true
 
 #tracks whent player leaves area
 func _on_interactable_area_body_exited(body : Node) -> void:
-	if body.is_in_group("player"):
+	if body.has_method("player"):
 		player_in_area = false
 
 #tries making player collect and frees from scene if successful (inventory has space)
