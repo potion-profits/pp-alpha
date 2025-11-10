@@ -21,7 +21,6 @@ run/size/initial_screen=0
 
 LanguageManager="*res://globals/language_manager.gd"
 GameManager="*res://globals/game_manager.gd"
-Database="*res://globals/database.gd"
 ItemRegistry="*res://globals/item_registry.gd"
 
 [debug]

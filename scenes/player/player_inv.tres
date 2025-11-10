@@ -1,9 +1,9 @@
-[gd_resource type="Resource" script_class="Inv" load_steps=14 format=3]
+[gd_resource type="Resource" script_class="Inv" load_steps=14 format=3 uid="uid://c7iya0quitj4s"]
 
-[ext_resource type="Script" path="res://scenes/inventory/inv_slot.gd" id="2_gjtu6"]
-[ext_resource type="Script" path="res://scenes/inventory/inventory.gd" id="2_h4yv7"]
-[ext_resource type="Script" path="res://scenes/inventory/inventory_item.gd" id="3_vdkd0"]
-[ext_resource type="Texture2D" path="res://assets/interior/shop/all_bottles01.png" id="4_0nip6"]
+[ext_resource type="Script" uid="uid://cucbuqsn25xvu" path="res://scenes/inventory/inv_slot.gd" id="2_gjtu6"]
+[ext_resource type="Script" uid="uid://ddcb7drogqquk" path="res://scenes/inventory/inventory.gd" id="2_h4yv7"]
+[ext_resource type="Script" uid="uid://c6mb0djs0p2ds" path="res://scenes/inventory/inventory_item.gd" id="3_vdkd0"]
+[ext_resource type="Texture2D" uid="uid://bhcvc4h6d2okx" path="res://assets/interior/shop/all_bottles01.png" id="4_0nip6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vdkd0"]
 atlas = ExtResource("4_0nip6")

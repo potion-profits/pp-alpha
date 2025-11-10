@@ -8,7 +8,6 @@ signal selection_changed(selected_index:int)
 #sprites currently holds 5 statically, could do dynamic but not currently
 @export var slots: Array [InvSlot]
 var selected_index:int = -1
-var db_id: int
 
 func _init(size:int = 5) -> void:
 	for i in range(size):
@@ -69,8 +68,7 @@ func to_dict()->Dictionary:
 		slot_data.append(slot.to_dict())
 	return{
 		"slots":slot_data,
-		"selected_index":selected_index,
-		"db_id":db_id
+		"selected_index":selected_index
 	}
 
 func from_dict(data: Dictionary)->void:
@@ -83,5 +81,4 @@ func from_dict(data: Dictionary)->void:
 			slot.item.from_dict(slot_info["item"])
 		slots.append(slot)
 	selected_index = data["selected_index"]
-	db_id = data["db_id"]
 	update.emit()

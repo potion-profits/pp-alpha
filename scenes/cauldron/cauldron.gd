@@ -41,18 +41,6 @@ func animation_play() -> void:
 		print("The player interacted with the cauldron")
 	else:
 		push_error("AnimatedSprite2D or animation '" + animation_name + "' not found!")
-
-#not implemented
-func save()->void:
-	save_to_db()
-
-#not implemented
-func load_inv_from_db(_id:String)->void:
-	pass
-
-#not implemented
-func save_to_db()->void:
-	pass
 	
 #mixes item for MIX_DURATION amount of time
 func start_mixing()->void:

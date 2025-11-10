@@ -45,7 +45,6 @@ func _ready() -> void:
 	inv = inv_resource.duplicate(true) #makes mutable
 	inv_ui.inv = inv #links player inventory and respective ui
 	inv_ui.allow_hotkeys = true #allows 1-5 use for hotbar-like inv
-	
 	#_debug_set_player_inv()
 
 #handles toggled and held inventory
@@ -195,8 +194,18 @@ func interact_with_entity(entity: Entity)->void:
 		if entity.receive_item(selected_slot.item):
 			inv.remove_selected()
 
-func save()->void:
-	ResourceSaver.save(inv, "res://scenes/player/player_inv.tres")
+func to_dict()->Dictionary:
+	return{
+		"inventory": inv.to_dict(),
+		"coins": coins,
+		"chips": chips
+	}
+
+func from_dict(data:Dictionary)->void:
+	inv.from_dict(data["inventory"])
+	coins = data["coins"]
+	chips = data["chips"]
+	
 
 func _debug_set_player_inv()->void:
 	var bottle:InvItem = InvItem.new()
