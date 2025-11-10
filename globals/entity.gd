@@ -15,10 +15,14 @@ func to_dict()-> Dictionary:
 		"entity_code":entity_code,
 		"x_pos": global_position.x,
 		"y_pos": global_position.y,
-		"inv_id": inv.db_id if inv else null
+		"inv": inv.to_dict()
 	}
 
 
 func from_dict(data:Dictionary)->void:
 	entity_code = data["entity_code"]
 	global_position = Vector2(data["x_pos"], data["y_pos"])
+	var inv_data:Dictionary = data["inv"]
+	if inv_data:
+		inv = Inv.new()
+		inv.from_dict(inv_data)

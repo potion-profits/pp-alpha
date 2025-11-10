@@ -15,6 +15,7 @@ config/version="0.0.1"
 run/main_scene="uid://c4idipr74234u"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
+run/size/initial_screen=0
 
 [autoload]
 

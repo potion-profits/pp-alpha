@@ -62,3 +62,26 @@ func insert_on_cursor(idx: int, invSlot: InvSlot)->void:
 	var old_idx: int = slots.find(invSlot)
 	remove_on_cursor(old_idx)
 	slots[idx] = invSlot
+
+func to_dict()->Dictionary:
+	var slot_data:Array = []
+	for slot in slots:
+		slot_data.append(slot.to_dict())
+	return{
+		"slots":slot_data,
+		"selected_index":selected_index,
+		"db_id":db_id
+	}
+
+func from_dict(data: Dictionary)->void:
+	slots.clear()
+	for slot_info:Dictionary in data["slots"]:
+		var slot:InvSlot = InvSlot.new()
+		slot.amount = slot_info["amount"]
+		if slot_info["item"]:
+			slot.item = InvItem.new()
+			slot.item.from_dict(slot_info["item"])
+		slots.append(slot)
+	selected_index = data["selected_index"]
+	db_id = data["db_id"]
+	update.emit()

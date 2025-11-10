@@ -18,7 +18,8 @@ func _ready()-> void:
 	super._ready()
 	#used to find out what actual scene to place in entity manager
 	entity_code = "cauldron"
-	inv = Inv.new(1)
+	if !inv:
+		inv = Inv.new(1)
 
 #Handles player interaction with cauldron when appropriate
 func _on_interact()->void:
@@ -28,7 +29,8 @@ func _on_interact()->void:
 		if !mixing and inv.slots[0].item == null:	#can mix something
 			player.interact_with_entity(self)	#call player interaction which calls receive_item
 		if !mixing and inv.slots[0].item:	#something is in the cauldron waiting to be picked up
-			if player.collect(inv.slots[0].item):	#the player collected, so remove item from cauldron
+			if player.collect(inv.slots[0].item):
+				inv.slots[0].amount-=1	#the player collected, so remove item from cauldron
 				inv.slots[0].item = null
 
 #plays animation
@@ -65,6 +67,7 @@ func start_mixing()->void:
 func receive_item(item:InvItem)->bool:
 	if not inv.slots[0].item and item.mixable:
 		inv.slots[0].item = item._duplicate()
+		inv.slots[0].amount +=1
 		start_mixing()
 		return true
 	return false
@@ -77,3 +80,24 @@ func _on_mix_timer_timeout() -> void:
 	#held_item = null
 	print("Mixing finished for ", inv.slots[0].item.name)
 	mix_timer.stop()
+#
+func to_dict()-> Dictionary:
+	var mix_timer_left :float = mix_timer.time_left if mix_timer and mixing else 0.0
+	var cauldron_state:Dictionary = {
+		"mixing":mixing,
+		"mix_timer_time_left": mix_timer_left
+	}
+	cauldron_state.merge(super.to_dict())
+	return cauldron_state
+
+func from_dict(data:Dictionary)->void:
+	super.from_dict(data)
+	mixing = data["mixing"]
+	var time_left:float = data["mix_timer_time_left"]
+	if time_left > 0.0:
+		call_deferred("_restore_timer", time_left)
+
+func _restore_timer(time_left: float)->void:
+	if mix_timer:
+		mix_timer.stop()
+		mix_timer.start(time_left)

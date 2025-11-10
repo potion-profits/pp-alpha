@@ -199,10 +199,10 @@ func save()->void:
 	ResourceSaver.save(inv, "res://scenes/player/player_inv.tres")
 
 func _debug_set_player_inv()->void:
-	var bottle_texture:AtlasTexture = ItemRegistry.get_icon("item_empty_bottle")
-	var red_potion_texture:AtlasTexture = ItemRegistry.get_icon("item_red_potion")
-	var bottle:InvItem = InvItem.new("empty_bottle", bottle_texture, 16, false, false)
-	var red:InvItem = InvItem.new("red_potion", red_potion_texture, 4, true, false)
+	var bottle:InvItem = InvItem.new()
+	bottle.setup_item("empty_bottle", "item_empty_bottle", 16, false, false)
+	var red:InvItem = InvItem.new()
+	red.setup_item("red_potion","item_red_potion", 4, true, false)
 	inv.insert(bottle)
 	inv.insert(red)
 	inv.insert(red)

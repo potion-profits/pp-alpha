@@ -36,7 +36,8 @@ func save_scene_runtime_state(scene_name:String) -> void:
 	print("after save: ",runtime_entities,"\n\n")
 	
 
-func load_scene_runtime_state(scene_name:String)->void:
+func load_scene_runtime_state()->void:
+	var scene_name:String = get_tree().current_scene.name
 	var em:EntityManager = get_tree().current_scene.get_node("EntityManager")
 	for child in em.get_children():
 		child.queue_free()
@@ -44,3 +45,7 @@ func load_scene_runtime_state(scene_name:String)->void:
 		for data:Dictionary in runtime_entities[scene_name]:
 			em.load_from_dict(data)
 			print("loaded: ", data)
+
+func connect_scene_load_callback()->void:
+	if not get_tree().is_connected("scene_changed", Callable(self, "load_scene_runtime_state")):
+		get_tree().connect("scene_changed", Callable(self, "load_scene_runtime_state"), CONNECT_ONE_SHOT)
