@@ -16,7 +16,7 @@ var chips : int = 10 # replace value with db call once implemented
 var velocity : Vector2
 var is_dashing : bool = false
 
-@onready var animated_sprite :  = $AnimatedSprite2D
+@onready var animated_sprite : AnimatedSprite2D = $AnimatedSprite2D
 @onready var dash_cooldown: Timer = $DashCooldown
 @onready var dash_duration: Timer = $DashDuration
 @onready var inv_ui:Control = $Inv_UI
@@ -75,11 +75,11 @@ func _input(event: InputEvent) -> void:
 				var slot : int = input_slot_map[key]
 				#if something already selected, deselect
 				if inv.selected_index !=-1:
-					inv_ui.slots[inv.selected_index].deselect(inv.slots[inv.selected_index])
+					inv_ui.slots[inv.selected_index].deselect()
 				#change slots
 				if inv.selected_index != slot:
 					inv.selected_index = slot
-					inv_ui.slots[slot].select(inv.slots[slot], Vector2(1.1,1.1))
+					inv_ui.slots[slot].select()
 				#deselect current slot
 				else:
 					inv.selected_index = -1
@@ -201,9 +201,12 @@ func save()->void:
 func _debug_set_player_inv()->void:
 	var bottle_texture:AtlasTexture = ItemRegistry.get_icon("item_empty_bottle")
 	var red_potion_texture:AtlasTexture = ItemRegistry.get_icon("item_red_potion")
-	var bottle:InvItem = InvItem.new("empty_bottle", bottle_texture, false, false)
-	var red:InvItem = InvItem.new("red_potion", red_potion_texture, true, false)
+	var bottle:InvItem = InvItem.new("empty_bottle", bottle_texture, 16, false, false)
+	var red:InvItem = InvItem.new("red_potion", red_potion_texture, 4, true, false)
 	inv.insert(bottle)
+	inv.insert(red)
+	inv.insert(red)
+	inv.insert(red)
 	inv.insert(red)
 	inv.insert(red)
 	

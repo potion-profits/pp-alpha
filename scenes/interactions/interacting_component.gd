@@ -4,6 +4,9 @@ extends Node2D
 var current_interactions :Array = []
 var can_interact :bool = true
 
+func _ready() -> void:
+	interact_label.hide()
+
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact") and can_interact:
 		if current_interactions:

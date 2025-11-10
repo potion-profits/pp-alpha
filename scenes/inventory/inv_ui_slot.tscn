@@ -1,16 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://cnhayqo8wrjwj"]
+[gd_scene load_steps=5 format=3 uid="uid://cnhayqo8wrjwj"]
 
 [ext_resource type="Texture2D" uid="uid://c8k4mt42i846i" path="res://assets/inventory/inv_slot.tres" id="1_h1oto"]
 [ext_resource type="Script" uid="uid://e8y8t8xid6gk" path="res://scenes/inventory/inv_ui_slot.gd" id="1_n7f1c"]
+[ext_resource type="Texture2D" uid="uid://r7q51gbk6yqr" path="res://assets/ui/UI-maps 1.38.01 PM.png" id="3_j45t4"]
 
-[node name="inv_ui_slot" type="Panel"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_h20iv"]
+atlas = ExtResource("3_j45t4")
+region = Rect2(64, 0, 48, 48)
+
+[node name="inv_ui_slot" type="Button"]
 self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(16, 16)
 offset_right = 16.0
 offset_bottom = 16.0
 script = ExtResource("1_n7f1c")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="slot_background" type="Sprite2D" parent="."]
 texture = ExtResource("1_h1oto")
 centered = false
 
@@ -20,17 +25,21 @@ layout_mode = 0
 offset_right = 16.0
 offset_bottom = 16.0
 
-[node name="Panel" type="Panel" parent="CenterContainer"]
-layout_mode = 2
-
-[node name="item_display" type="Sprite2D" parent="CenterContainer/Panel"]
-scale = Vector2(0.75, 0.75)
-
-[node name="Label" type="Label" parent="CenterContainer/Panel"]
-custom_minimum_size = Vector2(39, 23)
-layout_mode = 0
-offset_left = -5.0
-offset_right = 34.0
-offset_bottom = 23.0
-scale = Vector2(0.25, 0.25)
-horizontal_alignment = 2
+[node name="select_border" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -14.0
+offset_top = -12.0
+offset_right = 14.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_h20iv")
+patch_margin_left = 9
+patch_margin_top = 7
+patch_margin_right = 9
+patch_margin_bottom = 7

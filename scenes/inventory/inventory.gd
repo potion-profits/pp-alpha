@@ -12,7 +12,7 @@ var db_id: int
 
 #goes through slots and inserts in correct slot, next empty slot, or returns false
 func insert(item: InvItem) -> bool:
-	var itemSlots : Array [InvSlot] = slots.filter(func(slot: InvSlot) -> bool:return item.equals(slot.item))
+	var itemSlots : Array [InvSlot] = slots.filter(func(slot: InvSlot) -> bool:return item.equals(slot.item) && slot.amount < item.max_stack_size)
 	if !itemSlots.is_empty():
 		itemSlots[0].amount += 1
 	else:
@@ -50,3 +50,11 @@ func deselect()->void:
 	selected_index = -1
 	update.emit()
 	selection_changed.emit(selected_index)
+
+func remove_on_cursor(idx: int)->void:
+	slots[idx] = InvSlot.new()
+
+func insert_on_cursor(idx: int, invSlot: InvSlot)->void:
+	var old_idx: int = slots.find(invSlot)
+	remove_on_cursor(old_idx)
+	slots[idx] = invSlot
