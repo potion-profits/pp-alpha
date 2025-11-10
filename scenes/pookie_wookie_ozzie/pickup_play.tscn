@@ -15,6 +15,9 @@ metadata/_custom_type_script = "uid://v2b04jaxuakv"
 [node name="Cauldron" parent="EntityManager" instance=ExtResource("2_ehqtk")]
 position = Vector2(281, 80)
 
+[node name="Cauldron2" parent="EntityManager" instance=ExtResource("2_ehqtk")]
+position = Vector2(234, 80)
+
 [node name="Player" parent="." instance=ExtResource("4_rdu3f")]
 position = Vector2(277, 52)
 

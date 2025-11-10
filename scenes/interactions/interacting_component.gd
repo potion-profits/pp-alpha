@@ -1,6 +1,9 @@
 extends Node2D
 
+#this really does nothing but brings up text on how to interact
 @onready var interact_label: Label = $InteractLabel
+
+#used to sort closest interactable thing
 var current_interactions :Array = []
 var can_interact :bool = true
 
