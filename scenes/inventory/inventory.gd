@@ -10,6 +10,10 @@ signal selection_changed(selected_index:int)
 var selected_index:int = -1
 var db_id: int
 
+func _init(size:int = 5) -> void:
+	for i in range(size):
+		slots.push_back(InvSlot.new())
+
 #goes through slots and inserts in correct slot, next empty slot, or returns false
 func insert(item: InvItem) -> bool:
 	var itemSlots : Array [InvSlot] = slots.filter(func(slot: InvSlot) -> bool:return item.equals(slot.item) and slot.amount < item.max_stack_size)
