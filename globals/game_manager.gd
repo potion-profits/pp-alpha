@@ -34,6 +34,7 @@ func save_scene_runtime_state(scene_name:String) -> void:
 				runtime_entities[scene_name].append(entity.to_dict())
 				print("saved: ",entity.to_dict())
 	print("after save: ",runtime_entities,"\n\n")
+	get_tree().current_scene.get_node("Player").save()
 	
 
 func load_scene_runtime_state()->void:

@@ -9,7 +9,7 @@ class_name InvItem
 @export var sellable:bool = false
 @export var texture_code: String = ""
 
-var texture: AtlasTexture #texture that will be displayed in scenes
+@export var texture: AtlasTexture #texture that will be displayed in scenes
 
 func _init()->void:
 	pass

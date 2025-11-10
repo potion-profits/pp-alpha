@@ -46,7 +46,7 @@ func _ready() -> void:
 	inv_ui.inv = inv #links player inventory and respective ui
 	inv_ui.allow_hotkeys = true #allows 1-5 use for hotbar-like inv
 	
-	_debug_set_player_inv()
+	#_debug_set_player_inv()
 
 #handles toggled and held inventory
 #esc when toggled will close ui not pause

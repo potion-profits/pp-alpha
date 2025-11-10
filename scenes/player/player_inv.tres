@@ -1,29 +1,58 @@
-[gd_resource type="Resource" script_class="Inv" load_steps=8 format=3 uid="uid://4jsm7xxboko"]
+[gd_resource type="Resource" script_class="Inv" load_steps=14 format=3]
 
-[ext_resource type="Script" uid="uid://cucbuqsn25xvu" path="res://scenes/inventory/inv_slot.gd" id="2_gjtu6"]
-[ext_resource type="Script" uid="uid://ddcb7drogqquk" path="res://scenes/inventory/inventory.gd" id="2_h4yv7"]
+[ext_resource type="Script" path="res://scenes/inventory/inv_slot.gd" id="2_gjtu6"]
+[ext_resource type="Script" path="res://scenes/inventory/inventory.gd" id="2_h4yv7"]
+[ext_resource type="Script" path="res://scenes/inventory/inventory_item.gd" id="3_vdkd0"]
+[ext_resource type="Texture2D" path="res://assets/interior/shop/all_bottles01.png" id="4_0nip6"]
 
-[sub_resource type="Resource" id="Resource_80wid"]
-script = ExtResource("2_gjtu6")
-metadata/_custom_type_script = "uid://cucbuqsn25xvu"
-
-[sub_resource type="Resource" id="Resource_yw68f"]
-script = ExtResource("2_gjtu6")
-metadata/_custom_type_script = "uid://cucbuqsn25xvu"
-
-[sub_resource type="Resource" id="Resource_vdkd0"]
-script = ExtResource("2_gjtu6")
-metadata/_custom_type_script = "uid://cucbuqsn25xvu"
+[sub_resource type="AtlasTexture" id="AtlasTexture_vdkd0"]
+atlas = ExtResource("4_0nip6")
+region = Rect2(32, 48, 16, 16)
 
 [sub_resource type="Resource" id="Resource_0nip6"]
+script = ExtResource("3_vdkd0")
+name = "empty_bottle"
+max_stack_size = 16
+texture_code = "item_empty_bottle"
+texture = SubResource("AtlasTexture_vdkd0")
+
+[sub_resource type="Resource" id="Resource_ur1gl"]
+script = ExtResource("2_gjtu6")
+item = SubResource("Resource_0nip6")
+amount = 1
+metadata/_custom_type_script = "uid://cucbuqsn25xvu"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x03mu"]
+atlas = ExtResource("4_0nip6")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="Resource" id="Resource_xc7rl"]
+script = ExtResource("3_vdkd0")
+name = "red_potion"
+max_stack_size = 4
+sellable = true
+texture_code = "item_red_potion"
+texture = SubResource("AtlasTexture_x03mu")
+
+[sub_resource type="Resource" id="Resource_u6qnq"]
+script = ExtResource("2_gjtu6")
+item = SubResource("Resource_xc7rl")
+amount = 3
+metadata/_custom_type_script = "uid://cucbuqsn25xvu"
+
+[sub_resource type="Resource" id="Resource_vy0sj"]
 script = ExtResource("2_gjtu6")
 metadata/_custom_type_script = "uid://cucbuqsn25xvu"
 
-[sub_resource type="Resource" id="Resource_ur1gl"]
+[sub_resource type="Resource" id="Resource_8lbb3"]
+script = ExtResource("2_gjtu6")
+metadata/_custom_type_script = "uid://cucbuqsn25xvu"
+
+[sub_resource type="Resource" id="Resource_ptpps"]
 script = ExtResource("2_gjtu6")
 metadata/_custom_type_script = "uid://cucbuqsn25xvu"
 
 [resource]
 script = ExtResource("2_h4yv7")
-slots = Array[ExtResource("2_gjtu6")]([SubResource("Resource_80wid"), SubResource("Resource_yw68f"), SubResource("Resource_vdkd0"), SubResource("Resource_0nip6"), SubResource("Resource_ur1gl")])
+slots = Array[ExtResource("2_gjtu6")]([SubResource("Resource_ur1gl"), SubResource("Resource_u6qnq"), SubResource("Resource_vy0sj"), SubResource("Resource_8lbb3"), SubResource("Resource_ptpps")])
 metadata/_custom_type_script = "uid://ddcb7drogqquk"
