@@ -76,6 +76,10 @@ func on_slot_clicked(slot:Button) -> void:
 		insert_to_slot(slot)
 	elif !item_on_cursor:
 		take_from_slot(slot)
+	elif slot.item_stack.invSlot.item.equals(item_on_cursor.invSlot.item):
+		stack_items(slot)
+	else:
+		swap_items(slot)
 
 func take_from_slot(slot:Button)->void:
 	if slot.item_stack:
@@ -88,6 +92,33 @@ func insert_to_slot(slot:Button)->void:
 	remove_child(item_on_cursor)
 	item_on_cursor = null
 	slot.insert(item)
+
+func swap_items(slot:Button)->void:
+	var tempItem: ItemStackUI = slot.pick_item()
+	insert_to_slot(slot)
+	
+	item_on_cursor = tempItem
+	add_child(item_on_cursor)
+	update_cursor()
+
+func stack_items(slot)->void:
+	var slotItem: ItemStackUI = slot.item_stack
+	var maxNum:int = slotItem.invSlot.item.max_stack_size
+	var totalNum:int = slotItem.invSlot.amount + item_on_cursor.invSlot.amount
+	
+	if slotItem.invSlot.amount == maxNum:
+		swap_items(slot)
+	elif totalNum<=maxNum:
+		slotItem.invSlot.amount = totalNum
+		remove_child(item_on_cursor)
+		item_on_cursor= null
+		
+	else:
+		slotItem.invSlot.amount = maxNum
+		item_on_cursor.invSlot.amount = totalNum-maxNum
+	slotItem.update_slot()
+	if item_on_cursor:
+		item_on_cursor.update_slot()
 
 func update_cursor()->void:
 	if item_on_cursor:

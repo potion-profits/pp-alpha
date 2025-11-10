@@ -209,4 +209,5 @@ func _debug_set_player_inv()->void:
 	inv.insert(red)
 	inv.insert(red)
 	inv.insert(red)
+	inv.insert(red)
 	
