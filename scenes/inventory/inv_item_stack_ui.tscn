@@ -1,12 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://dsamn1i45n76e"]
+[gd_scene load_steps=4 format=3 uid="uid://dsamn1i45n76e"]
 
 [ext_resource type="Script" uid="uid://bkr4bdjndntiq" path="res://scenes/inventory/inv_item_stack_ui.gd" id="1_elslr"]
+[ext_resource type="Texture2D" uid="uid://bhcvc4h6d2okx" path="res://assets/interior/shop/all_bottles01.png" id="2_x88bl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ay0tq"]
+atlas = ExtResource("2_x88bl")
+region = Rect2(16, 16, 16, 16)
 
 [node name="inv_item_stack_ui" type="Panel"]
 script = ExtResource("1_elslr")
 
 [node name="item_display" type="Sprite2D" parent="."]
 scale = Vector2(0.75, 0.75)
+texture = SubResource("AtlasTexture_ay0tq")
 
 [node name="item_amount" type="Label" parent="."]
 custom_minimum_size = Vector2(39, 23)
@@ -18,4 +24,32 @@ scale = Vector2(0.25, 0.25)
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
+text = "10"
+horizontal_alignment = 2
+
+[node name="sellable_label" type="Label" parent="."]
+custom_minimum_size = Vector2(39, 23)
+layout_mode = 0
+offset_left = -5.0
+offset_top = -6.0
+offset_right = 34.0
+offset_bottom = 17.0
+scale = Vector2(0.25, 0.25)
+theme_override_colors/font_color = Color(0, 0.559213, 0.20706883, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+text = "$"
+
+[node name="mixable_label" type="Label" parent="."]
+custom_minimum_size = Vector2(39, 23)
+layout_mode = 0
+offset_left = -5.0
+offset_top = -6.0
+offset_right = 34.0
+offset_bottom = 17.0
+scale = Vector2(0.25, 0.25)
+theme_override_colors/font_color = Color(0.54781044, 0.25134587, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+text = "M"
 horizontal_alignment = 2
