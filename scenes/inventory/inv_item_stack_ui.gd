@@ -7,7 +7,7 @@ class_name ItemStackUI
 var invSlot : InvSlot
 
 func update_slot()->void:
-	if !invSlot || !invSlot.item:
+	if !invSlot or !invSlot.item:
 		item_visuals.visible = false
 		amount_text.visible = false
 	

@@ -12,7 +12,7 @@ var db_id: int
 
 #goes through slots and inserts in correct slot, next empty slot, or returns false
 func insert(item: InvItem) -> bool:
-	var itemSlots : Array [InvSlot] = slots.filter(func(slot: InvSlot) -> bool:return item.equals(slot.item) && slot.amount < item.max_stack_size)
+	var itemSlots : Array [InvSlot] = slots.filter(func(slot: InvSlot) -> bool:return item.equals(slot.item) and slot.amount < item.max_stack_size)
 	if !itemSlots.is_empty():
 		itemSlots[0].amount += 1
 	else:

@@ -16,7 +16,7 @@ func insert(i_stack: ItemStackUI) -> void:
 	item_stack = i_stack
 	container.add_child(item_stack)
 	
-	if !item_stack.invSlot || inv.slots[index] == item_stack.invSlot:
+	if !item_stack.invSlot or inv.slots[index] == item_stack.invSlot:
 		return
 	inv.insert_on_cursor(index, i_stack.invSlot)
 
@@ -31,7 +31,7 @@ func deselect()->void:
 
 func pick_item()->ItemStackUI:
 	var item:ItemStackUI = item_stack
-	if item_stack && item_stack.invSlot && item_stack.invSlot.item:
+	if item_stack and item_stack.invSlot and item_stack.invSlot.item:
 		container.remove_child(item)
 		item_stack = null
 	

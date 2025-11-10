@@ -20,10 +20,10 @@ func equals(item:InvItem)->bool:
 	if item == null:
 		return false
 	return (name == item.name 
-	&& texture == item.texture 
-	&& max_stack_size == item.max_stack_size
-	&& mixable == item.mixable 
-	&& sellable == item.sellable)
+	and texture == item.texture 
+	and max_stack_size == item.max_stack_size
+	and mixable == item.mixable 
+	and sellable == item.sellable)
 
 func _duplicate() -> InvItem:
 	var new_item:InvItem = InvItem.new(name,texture,max_stack_size, mixable, sellable)

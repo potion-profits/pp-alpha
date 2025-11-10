@@ -72,7 +72,7 @@ func close() -> void:
 	is_open = false
 
 func on_slot_clicked(slot:Button) -> void:
-	if slot.is_empty() && item_on_cursor:
+	if slot.is_empty() and item_on_cursor:
 		insert_to_slot(slot)
 	elif !item_on_cursor:
 		take_from_slot(slot)
@@ -101,7 +101,7 @@ func swap_items(slot:Button)->void:
 	add_child(item_on_cursor)
 	update_cursor()
 
-func stack_items(slot)->void:
+func stack_items(slot: Button)->void:
 	var slotItem: ItemStackUI = slot.item_stack
 	var maxNum:int = slotItem.invSlot.item.max_stack_size
 	var totalNum:int = slotItem.invSlot.amount + item_on_cursor.invSlot.amount
