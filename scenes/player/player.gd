@@ -1,4 +1,4 @@
-extends PhysicsBody2D
+extends CharacterBody2D
 
 class_name Player
 #the resource that will be used to make an inventory (player_inventory.tres)
@@ -13,7 +13,6 @@ const MAX_COINS = pow(2, 62)
 
 var coins : int = 500 # replace value with db call once implemented
 var chips : int = 10 # replace value with db call once implemented
-var velocity : Vector2
 var is_dashing : bool = false
 
 @onready var animated_sprite : AnimatedSprite2D = $AnimatedSprite2D
@@ -86,7 +85,7 @@ func _input(event: InputEvent) -> void:
 
 func _physics_process(delta : float)->void:
 	move(current_state, delta)
-	move_and_collide(velocity)
+	move_and_slide()
 	
 func move(curr_state : movement_state, delta : float) -> void:
 	match curr_state:
@@ -100,7 +99,7 @@ func move(curr_state : movement_state, delta : float) -> void:
 			animated_sprite.speed_scale = DASH_MULT
 
 # Updated function for 8 directional movement
-func get_movement_input(delta : float) -> void:
+func get_movement_input(_delta : float) -> void:
 	velocity = Vector2.ZERO
 	
 	var x_dir : float = Input.get_axis("move_left", "move_right")
@@ -108,7 +107,7 @@ func get_movement_input(delta : float) -> void:
 	velocity = Vector2(x_dir, y_dir)
 	
 	if velocity != Vector2.ZERO:
-		velocity = velocity.normalized() * SPEED * delta
+		velocity = velocity.normalized() * SPEED
 		
 		# Determine direction name for animation
 		# Appends direction based on directional input
