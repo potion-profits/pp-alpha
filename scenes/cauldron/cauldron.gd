@@ -82,7 +82,7 @@ func to_dict()-> Dictionary:
 	var mix_timer_left :float = mix_timer.time_left if mix_timer and mixing else 0.0
 	var cauldron_state:Dictionary = {
 		"mixing":mixing,
-		"mix_timer_time_left": mix_timer_left
+		"mix_timer_time_left": mix_timer_left,
 	}
 	cauldron_state.merge(super.to_dict())
 	return cauldron_state
@@ -96,5 +96,7 @@ func from_dict(data:Dictionary)->void:
 
 func _restore_timer(time_left: float)->void:
 	if mix_timer:
+		progress_bar.value = (time_left/MIX_DURATION) * 100
+		progress_bar.visible = true
 		mix_timer.stop()
 		mix_timer.start(time_left)
