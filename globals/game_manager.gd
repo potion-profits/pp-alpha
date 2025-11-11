@@ -78,7 +78,7 @@ func save_scene_runtime_state(scene_name:String) -> void:
 
 func load_scene_runtime_state()->void:
 	var player_node:Node = get_tree().current_scene.get_node("Player")
-	if player_node:
+	if player_node and player_data:
 		player_node.from_dict(player_data)
 	var scene_name:String = get_tree().current_scene.name
 	var em:EntityManager = get_tree().current_scene.get_node("EntityManager")
