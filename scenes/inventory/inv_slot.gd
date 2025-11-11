@@ -6,3 +6,10 @@ class_name InvSlot
 
 @export var item: InvItem
 @export var amount: int 
+
+func to_dict()->Dictionary:
+	var item_d :Dictionary = item.to_dict() if item else {}
+	return{
+		"item":item_d,
+		"amount":amount
+	}

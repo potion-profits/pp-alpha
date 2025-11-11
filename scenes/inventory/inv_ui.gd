@@ -2,7 +2,7 @@ extends Control
 
 #gets all slots in inv_ui scene node's grid container
 @onready var slots: Array = $NinePatchRect/GridContainer.get_children()
-
+@onready var ItemStackUIClass : PackedScene = preload("res://scenes/inventory/inv_item_stack_ui.tscn")
 #dynamically sets inv which is set wherever a inventory is to be made
 #currently only gets set in player.gd but will later be used in chest, etc
 var inv: Inv:
@@ -15,74 +15,51 @@ var inv: Inv:
 		if inv:
 			inv.update.connect(update_slots)
 			update_slots()
+			connect_slots()
 
 #makes script applicable to player and other inventory (chests/shelves)
 var allow_hotkeys : bool = false
-var current_selected_slot: int = -1
 
 var is_open : bool = false
 var inventory_toggle : bool = true # Setting for toggle vs hold inventory
 
-#updated to use input map in project settings
-var input_slot_map : Dictionary = {
-	"slot_1" : 0,
-	"slot_2" : 1,
-	"slot_3" : 2,
-	"slot_4" : 3,
-	"slot_5" : 4,
-}
+var item_on_cursor: ItemStackUI
 
 #start with ui closed and updated
 func _ready()->void:
 	close()
 	update_slots()
-	
+	connect_slots()
+
+func connect_slots()->void:
+	if !inv:
+		return
+	for i in range(slots.size()):
+		var slot:Button = slots[i]
+		slot.index = i
+		slot.inv = inv
+		var callable : Callable = Callable(on_slot_clicked)
+		callable = callable.bind(slot)
+		slot.pressed.connect(callable)
+
 #update each slot in inv_ui with the info from the inv object (player_inv)
 func update_slots()->void:
 	if !inv:
 		return
-	for i in range(min(inv.slots.size(),slots.size())):
-		slots[i].update(inv.slots[i])
-		
-
-#handles toggled and held inventory
-#esc when toggled will close ui not pause
-#esc when held will close and pause
-#uses keys to enlarge sprites in inventory
-func _input(event: InputEvent) -> void:
-	if inventory_toggle:
-		if is_open:
-			if event.is_action_pressed("inventory") or event.is_action_pressed("ui_cancel"):
-				get_viewport().set_input_as_handled()
-				close()
+	for i in range(min(inv.slots.size(),slots.size())): 
+		var invSlot: InvSlot = inv.slots[i]
+		if invSlot and invSlot.item:
+			var item_stack: ItemStackUI = slots[i].item_stack
+			if !item_stack:
+				item_stack = ItemStackUIClass.instantiate()
+				slots[i].insert(item_stack)
+			item_stack.invSlot = invSlot
+			item_stack.update_slot()
 		else:
-			if event.is_action_pressed("inventory"):
-				open()
-	else:
-		if event.is_action_pressed("inventory") and !is_open:
-			open()
-		elif (event.is_action_released("inventory") or event.is_action_pressed("ui_cancel")) and is_open:
-			close()
-			
-	#only for player inventory
-	if is_open and allow_hotkeys:
-		for key: StringName in input_slot_map:
-			if Input.is_action_just_pressed(key):
-				var slot : int = input_slot_map[key]
-				#this is a decision, currently doesnt allow picking empty slots
-				if !inv.slots[slot] or !inv.slots[slot].item:
-					return
-				#if something already selected, deselect
-				if current_selected_slot !=-1:
-					slots[current_selected_slot].deselect(inv.slots[current_selected_slot])
-				#change slots
-				if current_selected_slot != slot:
-					current_selected_slot = slot
-					slots[slot].select(inv.slots[slot], Vector2(1.1,1.1))
-				#deselect current slot
-				else:
-					current_selected_slot = -1
-			
+			if slots[i].item_stack:
+				slots[i].container.remove_child(slots[i].item_stack)
+				slots[i].item_stack.queue_free()
+				slots[i].item_stack = null
 
 #show inventory
 func open() -> void:
@@ -93,3 +70,59 @@ func open() -> void:
 func close() -> void:
 	visible = false
 	is_open = false
+
+func on_slot_clicked(slot:Button) -> void:
+	if slot.is_empty() and item_on_cursor:
+		insert_to_slot(slot)
+	elif !item_on_cursor:
+		take_from_slot(slot)
+	elif slot.item_stack.invSlot.item.equals(item_on_cursor.invSlot.item):
+		stack_items(slot)
+	else:
+		swap_items(slot)
+
+func take_from_slot(slot:Button)->void:
+	if slot.item_stack:
+		item_on_cursor = slot.pick_item() 
+		add_child(item_on_cursor)
+		update_cursor()
+
+func insert_to_slot(slot:Button)->void:
+	var item:ItemStackUI = item_on_cursor
+	remove_child(item_on_cursor)
+	item_on_cursor = null
+	slot.insert(item)
+
+func swap_items(slot:Button)->void:
+	var tempItem: ItemStackUI = slot.pick_item()
+	insert_to_slot(slot)
+	
+	item_on_cursor = tempItem
+	add_child(item_on_cursor)
+	update_cursor()
+
+func stack_items(slot: Button)->void:
+	var slotItem: ItemStackUI = slot.item_stack
+	var maxNum:int = slotItem.invSlot.item.max_stack_size
+	var totalNum:int = slotItem.invSlot.amount + item_on_cursor.invSlot.amount
+	
+	if slotItem.invSlot.amount == maxNum:
+		swap_items(slot)
+	elif totalNum<=maxNum:
+		slotItem.invSlot.amount = totalNum
+		remove_child(item_on_cursor)
+		item_on_cursor= null
+		
+	else:
+		slotItem.invSlot.amount = maxNum
+		item_on_cursor.invSlot.amount = totalNum-maxNum
+	slotItem.update_slot()
+	if item_on_cursor:
+		item_on_cursor.update_slot()
+
+func update_cursor()->void:
+	if item_on_cursor:
+		item_on_cursor.global_position = get_global_mouse_position() - item_on_cursor.size/2
+
+func _input(_event:InputEvent)->void:
+	update_cursor()

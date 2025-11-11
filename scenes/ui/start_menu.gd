@@ -10,10 +10,13 @@ func _ready()->void:
 
 
 func _on_play_pressed()->void:
-	get_tree().change_scene_to_file("res://scenes/playground/playground.tscn")
+	GameManager.connect_scene_load_callback()
+	get_tree().change_scene_to_file("res://scenes/playground/pickup_play.tscn")
 
 func _on_options_pressed()->void:
 	get_tree().change_scene_to_file("res://scenes/ui/options_menu.tscn")
 
 func _on_quit_pressed()->void:
+	#we will hard save here for now
+	GameManager.commit_to_storage()
 	get_tree().quit()

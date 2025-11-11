@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://c34bfsh46yx7p"]
+
+[ext_resource type="Texture2D" uid="uid://bhcvc4h6d2okx" path="res://assets/interior/shop/all_bottles01.png" id="1_7q0a5"]
+[ext_resource type="PackedScene" uid="uid://fi1qxearbah2" path="res://scenes/interactions/interactable.tscn" id="1_hnkyh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7q0a5"]
+atlas = ExtResource("1_7q0a5")
+region = Rect2(32, 48, 16, 16)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7q0a5"]
+
+[node name="Bottle" type="StaticBody2D"]
+
+[node name="BottleSprite" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_7q0a5")
+
+[node name="Interactable" parent="." instance=ExtResource("1_hnkyh")]
+
+[node name="InteractableShape" type="CollisionShape2D" parent="Interactable"]
+shape = SubResource("CircleShape2D_7q0a5")

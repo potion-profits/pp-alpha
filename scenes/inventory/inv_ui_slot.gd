@@ -1,32 +1,43 @@
-extends Panel
+extends Button
 
-#texture to be seen in inventory slot
-@onready var item_visuals : Sprite2D = $CenterContainer/Panel/item_display
-@onready var amount_text: Label = $CenterContainer/Panel/Label
+@onready var container: CenterContainer = $CenterContainer
+@onready var select_border: NinePatchRect = $select_border
 
 #keeps track if its currently selected, should only ever be 1 slot
 var selected:bool = false;
+var item_stack: ItemStackUI
+var index: int
+var inv: Inv
 
-#updates the texture and amount on given slot and sets visibility
-func update(slot: InvSlot) -> void:
-	if !slot.item:
-		item_visuals.visible = false
-		amount_text.visible = false
-	else:
-		item_visuals.visible = true
-		item_visuals.texture = slot.item.texture
-		if slot.amount > 1:
-			amount_text.visible = true
-		amount_text.text = str(slot.amount)
+func _ready() -> void:
+	select_border.visible = false
+
+func insert(i_stack: ItemStackUI) -> void:
+	item_stack = i_stack
+	container.add_child(item_stack)
 	
+	if !item_stack.invSlot or inv.slots[index] == item_stack.invSlot:
+		return
+	inv.insert_on_cursor(index, i_stack.invSlot)
 
 #increases the size of the texture in the slot
-func select(slot : InvSlot, scaleV: Vector2 = Vector2(.75, .75)) -> void:
-	if slot:	
-		item_visuals.scale = scaleV
-		selected = true;
+func select() -> void:
+	selected = true
+	select_border.visible = true
 
-func deselect(slot: InvSlot)->void:
-	if slot:
-		item_visuals.scale = Vector2(.75, .75);
-		selected = false;
+func deselect()->void:
+	selected = false
+	select_border.visible = false
+
+func pick_item()->ItemStackUI:
+	var item:ItemStackUI = item_stack
+	if item_stack and item_stack.invSlot and item_stack.invSlot.item:
+		container.remove_child(item)
+		item_stack = null
+	
+	return item
+
+func is_empty()->bool:
+	if item_stack:
+		return !item_stack.invSlot.item
+	return true

@@ -15,9 +15,11 @@ var coins : int = 500 # replace value with db call once implemented
 var chips : int = 10 # replace value with db call once implemented
 var velocity : Vector2
 var is_dashing : bool = false
-@onready var animated_sprite :  = $AnimatedSprite2D
+
+@onready var animated_sprite : AnimatedSprite2D = $AnimatedSprite2D
 @onready var dash_cooldown: Timer = $DashCooldown
 @onready var dash_duration: Timer = $DashDuration
+@onready var inv_ui:Control = $Inv_UI
 
 enum movement_state {
 	IDLE,
@@ -25,14 +27,62 @@ enum movement_state {
 	DASH
 }
 
+#updated to use input map in project settings
+var input_slot_map : Dictionary = {
+	"slot_1" : 0,
+	"slot_2" : 1,
+	"slot_3" : 2,
+	"slot_4" : 3,
+	"slot_5" : 4,
+}
+
 var current_state : movement_state = movement_state.IDLE
 var last_dir := "down"
 
 #sets up player inventory on each run
 func _ready() -> void:
+	add_to_group("player")
 	inv = inv_resource.duplicate(true) #makes mutable
-	$Inv_UI.inv = inv #links player inventory and respective ui
-	$Inv_UI.allow_hotkeys = true #allows 1-5 use for hotbar-like inv
+	inv_ui.inv = inv #links player inventory and respective ui
+	inv_ui.allow_hotkeys = true #allows 1-5 use for hotbar-like inv
+	#_debug_set_player_inv()
+
+#handles toggled and held inventory
+#esc when toggled will close ui not pause
+#esc when held will close and pause
+#uses keys to enlarge sprites in inventory
+func _input(event: InputEvent) -> void:
+		
+	if inv_ui.inventory_toggle:
+		if inv_ui.is_open:
+			if event.is_action_pressed("inventory") or event.is_action_pressed("ui_cancel"):
+				get_viewport().set_input_as_handled()
+				inv_ui.close()
+		else:
+			if event.is_action_pressed("inventory"):
+				inv_ui.open()
+	else:
+		if event.is_action_pressed("inventory") and !inv_ui.is_open:
+			inv_ui.open()
+		elif (event.is_action_released("inventory") or event.is_action_pressed("ui_cancel")) and inv_ui.is_open:
+			inv_ui.close()
+			
+	#only for player inventory
+	if inv_ui.is_open and inv_ui.allow_hotkeys:
+		for key: StringName in input_slot_map:
+			if Input.is_action_just_pressed(key):
+				var slot : int = input_slot_map[key]
+				#if something already selected, deselect
+				if inv.selected_index !=-1:
+					inv_ui.slots[inv.selected_index].deselect()
+				#change slots
+				if inv.selected_index != slot:
+					inv.selected_index = slot
+					inv_ui.slots[slot].select()
+				#deselect current slot
+				else:
+					inv.selected_index = -1
+			
 
 func _physics_process(delta : float)->void:
 	move(current_state, delta)
@@ -138,6 +188,35 @@ func set_chips(chips_delta : int) -> int:
 func collect(item: InvItem) -> bool:
 	return inv.insert(item)
 
-#currently used to check that given node is a player, should probably be changed
-func player()->void:
-	pass
+func interact_with_entity(entity: Entity)->void:
+	var selected_slot:InvSlot = inv.get_selected_slot()
+	if selected_slot and selected_slot.item:
+		if entity.receive_item(selected_slot.item):
+			inv.remove_selected()
+
+func to_dict()->Dictionary:
+	return{
+		"inventory": inv.to_dict(),
+		"coins": coins,
+		"chips": chips
+	}
+
+func from_dict(data:Dictionary)->void:
+	inv.from_dict(data["inventory"])
+	coins = data["coins"]
+	chips = data["chips"]
+	
+
+func _debug_set_player_inv()->void:
+	var bottle:InvItem = InvItem.new()
+	bottle.setup_item("empty_bottle", "item_empty_bottle", 16, false, false)
+	var red:InvItem = InvItem.new()
+	red.setup_item("red_potion","item_red_potion", 4, true, false)
+	inv.insert(bottle)
+	inv.insert(red)
+	inv.insert(red)
+	inv.insert(red)
+	inv.insert(red)
+	inv.insert(red)
+	inv.insert(red)
+	

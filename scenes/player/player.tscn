@@ -1,10 +1,11 @@
-[gd_scene load_steps=48 format=3 uid="uid://b0flhrlw7t57t"]
+[gd_scene load_steps=49 format=3 uid="uid://b0flhrlw7t57t"]
 
 [ext_resource type="Script" uid="uid://c2lajecmvs0ct" path="res://scenes/player/player.gd" id="1_onrkg"]
-[ext_resource type="Resource" uid="uid://c6tja3xo4wrmv" path="res://scenes/player/player_inv.tres" id="2_qhqgy"]
+[ext_resource type="Resource" uid="uid://4jsm7xxboko" path="res://scenes/player/player_inv.tres" id="2_qhqgy"]
 [ext_resource type="PackedScene" uid="uid://bk1hol15q64bh" path="res://scenes/inventory/inv_ui.tscn" id="4_dqkch"]
 [ext_resource type="Texture2D" uid="uid://mgupfasihl7i" path="res://assets/char_sprites/Chay Walk Cycle-Sheet.png" id="4_qlg0r"]
 [ext_resource type="Texture2D" uid="uid://bl24jrao46dmm" path="res://assets/char_sprites/Chay Idle-Sheet.png" id="4_tuyoq"]
+[ext_resource type="PackedScene" uid="uid://b54ms70wtbbo1" path="res://scenes/interactions/interacting_component.tscn" id="6_75vfm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y4r1p"]
 atlas = ExtResource("4_tuyoq")
@@ -371,6 +372,8 @@ offset_right = 53.0
 offset_bottom = -15.0
 
 [node name="DashDuration" type="Timer" parent="."]
+
+[node name="InteractingComponent" parent="." instance=ExtResource("6_75vfm")]
 
 [connection signal="timeout" from="DashCooldown" to="." method="_on_dash_cooldown_timeout"]
 [connection signal="timeout" from="DashDuration" to="." method="_on_dash_duration_timeout"]
