@@ -1,8 +1,9 @@
-[gd_scene load_steps=41 format=3 uid="uid://c0nam2jyacktb"]
+[gd_scene load_steps=42 format=3 uid="uid://c0nam2jyacktb"]
 
 [ext_resource type="Texture2D" uid="uid://de68bfn16ivla" path="res://assets/interior/shop/cauldron_LARGE-Sheet.png" id="1_afk7o"]
 [ext_resource type="Texture2D" uid="uid://i3o26m2iyuj0" path="res://assets/interior/shop/cauldron_fire_LARGE-Sheet.png" id="1_mdhnj"]
 [ext_resource type="Script" uid="uid://d0yy5m7nhxs2i" path="res://scenes/cauldron/cauldron.gd" id="1_to7hx"]
+[ext_resource type="PackedScene" uid="uid://cetfip2wg6fny" path="res://scenes/cauldron/progress_bar.tscn" id="2_8t87t"]
 [ext_resource type="PackedScene" uid="uid://fi1qxearbah2" path="res://scenes/interactions/interactable.tscn" id="7_y06py"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_afk7o"]
@@ -254,6 +255,13 @@ height = 26.0
 
 [node name="Cauldron" type="StaticBody2D"]
 script = ExtResource("1_to7hx")
+
+[node name="ProgressBar" parent="." instance=ExtResource("2_8t87t")]
+visible = false
+offset_left = -19.0
+offset_top = -16.0
+offset_right = 77.0
+offset_bottom = 11.0
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2.9999998)

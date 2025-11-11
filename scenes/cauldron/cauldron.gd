@@ -6,6 +6,7 @@ extends Entity	#will help store placement and inventory information for persiste
 #cauldron specific references
 @onready var cauldron_anim: AnimatedSprite2D = $CauldronAnim
 @onready var mix_timer: Timer = $MixTimer
+@onready var progress_bar: TextureProgressBar = $ProgressBar
 @export var animation_name: String = "default"
 
 var mixing: bool = false
@@ -49,6 +50,7 @@ func start_mixing()->void:
 		if mix_timer:
 			mix_timer.wait_time = MIX_DURATION
 			mix_timer.start()
+			progress_bar.visible = true
 		animation_play()
 
 #Prompts cauldron to take an item. If success, start mixing. Else, return false
@@ -67,13 +69,20 @@ func _on_mix_timer_timeout() -> void:
 	inv.slots[0].item.sellable = true
 	#held_item = null
 	print("Mixing finished for ", inv.slots[0].item.name)
+	progress_bar.visible = false
+	progress_bar.value = 100
 	mix_timer.stop()
+	
+func _process(_delta: float) -> void:
+	if mixing:
+		var progress_fill: float = (mix_timer.time_left / MIX_DURATION) * 100
+		progress_bar.value = progress_fill
 #
 func to_dict()-> Dictionary:
 	var mix_timer_left :float = mix_timer.time_left if mix_timer and mixing else 0.0
 	var cauldron_state:Dictionary = {
 		"mixing":mixing,
-		"mix_timer_time_left": mix_timer_left
+		"mix_timer_time_left": mix_timer_left,
 	}
 	cauldron_state.merge(super.to_dict())
 	return cauldron_state
@@ -87,5 +96,7 @@ func from_dict(data:Dictionary)->void:
 
 func _restore_timer(time_left: float)->void:
 	if mix_timer:
+		progress_bar.value = (time_left/MIX_DURATION) * 100
+		progress_bar.visible = true
 		mix_timer.stop()
 		mix_timer.start(time_left)
