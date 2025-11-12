@@ -1,6 +1,7 @@
-[gd_scene load_steps=46 format=3 uid="uid://jspiiachpr38"]
+[gd_scene load_steps=47 format=3 uid="uid://jspiiachpr38"]
 
 [ext_resource type="Texture2D" uid="uid://bm1pqxiujy2td" path="res://assets/char_sprites/npc_sprites/npc_chay_variation/NPC Idle Cycle-Sheet.png" id="1_nbf0n"]
+[ext_resource type="Script" uid="uid://rojua46ym523" path="res://scenes/npc_alt/basic_npc.gd" id="1_uxmea"]
 [ext_resource type="Texture2D" uid="uid://qncxm27bi1wl" path="res://assets/char_sprites/npc_sprites/npc_chay_variation/NPC Walk Cycle-Sheet.png" id="2_5w1mn"]
 [ext_resource type="PackedScene" uid="uid://b54ms70wtbbo1" path="res://scenes/interactions/interacting_component.tscn" id="3_5w1mn"]
 
@@ -342,18 +343,21 @@ radius = 4.0
 height = 8.0
 
 [node name="BasicNpc" type="CharacterBody2D"]
+script = ExtResource("1_uxmea")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_h4e5b")
 animation = &"idle_down"
 autoplay = "idle_down"
-frame_progress = 0.029345559
+frame_progress = 0.33150527
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, 4)
 shape = SubResource("CapsuleShape2D_nbf0n")
 
 [node name="InteractingComponent" parent="." instance=ExtResource("3_5w1mn")]
+visible = false
 
 [node name="InteractLabel" parent="InteractingComponent" index="1"]
 visible = false

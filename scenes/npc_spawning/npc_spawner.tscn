@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://q7qaghd775s2"]
+
+[ext_resource type="Script" uid="uid://dtgk0e3oaeir7" path="res://scenes/npc_spawning/npc_spawner.gd" id="1_dje21"]
+
+[node name="NpcSpawner" type="Node2D"]
+script = ExtResource("1_dje21")
+
+[node name="NPCRespawnTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[connection signal="timeout" from="NPCRespawnTimer" to="." method="_on_npc_respawn_timer_timeout"]

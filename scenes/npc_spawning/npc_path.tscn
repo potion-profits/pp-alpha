@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://crcx0uhxn12fg"]
+
+[ext_resource type="PackedScene" uid="uid://jspiiachpr38" path="res://scenes/npc_alt/basic_npc.tscn" id="1_5bocw"]
+[ext_resource type="Script" uid="uid://dihfi8edm3ik2" path="res://scenes/npc_spawning/npc_path.gd" id="1_pvjuq"]
+
+[sub_resource type="Curve2D" id="Curve2D_pvjuq"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 302, 8, 0, 0, 0, 0, 303, -85, 0, 0, 0, 0, 95, -78, 0, 0, 0, 0, 96, -179, 0, 0, 0, 0, 354, -115, 0, 0, 0, 0, 421, -121, 0, 0, 0, 0, 310, 3, 0, 0, 0, 0, 310, 30)
+}
+point_count = 8
+
+[node name="NpcPath" type="Node2D"]
+script = ExtResource("1_pvjuq")
+
+[node name="NPCPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_pvjuq")
+
+[node name="PathProgress" type="PathFollow2D" parent="NPCPath"]
+position = Vector2(302, 8)
+rotation = -1.560044
+loop = false
+
+[node name="BasicNpc" parent="NPCPath/PathProgress" instance=ExtResource("1_5bocw")]
+rotation = 1.5707964
