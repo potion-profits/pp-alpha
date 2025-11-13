@@ -3,6 +3,7 @@ class_name EntityManager
 
 var entity_codes:Dictionary = {
 	"cauldron": "res://scenes/cauldron/cauldron.tscn",
+	"crate": "res://scenes/crate/crate.tscn"
 }
 
 func load_from_dict(data:Dictionary)->void:
