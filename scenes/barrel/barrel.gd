@@ -1,7 +1,10 @@
 extends Entity
 
 """
-Barrels are interactable entities
+Barrels are interactable entities. 
+
+When created, but before instantiation, caller must 
+define a barrel's barrel_type
 
 On interact, if the player is holding an empty bottle, the bottle will
 be filled with 100 ml of liquid from the barrel
@@ -12,6 +15,7 @@ be filled with 100 ml of liquid from the barrel
 const BARREL_SIZE = 16
 const SHEET_PATH = "res://assets/interior/shop/all_barrels01.png"
 
+# Mapping barrel_id -> idx on sheet
 const barrel_color_map = {
 	"empty_barrel" : 0,
 	"red_barrel": 1,
@@ -20,8 +24,8 @@ const barrel_color_map = {
 	"dark_barrel": 4
 }
 
+# Mapping barrel_id -> potion
 const barrel_bottle_map = {
-	"empty_barrel" : "item_empty_bottle",
 	"red_barrel": "item_red_potion",
 	"green_barrel": "item_green_potion",
 	"blue_barrel": "item_blue_potion",
@@ -50,6 +54,8 @@ func change_barrel_color(barrel_id : String) -> void:
 						0,
 						BARREL_SIZE,
 						BARREL_SIZE)
+
+	entity_code = barrel_id
 	barrel_sprite.texture = atlas_texture
 	
 
