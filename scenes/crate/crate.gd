@@ -14,7 +14,7 @@ func _ready()-> void:
 		inv = Inv.new(1)
 		
 	var bottle: InvItem = InvItem.new()
-	bottle.setup_item("item_empty_bottle", "item_empty_bottle", 16, false, false)
+	bottle.setup_item("empty_bottle", "item_empty_bottle", 16, false, false)
 	inv.slots[0].item = bottle
 	inv.slots[0].amount = 64
 
@@ -56,6 +56,6 @@ func from_dict(data:Dictionary)->void:
 	super.from_dict(data)
 	if data.has("bottles") and data["bottles"] > 0:
 		var bottle: InvItem = InvItem.new()
-		bottle.setup_item("item_empty_bottle", "item_empty_bottle", 16, false, false)
+		bottle.setup_item("empty_bottle", "item_empty_bottle", 16, false, false)
 		inv.slots[0].item = bottle
 		inv.slots[0].amount = data["bottles"]
