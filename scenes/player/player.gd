@@ -183,7 +183,37 @@ func set_chips(chips_delta : int) -> int:
 	chips = new_chips
 	return new_chips
 	
-#called to pick up an item and add to player inventory
+func get_inventory() -> Inv:
+	return inv
+
+"""
+Checks if the player has any empty slot
+"""
+func has_empty_slot() -> bool:
+	for slot in inv.slots:
+		if (slot.item == null || slot.item.name == null):
+			return true
+	return false
+
+"""
+Checks if the player has a slot with [item] and that slot can accept
+"""
+func can_stack_item(item: InvItem) -> bool:
+	for slot in inv.slots:
+		if (slot.item.equals(item) and slot.amount < slot.item.max_stack_size):
+			return true
+	return false
+
+func get_selected_slot() -> InvSlot:
+	return inv.get_selected_slot()
+
+func remove_from_selected() -> void:
+	inv.remove_selected()
+	
+"""
+Picks up an item and adds to inventory
+Can be used for collecting from entities
+"""
 func collect(item: InvItem) -> bool:
 	return inv.insert(item)
 

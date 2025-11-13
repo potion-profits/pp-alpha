@@ -19,7 +19,7 @@ texture = SubResource("AtlasTexture_vdkd0")
 [sub_resource type="Resource" id="Resource_ur1gl"]
 script = ExtResource("2_gjtu6")
 item = SubResource("Resource_0nip6")
-amount = 1
+amount = 16
 metadata/_custom_type_script = "uid://cucbuqsn25xvu"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x03mu"]

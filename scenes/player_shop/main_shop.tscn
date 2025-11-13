@@ -1,10 +1,12 @@
-[gd_scene load_steps=15 format=4 uid="uid://dqjsd25qefwd8"]
+[gd_scene load_steps=17 format=4 uid="uid://dqjsd25qefwd8"]
 
 [ext_resource type="Script" uid="uid://bs6mohet7ju1d" path="res://scenes/player_shop/main_shop.gd" id="1_asv1s"]
 [ext_resource type="Texture2D" uid="uid://4c4v2xp0o710" path="res://assets/interior/shop/inshop01.png" id="1_or7af"]
 [ext_resource type="Texture2D" uid="uid://cq4mo6l3w2oka" path="res://assets/interior/shop/background.png" id="2_4xnb3"]
 [ext_resource type="PackedScene" uid="uid://b0flhrlw7t57t" path="res://scenes/player/player.tscn" id="2_asv1s"]
+[ext_resource type="PackedScene" uid="uid://nfogt8087sfy" path="res://scenes/barrel/barrel.tscn" id="5_6w02k"]
 [ext_resource type="Texture2D" uid="uid://b6sxxon0bv8sh" path="res://assets/interior/shop/counter_all01.png" id="5_s7qt3"]
+[ext_resource type="PackedScene" uid="uid://c0nam2jyacktb" path="res://scenes/cauldron/cauldron.tscn" id="6_8eiuf"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6w02k"]
 texture = ExtResource("1_or7af")
@@ -554,12 +556,19 @@ tile_set = SubResource("TileSet_s7qt3")
 tile_map_data = PackedByteArray("AAAWAPf/AQAGAAYAAAAWAPb/AQAGAAQAAAAeAPb/AQAFAAEAAAAeAPf/AQAGAAIAAAAXAPf/AQABAAEAAAAYAPf/AQABAAEAAAAZAPf/AQABAAEAAAAaAPf/AQABAAEAAAAbAPf/AQABAAEAAAAcAPf/AQABAAEAAAAdAPf/AQABAAEAAAA=")
 tile_set = SubResource("TileSet_bg63s")
 
+[node name="Barrel" parent="." instance=ExtResource("5_6w02k")]
+position = Vector2(161, -63)
+
+[node name="Cauldron" parent="." instance=ExtResource("6_8eiuf")]
+y_sort_enabled = true
+position = Vector2(162, -36)
+
 [node name="Player" parent="." instance=ExtResource("2_asv1s")]
 position = Vector2(304, -10)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(-2, -24)
-zoom = Vector2(5, 5)
+zoom = Vector2(7, 7)
 
 [node name="MoveTownDetection" type="Area2D" parent="."]
 
