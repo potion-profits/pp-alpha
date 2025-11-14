@@ -44,7 +44,7 @@ func _ready() -> void:
 	inv = inv_resource.duplicate(true) #makes mutable
 	inv_ui.inv = inv #links player inventory and respective ui
 	inv_ui.allow_hotkeys = true #allows 1-5 use for hotbar-like inv
-	#_debug_set_player_inv()
+	_debug_set_player_inv()
 
 #handles toggled and held inventory
 #esc when toggled will close ui not pause
@@ -207,10 +207,8 @@ func from_dict(data:Dictionary)->void:
 	
 
 func _debug_set_player_inv()->void:
-	var bottle:InvItem = InvItem.new()
-	bottle.setup_item("empty_bottle", "item_empty_bottle", 16, false, false)
-	var red:InvItem = InvItem.new()
-	red.setup_item("red_potion","item_red_potion", 4, true, false)
+	var bottle:InvItem = ItemRegistry.new_item("item_empty_bottle");
+	var red:InvItem = ItemRegistry.new_item("item_red_potion");
 	inv.insert(bottle)
 	inv.insert(red)
 	inv.insert(red)
