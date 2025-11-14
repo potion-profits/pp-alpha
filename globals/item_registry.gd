@@ -1,3 +1,6 @@
+#ItemRegistry is used to access the default states of the inventory items
+#this includes the texture mapping and the default state values
+# to spawn a new item with a default state, ItemRegistry.new_item should be used
 extends Node
 
 const icon_size = 16

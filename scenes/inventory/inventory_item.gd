@@ -1,3 +1,7 @@
+#InvItem.new and setup_item/from_dict should be used when the state of an item
+#being moved/ made is unknown and could potentially be not default state
+#otherwise use ItemRegistry to spawn a new item with the code.
+
 extends Resource
 
 class_name InvItem
