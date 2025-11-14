@@ -9,7 +9,7 @@ var item_icons := {
 	"item_red_potion": Rect2(2*icon_size,1*icon_size,icon_size,icon_size),
 	"item_green_potion": Rect2(1*icon_size,1*icon_size,icon_size,icon_size),
 	"item_dark_potion": Rect2(1*icon_size,2*icon_size,icon_size,icon_size),
-	"item_blue_potion": Rect2(2*icon_size,1*icon_size,icon_size,icon_size)
+	"item_blue_potion": Rect2(2*icon_size,2*icon_size,icon_size,icon_size)
 }
 
 # Called when the node enters the scene tree for the first time.

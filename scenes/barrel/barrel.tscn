@@ -9,8 +9,8 @@ atlas = ExtResource("2_miycq")
 region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mgwd7"]
-radius = 7.0
-height = 18.0
+radius = 4.0
+height = 16.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5o6sy"]
 radius = 9.0
@@ -25,6 +25,8 @@ scale = Vector2(1.3, 1.3)
 texture = SubResource("AtlasTexture_s15th")
 
 [node name="BarrelCollision" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5)
+rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_mgwd7")
 
 [node name="Interactable" parent="." instance=ExtResource("3_s15th")]

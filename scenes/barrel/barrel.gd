@@ -36,7 +36,7 @@ var ml :int = 1_000
 var barrel_type : String = "red_barrel"
 
 
-func _ready() -> void:
+func _ready() -> void:	
 	# Links interactable template to barrel specific method
 	interactable.interact = _on_interact
 	
@@ -45,6 +45,7 @@ func _ready() -> void:
 	
 	# Used to find out what scene to place in entity manager
 	entity_code = barrel_type
+	change_barrel_color(barrel_type)
 
 func change_barrel_color(barrel_id : String) -> void:
 	var atlas_texture : AtlasTexture = AtlasTexture.new()
@@ -79,7 +80,7 @@ func _on_interact() -> void:
 			return
 		
 		var new_bottle : InvItem = InvItem.new()
-		new_bottle.setup_item("red_potion", barrel_bottle_map[entity_code], 4, true, false)
+		new_bottle.setup_item("red_potion", barrel_bottle_map[barrel_type], 4, true, false)
 		
 		if (selected_slot.amount > 1 && (player.has_empty_slot() || player.can_stack_item(new_bottle))):
 			player.remove_from_selected()
