@@ -1,10 +1,7 @@
 extends Entity
 
 """
-Barrels are interactable entities. 
-
-When created, but before instantiation, caller must 
-define a barrel's barrel_type
+Barrels are interactable entities.
 
 On interact, if the player is holding an empty bottle, the bottle will
 be filled with 100 ml of liquid from the barrel
@@ -12,8 +9,9 @@ be filled with 100 ml of liquid from the barrel
 @onready var interactable : Area2D = $Interactable
 @onready var barrel_sprite: Sprite2D = $BarrelSprite
 
-const BARREL_SIZE = 16
+const SPRITE_SIZE = 16
 const SHEET_PATH = "res://assets/interior/shop/all_barrels01.png"
+
 
 # Mapping barrel_id -> idx on sheet
 const barrel_color_map = {
@@ -35,7 +33,6 @@ const barrel_bottle_map = {
 var ml :int = 1_000
 var barrel_type : String = "red_barrel"
 
-
 func _ready() -> void:	
 	# Links interactable template to barrel specific method
 	interactable.interact = _on_interact
@@ -44,21 +41,22 @@ func _ready() -> void:
 	super._ready()
 	
 	# Used to find out what scene to place in entity manager
-	entity_code = barrel_type
+	#entity_code = barrel_type
 	change_barrel_color(barrel_type)
+
 
 func change_barrel_color(barrel_id : String) -> void:
 	var atlas_texture : AtlasTexture = AtlasTexture.new()
 	atlas_texture.atlas = preload(SHEET_PATH)
 	atlas_texture.region = Rect2(
-						barrel_color_map[barrel_id] * BARREL_SIZE, 
+						barrel_color_map[barrel_id] * SPRITE_SIZE, 
 						0,
-						BARREL_SIZE,
-						BARREL_SIZE)
+						SPRITE_SIZE,
+						SPRITE_SIZE)
 
 	entity_code = barrel_id
 	barrel_sprite.texture = atlas_texture
-	
+
 
 func _on_interact() -> void:
 	if (ml <= 0):
@@ -100,7 +98,7 @@ func _on_interact() -> void:
 
 func to_dict() -> Dictionary:
 	var barrel_state : Dictionary = {
-		"barrel_id": entity_code,
+		"barrel_id": barrel_type,
 		"ml": ml
 	}
 	barrel_state.merge(super.to_dict())
