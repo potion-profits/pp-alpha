@@ -1,8 +1,8 @@
 extends Entity	#will help store placement and inventory information for persistence
 
 #the resource that will be used to make an inventory (shelf_inventory.tres)
-@export var inv_resource: Inv
-var shelf_inv: Inv
+#@export var inv_resource: Inv
+#var shelf_inv: Inv
 var player_inv: Inv
 
 #interactable entities will need an interactble scene as a child node 
@@ -21,11 +21,11 @@ func _ready()-> void:
 	entity_code = "shelf"
 	
 	# the shelf inventory will be treated as one array (player 0-4, shelf rest)
-	if !shelf_inv:
-		shelf_inv = Inv.new(17)
+	if !inv:
+		inv = Inv.new(17)
 	
 	#links inventories and respective ui
-	shelf_ui.inv = shelf_inv
+	shelf_ui.inv = inv
 	_debug_set_shelf_inv()
 	# visibility instead controlled by interaction and ui layer
 	shelf_ui.open()
@@ -44,53 +44,27 @@ func _on_interact()->void:
 			player.open_ui(true)
 			ui_layer.visible = true
 	
-func to_dict()-> Dictionary:
-	var dic_slots:String = "in dict"
-	var shelf_state:Dictionary = {
-		"dic_slots":dic_slots
-	}
-	shelf_state.merge(super.to_dict())
-	return shelf_state
+#func to_dict()-> Dictionary:
+	#var dic_slots:String = "in dict"
+	#var shelf_state:Dictionary = {
+		#"dic_slots":dic_slots
+	#}
+	#shelf_state.merge(super.to_dict())
+	#return shelf_state
 
-func from_dict(data:Dictionary)->void:
-	super.from_dict(data)
-	var dic_slots:float = data["dic_slots"]
-	print(dic_slots)
+#func from_dict(data:Dictionary)->void:
+	#super.from_dict(data)
+	#var dic_slots:float = data["dic_slots"]
+	#print(dic_slots)
 
 func _debug_set_shelf_inv()->void:
 	var bottle:InvItem = InvItem.new()
 	bottle.setup_item("empty_bottle", "item_empty_bottle", 16, false, false)
 	var red:InvItem = InvItem.new()
 	red.setup_item("red_potion","item_red_potion", 4, true, false)
-	shelf_inv.insert(bottle)
-	shelf_inv.insert(red)
-	shelf_inv.insert(red)
-	shelf_inv.insert(red)
-	shelf_inv.insert(red)
-	shelf_inv.insert(red)
-	shelf_inv.insert(red)
-	shelf_inv.insert(red)
-	shelf_inv.insert(red)
-	shelf_inv.insert(red)
-	shelf_inv.insert(red)
-	shelf_inv.insert(red)
-	shelf_inv.insert(red)
-	shelf_inv.insert(red)
-	shelf_inv.insert(red)
-	shelf_inv.insert(red)
-	shelf_inv.insert(red)
-	shelf_inv.insert(red)
-	shelf_inv.insert(red)
-	shelf_inv.insert(red)
-	shelf_inv.insert(red)
-	shelf_inv.insert(red)
-	shelf_inv.insert(red)
-	shelf_inv.insert(red)
-	shelf_inv.insert(red)
-	shelf_inv.insert(red)
-	shelf_inv.insert(red)
-	shelf_inv.insert(red)
-	shelf_inv.insert(red)
-	shelf_inv.insert(red)
-	shelf_inv.insert(red)
+	inv.insert(bottle)
+	for i in range(20):
+		inv.insert(red)
+
+	
 	
