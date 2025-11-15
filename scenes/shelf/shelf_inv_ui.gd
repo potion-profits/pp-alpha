@@ -1,8 +1,11 @@
 extends Control
 
 #gets all slots in inv_ui scene node's grid container
-@onready var slots: Array = $NinePatchRect/GridContainer.get_children()
+@onready var player_slots: Array = $NinePatchRect2/PlayerContainer.get_children()
+@onready var shelf_slots: Array = $NinePatchRect/ShelfContainer.get_children()
+@onready var slots: Array = player_slots + shelf_slots
 @onready var ItemStackUIClass : PackedScene = preload("res://scenes/inventory/inv_item_stack_ui.tscn")
+
 #dynamically sets inv which is set wherever a inventory is to be made
 #currently only gets set in player.gd but will later be used in chest, etc
 var inv: Inv:
@@ -46,6 +49,7 @@ func connect_slots()->void:
 func update_slots()->void:
 	if !inv:
 		return
+	slots = get_all_slots()
 	for i in range(min(inv.slots.size(),slots.size())): 
 		var invSlot: InvSlot = inv.slots[i]
 		if invSlot and invSlot.item:
@@ -101,6 +105,12 @@ func swap_items(slot:Button)->void:
 	item_on_cursor = tempItem
 	add_child(item_on_cursor)
 	update_cursor()
+
+func get_all_slots() -> Array:
+	var list: Array = []
+	list.append_array($NinePatchRect2/PlayerContainer.get_children())
+	list.append_array($NinePatchRect/ShelfContainer.get_children())
+	return list
 
 func stack_items(slot: Button)->void:
 	var slotItem: ItemStackUI = slot.item_stack

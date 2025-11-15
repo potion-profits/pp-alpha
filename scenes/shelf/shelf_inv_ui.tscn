@@ -1,0 +1,118 @@
+[gd_scene load_steps=5 format=3 uid="uid://ctxfqbqvqddom"]
+
+[ext_resource type="Script" uid="uid://o6rj7bb8ienx" path="res://scenes/shelf/shelf_inv_ui.gd" id="1_p7pu3"]
+[ext_resource type="Texture2D" uid="uid://cna3dlftjloo6" path="res://assets/interior/shop/shelfandpotion01.png" id="1_uanp5"]
+[ext_resource type="PackedScene" uid="uid://dr1o5wi8svtd5" path="res://scenes/shelf/shelf_inv_ui_slot.tscn" id="2_p7pu3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p7pu3"]
+atlas = ExtResource("1_uanp5")
+region = Rect2(2.3272324, 15.717583, 27.51812, 34.295364)
+
+[node name="Shelf_UI" type="Control"]
+custom_minimum_size = Vector2(106, 29)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 737.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+script = ExtResource("1_p7pu3")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.356
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1.5258789e-05
+offset_bottom = 1.5258789e-05
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_p7pu3")
+metadata/_edit_use_anchors_ = true
+
+[node name="ShelfContainer" type="GridContainer" parent="NinePatchRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -258.07397
+offset_top = -312.0
+offset_right = -154.07397
+offset_bottom = -172.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(5, 5)
+theme_override_constants/h_separation = 4
+theme_override_constants/v_separation = 4
+columns = 3
+
+[node name="shelf_ui_slot" parent="NinePatchRect/ShelfContainer" instance=ExtResource("2_p7pu3")]
+layout_mode = 2
+
+[node name="shelf_ui_slot2" parent="NinePatchRect/ShelfContainer" instance=ExtResource("2_p7pu3")]
+layout_mode = 2
+
+[node name="shelf_ui_slot3" parent="NinePatchRect/ShelfContainer" instance=ExtResource("2_p7pu3")]
+layout_mode = 2
+
+[node name="shelf_ui_slot4" parent="NinePatchRect/ShelfContainer" instance=ExtResource("2_p7pu3")]
+layout_mode = 2
+
+[node name="shelf_ui_slot5" parent="NinePatchRect/ShelfContainer" instance=ExtResource("2_p7pu3")]
+layout_mode = 2
+
+[node name="shelf_ui_slot6" parent="NinePatchRect/ShelfContainer" instance=ExtResource("2_p7pu3")]
+layout_mode = 2
+
+[node name="shelf_ui_slot7" parent="NinePatchRect/ShelfContainer" instance=ExtResource("2_p7pu3")]
+layout_mode = 2
+
+[node name="shelf_ui_slot8" parent="NinePatchRect/ShelfContainer" instance=ExtResource("2_p7pu3")]
+layout_mode = 2
+
+[node name="shelf_ui_slot9" parent="NinePatchRect/ShelfContainer" instance=ExtResource("2_p7pu3")]
+layout_mode = 2
+
+[node name="shelf_ui_slot10" parent="NinePatchRect/ShelfContainer" instance=ExtResource("2_p7pu3")]
+layout_mode = 2
+
+[node name="shelf_ui_slot11" parent="NinePatchRect/ShelfContainer" instance=ExtResource("2_p7pu3")]
+layout_mode = 2
+
+[node name="shelf_ui_slot12" parent="NinePatchRect/ShelfContainer" instance=ExtResource("2_p7pu3")]
+layout_mode = 2
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PlayerContainer" type="GridContainer" parent="NinePatchRect2"]
+layout_mode = 0
+offset_left = -581.0
+offset_top = 505.0
+offset_right = -405.0
+offset_bottom = 545.0
+scale = Vector2(4, 4)
+columns = 5
+
+[node name="shelf_ui_slot" parent="NinePatchRect2/PlayerContainer" instance=ExtResource("2_p7pu3")]
+layout_mode = 2
+
+[node name="shelf_ui_slot2" parent="NinePatchRect2/PlayerContainer" instance=ExtResource("2_p7pu3")]
+layout_mode = 2
+
+[node name="shelf_ui_slot3" parent="NinePatchRect2/PlayerContainer" instance=ExtResource("2_p7pu3")]
+layout_mode = 2
+
+[node name="shelf_ui_slot4" parent="NinePatchRect2/PlayerContainer" instance=ExtResource("2_p7pu3")]
+layout_mode = 2
+
+[node name="shelf_ui_slot5" parent="NinePatchRect2/PlayerContainer" instance=ExtResource("2_p7pu3")]
+layout_mode = 2

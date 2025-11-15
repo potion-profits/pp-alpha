@@ -15,6 +15,7 @@ var coins : int = 500 # replace value with db call once implemented
 var chips : int = 10 # replace value with db call once implemented
 var velocity : Vector2
 var is_dashing : bool = false
+var is_ui_open: bool = false # when a ui menu is open, restrict player movement
 
 @onready var animated_sprite : AnimatedSprite2D = $AnimatedSprite2D
 @onready var dash_cooldown: Timer = $DashCooldown
@@ -45,7 +46,7 @@ func _ready() -> void:
 	inv = inv_resource.duplicate(true) #makes mutable
 	inv_ui.inv = inv #links player inventory and respective ui
 	inv_ui.allow_hotkeys = true #allows 1-5 use for hotbar-like inv
-	#_debug_set_player_inv()
+	_debug_set_player_inv()
 
 #handles toggled and held inventory
 #esc when toggled will close ui not pause
@@ -85,8 +86,9 @@ func _input(event: InputEvent) -> void:
 			
 
 func _physics_process(delta : float)->void:
-	move(current_state, delta)
-	move_and_collide(velocity)
+	if(!is_ui_open):
+		move(current_state, delta)
+		move_and_collide(velocity)
 	
 func move(curr_state : movement_state, delta : float) -> void:
 	match curr_state:
@@ -187,6 +189,13 @@ func set_chips(chips_delta : int) -> int:
 #called to pick up an item and add to player inventory
 func collect(item: InvItem) -> bool:
 	return inv.insert(item)
+
+func get_inventory() -> Inv:
+	return inv
+	
+func open_ui(flag: bool) -> void:
+	print(flag)
+	is_ui_open = flag
 
 func interact_with_entity(entity: Entity)->void:
 	var selected_slot:InvSlot = inv.get_selected_slot()

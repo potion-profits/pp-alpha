@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://bkofhwxyu58pj"]
+
+[ext_resource type="Script" uid="uid://ba5ayqdfcnosy" path="res://scenes/elijah_levels/test_level_shelf.gd" id="1_bnfd0"]
+[ext_resource type="PackedScene" uid="uid://m4k8qbbqo7ha" path="res://scenes/shelf/shelf.tscn" id="1_ho2gf"]
+[ext_resource type="Script" uid="uid://v2b04jaxuakv" path="res://globals/entity_manager.gd" id="2_bnfd0"]
+[ext_resource type="PackedScene" uid="uid://b0flhrlw7t57t" path="res://scenes/player/player.tscn" id="2_piklt"]
+
+[node name="TestLevelShelf" type="Node2D"]
+script = ExtResource("1_bnfd0")
+
+[node name="Player" parent="." instance=ExtResource("2_piklt")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(10, 10)
+
+[node name="EntityManager" type="Node" parent="."]
+script = ExtResource("2_bnfd0")
+metadata/_custom_type_script = "uid://v2b04jaxuakv"
+
+[node name="shelf" parent="EntityManager" instance=ExtResource("1_ho2gf")]
+position = Vector2(48, -14)
