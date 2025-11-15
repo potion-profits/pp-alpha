@@ -191,7 +191,7 @@ Checks if the player has any empty slot
 """
 func has_empty_slot() -> bool:
 	for slot in inv.slots:
-		if (slot.item == null || slot.item.name == null):
+		if (slot.item == null || slot.item.texture_code == null):
 			return true
 	return false
 
@@ -209,13 +209,15 @@ func get_selected_slot() -> InvSlot:
 
 func remove_from_selected() -> void:
 	inv.remove_selected()
-	
+
+
 """
 Picks up an item and adds to inventory
 Can be used for collecting from entities
 """
 func collect(item: InvItem) -> bool:
 	return inv.insert(item)
+
 
 func interact_with_entity(entity: Entity)->void:
 	var selected_slot:InvSlot = inv.get_selected_slot()

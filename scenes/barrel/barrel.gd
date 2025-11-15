@@ -75,12 +75,13 @@ func _on_interact() -> void:
 		# Item in slot could be NULL (No item in the slot)
 		if (!selected_slot.item):
 			return
-	
-		if (selected_slot.item.name != "empty_bottle"):
+		
+		print(selected_slot.item.texture_code)
+		if (selected_slot.item.texture_code != "item_empty_bottle"):
 			return
 		
-		var new_bottle : InvItem = InvItem.new()
-		new_bottle.setup_item("red_potion", barrel_bottle_map[barrel_type], 4, true, false)
+		print("Have an empty bottle")
+		var new_bottle : InvItem = ItemRegistry.new_item(barrel_bottle_map[barrel_type]);
 		
 		if (selected_slot.amount > 1 && (player.has_empty_slot() || player.can_stack_item(new_bottle))):
 			player.remove_from_selected()

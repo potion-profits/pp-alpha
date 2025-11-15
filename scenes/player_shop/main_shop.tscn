@@ -521,7 +521,6 @@ size = Vector2(36, 20)
 size = Vector2(34, 21)
 
 [node name="MainShop" type="Node2D"]
-position = Vector2(8, -6)
 script = ExtResource("1_asv1s")
 
 [node name="TextureRect" type="TextureRect" parent="."]
