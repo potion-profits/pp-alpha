@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://v2b04jaxuakv" path="res://globals/entity_manager.gd" id="2_bnfd0"]
 [ext_resource type="PackedScene" uid="uid://b0flhrlw7t57t" path="res://scenes/player/player.tscn" id="2_piklt"]
 
-[node name="PickupPlay" type="Node2D"]
+[node name="TestLevelShelf" type="Node2D"]
 script = ExtResource("1_bnfd0")
 
 [node name="Player" parent="." instance=ExtResource("2_piklt")]

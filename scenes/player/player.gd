@@ -194,7 +194,6 @@ func get_inventory() -> Inv:
 	return inv
 	
 func open_ui(flag: bool) -> void:
-	print(flag)
 	is_ui_open = flag
 
 func interact_with_entity(entity: Entity)->void:

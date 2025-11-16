@@ -6,19 +6,11 @@ extends Control
 @onready var slots: Array = player_slots + shelf_slots
 @onready var ItemStackUIClass : PackedScene = preload("res://scenes/inventory/inv_item_stack_ui.tscn")
 
-#dynamically sets inv which is set wherever a inventory is to be made
-#currently only gets set in player.gd but will later be used in chest, etc
-var inv: Inv:
-	set(value):
-		#if signal connected, disconnect
-		if inv and inv.update.is_connected(update_slots):
-			inv.update.disconnect(update_slots)
-		inv = value #set to value
-		#otherwise connect signal and update the slot ui (render)
-		if inv:
-			inv.update.connect(update_slots)
-			update_slots()
-			connect_slots()
+var player_slot_count: int = 5
+var shelf_slot_count: int = 12
+
+var player_inv: Inv
+var shelf_inv: Inv
 
 #makes script applicable to player and other inventory (chests/shelves)
 var allow_hotkeys : bool = false
@@ -28,42 +20,97 @@ var inventory_toggle : bool = true # Setting for toggle vs hold inventory
 
 var item_on_cursor: ItemStackUI
 
+#var inv: Inv:
+	#set(value):
+		##if signal connected, disconnect
+		#if inv and inv.update.is_connected(update_slots):
+			#inv.update.disconnect(update_slots)
+		#inv = value #set to value
+		##otherwise connect signal and update the slot ui (render)
+		#if inv:
+			#inv.update.connect(update_slots)
+			#update_slots()
+			#connect_slots()
+
+#dynamically sets inv which is set wherever a inventory is to be made
+func set_inventories(_player_inv: Inv, _shelf_inv: Inv) -> void:
+	# if signal connected, disconnect
+	if player_inv and player_inv.update.is_connected(update_slots):
+		player_inv.update.disconnect(update_slots)
+	if shelf_inv and shelf_inv.update.is_connected(update_slots):
+		shelf_inv.update.disconnect(update_slots)
+
+	player_inv = _player_inv
+	shelf_inv = _shelf_inv
+	
+	# Connect new signals
+	if player_inv:
+		player_inv.update.connect(update_slots)
+	if shelf_inv:
+		shelf_inv.update.connect(update_slots)
+	if player_inv and shelf_inv:
+		update_slots()
+		connect_slots()
+
+	
+
 #start with ui closed and updated
 func _ready()->void:
 	close()
-	update_slots()
-	connect_slots()
+	#update_slots()
+	#connect_slots()
 
 func connect_slots()->void:
-	if !inv:
+	if !shelf_inv and !player_inv:
 		return
 	for i in range(slots.size()):
 		var slot:Button = slots[i]
-		slot.index = i
-		slot.inv = inv
+		
+		# Disconnect old signal to avoid duplicates
+		if slot.has_meta("callback"):
+			var old:Callable = slot.get_meta("callback")
+			if slot.pressed.is_connected(old):
+				slot.pressed.disconnect(old)
+		
+		if i < player_slot_count:
+			slot.index = i
+			slot.inv = player_inv
+		# rest must be shelf slots
+		else:
+			slot.index = i - player_slot_count
+			slot.inv = shelf_inv
 		var callable : Callable = Callable(on_slot_clicked)
 		callable = callable.bind(slot)
 		slot.pressed.connect(callable)
+		slot.set_meta("callback",callable)
 
-#update each slot in inv_ui with the info from the inv object (player_inv)
-func update_slots()->void:
-	if !inv:
+#update each slot in shelf_ui with the info from both inv objects (player_inv + shelf_inv)
+func update_slots() ->void:
+	if !player_inv or !shelf_inv:
 		return
+
 	slots = get_all_slots()
-	for i in range(min(inv.slots.size(),slots.size())): 
-		var invSlot: InvSlot = inv.slots[i]
-		if invSlot and invSlot.item:
-			var item_stack: ItemStackUI = slots[i].item_stack
-			if !item_stack:
-				item_stack = ItemStackUIClass.instantiate()
-				slots[i].insert(item_stack)
-			item_stack.invSlot = invSlot
-			item_stack.update_slot()
-		else:
-			if slots[i].item_stack:
-				slots[i].container.remove_child(slots[i].item_stack)
-				slots[i].item_stack.queue_free()
-				slots[i].item_stack = null
+
+	# Fill first player_slot_count from player inventory
+	for i in range(player_slot_count):
+		update_single_slot(slots[i], player_inv.slots[i])
+
+	# Fill the rest from shelf inventory
+	for i in range(shelf_inv.slots.size()):
+		update_single_slot(slots[player_slot_count + i], shelf_inv.slots[i])
+
+func update_single_slot(ui_slot: Button, inv_slot: InvSlot) -> void:
+	if inv_slot and inv_slot.item:
+		if !ui_slot.item_stack:
+			var stack:ItemStackUI = ItemStackUIClass.instantiate()
+			ui_slot.insert(stack)
+		ui_slot.item_stack.invSlot = inv_slot
+		ui_slot.item_stack.update_slot()
+	else:
+		if ui_slot.item_stack:
+			ui_slot.container.remove_child(ui_slot.item_stack)
+			ui_slot.item_stack.queue_free()
+			ui_slot.item_stack = null
 
 #show inventory
 func open() -> void:
@@ -75,8 +122,8 @@ func close() -> void:
 	visible = false
 	is_open = false
 
+# depending on slot index, place into player inventory or shelf inventory
 func on_slot_clicked(slot:Button) -> void:
-	
 	if slot.is_empty() and item_on_cursor:
 		insert_to_slot(slot)
 	elif !item_on_cursor:
@@ -106,6 +153,7 @@ func swap_items(slot:Button)->void:
 	add_child(item_on_cursor)
 	update_cursor()
 
+# to have slots 
 func get_all_slots() -> Array:
 	var list: Array = []
 	list.append_array($NinePatchRect2/PlayerContainer.get_children())
