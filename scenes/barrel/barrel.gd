@@ -54,7 +54,7 @@ func change_barrel_color(barrel_id : String) -> void:
 						SPRITE_SIZE,
 						SPRITE_SIZE)
 
-	entity_code = barrel_id
+	barrel_type = barrel_id
 	barrel_sprite.texture = atlas_texture
 
 
@@ -74,11 +74,9 @@ func _on_interact() -> void:
 		if (!selected_slot.item):
 			return
 		
-		print(selected_slot.item.texture_code)
 		if (selected_slot.item.texture_code != "item_empty_bottle"):
 			return
 		
-		print("Have an empty bottle")
 		var new_bottle : InvItem = ItemRegistry.new_item(barrel_bottle_map[barrel_type]);
 		
 		if (selected_slot.amount > 1 && (player.has_empty_slot() || player.can_stack_item(new_bottle))):
@@ -107,4 +105,6 @@ func to_dict() -> Dictionary:
 	
 func from_dict(data : Dictionary) -> void:
 	super.from_dict(data)
+	barrel_type = data["barrel_id"]
+	ml = data["ml"]
 	
