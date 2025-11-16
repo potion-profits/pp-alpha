@@ -68,7 +68,7 @@ func _on_mix_timer_timeout() -> void:
 	inv.slots[0].item.mixable = false
 	inv.slots[0].item.sellable = true
 	#held_item = null
-	print("Mixing finished for ", inv.slots[0].item.name)
+	print("Mixing finished for ", inv.slots[0].item.texture_code)
 	progress_bar.visible = false
 	progress_bar.value = 100
 	mix_timer.stop()
