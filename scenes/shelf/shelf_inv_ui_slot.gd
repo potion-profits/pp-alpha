@@ -37,5 +37,3 @@ func is_empty()->bool:
 	if item_stack:
 		return !item_stack.invSlot.item
 	return true
-
-# i dont remove when picking item?
