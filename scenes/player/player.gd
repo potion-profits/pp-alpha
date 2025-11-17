@@ -15,7 +15,7 @@ var coins : int = 500 # replace value with db call once implemented
 var chips : int = 10 # replace value with db call once implemented
 var velocity : Vector2
 var is_dashing : bool = false
-var is_ui_open: bool = false # when a ui menu is open, restrict player movement
+var other_ui_open: bool = false # when a ui menu is open, restrict player movement
 
 @onready var animated_sprite : AnimatedSprite2D = $AnimatedSprite2D
 @onready var dash_cooldown: Timer = $DashCooldown
@@ -86,7 +86,7 @@ func _input(event: InputEvent) -> void:
 			
 
 func _physics_process(delta : float)->void:
-	if(!is_ui_open):
+	if(!other_ui_open):
 		move(current_state, delta)
 		move_and_collide(velocity)
 	
@@ -193,8 +193,8 @@ func collect(item: InvItem) -> bool:
 func get_inventory() -> Inv:
 	return inv
 	
-func open_ui(flag: bool) -> void:
-	is_ui_open = flag
+func open_other_ui(flag: bool) -> void:
+	other_ui_open = flag
 
 func interact_with_entity(entity: Entity)->void:
 	var selected_slot:InvSlot = inv.get_selected_slot()

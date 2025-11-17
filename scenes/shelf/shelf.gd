@@ -29,7 +29,7 @@ func _ready()-> void:
 	#shelf_ui.inv = inv
 	_debug_set_shelf_inv()
 	# visibility instead controlled by interaction and ui layer
-	shelf_ui.open()
+	#shelf_ui.open()
 
 #Handles player interaction with shelf when appropriate
 func _on_interact()->void:
@@ -39,10 +39,10 @@ func _on_interact()->void:
 	#when ui open, ensure player can not move (or pause scene)
 	if player:
 		if ui_layer.visible:
-			player.open_ui(false)
+			player.open_other_ui(false)
 			ui_layer.visible = false
 		else:
-			player.open_ui(true)
+			player.open_other_ui(true)
 			ui_layer.visible = true
 			# Assign the player's inventory to the UI
 			shelf_ui.set_inventories(player_inv, inv)

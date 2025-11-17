@@ -56,9 +56,9 @@ func set_inventories(_player_inv: Inv, _shelf_inv: Inv) -> void:
 
 #start with ui closed and updated
 func _ready()->void:
-	close()
-	#update_slots()
-	#connect_slots()
+	#close()
+	update_slots()
+	connect_slots()
 
 func connect_slots()->void:
 	if !shelf_inv and !player_inv:
@@ -111,16 +111,6 @@ func update_single_slot(ui_slot: Button, inv_slot: InvSlot) -> void:
 			ui_slot.container.remove_child(ui_slot.item_stack)
 			ui_slot.item_stack.queue_free()
 			ui_slot.item_stack = null
-
-#show inventory
-func open() -> void:
-	visible = true
-	is_open = true
-	
-#hide inventory
-func close() -> void:
-	visible = false
-	is_open = false
 
 # depending on slot index, place into player inventory or shelf inventory
 func on_slot_clicked(slot:Button) -> void:

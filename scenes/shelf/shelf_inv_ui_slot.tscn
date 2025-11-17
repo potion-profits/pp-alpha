@@ -21,9 +21,3 @@ custom_minimum_size = Vector2(32, 32)
 layout_mode = 0
 offset_right = 32.0
 offset_bottom = 32.0
-
-[node name="select_border" type="NinePatchRect" parent="."]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 0
-offset_right = 17.0
-offset_bottom = 17.0
