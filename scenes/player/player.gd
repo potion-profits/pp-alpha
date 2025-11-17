@@ -82,15 +82,12 @@ func _input(event: InputEvent) -> void:
 				#deselect current slot
 				else:
 					inv.selected_index = -1
-			
 
 func _physics_process(delta : float)->void:
 	if(!other_ui_open):
 		move(current_state, delta)
-		move_and_collide(velocity)
-	move(current_state, delta)
-	move_and_slide()
-	
+		move_and_slide()
+
 func move(curr_state : movement_state, delta : float) -> void:
 	match curr_state:
 		movement_state.IDLE:

@@ -39,7 +39,6 @@ func _on_interact()->void:
 			shelf_ui.set_inventories(player_inv, inv)
 
 func _debug_set_shelf_inv()->void:
-	var green:InvItem = InvItem.new()
-	green.setup_item("green_potion","item_green_potion", 4, true, false)
+	var green:InvItem = ItemRegistry.new_item("item_green_potion")
 	for i in range(5):
 		inv.insert(green)
