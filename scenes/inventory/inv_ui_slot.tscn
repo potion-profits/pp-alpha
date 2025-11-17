@@ -8,7 +8,7 @@
 atlas = ExtResource("3_j45t4")
 region = Rect2(64, 0, 48, 48)
 
-[node name="inv_ui_slot" type="Button" groups=["droppable"]]
+[node name="inv_ui_slot" type="Button"]
 self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(16, 16)
 offset_right = 16.0

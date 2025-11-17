@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://rpyytl6b8rlw" path="res://scenes/shelf/shelf_inv_ui_slot.gd" id="1_leigh"]
 [ext_resource type="Texture2D" uid="uid://c8k4mt42i846i" path="res://assets/inventory/inv_slot.tres" id="2_tveic"]
 
-[node name="player_ui_slot" type="Button" groups=["droppable"]]
+[node name="player_ui_slot" type="Button"]
 self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(32, 32)
 offset_right = 16.0

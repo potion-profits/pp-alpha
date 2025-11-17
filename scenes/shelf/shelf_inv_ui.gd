@@ -3,11 +3,11 @@ extends Control
 #gets all slots in inv_ui scene node's grid container
 @onready var player_slots: Array = $NinePatchRect2/PlayerContainer.get_children()
 @onready var shelf_slots: Array = $NinePatchRect/ShelfContainer.get_children()
-@onready var slots: Array = player_slots + shelf_slots
 @onready var ItemStackUIClass : PackedScene = preload("res://scenes/inventory/inv_item_stack_ui.tscn")
 
 var player_slot_count: int = 5
 var shelf_slot_count: int = 12
+var slots: Array = player_slots + shelf_slots
 
 var player_inv: Inv
 var shelf_inv: Inv
@@ -19,18 +19,6 @@ var is_open : bool = false
 var inventory_toggle : bool = true # Setting for toggle vs hold inventory
 
 var item_on_cursor: ItemStackUI
-
-#var inv: Inv:
-	#set(value):
-		##if signal connected, disconnect
-		#if inv and inv.update.is_connected(update_slots):
-			#inv.update.disconnect(update_slots)
-		#inv = value #set to value
-		##otherwise connect signal and update the slot ui (render)
-		#if inv:
-			#inv.update.connect(update_slots)
-			#update_slots()
-			#connect_slots()
 
 #dynamically sets inv which is set wherever a inventory is to be made
 func set_inventories(_player_inv: Inv, _shelf_inv: Inv) -> void:
@@ -52,11 +40,8 @@ func set_inventories(_player_inv: Inv, _shelf_inv: Inv) -> void:
 		update_slots()
 		connect_slots()
 
-	
-
-#start with ui closed and updated
+#start with ui updated
 func _ready()->void:
-	#close()
 	update_slots()
 	connect_slots()
 
@@ -88,13 +73,10 @@ func connect_slots()->void:
 func update_slots() ->void:
 	if !player_inv or !shelf_inv:
 		return
-
 	slots = get_all_slots()
-
 	# Fill first player_slot_count from player inventory
 	for i in range(player_slot_count):
 		update_single_slot(slots[i], player_inv.slots[i])
-
 	# Fill the rest from shelf inventory
 	for i in range(shelf_inv.slots.size()):
 		update_single_slot(slots[player_slot_count + i], shelf_inv.slots[i])
@@ -143,7 +125,7 @@ func swap_items(slot:Button)->void:
 	add_child(item_on_cursor)
 	update_cursor()
 
-# to have slots 
+# to have all slots connected, treated as one big array
 func get_all_slots() -> Array:
 	var list: Array = []
 	list.append_array($NinePatchRect2/PlayerContainer.get_children())

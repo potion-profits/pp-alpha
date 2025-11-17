@@ -36,7 +36,6 @@ window/size/resizable=false
 [global_group]
 
 savable="all things that will be saved & loaded"
-droppable="UI slots that items can drop in"
 
 [input]
 

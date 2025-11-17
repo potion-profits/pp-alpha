@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://rpyytl6b8rlw" path="res://scenes/shelf/shelf_inv_ui_slot.gd" id="1_ug4n0"]
 
-[node name="shelf_ui_slot" type="Button" groups=["droppable"]]
+[node name="shelf_ui_slot" type="Button"]
 self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(32, 32)
 offset_right = 16.0

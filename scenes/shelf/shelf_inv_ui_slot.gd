@@ -8,8 +8,6 @@ var item_stack: ItemStackUI
 var index: int
 var inv: Inv
 
-#func _ready() -> void:
-
 func insert(i_stack: ItemStackUI) -> void:
 	item_stack = i_stack
 	container.add_child(item_stack)
