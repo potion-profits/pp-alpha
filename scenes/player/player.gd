@@ -1,4 +1,4 @@
-extends PhysicsBody2D
+extends CharacterBody2D
 
 class_name Player
 #the resource that will be used to make an inventory (player_inventory.tres)
@@ -12,7 +12,6 @@ const MAX_COINS = pow(2, 62)
 
 var coins : int = 500 # replace value with db call once implemented
 var chips : int = 10 # replace value with db call once implemented
-var velocity : Vector2
 var is_dashing : bool = false
 var other_ui_open: bool = false # when a ui menu is open, restrict player movement
 
@@ -89,6 +88,8 @@ func _physics_process(delta : float)->void:
 	if(!other_ui_open):
 		move(current_state, delta)
 		move_and_collide(velocity)
+	move(current_state, delta)
+	move_and_slide()
 	
 func move(curr_state : movement_state, delta : float) -> void:
 	match curr_state:
@@ -102,7 +103,7 @@ func move(curr_state : movement_state, delta : float) -> void:
 			animated_sprite.speed_scale = DASH_MULT
 
 # Updated function for 8 directional movement
-func get_movement_input(delta : float) -> void:
+func get_movement_input(_delta : float) -> void:
 	velocity = Vector2.ZERO
 	
 	var x_dir : float = Input.get_axis("move_left", "move_right")
@@ -110,7 +111,7 @@ func get_movement_input(delta : float) -> void:
 	velocity = Vector2(x_dir, y_dir)
 	
 	if velocity != Vector2.ZERO:
-		velocity = velocity.normalized() * SPEED * delta
+		velocity = velocity.normalized() * SPEED
 		
 		# Determine direction name for animation
 		# Appends direction based on directional input
@@ -218,10 +219,8 @@ func from_dict(data:Dictionary)->void:
 	
 
 func _debug_set_player_inv()->void:
-	var bottle:InvItem = InvItem.new()
-	bottle.setup_item("empty_bottle", "item_empty_bottle", 16, false, false)
-	var red:InvItem = InvItem.new()
-	red.setup_item("red_potion","item_red_potion", 4, true, false)
+	var bottle:InvItem = ItemRegistry.new_item("item_empty_bottle");
+	var red:InvItem = ItemRegistry.new_item("item_red_potion");
 	inv.insert(bottle)
 	inv.insert(red)
 	inv.insert(red)
