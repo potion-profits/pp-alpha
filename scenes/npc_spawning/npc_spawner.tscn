@@ -9,6 +9,4 @@ script = ExtResource("1_dje21")
 wait_time = 5.0
 autostart = true
 
-[node name="Camera2D" type="Camera2D" parent="."]
-
 [connection signal="timeout" from="NPCRespawnTimer" to="." method="_on_npc_respawn_timer_timeout"]
