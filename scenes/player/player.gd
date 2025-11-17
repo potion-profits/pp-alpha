@@ -2,7 +2,6 @@ extends PhysicsBody2D
 
 class_name Player
 #the resource that will be used to make an inventory (player_inventory.tres)
-@export var inv_resource: Inv
 var inv: Inv
 
 const SPEED = 150
@@ -43,7 +42,8 @@ var last_dir := "down"
 #sets up player inventory on each run
 func _ready() -> void:
 	add_to_group("player")
-	inv = inv_resource.duplicate(true) #makes mutable
+	if !inv:
+		inv = Inv.new(5)
 	inv_ui.inv = inv #links player inventory and respective ui
 	inv_ui.allow_hotkeys = true #allows 1-5 use for hotbar-like inv
 	_debug_set_player_inv()
