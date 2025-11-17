@@ -11,7 +11,6 @@ size = Vector2(15.9992895, 13.999377)
 radius = 13.601471
 
 [node name="Crate" type="StaticBody2D"]
-y_sort_enabled = true
 script = ExtResource("1_3v208")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -29,7 +28,6 @@ scale = Vector2(0.9999997, 0.9999997)
 shape = SubResource("RectangleShape2D_ssudb")
 
 [node name="Interactable" parent="." instance=ExtResource("5_rym3a")]
-interact_name = "Use Cauldron"
 
 [node name="InteractableShape" type="CollisionShape2D" parent="Interactable"]
 position = Vector2(0, 3)
