@@ -50,13 +50,11 @@ func connect_slots()->void:
 		return
 	for i in range(slots.size()):
 		var slot:Button = slots[i]
-		
-		# Disconnect old signal to avoid duplicates
+		# disconnect old signal to avoid duplicates
 		if slot.has_meta("callback"):
 			var old:Callable = slot.get_meta("callback")
 			if slot.pressed.is_connected(old):
 				slot.pressed.disconnect(old)
-		
 		if i < player_slot_count:
 			slot.index = i
 			slot.inv = player_inv

@@ -2,8 +2,6 @@ extends Button
 
 @onready var container: CenterContainer = $CenterContainer
 
-#keeps track if its currently selected, should only ever be 1 slot
-var selected:bool = false;
 var item_stack: ItemStackUI
 var index: int
 var inv: Inv
@@ -15,13 +13,6 @@ func insert(i_stack: ItemStackUI) -> void:
 	if !item_stack.invSlot or inv.slots[index] == item_stack.invSlot:
 		return
 	inv.insert_on_cursor(index, i_stack.invSlot)
-
-#increases the size of the texture in the slot
-func select() -> void:
-	selected = true
-
-func deselect()->void:
-	selected = false
 
 func pick_item()->ItemStackUI:
 	var item:ItemStackUI = item_stack

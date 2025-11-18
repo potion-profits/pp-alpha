@@ -72,7 +72,6 @@ func close() -> void:
 	is_open = false
 
 func on_slot_clicked(slot:Button) -> void:
-	
 	if slot.is_empty() and item_on_cursor:
 		insert_to_slot(slot)
 	elif !item_on_cursor:
