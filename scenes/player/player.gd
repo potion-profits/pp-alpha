@@ -217,9 +217,7 @@ func remove_from_selected() -> void:
 func collect(item: InvItem) -> bool:
 	return inv.insert(item)
 
-func get_inventory() -> Inv:
-	return inv
-	
+## When player blocking UI menu is open
 func open_other_ui(flag: bool) -> void:
 	if inv_ui.is_open:
 		inv_ui.close()
