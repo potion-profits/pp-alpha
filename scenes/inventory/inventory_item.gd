@@ -19,6 +19,7 @@ func _init()->void:
 
 func setup_item(item_code: String, stack_size:int, can_mix:bool, can_sell:bool)->void:
 	texture_code = item_code
+	print(texture_code)
 	texture = ItemRegistry.get_icon(item_code)
 	max_stack_size = stack_size
 	mixable = can_mix
