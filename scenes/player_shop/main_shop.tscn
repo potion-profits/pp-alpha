@@ -1,6 +1,6 @@
 [gd_scene load_steps=18 format=4 uid="uid://dqjsd25qefwd8"]
 
-[ext_resource type="Script" uid="uid://bs6mohet7ju1d" path="res://scenes/player_shop/main_shop.gd" id="1_asv1s"]
+[ext_resource type="Script" uid="uid://v2b04jaxuakv" path="res://globals/entity_manager.gd" id="1_bg63s"]
 [ext_resource type="Texture2D" uid="uid://4c4v2xp0o710" path="res://assets/interior/shop/inshop01.png" id="1_or7af"]
 [ext_resource type="Texture2D" uid="uid://cq4mo6l3w2oka" path="res://assets/interior/shop/background.png" id="2_4xnb3"]
 [ext_resource type="PackedScene" uid="uid://b0flhrlw7t57t" path="res://scenes/player/player.tscn" id="2_asv1s"]
@@ -522,7 +522,7 @@ size = Vector2(36, 20)
 size = Vector2(34, 21)
 
 [node name="MainShop" type="Node2D"]
-script = ExtResource("1_asv1s")
+script = ExtResource("1_bg63s")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 offset_left = -229.0

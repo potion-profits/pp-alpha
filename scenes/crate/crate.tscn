@@ -27,14 +27,12 @@ region_enabled = true
 region_rect = Rect2(17, 16, 14, 16)
 
 [node name="Collision" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(-0.07624439, 2.934549)
 rotation = -1.571365
 scale = Vector2(0.9999997, 0.9999997)
 shape = SubResource("RectangleShape2D_ssudb")
 
 [node name="Interactable" parent="." instance=ExtResource("5_rym3a")]
-visible = false
 
 [node name="InteractableShape" type="CollisionShape2D" parent="Interactable"]
 position = Vector2(0, 3)
