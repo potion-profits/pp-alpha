@@ -70,14 +70,14 @@ func save_scene_runtime_state(scene_name:String) -> void:
 				runtime_entities[scene_name].append(entity.to_dict())
 				print("saved: ",entity.to_dict())
 	print("after save: ",runtime_entities,"\n\n")
-	var player_node:Node = get_tree().current_scene.get_node("Player")
+	var player_node: Node = get_tree().current_scene.find_child("Player", true, false)
 	if player_node:
 		player_data = player_node.to_dict()
 		print("player snapshot captured: ",player_data)
 	
 
 func load_scene_runtime_state()->void:
-	var player_node:Node = get_tree().current_scene.get_node("Player")
+	var player_node: Node = get_tree().current_scene.find_child("Player", true, false)
 	if player_node and player_data:
 		player_node.from_dict(player_data)
 	var scene_name:String = get_tree().current_scene.name
