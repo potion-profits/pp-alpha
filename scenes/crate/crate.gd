@@ -35,15 +35,6 @@ func _on_interact()->void:
 					inv.slots[0].item = null # make item null if no more items to be picked up
 					update_crate()
 
-
-#Prompts cauldron to take an item. If success, start mixing. Else, return false
-func receive_item(item:InvItem)->bool:
-	if not inv.slots[0].item and item:
-		inv.slots[0].item = item._duplicate()
-		inv.slots[0].amount  += 1
-		return true
-	return false
-
 func update_crate()->void:
 	if inv.slots[0].item:
 		full_crate.visible = true
