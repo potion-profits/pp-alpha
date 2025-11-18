@@ -5,6 +5,8 @@ extends Entity	#will help store placement and inventory information for persiste
 @onready var full_crate: Sprite2D = $full_crate
 @onready var empty_crate: Sprite2D = $empty_crate
 
+# default vars
+var crate_inv_amt : int = 64
 
 func _ready()-> void:
 	#links interactable template to cauldron specific method (needed for all interactables)
@@ -18,7 +20,7 @@ func _ready()-> void:
 	
 	var bottle: InvItem = ItemRegistry.new_item("item_empty_bottle")
 	inv.slots[0].item = bottle
-	inv.slots[0].amount = 64 # initial amt for crate
+	inv.slots[0].amount = crate_inv_amt # initial amt for crate
 	update_crate()
 
 #Handles player interaction with cauldron when appropriate
@@ -56,6 +58,4 @@ func to_dict()-> Dictionary:
 func from_dict(data:Dictionary)->void:
 	super.from_dict(data)
 	if data.has("bottles") and data["bottles"] > 0:
-		var bottle: InvItem = ItemRegistry.new_item("item_empty_bottle")
-		inv.slots[0].item = bottle
-		inv.slots[0].amount = data["bottles"]
+		crate_inv_amt = data["bottles"]
