@@ -1,6 +1,6 @@
-[gd_scene load_steps=18 format=4 uid="uid://dqjsd25qefwd8"]
+[gd_scene load_steps=19 format=4 uid="uid://dqjsd25qefwd8"]
 
-[ext_resource type="Script" uid="uid://v2b04jaxuakv" path="res://globals/entity_manager.gd" id="1_bg63s"]
+[ext_resource type="Script" uid="uid://bs6mohet7ju1d" path="res://scenes/player_shop/main_shop.gd" id="1_bg63s"]
 [ext_resource type="Texture2D" uid="uid://4c4v2xp0o710" path="res://assets/interior/shop/inshop01.png" id="1_or7af"]
 [ext_resource type="Texture2D" uid="uid://cq4mo6l3w2oka" path="res://assets/interior/shop/background.png" id="2_4xnb3"]
 [ext_resource type="PackedScene" uid="uid://b0flhrlw7t57t" path="res://scenes/player/player.tscn" id="2_asv1s"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://b6sxxon0bv8sh" path="res://assets/interior/shop/counter_all01.png" id="5_s7qt3"]
 [ext_resource type="PackedScene" uid="uid://c0nam2jyacktb" path="res://scenes/cauldron/cauldron.tscn" id="6_8eiuf"]
 [ext_resource type="PackedScene" uid="uid://c13ewv50qvs46" path="res://scenes/crate/crate.tscn" id="8_bg63s"]
+[ext_resource type="Script" uid="uid://v2b04jaxuakv" path="res://globals/entity_manager.gd" id="9_5nl5b"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6w02k"]
 texture = ExtResource("1_or7af")
@@ -596,6 +597,9 @@ scale = Vector2(1.2, 1.2)
 [node name="Crate2" parent="Objects" instance=ExtResource("8_bg63s")]
 position = Vector2(121.00001, -85)
 scale = Vector2(1.2, 1.2)
+
+[node name="EntityManager" type="Node2D" parent="."]
+script = ExtResource("9_5nl5b")
 
 [connection signal="body_entered" from="MoveTownDetection" to="." method="_on_move_town_detection_body_entered"]
 [connection signal="body_entered" from="MoveStorageRoomDetection" to="." method="_on_move_storage_room_detection_body_entered"]
