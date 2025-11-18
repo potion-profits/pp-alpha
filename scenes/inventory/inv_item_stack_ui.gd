@@ -28,4 +28,4 @@ func update_slot()->void:
 		if invSlot.item:
 			sellable_label.visible = invSlot.item.sellable
 			mixable_label.visible = invSlot.item.mixable
-			mixable_label.self_modulate.a = 0.4
+			mixable_label.self_modulate.a = 0.4 # changes opacity

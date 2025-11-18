@@ -24,7 +24,6 @@ region_enabled = true
 region_rect = Rect2(3, 5, 10, 9)
 
 [node name="sellable_icon" type="Sprite2D" parent="."]
-visible = false
 position = Vector2(-2.4526196, -0.10715915)
 rotation = 0.7897316
 scale = Vector2(0.4, 0.411)
@@ -41,33 +40,4 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
 text = "10"
-horizontal_alignment = 2
-
-[node name="sellable_label" type="Label" parent="."]
-visible = false
-custom_minimum_size = Vector2(39, 23)
-layout_mode = 0
-offset_left = -5.0
-offset_top = -6.0
-offset_right = 34.0
-offset_bottom = 17.0
-scale = Vector2(0.25, 0.25)
-theme_override_colors/font_color = Color(0, 0.559213, 0.20706883, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 5
-text = "$"
-
-[node name="mixable_label" type="Label" parent="."]
-visible = false
-custom_minimum_size = Vector2(39, 23)
-layout_mode = 0
-offset_left = -5.0
-offset_top = -6.0
-offset_right = 34.0
-offset_bottom = 17.0
-scale = Vector2(0.25, 0.25)
-theme_override_colors/font_color = Color(0.54781044, 0.25134587, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 5
-text = "M"
 horizontal_alignment = 2
