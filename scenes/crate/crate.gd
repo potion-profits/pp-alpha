@@ -15,9 +15,8 @@ func _ready()-> void:
 	entity_code = "crate"
 	if !inv:
 		inv = Inv.new(1)
-		
-	var bottle: InvItem = InvItem.new()
-	bottle.setup_item("item_empty_bottle", 16, false, false)
+	
+	var bottle: InvItem = ItemRegistry.new_item("item_empty_bottle")
 	inv.slots[0].item = bottle
 	inv.slots[0].amount = 64 # initial amt for crate
 	update_crate()
@@ -57,7 +56,6 @@ func to_dict()-> Dictionary:
 func from_dict(data:Dictionary)->void:
 	super.from_dict(data)
 	if data.has("bottles") and data["bottles"] > 0:
-		var bottle: InvItem = InvItem.new()
-		bottle.setup_item("item_empty_bottle", 16, false, false)
+		var bottle: InvItem = ItemRegistry.new_item("item_empty_bottle")
 		inv.slots[0].item = bottle
 		inv.slots[0].amount = data["bottles"]
