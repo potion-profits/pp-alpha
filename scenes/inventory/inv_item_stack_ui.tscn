@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dsamn1i45n76e"]
 
-[ext_resource type="Script" uid="uid://bkr4bdjndntiq" path="res://scenes/inventory/inv_item_stack_ui.gd" id="1_elslr"]
+[ext_resource type="Script" path="res://scenes/inventory/inv_item_stack_ui.gd" id="1_elslr"]
 [ext_resource type="Texture2D" uid="uid://bhcvc4h6d2okx" path="res://assets/interior/shop/all_bottles01.png" id="2_x88bl"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ay0tq"]
