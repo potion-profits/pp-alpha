@@ -38,9 +38,12 @@ func setup_grid() -> void:
 	# TO-DO: set cells that contain shelves as unwalkable
 	for cell in counters.get_used_cells():
 		var target : Vector2i = cell - Vector2i(astar.offset)
-		print(target)
 		astar.set_point_solid(target, true)
 	
 	print(counters.get_used_cells(), "\n", astar.get_id_path(shelves[-1] - Vector2i(astar.offset), checkout - Vector2i(astar.offset)))
 
-# create functions for determining path and checking if moves are valid
+func tile_to_id(tile_cell: Vector2i) -> Vector2i:
+	return tile_cell - Vector2i(astar.offset)
+
+func id_to_tile(id_cell: Vector2i) -> Vector2i:
+	return id_cell + Vector2i(astar.offset)
