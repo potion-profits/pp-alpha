@@ -5,8 +5,8 @@
 [node name="shelf_ui_slot" type="Button"]
 self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(32, 32)
-offset_right = 16.0
-offset_bottom = 16.0
+offset_right = 32.0
+offset_bottom = 32.0
 script = ExtResource("1_ug4n0")
 
 [node name="ColorRect" type="ColorRect" parent="."]

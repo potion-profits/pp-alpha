@@ -1,9 +1,10 @@
 extends Control
 
 #gets all slots in inv_ui scene node's grid container
-@onready var player_slots: Array = $NinePatchRect2/PlayerContainer.get_children()
+@onready var player_slots: Array = $NinePatchRect2/ShelfPlayerContainer.get_children()
 @onready var shelf_slots: Array = $NinePatchRect/ShelfContainer.get_children()
 @onready var ItemStackUIClass : PackedScene = preload("res://scenes/inventory/inv_item_stack_ui.tscn")
+@onready var ui_layer: CanvasLayer = get_parent()
 
 var player_slot_count: int = 5
 var shelf_slot_count: int = 12
@@ -126,7 +127,7 @@ func swap_items(slot:Button)->void:
 # to have all slots connected, treated as one big array
 func get_all_slots() -> Array:
 	var list: Array = []
-	list.append_array($NinePatchRect2/PlayerContainer.get_children())
+	list.append_array($NinePatchRect2/ShelfPlayerContainer.get_children())
 	list.append_array($NinePatchRect/ShelfContainer.get_children())
 	return list
 
@@ -150,6 +151,10 @@ func stack_items(slot: Button)->void:
 func update_cursor()->void:
 	if item_on_cursor:
 		item_on_cursor.global_position = get_global_mouse_position() - item_on_cursor.size/2
+	# if shelf ui gets closed while item on cursor, remove item stack ui on cursor
+	if item_on_cursor and !ui_layer.visible:
+		item_on_cursor.queue_free()
+		item_on_cursor = null
 
 func _input(_event:InputEvent)->void:
 	update_cursor()

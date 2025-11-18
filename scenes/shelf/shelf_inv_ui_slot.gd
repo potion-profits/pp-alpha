@@ -19,7 +19,6 @@ func pick_item()->ItemStackUI:
 	if item_stack and item_stack.invSlot and item_stack.invSlot.item:
 		container.remove_child(item)
 		item_stack = null
-	
 	return item
 
 func is_empty()->bool:

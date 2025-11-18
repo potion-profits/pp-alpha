@@ -107,7 +107,7 @@ patch_margin_right = 3
 patch_margin_bottom = 3
 metadata/_edit_use_anchors_ = true
 
-[node name="PlayerContainer" type="GridContainer" parent="NinePatchRect2"]
+[node name="ShelfPlayerContainer" type="GridContainer" parent="NinePatchRect2"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.037252966
@@ -123,17 +123,17 @@ grow_vertical = 2
 columns = 5
 metadata/_edit_use_anchors_ = true
 
-[node name="player_ui_slot" parent="NinePatchRect2/PlayerContainer" instance=ExtResource("5_d42io")]
+[node name="player_ui_slot" parent="NinePatchRect2/ShelfPlayerContainer" instance=ExtResource("5_d42io")]
 layout_mode = 2
 
-[node name="player_ui_slot2" parent="NinePatchRect2/PlayerContainer" instance=ExtResource("5_d42io")]
+[node name="player_ui_slot2" parent="NinePatchRect2/ShelfPlayerContainer" instance=ExtResource("5_d42io")]
 layout_mode = 2
 
-[node name="player_ui_slot3" parent="NinePatchRect2/PlayerContainer" instance=ExtResource("5_d42io")]
+[node name="player_ui_slot3" parent="NinePatchRect2/ShelfPlayerContainer" instance=ExtResource("5_d42io")]
 layout_mode = 2
 
-[node name="player_ui_slot4" parent="NinePatchRect2/PlayerContainer" instance=ExtResource("5_d42io")]
+[node name="player_ui_slot4" parent="NinePatchRect2/ShelfPlayerContainer" instance=ExtResource("5_d42io")]
 layout_mode = 2
 
-[node name="player_ui_slot5" parent="NinePatchRect2/PlayerContainer" instance=ExtResource("5_d42io")]
+[node name="player_ui_slot5" parent="NinePatchRect2/ShelfPlayerContainer" instance=ExtResource("5_d42io")]
 layout_mode = 2
