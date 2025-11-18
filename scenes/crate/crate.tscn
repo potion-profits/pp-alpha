@@ -13,9 +13,15 @@ radius = 13.601471
 [node name="Crate" type="StaticBody2D"]
 script = ExtResource("1_3v208")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="full_crate" type="Sprite2D" parent="."]
 position = Vector2(0, 2.9999998)
 scale = Vector2(0.9999998, 0.9999998)
+texture = ExtResource("2_3v208")
+region_enabled = true
+region_rect = Rect2(49, 16, 14, 16)
+
+[node name="empty_crate" type="Sprite2D" parent="."]
+position = Vector2(0, 3)
 texture = ExtResource("2_3v208")
 region_enabled = true
 region_rect = Rect2(17, 16, 14, 16)
@@ -28,6 +34,7 @@ scale = Vector2(0.9999997, 0.9999997)
 shape = SubResource("RectangleShape2D_ssudb")
 
 [node name="Interactable" parent="." instance=ExtResource("5_rym3a")]
+visible = false
 
 [node name="InteractableShape" type="CollisionShape2D" parent="Interactable"]
 position = Vector2(0, 3)

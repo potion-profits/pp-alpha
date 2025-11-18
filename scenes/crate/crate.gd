@@ -2,6 +2,9 @@ extends Entity	#will help store placement and inventory information for persiste
 
 #interactable entities will need an interactble scene as a child node 
 @onready var interactable: Area2D = $Interactable
+@onready var full_crate: Sprite2D = $full_crate
+@onready var empty_crate: Sprite2D = $empty_crate
+
 
 func _ready()-> void:
 	#links interactable template to cauldron specific method (needed for all interactables)
@@ -16,7 +19,8 @@ func _ready()-> void:
 	var bottle: InvItem = InvItem.new()
 	bottle.setup_item("item_empty_bottle", 16, false, false)
 	inv.slots[0].item = bottle
-	inv.slots[0].amount = 64
+	inv.slots[0].amount = 64 # initial amt for crate
+	update_crate()
 
 #Handles player interaction with cauldron when appropriate
 func _on_interact()->void:
@@ -29,7 +33,7 @@ func _on_interact()->void:
 				inv.slots[0].amount-=1	#the player collected, so remove item from crate
 				if inv.slots[0].amount <= 0:
 					inv.slots[0].item = null # make item null if no more items to be picked up
-
+					update_crate()
 
 
 #Prompts cauldron to take an item. If success, start mixing. Else, return false
@@ -40,6 +44,13 @@ func receive_item(item:InvItem)->bool:
 		return true
 	return false
 
+func update_crate()->void:
+	if inv.slots[0].item:
+		full_crate.visible = true
+		empty_crate.visible = false
+	else:
+		full_crate.visible = false
+		empty_crate.visible = true
 
 	
 func _process(_delta: float) -> void:
