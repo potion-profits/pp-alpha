@@ -22,7 +22,6 @@ func _ready() -> void:
 				shelves.append(cell)
 			"Checkout":
 				checkout = cell
-	print(spawn, " = Spawn cell\n",shelves, " = Shelf cells\n", checkout, " = Checkout cell")
 	setup_grid()
 
 # update astar properties from tilemap
@@ -39,8 +38,6 @@ func setup_grid() -> void:
 	for cell in counters.get_used_cells():
 		var target : Vector2i = cell - Vector2i(astar.offset)
 		astar.set_point_solid(target, true)
-	
-	print(counters.get_used_cells(), "\n", astar.get_id_path(shelves[-1] - Vector2i(astar.offset), checkout - Vector2i(astar.offset)))
 
 func tile_to_id(tile_cell: Vector2i) -> Vector2i:
 	return tile_cell - Vector2i(astar.offset)

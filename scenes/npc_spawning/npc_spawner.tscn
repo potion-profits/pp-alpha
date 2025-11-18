@@ -6,7 +6,5 @@
 script = ExtResource("1_dje21")
 
 [node name="NPCRespawnTimer" type="Timer" parent="."]
-wait_time = 5.0
-autostart = true
 
 [connection signal="timeout" from="NPCRespawnTimer" to="." method="_on_npc_respawn_timer_timeout"]
