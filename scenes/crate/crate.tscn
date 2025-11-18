@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://c13ewv50qvs46"]
+
+[ext_resource type="Script" uid="uid://oecv8cuk1rju" path="res://scenes/crate/crate.gd" id="1_3v208"]
+[ext_resource type="Texture2D" uid="uid://cx6xf4hpuaq4i" path="res://assets/interior/shop/crates01.png" id="2_3v208"]
+[ext_resource type="PackedScene" uid="uid://fi1qxearbah2" path="res://scenes/interactions/interactable.tscn" id="5_rym3a"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ssudb"]
+size = Vector2(15.9992895, 13.999377)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_37q77"]
+radius = 13.601471
+
+[node name="Crate" type="StaticBody2D"]
+script = ExtResource("1_3v208")
+
+[node name="full_crate" type="Sprite2D" parent="."]
+position = Vector2(0, 2.9999998)
+scale = Vector2(0.9999998, 0.9999998)
+texture = ExtResource("2_3v208")
+region_enabled = true
+region_rect = Rect2(49, 16, 14, 16)
+
+[node name="empty_crate" type="Sprite2D" parent="."]
+position = Vector2(0, 3)
+texture = ExtResource("2_3v208")
+region_enabled = true
+region_rect = Rect2(17, 16, 14, 16)
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(-0.07624439, 2.934549)
+rotation = -1.571365
+scale = Vector2(0.9999997, 0.9999997)
+shape = SubResource("RectangleShape2D_ssudb")
+
+[node name="Interactable" parent="." instance=ExtResource("5_rym3a")]
+
+[node name="InteractableShape" type="CollisionShape2D" parent="Interactable"]
+position = Vector2(0, 3)
+rotation = 0.9785847
+shape = SubResource("CircleShape2D_37q77")

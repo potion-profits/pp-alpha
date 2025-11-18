@@ -4,6 +4,7 @@ class_name EntityManager
 var entity_codes:Dictionary = {
 	"cauldron": "res://scenes/cauldron/cauldron.tscn",
 	"shelf": "res://scenes/shelf/shelf.tscn",
+	"crate": "res://scenes/crate/crate.tscn",
 	"barrel": "res://scenes/barrel/barrel.tscn"
 }
 
