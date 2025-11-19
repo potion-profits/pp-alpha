@@ -592,41 +592,38 @@ position = Vector2(-152, -100)
 tile_map_data = PackedByteArray("AAAeAAAAAAANABAAAAAfAAAAAAAIAAUAAAAgAAAAAAAJAAUAAAAhAPr/AAAGAAcAAAAhAPv/AAAGAAgAAAAhAPz/AAAGAAkAAAAhAP3/AAAGAAcAAAAhAP7/AAAGAAgAAAAhAP//AAAGAAkAAAAhAAAAAAAMAA0AAAAXAAAAAAAIAAUAAAAVAAAAAAANABAAAAAWAAAAAAAHAAUAAAAPAPr/AAAHAAgAAAAPAPv/AAAHAAkAAAAPAPz/AAAHAAcAAAAPAP3/AAAHAAcAAAAPAP7/AAAHAAgAAAAPAP//AAAHAAkAAAARAAAAAAAIAA0AAAASAAAAAAAHAAUAAAATAAAAAAAIAAUAAAAUAAAAAAAJAAUAAAAPAAAAAAAGAA0AAAAQAAAAAAAHAA0AAAAbAAAAAAAIAAUAAAAcAAAAAAANAA8AAAAdAAAAAAAMABAAAAAYAAAAAAAHAAUAAAAZAAAAAAAIAAUAAAAaAAAAAAAHAAUAAAAPAPP/AAAHAAYAAAAPAPT/AAAHAAcAAAAPAPX/AAAHAAgAAAAPAPb/AAAHAAkAAAAQAPP/AAAJAAEAAAARAPP/AAAGAAEAAAASAPP/AAAHAAEAAAATAPP/AAAGAAEAAAAUAPP/AAAHAAEAAAAVAPP/AAAGAAEAAAAWAPP/AAAHAAEAAAAXAPP/AAAIAAEAAAAYAPP/AAAJAAEAAAAZAPP/AAAGAAEAAAAaAPP/AAAHAAEAAAAbAPP/AAAIAAEAAAAcAPP/AAAJAAEAAAAdAPP/AAAGAAEAAAAeAPP/AAAHAAEAAAAfAPP/AAAGAAEAAAAgAPP/AAAJAAEAAAAhAPP/AAAGAAYAAAAhAPT/AAAGAAcAAAAhAPX/AAAGAAcAAAAhAPb/AAAGAAgAAAAPAPf/AAAHAAcAAAAPAPj/AAAHAAgAAAAPAPn/AAAHAAkAAAAQAPT/AAAJAAIAAAAQAPX/AAAEAAQAAAAQAPb/AAAEAAUAAAARAPT/AAAGAAIAAAARAPX/AAAGAAIAAAARAPb/AAABAAUAAAASAPT/AAAHAAIAAAASAPX/AAAHAAIAAAASAPb/AAACAAUAAAATAPT/AAAGAAIAAAATAPX/AAAGAAIAAAATAPb/AAADAAUAAAAUAPT/AAAHAAIAAAAUAPX/AAAHAAIAAAAUAPb/AAAEAAUAAAAVAPT/AAAGAAIAAAAVAPX/AAABAAQAAAAVAPb/AAABAAUAAAAWAPT/AAAHAAIAAAAWAPX/AAACAAQAAAAWAPb/AAACAAUAAAAXAPT/AAAIAAIAAAAXAPX/AAADAAQAAAAXAPb/AAADAAUAAAAYAPT/AAAJAAIAAAAYAPX/AAAEAAQAAAAYAPb/AAAEAAUAAAAZAPT/AAAGAAIAAAAZAPX/AAABAAQAAAAZAPb/AAABAAUAAAAaAPT/AAAHAAIAAAAaAPX/AAACAAQAAAAaAPb/AAACAAUAAAAbAPT/AAAGAAIAAAAbAPX/AAADAAQAAAAbAPb/AAADAAUAAAAcAPT/AAAHAAIAAAAcAPX/AAAEAAQAAAAcAPb/AAAEAAUAAAAdAPT/AAAIAAIAAAAdAPX/AAADAAQAAAAdAPb/AAADAAUAAAAeAPT/AAAJAAIAAAAeAPX/AAAEAAQAAAAeAPb/AAAEAAUAAAAfAPT/AAAGAAIAAAAfAPX/AAAEAAQAAAAfAPb/AAAEAAUAAAAgAPT/AAAJAAIAAAAgAPX/AAAEAAQAAAAgAPb/AAAEAAUAAAAhAPf/AAAGAAcAAAAhAPj/AAAGAAgAAAAhAPn/AAAGAAkAAAA=")
 tile_set = SubResource("TileSet_s7qt3")
 
-[node name="Objects" type="Node2D" parent="."]
+[node name="EntityManager" type="Node2D" parent="."]
 y_sort_enabled = true
-position = Vector2(-153, 248)
+script = ExtResource("9_5nl5b")
 
-[node name="Player" parent="Objects" instance=ExtResource("2_asv1s")]
-position = Vector2(409, -40)
+[node name="Barrel" parent="EntityManager" instance=ExtResource("5_6w02k")]
+position = Vector2(242, -240)
 
-[node name="Camera2D" type="Camera2D" parent="Objects/Player"]
+[node name="Barrel2" parent="EntityManager" instance=ExtResource("5_6w02k")]
+position = Vector2(260, -243)
+
+[node name="Cauldron" parent="EntityManager" instance=ExtResource("6_8eiuf")]
+y_sort_enabled = true
+position = Vector2(291, -193)
+
+[node name="Crate" parent="EntityManager" instance=ExtResource("8_bg63s")]
+position = Vector2(173, -199)
+scale = Vector2(1.2, 1.2)
+
+[node name="Crate2" parent="EntityManager" instance=ExtResource("8_bg63s")]
+position = Vector2(179, -189)
+scale = Vector2(1.2, 1.2)
+
+[node name="Player" parent="EntityManager" instance=ExtResource("2_asv1s")]
+position = Vector2(256, 208)
+
+[node name="Camera2D" type="Camera2D" parent="EntityManager/Player"]
 position = Vector2(-1, 1)
 zoom = Vector2(7, 7)
 limit_left = 98
 limit_top = 2
 limit_right = 380
 limit_bottom = 265
-
-[node name="Barrel" parent="Objects" instance=ExtResource("5_6w02k")]
-position = Vector2(395, -488)
-
-[node name="Barrel2" parent="Objects" instance=ExtResource("5_6w02k")]
-position = Vector2(413, -491)
-
-[node name="Cauldron" parent="Objects" instance=ExtResource("6_8eiuf")]
-y_sort_enabled = true
-position = Vector2(444, -441)
-
-[node name="Crate" parent="Objects" instance=ExtResource("8_bg63s")]
-position = Vector2(326, -447)
-scale = Vector2(1.2, 1.2)
-
-[node name="Crate2" parent="Objects" instance=ExtResource("8_bg63s")]
-position = Vector2(332, -437)
-scale = Vector2(1.2, 1.2)
-
-[node name="EntityManager" type="Node2D" parent="."]
-script = ExtResource("9_5nl5b")
 
 [node name="backdoor_frontroom_dest_marker" type="Marker2D" parent="."]
 position = Vector2(312, -110)
