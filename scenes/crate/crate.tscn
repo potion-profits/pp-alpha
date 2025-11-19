@@ -4,11 +4,13 @@
 [ext_resource type="Texture2D" uid="uid://cx6xf4hpuaq4i" path="res://assets/interior/shop/crates01.png" id="2_3v208"]
 [ext_resource type="PackedScene" uid="uid://fi1qxearbah2" path="res://scenes/interactions/interactable.tscn" id="5_rym3a"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ssudb"]
-size = Vector2(15.9992895, 13.999377)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3v208"]
+radius = 4.0000024
+height = 14.000004
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_37q77"]
-radius = 13.601471
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ssudb"]
+radius = 8.0
+height = 18.0
 
 [node name="Crate" type="StaticBody2D"]
 script = ExtResource("1_3v208")
@@ -27,14 +29,13 @@ region_enabled = true
 region_rect = Rect2(17, 16, 14, 16)
 
 [node name="Collision" type="CollisionShape2D" parent="."]
-position = Vector2(-0.07624439, 2.934549)
-rotation = -1.571365
+position = Vector2(-7.450581e-09, 6.999999)
+rotation = 1.5707964
 scale = Vector2(0.9999997, 0.9999997)
-shape = SubResource("RectangleShape2D_ssudb")
+shape = SubResource("CapsuleShape2D_3v208")
 
 [node name="Interactable" parent="." instance=ExtResource("5_rym3a")]
 
 [node name="InteractableShape" type="CollisionShape2D" parent="Interactable"]
-position = Vector2(0, 3)
-rotation = 0.9785847
-shape = SubResource("CircleShape2D_37q77")
+position = Vector2(0, 3.0000002)
+shape = SubResource("CapsuleShape2D_ssudb")
