@@ -12,6 +12,7 @@ func insert(i_stack: ItemStackUI) -> void:
 	
 	if !item_stack.invSlot or inv.slots[index] == item_stack.invSlot:
 		return
+	#item_stack.update_slot()
 	inv.insert_on_cursor(index, i_stack.invSlot)
 
 func pick_item()->ItemStackUI:

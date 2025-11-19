@@ -150,6 +150,17 @@ func stack_items(slot: Button)->void:
 
 func update_cursor()->void:
 	if item_on_cursor:
+		var texture_scale:float = 7
+		var label_scale:float = texture_scale * 0.25
+		var label_x_offset:float = -25
+		var label_y_offset:float = -15
+		item_on_cursor.item_visuals.scale = Vector2(texture_scale,texture_scale)
+		item_on_cursor.amount_text.scale = Vector2(label_scale,label_scale)
+		item_on_cursor.sellable_label.scale = Vector2(label_scale,label_scale)
+		item_on_cursor.mixable_label.scale = Vector2(texture_scale,texture_scale)
+		
+		item_on_cursor.sellable_label.position = Vector2(label_x_offset, label_y_offset)
+		item_on_cursor.amount_text.position = Vector2(label_x_offset, 0)
 		item_on_cursor.global_position = get_global_mouse_position() - item_on_cursor.size/2
 	# if shelf ui gets closed while item on cursor, remove item stack ui on cursor
 	if item_on_cursor and !ui_layer.visible:
