@@ -19,14 +19,14 @@ jobs:
 
       - name: Download Godot
         run: |
-          curl -L -o godot.zip https://downloads.tuxfamily.org/godotengine/$GODOT_VERSION/Godot_v$GODOT_VERSION-stable_linux.x86_64.zip
+          curl -L -o godot.zip https://downloads.godotengine.org/?version=$GODOT_VERSION&flavor=stable&slug=linux.x86_64.zip&platform=linux.64
           unzip godot.zip
           mv Godot_v$GODOT_VERSION-stable_linux.x86_64 godot
           chmod +x godot
 
       - name: Download Godot Export Templates
         run: |
-          curl -L -o export_templates.zip https://downloads.tuxfamily.org/godotengine/$GODOT_VERSION/Godot_v$GODOT_VERSION-stable_export_templates.tpz
+          curl -L -o export_templates.zip https://downloads.godotengine.org/?version=$GODOT_VERSION&flavor=stable&slug=export_templates.tpz&platform=templates
           unzip export_templates.zip
 
       - name: Install Export Templates
