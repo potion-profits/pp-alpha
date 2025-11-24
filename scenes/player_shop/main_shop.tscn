@@ -314,7 +314,9 @@ texture = ExtResource("1_or7af")
 5:6/0 = 0
 6:6/0 = 0
 6:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+6:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 7:6/0 = 0
+7:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 7:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 11:6/0 = 0
 11:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-3.008377, 8, -2.999247, 1.9903679, -8, 1.9994979, -8, 8)
@@ -326,7 +328,9 @@ texture = ExtResource("1_or7af")
 4:7/0 = 0
 6:7/0 = 0
 6:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+6:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 7:7/0 = 0
+7:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 7:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 11:7/0 = 0
 11:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-2.9873886, 8, -2.97861, -8, -8, -8, -8, 8)
@@ -342,7 +346,9 @@ texture = ExtResource("1_or7af")
 4:8/0 = 0
 6:8/0 = 0
 6:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+6:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 7:8/0 = 0
+7:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 7:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 11:8/0 = 0
 11:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-2.9873886, 8, -2.97861, -8, -8, -8, -8, 8)
@@ -354,7 +360,9 @@ texture = ExtResource("1_or7af")
 4:9/0 = 0
 6:9/0 = 0
 6:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+6:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 7:9/0 = 0
+7:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 7:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 11:9/0 = 0
 11:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-2.9873886, 8, -2.97861, -8, -8, -8, -8, 8)
@@ -630,21 +638,32 @@ position = Vector2(381, -84)
 [node name="EntityManager" type="Node2D" parent="."]
 y_sort_enabled = true
 script = ExtResource("9_5nl5b")
+script = ExtResource("9_5nl5b")
 
+[node name="Barrel" parent="EntityManager" instance=ExtResource("5_6w02k")]
+position = Vector2(242, -240)
 [node name="Barrel" parent="EntityManager" instance=ExtResource("5_6w02k")]
 position = Vector2(242, -240)
 
 [node name="Barrel2" parent="EntityManager" instance=ExtResource("5_6w02k")]
 position = Vector2(260, -243)
+[node name="Barrel2" parent="EntityManager" instance=ExtResource("5_6w02k")]
+position = Vector2(260, -243)
 
 [node name="Cauldron" parent="EntityManager" instance=ExtResource("6_8eiuf")]
+[node name="Cauldron" parent="EntityManager" instance=ExtResource("6_8eiuf")]
 y_sort_enabled = true
+position = Vector2(291, -193)
 position = Vector2(291, -193)
 
 [node name="Crate" parent="EntityManager" instance=ExtResource("8_bg63s")]
 position = Vector2(173, -199)
+[node name="Crate" parent="EntityManager" instance=ExtResource("8_bg63s")]
+position = Vector2(173, -199)
 scale = Vector2(1.2, 1.2)
 
+[node name="Crate2" parent="EntityManager" instance=ExtResource("8_bg63s")]
+position = Vector2(179, -189)
 [node name="Crate2" parent="EntityManager" instance=ExtResource("8_bg63s")]
 position = Vector2(179, -189)
 scale = Vector2(1.2, 1.2)
