@@ -2,7 +2,6 @@ extends CharacterBody2D
 
 class_name Player
 #the resource that will be used to make an inventory (player_inventory.tres)
-@export var inv_resource: Inv
 var inv: Inv
 
 const SPEED = 150
@@ -14,6 +13,7 @@ const MAX_COINS = pow(2, 62)
 var coins : int = 500 # replace value with db call once implemented
 var chips : int = 10 # replace value with db call once implemented
 var is_dashing : bool = false
+var other_ui_open: bool = false # when a ui menu is open, restrict player movement
 
 @onready var animated_sprite : AnimatedSprite2D = $AnimatedSprite2D
 @onready var dash_cooldown: Timer = $DashCooldown
@@ -41,7 +41,8 @@ var last_dir := "down"
 #sets up player inventory on each run
 func _ready() -> void:
 	add_to_group("player")
-	inv = inv_resource.duplicate(true) #makes mutable
+	if !inv:
+		inv = Inv.new(5)
 	inv_ui.inv = inv #links player inventory and respective ui
 	inv_ui.allow_hotkeys = true #allows 1-5 use for hotbar-like inv
 	#_debug_set_player_inv()
@@ -51,20 +52,20 @@ func _ready() -> void:
 #esc when held will close and pause
 #uses keys to enlarge sprites in inventory
 func _input(event: InputEvent) -> void:
-		
-	if inv_ui.inventory_toggle:
-		if inv_ui.is_open:
-			if event.is_action_pressed("inventory") or event.is_action_pressed("ui_cancel"):
-				get_viewport().set_input_as_handled()
-				inv_ui.close()
+	if !other_ui_open:
+		if inv_ui.inventory_toggle:
+			if inv_ui.is_open:
+				if event.is_action_pressed("inventory") or event.is_action_pressed("ui_cancel"):
+					get_viewport().set_input_as_handled()
+					inv_ui.close()
+			else:
+				if event.is_action_pressed("inventory"):
+					inv_ui.open()
 		else:
-			if event.is_action_pressed("inventory"):
+			if event.is_action_pressed("inventory") and !inv_ui.is_open:
 				inv_ui.open()
-	else:
-		if event.is_action_pressed("inventory") and !inv_ui.is_open:
-			inv_ui.open()
-		elif (event.is_action_released("inventory") or event.is_action_pressed("ui_cancel")) and inv_ui.is_open:
-			inv_ui.close()
+			elif (event.is_action_released("inventory") or event.is_action_pressed("ui_cancel")) and inv_ui.is_open:
+				inv_ui.close()
 			
 	#only for player inventory
 	if inv_ui.is_open and inv_ui.allow_hotkeys:
@@ -81,12 +82,12 @@ func _input(event: InputEvent) -> void:
 				#deselect current slot
 				else:
 					inv.selected_index = -1
-			
 
 func _physics_process(delta : float)->void:
-	move(current_state, delta)
-	move_and_slide()
-	
+	if(!other_ui_open):
+		move(current_state, delta)
+		move_and_slide()
+
 func move(curr_state : movement_state, delta : float) -> void:
 	match curr_state:
 		movement_state.IDLE:
@@ -216,7 +217,12 @@ func remove_from_selected() -> void:
 func collect(item: InvItem) -> bool:
 	return inv.insert(item)
 
-# Deprecated
+## When player blocking UI menu is open
+func open_other_ui(flag: bool) -> void:
+	if inv_ui.is_open:
+		inv_ui.close()
+	other_ui_open = flag
+
 func interact_with_entity(entity: Entity)->void:
 	var selected_slot:InvSlot = inv.get_selected_slot()
 	if selected_slot and selected_slot.item:

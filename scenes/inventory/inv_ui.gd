@@ -106,9 +106,7 @@ func stack_items(slot: Button)->void:
 	var maxNum:int = slotItem.invSlot.item.max_stack_size
 	var totalNum:int = slotItem.invSlot.amount + item_on_cursor.invSlot.amount
 	
-	if slotItem.invSlot.amount == maxNum:
-		swap_items(slot)
-	elif totalNum<=maxNum:
+	if totalNum<=maxNum:
 		slotItem.invSlot.amount = totalNum
 		remove_child(item_on_cursor)
 		item_on_cursor= null

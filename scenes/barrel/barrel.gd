@@ -43,6 +43,9 @@ func _ready() -> void:
 	# Used to find out what scene to place in entity manager
 	#entity_code = barrel_type
 	change_barrel_color(barrel_type)
+	
+	if !inv:
+		inv = Inv.new(0)
 
 
 func change_barrel_color(barrel_id : String) -> void:
