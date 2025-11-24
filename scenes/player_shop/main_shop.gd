@@ -22,32 +22,6 @@ func _on_move_town_detection_body_entered(body: Node2D) -> void:
 	if body is Player:
 		get_tree().call_deferred("change_scene_to_file", "res://scenes/casino/casino_menu.tscn")
 
-func get_room_rect(tm_layer_wall: TileMapLayer, tm_layer_floor: TileMapLayer) -> Array[float]:
-	var wall_coord: Rect2i = tm_layer_wall.get_used_rect()
-	var floor_coord: Rect2i = tm_layer_floor.get_used_rect()
-	var tile_size: Vector2i = tm_layer_wall.tile_set.tile_size
-	
-	# Top and left from walls
-	var top_left_local: Vector2 = Vector2(wall_coord.position) * Vector2(tile_size)
-	var top_left_global: Vector2 = tm_layer_wall.to_global(top_left_local)
-	
-	# Right from walls
-	var right_local: Vector2 = Vector2(wall_coord.end.x, 0) * Vector2(tile_size)
-	var right_global: Vector2 = tm_layer_wall.to_global(right_local)
-	
-	# Bottom from floor (so you don't see past the floor)
-	var bottom_local: Vector2 = Vector2(0, floor_coord.end.y) * Vector2(tile_size)
-	var bottom_global: Vector2 = tm_layer_floor.to_global(bottom_local)
-	
-	var edge_padding: int = tile_size.x 
-	
-	var left: float   = (top_left_global.x) + (edge_padding * 0.75)
-	var top: float    = (top_left_global.y) + (edge_padding * 0.6)
-	var right: float  = (right_global.x) - (edge_padding * 0.75)
-	var bottom: float = (bottom_global.y) - (edge_padding * 0.4)
-	
-	return [left, top, right, bottom]
-
 func transition_camera(top_left: Marker2D, bottom_right: Marker2D) -> void:
 	player_camera.limit_left = int(top_left.global_position.x)
 	player_camera.limit_top = int(top_left.global_position.y)
