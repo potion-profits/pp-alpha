@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dk76x6o356j3i"]
+
+[ext_resource type="Script" uid="uid://bm7chouabpxuk" path="res://scenes/npc_spawning/npc_spawner.gd" id="1_aw8as"]
+
+[node name="NpcSpawner" type="Node2D"]
+script = ExtResource("1_aw8as")
+
+[node name="NPCRespawnTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="NPCRespawnTimer" to="." method="_on_npc_respawn_timer_timeout"]

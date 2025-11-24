@@ -5,6 +5,8 @@ var player_inv: Inv
 #interactable entities will need an interactble scene as a child node 
 @onready var interactable: Area2D = $Interactable
 
+@onready var collision : CollisionShape2D = $Collision
+
 #shelf specific references
 @onready var ui_layer: CanvasLayer = $Inv_UI_Layer
 @onready var shelf_ui: Control = $Inv_UI_Layer/Shelf_UI

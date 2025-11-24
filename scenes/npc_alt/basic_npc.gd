@@ -7,18 +7,12 @@ const TYPES : Array = [Color(1,0.5,0.5,1), Color(0.5,1,0.5,1), Color(0.5,0.5,1,1
 const SPEED : int = 100
 const PROX_THRESHOLD : float = 2.0
 
-enum movement_state {
-	WALK,
-	IDLE
-}
-
 enum action {
 	GET_POTION,
 	CHECKOUT,
 	LEAVE
 }
 
-var current_state : movement_state = movement_state.IDLE
 var current_action : action = action.GET_POTION
 var current_path : Array = []
 var path_index : int = 0
@@ -65,9 +59,7 @@ func follow_path(new_path : Array) -> void:
 func get_astar_path(start : Vector2i, end : Vector2i) -> Array[Vector2i]:
 	var start_id : Vector2i = floor_map.tile_to_id(start)
 	var end_id : Vector2i = floor_map.tile_to_id(end)
-	
 	var id_path : Array[Vector2i] = floor_map.astar.get_id_path(start_id, end_id)
-	
 	var tile_path : Array[Vector2i] = []
 	for id_cell : Vector2i in id_path:
 		tile_path.append(floor_map.id_to_tile(id_cell))

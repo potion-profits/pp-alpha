@@ -28,3 +28,7 @@ func _on_move_front_room_detection_body_entered(body: Node2D) -> void:
 		body.global_position = frontroom_backdoor_dest_marker.global_position
 		player_camera.limit_top += 300
 		player_camera.limit_bottom += 350
+
+
+func _on_npc_spawner_npc_spawned() -> void:
+	pass # Replace with function body.
