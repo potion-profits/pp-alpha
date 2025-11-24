@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=4 uid="uid://cqro41cf5fxqg"]
+[gd_scene load_steps=18 format=4 uid="uid://cqro41cf5fxqg"]
 
 [ext_resource type="Script" uid="uid://casu5cum25j8f" path="res://scenes/npc_spawning/main_shop.gd" id="1_ws78j"]
 [ext_resource type="Texture2D" uid="uid://cq4mo6l3w2oka" path="res://assets/interior/shop/background.png" id="2_77j32"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://b6sxxon0bv8sh" path="res://assets/interior/shop/counter_all01.png" id="4_robs3"]
 [ext_resource type="PackedScene" uid="uid://b0flhrlw7t57t" path="res://scenes/player/player.tscn" id="5_tx0du"]
 [ext_resource type="PackedScene" uid="uid://q7qaghd775s2" path="res://scenes/npc_spawning/npc_spawner.tscn" id="6_77j32"]
+[ext_resource type="PackedScene" uid="uid://m4k8qbbqo7ha" path="res://scenes/shelf/shelf.tscn" id="7_robs3"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6w02k"]
 texture = ExtResource("3_ge6ff")
@@ -585,6 +586,15 @@ position = Vector2(296, -8)
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(-2, -24)
 zoom = Vector2(5, 5)
+
+[node name="shelf" parent="." instance=ExtResource("7_robs3")]
+position = Vector2(104, -89)
+
+[node name="shelf2" parent="." instance=ExtResource("7_robs3")]
+position = Vector2(107, -196)
+
+[node name="shelf3" parent="." instance=ExtResource("7_robs3")]
+position = Vector2(201, -196)
 
 [node name="MoveTownDetection" type="Area2D" parent="."]
 

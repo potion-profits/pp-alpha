@@ -1,6 +1,7 @@
 extends CharacterBody2D
 @onready var sprite : = $AnimatedSprite2D
 var floor_map : Node2D
+var inv : Inv = Inv.new(1)
 
 const TYPES : Array = [Color(1,0.5,0.5,1), Color(0.5,1,0.5,1), Color(0.5,0.5,1,1), Color(0.2,0.2,0.2,1)]
 const SPEED : int = 100
