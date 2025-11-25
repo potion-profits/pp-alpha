@@ -580,7 +580,7 @@ shape = SubResource("RectangleShape2D_s7qt3")
 [node name="MoveStorageRoomDetection" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MoveStorageRoomDetection"]
-position = Vector2(464, -219.5)
+position = Vector2(464, -212)
 shape = SubResource("RectangleShape2D_6w02k")
 
 [node name="MoveFrontRoomDetection" type="Area2D" parent="."]
@@ -637,9 +637,9 @@ position = Vector2(410, -37)
 position = Vector2(-1, 1)
 zoom = Vector2(7, 7)
 limit_left = 251
-limit_top = -247
+limit_top = -246
 limit_right = 533
-limit_bottom = 16
+limit_bottom = 17
 
 [node name="backdoor_frontroom_dest_marker" type="Marker2D" parent="."]
 position = Vector2(464, -540)
@@ -649,6 +649,22 @@ position = Vector2(464, -193)
 
 [node name="NpcSpawner" parent="." instance=ExtResource("12_47hg3")]
 script = ExtResource("13_b6yhm")
+
+[node name="FrontRoomEdges" type="Node2D" parent="."]
+
+[node name="TopLeft" type="Marker2D" parent="FrontRoomEdges"]
+position = Vector2(251, -246)
+
+[node name="BottomRight" type="Marker2D" parent="FrontRoomEdges"]
+position = Vector2(533, 17)
+
+[node name="BackRoomEdges" type="Node2D" parent="."]
+
+[node name="TopLeft" type="Marker2D" parent="BackRoomEdges"]
+position = Vector2(251, -728)
+
+[node name="BottomRight" type="Marker2D" parent="BackRoomEdges"]
+position = Vector2(533, -510)
 
 [connection signal="body_entered" from="MoveTownDetection" to="." method="_on_move_town_detection_body_entered"]
 [connection signal="body_entered" from="MoveStorageRoomDetection" to="." method="_on_move_storage_room_detection_body_entered"]
