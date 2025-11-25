@@ -15,10 +15,13 @@ var astar : Object
 # create new astar grid
 # get position of markers for points of interest in tilemap
 func _ready() -> void:
+	prep_astar.call_deferred()
+	
+func prep_astar() -> void:
 	astar = AStarGrid2D.new()
 	for child in entity_manager.get_children():
 		if child.name.begins_with("shelf"):
-			child._ready()
+			#child._ready()
 			var cell : Vector2i = tilemap.local_to_map(child.position)
 			var cells : Array[Vector2i] = [cell, cell + Vector2i(1,0), cell + Vector2i(-1,0)]
 			shelf_cells.append_array(cells)

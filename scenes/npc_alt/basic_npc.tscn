@@ -361,3 +361,5 @@ collision_mask = 0
 
 [node name="InteractableArea" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CapsuleShape2D_5w1mn")
+
+[node name="CheckoutTimer" type="Timer" parent="."]

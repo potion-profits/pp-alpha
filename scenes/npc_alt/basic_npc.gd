@@ -1,5 +1,6 @@
 class_name Npc extends CharacterBody2D
 @onready var sprite : = $AnimatedSprite2D
+@onready var checkout_timer: Timer = $CheckoutTimer
 var floor_map : Node2D
 var inv : Inv = Inv.new(1)
 
@@ -7,6 +8,7 @@ const TYPES : Array = [Color(1,0.5,0.5,1), Color(0.5,1,0.5,1), Color(0.5,0.5,1,1
 const SPEED : int = 100
 const POTIONS : Array = ["item_red_potion", "item_green_potion", "item_blue_potion", "item_dark_potion"]
 const PROX_THRESHOLD : float = 2.0
+const CHECKOUT_TIME : float = 10.0
 
 enum action {
 	GET_POTION,
@@ -22,6 +24,9 @@ var shelves : Array
 var target : Vector2i
 var checkout : Vector2i
 var prefered_item : String
+var item_found : bool = false
+var is_checkout_out : bool = false
+
 
 func _ready() -> void:
 	var color : int = randi_range(0,TYPES.size() - 1)
@@ -74,8 +79,7 @@ func npc_action() -> void:
 	match current_action:
 		action.GET_POTION:
 			# check shelf for potion
-			var roll : int = randi_range(1,6)
-			if roll > 2:
+			if item_found:
 				current_action = action.CHECKOUT
 				target = checkout
 				move_to_point()
@@ -88,13 +92,17 @@ func npc_action() -> void:
 					var next_shelf : int = randi_range(0, len(shelves) - 1)
 					target = shelves.pop_at(next_shelf)
 					move_to_point()
+			await get_tree().create_timer(2.0).timeout
 		action.CHECKOUT:
+			checkout_timer.start(CHECKOUT_TIME)
+			# handle checkout logic and then trigger the checkout timer to timeout
+			# some_checkout_func()
+			await checkout_timer.timeout
 			current_action = action.LEAVE
 			target = floor_map.spawn
 			move_to_point()
 		action.LEAVE:
 			queue_free()
-	await get_tree().create_timer(5.0).timeout
 	set_physics_process(true)
 
 func animate(x_dir: float, y_dir : float) -> void:
@@ -130,15 +138,17 @@ func animate(x_dir: float, y_dir : float) -> void:
 func check_shelf(shelf : Entity) -> void:
 	print("NPC entered ", shelf.entity_code)
 	var tmp : Array[InvSlot] = shelf.get_inventory()
-	print("shelf inv: ", shelf.get_inventory())
 	
-	for item in tmp:
+	for i in range(tmp.size()):
+		var item : = tmp[i]
 		print(item.item.texture_code)
 		print(item.amount)
 			
-		if (item.item.texture_code == prefered_item):
+		if (item.amount > 0 and item.item.texture_code == prefered_item):
 			print("Found item")
 			shelf.remove_item(prefered_item, 1)
-			breakw
+			
+			item_found = true
+			break
 	
 	

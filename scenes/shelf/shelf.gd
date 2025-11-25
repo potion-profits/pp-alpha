@@ -54,15 +54,19 @@ func get_inventory()->Array[InvSlot]:
 	return tmp;
 	
 func remove_item(item_code: String, quantity: int)->void:
-	for item in inv.slots:
-		if(!item or !item.item):
+	for slot in inv.slots:
+		if(!slot or !slot.item):
 			continue
 		
 		if (quantity <= 0):
 			return
 			
-		if (item.item.texture_code == item_code and item.amount >= quantity):
-			item.amount -= quantity
+		if (slot.item.texture_code == item_code and slot.amount >= quantity):
+			slot.amount -= quantity
+			if slot.amount <= 0:
+				slot = null
+			inv.update.emit()
+			shelf_ui.update_slots()
 			return
 			
 
@@ -70,7 +74,7 @@ func _debug_set_shelf_inv()->void:
 	var green:InvItem = ItemRegistry.new_item("item_green_potion")
 	green.mixable = 0
 	green.sellable = 1
-	for i in range(5):
+	for i in range(1):
 		inv.insert(green)
 
 func _on_interactable_body_entered(body: Node2D) -> void:
