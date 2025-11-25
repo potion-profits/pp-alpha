@@ -17,42 +17,37 @@ jobs:
       - name: Get Godot Version
         run: echo "GODOT_VERSION=$(grep '^config/features' project.godot | cut -d "\"" -f 2)" >> $GITHUB_ENV
 
-      - name: Download Godot
-        run: |
-          curl -L -o godot.zip https://downloads.godotengine.org/?version=${{ env.GODOT_VERSION }}&flavor=stable&slug=linux.x86_64.zip&platform=linux.64
-          unzip godot.zip
-          mv Godot_v$GODOT_VERSION-stable_linux.x86_64 godot
-          chmod +x godot
-
-      - name: Download Godot Export Templates
-        run: |
-          curl -L -o export_templates.zip https://downloads.godotengine.org/?version=${{ env.GODOT_VERSION }}&flavor=stable&slug=export_templates.tpz&platform=templates
-          unzip export_templates.zip
-
-      - name: Install Export Templates
-        run: |
-          mkdir -p ~/.local/share/godot/export_templates/$GODOT_VERSION.stable
-          mv ./templates/* ~/.local/share/godot/export_templates/$GODOT_VERSION.stable
-
-      - name: Build
-        run: |
-          ./godot --headless --export-release html
-          ./godot --headless --export-release linux
-          ./godot --headless --export-release macos
-          ./godot --headless --export-release windows
-
-      - name: Zip HTML Export
-        run: |
-          cd exports/html
-          zip $PROJECT_NAME-html.zip -r -m *
-          mv $PROJECT_NAME-html.zip ..
-          cd -
-
-      - name: Save Artifacts for Next Job
-        uses: actions/upload-artifact@v4
+      - name: Godot Export
+        uses: firebelley/godot-export@v7.0.0
         with:
-          name: exports
-          path: exports
+          # The download url of the Linux Headless Godot executable.
+          godot_executable_download_url: https://downloads.godotengine.org/?version=${{ env.GODOT_VERSION }}&flavor=stable&slug=linux.x86_64.zip&platform=linux.64
+          # The url of the export templates corresponding to the Godot executable version.
+          godot_export_templates_download_url: https://downloads.godotengine.org/?version=${{ env.GODOT_VERSION }}&flavor=stable&slug=export_templates.tpz&platform=templates
+          # # The path relative to the root of the git repository that contains the "project.godot" file.
+          # relative_project_path: ./
+          # # If "true", all exported files will be archived into a ".zip" file.
+          # archive_output: # optional
+          # # If "true", files that are archived will be placed in a root folder within the archive.
+          # archive_root_folder: # optional
+          # # If "true", the Godot executable and export templates will be cached in the GitHub Actions workspace.
+          # cache: # optional
+          # # If provided, exports will be moved to this directory relative to the root of the Git repository. This setting is overridden by "use_preset_export_path".
+          # relative_export_path: # optional, default is
+          # # If set to true, exports will be moved to directory defined in "export_presets.cfg" relative to "relative_project_path". Prioritized over "relative_export_path".
+          # use_preset_export_path: # optional
+          # # The absolute path to the wine binary. If specified, Godot will use this to run rcedit to update Windows exe icons.
+          # wine_path: # optional, default is
+          # # If "true" Godot will export in debug mode.
+          # export_debug: # optional
+          # # If "true" the --verbose flag will be added when exporting Godot projects.
+          # verbose: # optional
+          # # Build using Godot 3 executable (NOTE: `godot_executable_download_url` and `godot_export_templates_download_url` still need to be configured to download the correct version.)
+          # use_godot_3: # optional
+          # # Export project files as a .pck file.
+          # export_as_pack: # optional
+          # # A comma-separated list of export presets to export. If not specified, all presets will be exported.
+          # presets_to_export: # optional, default i
 
   Publish:
     needs: Build
@@ -80,54 +75,3 @@ jobs:
           ./butler push ./exports/$PROJECT_NAME-linux.zip $ITCHIO_USERNAME/$PROJECT_NAME:linux
           ./butler push ./exports/$PROJECT_NAME-macos.zip $ITCHIO_USERNAME/$PROJECT_NAME:mac
           ./butler push ./exports/$PROJECT_NAME-windows.exe $ITCHIO_USERNAME/$PROJECT_NAME:windows
-
-# name: Deploy to Itch.io
-
-# # Manually trigger by going to this workflow in the repository actions tab
-# on: workflow_dispatch
-
-# env:
-#   BUTLER_API_KEY: ${{secrets.BUTLER_CREDENTIALS}} # Repository Settings -> Secrets and variables -> Actions -> New repository secret
-#   ITCHIO_USERNAME: ${{secrets.ITCHIO_USERNAME}}
-#   PROJECT_NAME: "potion-profits" # See README.md about project, channel, and export file naming conventions
-# jobs:
-#   Build:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout Source Code
-#         uses: actions/checkout@v4
-
-#       - name: Get Godot Version
-#         run: echo "GODOT_VERSION=$(grep '^config/features' project.godot | cut -d "\"" -f 2)" >> $GITHUB_ENV
-
-#       - name: Godot Export
-#         uses: firebelley/godot-export@v7.0.0
-#         with:
-#           # The download url of the Linux Headless Godot executable.
-#           godot_executable_download_url: https://downloads.godotengine.org/?version=${{ env.GODOT_VERSION }}&flavor=stable&slug=linux.x86_64.zip&platform=linux.64
-#           # The url of the export templates corresponding to the Godot executable version.
-#           godot_export_templates_download_url: https://downloads.godotengine.org/?version=${{ env.GODOT_VERSION }}&flavor=stable&slug=export_templates.tpz&platform=templates
-#           # # The path relative to the root of the git repository that contains the "project.godot" file.
-#           # relative_project_path: ./
-#           # # If "true", all exported files will be archived into a ".zip" file.
-#           # archive_output: # optional
-#           # # If "true", files that are archived will be placed in a root folder within the archive.
-#           # archive_root_folder: # optional
-#           # # If "true", the Godot executable and export templates will be cached in the GitHub Actions workspace.
-#           # cache: # optional
-#           # # If provided, exports will be moved to this directory relative to the root of the Git repository. This setting is overridden by "use_preset_export_path".
-#           # relative_export_path: # optional, default is
-#           # # If set to true, exports will be moved to directory defined in "export_presets.cfg" relative to "relative_project_path". Prioritized over "relative_export_path".
-#           # use_preset_export_path: # optional
-#           # # The absolute path to the wine binary. If specified, Godot will use this to run rcedit to update Windows exe icons.
-#           # wine_path: # optional, default is
-#           # # If "true" Godot will export in debug mode.
-#           # export_debug: # optional
-#           # # If "true" the --verbose flag will be added when exporting Godot projects.
-#           # verbose: # optional
-#           # # Build using Godot 3 executable (NOTE: `godot_executable_download_url` and `godot_export_templates_download_url` still need to be configured to download the correct version.)
-#           # use_godot_3: # optional
-#           # # Export project files as a .pck file.
-#           # export_as_pack: # optional
-#           # # A comma-separated list of export presets to export. If not specified, all presets will be exported.
-#           # presets_to_export: # optional, default i
