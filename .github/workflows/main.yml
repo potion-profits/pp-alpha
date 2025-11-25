@@ -7,6 +7,7 @@ env:
   BUTLER_API_KEY: ${{secrets.BUTLER_CREDENTIALS}} # Repository Settings -> Secrets and variables -> Actions -> New repository secret
   ITCHIO_USERNAME: ${{secrets.ITCHIO_USERNAME}}
   PROJECT_NAME: "potion-profits" # See README.md about project, channel, and export file naming conventions
+
 jobs:
   Build:
     runs-on: ubuntu-latest
@@ -24,18 +25,16 @@ jobs:
           godot_executable_download_url: https://downloads.godotengine.org/?version=${{ env.GODOT_VERSION }}&flavor=stable&slug=linux.x86_64.zip&platform=linux.64
           # The url of the export templates corresponding to the Godot executable version.
           godot_export_templates_download_url: https://downloads.godotengine.org/?version=${{ env.GODOT_VERSION }}&flavor=stable&slug=export_templates.tpz&platform=templates
-          # # The path relative to the root of the git repository that contains the "project.godot" file.
-          # relative_project_path: ./
           # # If "true", all exported files will be archived into a ".zip" file.
-          # archive_output: # optional
+          archive_output: true # optional
           # # If "true", files that are archived will be placed in a root folder within the archive.
           # archive_root_folder: # optional
           # # If "true", the Godot executable and export templates will be cached in the GitHub Actions workspace.
-          # cache: # optional
+          cache: true # optional
           # # If provided, exports will be moved to this directory relative to the root of the Git repository. This setting is overridden by "use_preset_export_path".
           # relative_export_path: # optional, default is
           # # If set to true, exports will be moved to directory defined in "export_presets.cfg" relative to "relative_project_path". Prioritized over "relative_export_path".
-          # use_preset_export_path: # optional
+          use_preset_export_path: true # optional
           # # The absolute path to the wine binary. If specified, Godot will use this to run rcedit to update Windows exe icons.
           # wine_path: # optional, default is
           # # If "true" Godot will export in debug mode.
