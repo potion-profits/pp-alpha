@@ -628,6 +628,7 @@ position = Vector2(325, -629)
 scale = Vector2(1.2, 1.2)
 
 [node name="Crate2" parent="EntityManager" instance=ExtResource("8_b6yhm")]
+visible = false
 position = Vector2(331, -619)
 scale = Vector2(1.2, 1.2)
 
@@ -674,5 +675,3 @@ position = Vector2(448, -145)
 [connection signal="body_entered" from="MoveStorageRoomDetection" to="." method="_on_move_storage_room_detection_body_entered"]
 [connection signal="body_entered" from="MoveFrontRoomDetection" to="." method="_on_move_front_room_detection_body_entered"]
 [connection signal="npc_spawned" from="NpcSpawner" to="." method="_on_npc_spawner_npc_spawned"]
-
-[editable path="CashRegister"]
