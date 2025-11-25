@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://bvpkooupsu5ea"]
+
+[ext_resource type="Script" uid="uid://b1odcrnx3mby" path="res://globals/entity.gd" id="1_n114s"]
+[ext_resource type="Texture2D" uid="uid://dhysemwvagx3a" path="res://assets/interior/shop/register_counter.png" id="2_0h2bl"]
+
+[node name="RegisterCounter" type="StaticBody2D"]
+script = ExtResource("1_n114s")
+metadata/_custom_type_script = "uid://b1odcrnx3mby"
+
+[node name="RegisterCounterSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_0h2bl")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-24, -13, -16, -13, -16, 3, 16, 3, 16, -13, 24, -13, 24, 7, 23, 9, 23, 16, -23, 16, -23, 9, -24, 7)
