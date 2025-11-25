@@ -75,7 +75,7 @@ func insert_on_cursor(idx: int, invSlot: InvSlot)->void:
 func to_dict()->Dictionary:
 	var slot_data:Array = []
 	for slot in slots:
-		slot_data.append(slot.to_dict())
+		slot_data.append(slot.to_dict() if slot else {})
 	return{
 		"slots":slot_data,
 		"selected_index":selected_index
