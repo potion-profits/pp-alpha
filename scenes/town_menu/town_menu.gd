@@ -18,6 +18,7 @@ var barrel_prices : Dictionary = {
 
 const BARREL_MAX_CAP = 1000
 const CRATE_MAX_CAP = 64
+const CRATE_PRICE = 100
 
 
 func _ready() -> void:
@@ -38,9 +39,11 @@ func _on_barrels_refill_pressed(button_name: String) -> void:
 				pass
 
 func _on_crate_refill_pressed() -> void:
-	for entity:Dictionary in GameManager.runtime_entities["MainShop"]:
-		if entity["entity_code"] == "crate" and entity["bottles"]<25:
-			entity["bottles"] = CRATE_MAX_CAP
+	if CRATE_PRICE <= GameManager.player_data["coins"]:
+		for entity:Dictionary in GameManager.runtime_entities["MainShop"]:
+			if entity["entity_code"] == "crate" and entity["bottles"]<25:
+				entity["bottles"] = CRATE_MAX_CAP
+				GameManager.player_data["coins"] -= CRATE_PRICE
 
 
 func _on_player_shop_pressed() -> void:

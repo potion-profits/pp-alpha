@@ -11,8 +11,8 @@ const DASH_DURATION = 0.17
 const DASH_COOLDOWN = 0.5
 const MAX_COINS = pow(2, 62)
 
-var coins : int = 500 # replace value with db call once implemented
-var chips : int = 10 # replace value with db call once implemented
+var coins : int # replace value with db call once implemented
+var chips : int # replace value with db call once implemented
 var is_dashing : bool = false
 
 @onready var animated_sprite : AnimatedSprite2D = $AnimatedSprite2D
@@ -44,6 +44,8 @@ func _ready() -> void:
 	inv = inv_resource.duplicate(true) #makes mutable
 	inv_ui.inv = inv #links player inventory and respective ui
 	inv_ui.allow_hotkeys = true #allows 1-5 use for hotbar-like inv
+	coins = GameManager.player_data["coins"]
+	chips = GameManager.player_data["chips"]
 	#_debug_set_player_inv()
 
 #handles toggled and held inventory
