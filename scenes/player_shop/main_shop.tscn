@@ -673,6 +673,9 @@ limit_left = 98
 limit_top = 2
 limit_right = 380
 limit_bottom = 265
+limit_smoothed = true
+position_smoothing_enabled = true
+position_smoothing_speed = 4.0
 
 [connection signal="body_entered" from="FrontRoom/MoveTownDetection" to="." method="_on_move_town_detection_body_entered"]
 [connection signal="body_entered" from="FrontRoom/MoveStorageRoomDetection" to="." method="_on_move_storage_room_detection_body_entered"]
