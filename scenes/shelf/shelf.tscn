@@ -26,9 +26,9 @@ position = Vector2(0, 7)
 shape = SubResource("RectangleShape2D_y5jy8")
 
 [node name="Interactable" parent="." instance=ExtResource("3_4pg6k")]
+collision_mask = 1
 
 [node name="InteractableShape" type="CollisionShape2D" parent="Interactable"]
-visible = false
 shape = SubResource("CircleShape2D_ehm0u")
 
 [node name="Inv_UI_Layer" type="CanvasLayer" parent="."]
@@ -42,3 +42,5 @@ offset_left = 0.7199707
 offset_top = 27.0
 offset_right = -88.0
 offset_bottom = -0.00012207031
+
+[connection signal="body_entered" from="Interactable" to="." method="_on_interactable_body_entered"]

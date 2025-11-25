@@ -1,10 +1,11 @@
-extends CharacterBody2D
+class_name Npc extends CharacterBody2D
 @onready var sprite : = $AnimatedSprite2D
 var floor_map : Node2D
 var inv : Inv = Inv.new(1)
 
 const TYPES : Array = [Color(1,0.5,0.5,1), Color(0.5,1,0.5,1), Color(0.5,0.5,1,1), Color(0.2,0.2,0.2,1)]
 const SPEED : int = 100
+const POTIONS : Array = ["item_red_potion", "item_green_potion", "item_blue_potion", "item_dark_potion"]
 const PROX_THRESHOLD : float = 2.0
 
 enum action {
@@ -20,10 +21,12 @@ var last_dir : String = "up"
 var shelves : Array
 var target : Vector2i
 var checkout : Vector2i
+var prefered_item : String
 
 func _ready() -> void:
 	var color : int = randi_range(0,TYPES.size() - 1)
 	sprite.modulate = TYPES[color]
+	prefered_item = POTIONS[color]
 
 func _physics_process(_delta : float) -> void:
 	velocity = Vector2.ZERO
@@ -123,3 +126,7 @@ func animate(x_dir: float, y_dir : float) -> void:
 	else:
 		if sprite.sprite_frames.has_animation("idle_" + last_dir):
 			sprite.play("idle_" + last_dir)
+
+func check_shelf(shelf : Entity) -> void:
+	print("NPC entered ", shelf.entity_code)
+	print("shelf inv: ", shelf.inv.slots)

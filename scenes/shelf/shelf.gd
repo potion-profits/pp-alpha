@@ -44,3 +44,7 @@ func _debug_set_shelf_inv()->void:
 	var green:InvItem = ItemRegistry.new_item("item_green_potion")
 	for i in range(5):
 		inv.insert(green)
+
+func _on_interactable_body_entered(body: Node2D) -> void:
+	if body is Npc:
+		body.check_shelf(self)
