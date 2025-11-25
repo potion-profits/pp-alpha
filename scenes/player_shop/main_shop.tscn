@@ -584,7 +584,7 @@ position = Vector2(310, 52)
 position = Vector2(0, 300)
 
 [node name="top_left" type="Marker2D" parent="FrontRoom/RoomEdges"]
-position = Vector2(103, -229)
+position = Vector2(98, -298)
 
 [node name="bottom_right" type="Marker2D" parent="FrontRoom/RoomEdges"]
 position = Vector2(380, -35)
