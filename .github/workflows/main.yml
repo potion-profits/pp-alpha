@@ -21,9 +21,9 @@ jobs:
         uses: firebelley/godot-export@v7.0.0
         with:
           # The download url of the Linux Headless Godot executable.
-          godot_executable_download_url: https://downloads.godotengine.org/?version=$GODOT_VERSION&flavor=stable&slug=linux.x86_64.zip&platform=linux.64
+          godot_executable_download_url: https://downloads.godotengine.org/?version=${{ env.GODOT_VERSION }}&flavor=stable&slug=linux.x86_64.zip&platform=linux.64
           # The url of the export templates corresponding to the Godot executable version.
-          godot_export_templates_download_url: https://downloads.godotengine.org/?version=$GODOT_VERSION&flavor=stable&slug=export_templates.tpz&platform=templates
+          godot_export_templates_download_url: https://downloads.godotengine.org/?version=${{ env.GODOT_VERSION }}&flavor=stable&slug=export_templates.tpz&platform=templates
           # # The path relative to the root of the git repository that contains the "project.godot" file.
           # relative_project_path: ./
           # # If "true", all exported files will be archived into a ".zip" file.
