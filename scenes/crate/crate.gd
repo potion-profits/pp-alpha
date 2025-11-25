@@ -28,7 +28,7 @@ func _on_interact()->void:
 	var player:Player = get_tree().get_first_node_in_group("player")
 	#makes sure interaction is from a player
 	if player:
-		if inv.slots[0].item:	#something is in the crate waiting to be picked up
+		if inv.slots[0].item and inv.slots[0].amount > 0:	#something is in the crate waiting to be picked up
 			var temp_item : InvItem = inv.slots[0].item._duplicate()
 			if player.collect(temp_item):
 				inv.slots[0].amount-=1	#the player collected, so remove item from crate
@@ -37,7 +37,7 @@ func _on_interact()->void:
 					update_crate()
 
 func update_crate()->void:
-	if inv.slots[0].item:
+	if inv.slots[0].item and inv.slots[0].amount > 0:
 		full_crate.visible = true
 		empty_crate.visible = false
 	else:
@@ -57,5 +57,5 @@ func to_dict()-> Dictionary:
 
 func from_dict(data:Dictionary)->void:
 	super.from_dict(data)
-	if data.has("bottles") and data["bottles"] > 0:
+	if data.has("bottles") and data["bottles"] >= 0:
 		crate_inv_amt = data["bottles"]

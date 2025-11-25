@@ -41,7 +41,7 @@ func _ready() -> void:
 	super._ready()
 	
 	# Used to find out what scene to place in entity manager
-	#entity_code = barrel_type
+	entity_code = "barrel"
 	change_barrel_color(barrel_type)
 
 
@@ -53,7 +53,6 @@ func change_barrel_color(barrel_id : String) -> void:
 						0,
 						SPRITE_SIZE,
 						SPRITE_SIZE)
-
 	barrel_type = barrel_id
 	barrel_sprite.texture = atlas_texture
 

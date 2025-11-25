@@ -83,7 +83,8 @@ func load_scene_runtime_state()->void:
 	var scene_name:String = get_tree().current_scene.name
 	var em:EntityManager = get_tree().current_scene.get_node("EntityManager")
 	for child in em.get_children():
-		child.queue_free()
+		if child is Entity:
+			child.queue_free()
 	if em and runtime_entities.has(scene_name):
 		for data:Dictionary in runtime_entities[scene_name]:
 			em.load_from_dict(data)

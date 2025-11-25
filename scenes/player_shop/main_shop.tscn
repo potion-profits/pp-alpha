@@ -573,33 +573,33 @@ shape = SubResource("RectangleShape2D_6w02k")
 [node name="Objects" type="Node2D" parent="."]
 y_sort_enabled = true
 
-[node name="Barrel" parent="Objects" instance=ExtResource("5_6w02k")]
+[node name="EntityManager" type="Node2D" parent="."]
+script = ExtResource("9_5nl5b")
+
+[node name="Barrel" parent="EntityManager" instance=ExtResource("5_6w02k")]
 position = Vector2(120, -163)
 
-[node name="Barrel2" parent="Objects" instance=ExtResource("5_6w02k")]
+[node name="Barrel2" parent="EntityManager" instance=ExtResource("5_6w02k")]
 position = Vector2(159, -163)
 
-[node name="Cauldron" parent="Objects" instance=ExtResource("6_8eiuf")]
+[node name="Cauldron" parent="EntityManager" instance=ExtResource("6_8eiuf")]
 y_sort_enabled = true
 position = Vector2(162, -36)
 
-[node name="Player" parent="Objects" instance=ExtResource("2_asv1s")]
+[node name="Player" parent="EntityManager" instance=ExtResource("2_asv1s")]
 position = Vector2(304, -10)
 
-[node name="Camera2D" type="Camera2D" parent="Objects/Player"]
+[node name="Camera2D" type="Camera2D" parent="EntityManager/Player"]
 position = Vector2(-2, -24)
 zoom = Vector2(6.5, 6.5)
 
-[node name="Crate" parent="Objects" instance=ExtResource("8_bg63s")]
+[node name="Crate" parent="EntityManager" instance=ExtResource("8_bg63s")]
 position = Vector2(103, -95)
 scale = Vector2(1.2, 1.2)
 
-[node name="Crate2" parent="Objects" instance=ExtResource("8_bg63s")]
+[node name="Crate2" parent="EntityManager" instance=ExtResource("8_bg63s")]
 position = Vector2(121.00001, -85)
 scale = Vector2(1.2, 1.2)
-
-[node name="EntityManager" type="Node2D" parent="."]
-script = ExtResource("9_5nl5b")
 
 [connection signal="body_entered" from="MoveTownDetection" to="." method="_on_move_town_detection_body_entered"]
 [connection signal="body_entered" from="MoveStorageRoomDetection" to="." method="_on_move_storage_room_detection_body_entered"]

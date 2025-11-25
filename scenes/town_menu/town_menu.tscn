@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://d1k4278dfjjn6"]
+[gd_scene load_steps=2 format=3 uid="uid://d1k4278dfjjn6"]
+
+[ext_resource type="Script" uid="uid://l8v6jr3e3c6l" path="res://scenes/town_menu/town_menu.gd" id="1_ev4y6"]
 
 [node name="TownMenu" type="Control"]
 layout_mode = 3
@@ -7,6 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_ev4y6")
 
 [node name="TabContainer" type="TabContainer" parent="."]
 layout_mode = 1
@@ -73,3 +76,7 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 50
 text = "Go To Casino"
+
+[connection signal="pressed" from="TabContainer/Crates/CrateRefill" to="." method="_on_crate_refill_pressed"]
+[connection signal="pressed" from="TabContainer/Travel/PlayerShop" to="." method="_on_player_shop_pressed"]
+[connection signal="pressed" from="TabContainer/Travel/Casino" to="." method="_on_casino_pressed"]

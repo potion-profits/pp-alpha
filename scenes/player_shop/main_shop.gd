@@ -9,7 +9,10 @@ func _ready()->void:
 
 func _on_move_town_detection_body_entered(body: Node2D) -> void:
 	if body is Player:
-		get_tree().call_deferred("change_scene_to_file", "res://scenes/casino/casino_menu.tscn")
+		var cs:String = get_tree().current_scene.name
+		GameManager.save_scene_runtime_state(cs)
+		await get_tree().process_frame
+		get_tree().call_deferred("change_scene_to_file", "res://scenes/town_menu/town_menu.tscn")
 		
 
 
