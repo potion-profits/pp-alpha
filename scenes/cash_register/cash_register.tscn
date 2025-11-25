@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://ydlnke6gesg1"]
+
+[ext_resource type="Script" uid="uid://db2sqxsikj0qr" path="res://scenes/cash_register/cash_register.gd" id="1_otidk"]
+[ext_resource type="Texture2D" uid="uid://cna3dlftjloo6" path="res://assets/interior/shop/shelfandpotion01.png" id="1_rv0dt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lmfkk"]
+atlas = ExtResource("1_rv0dt")
+region = Rect2(64, 96, 24, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rv0dt"]
+size = Vector2(20, 40)
+
+[node name="CashRegister" type="Node2D"]
+script = ExtResource("1_otidk")
+
+[node name="RegisterSprite" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_lmfkk")
+
+[node name="InteractableArea" type="Area2D" parent="."]
+
+[node name="InteractableShape" type="CollisionShape2D" parent="InteractableArea"]
+shape = SubResource("RectangleShape2D_rv0dt")
+
+[connection signal="body_entered" from="InteractableArea" to="." method="_on_interactable_area_body_entered"]

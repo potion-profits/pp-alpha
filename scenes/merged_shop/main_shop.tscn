@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=4 uid="uid://c0wgfjbxk58k0"]
+[gd_scene load_steps=24 format=4 uid="uid://c0wgfjbxk58k0"]
 
 [ext_resource type="Script" uid="uid://cyi5m0rhrv7o2" path="res://scenes/merged_shop/main_shop.gd" id="1_47hg3"]
 [ext_resource type="Texture2D" uid="uid://cq4mo6l3w2oka" path="res://assets/interior/shop/background.png" id="2_ixtpo"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://c13ewv50qvs46" path="res://scenes/crate/crate.tscn" id="8_b6yhm"]
 [ext_resource type="PackedScene" uid="uid://dk76x6o356j3i" path="res://scenes/merged_shop/npc_spawner.tscn" id="12_47hg3"]
 [ext_resource type="Script" uid="uid://bxqvwgklsee6r" path="res://scenes/merged_shop/npc_spawner.gd" id="13_b6yhm"]
+[ext_resource type="PackedScene" uid="uid://ydlnke6gesg1" path="res://scenes/cash_register/cash_register.tscn" id="14_ylhot"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6w02k"]
 texture = ExtResource("4_85e8s")
@@ -666,7 +667,12 @@ position = Vector2(251, -728)
 [node name="BottomRight" type="Marker2D" parent="BackRoomEdges"]
 position = Vector2(533, -510)
 
+[node name="CashRegister" parent="." instance=ExtResource("14_ylhot")]
+position = Vector2(448, -145)
+
 [connection signal="body_entered" from="MoveTownDetection" to="." method="_on_move_town_detection_body_entered"]
 [connection signal="body_entered" from="MoveStorageRoomDetection" to="." method="_on_move_storage_room_detection_body_entered"]
 [connection signal="body_entered" from="MoveFrontRoomDetection" to="." method="_on_move_front_room_detection_body_entered"]
 [connection signal="npc_spawned" from="NpcSpawner" to="." method="_on_npc_spawner_npc_spawned"]
+
+[editable path="CashRegister"]
