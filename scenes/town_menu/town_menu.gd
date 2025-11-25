@@ -38,7 +38,7 @@ func _on_barrels_refill_pressed(button_name: String) -> void:
 				pass
 
 func _on_crate_refill_pressed() -> void:
-	for entity:Dictionary in GameManager.runtime_entities:
+	for entity:Dictionary in GameManager.runtime_entities["MainShop"]:
 		if entity["entity_code"] == "crate" and entity["bottles"]<25:
 			entity["bottles"] = CRATE_MAX_CAP
 
