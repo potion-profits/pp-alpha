@@ -52,4 +52,5 @@ func _on_player_shop_pressed() -> void:
 
 
 func _on_casino_pressed() -> void:
+	GameManager.connect_scene_load_callback()
 	get_tree().change_scene_to_file("res://scenes/casino/casino_menu.tscn")

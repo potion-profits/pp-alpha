@@ -38,7 +38,7 @@ func _on_casino_exit_pressed() -> void:
 	GameManager.save_scene_runtime_state(cs)
 	await get_tree().process_frame
 	GameManager.connect_scene_load_callback()
-	get_tree().change_scene_to_file("res://scenes/player_shop/main_shop.tscn")
+	get_tree().change_scene_to_file("res://scenes/town_menu/town_menu.tscn")
 
 func _on_cancel_exchange_pressed() -> void:
 	v_box_container.visible = true
