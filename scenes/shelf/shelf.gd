@@ -21,7 +21,7 @@ func _ready()-> void:
 	# create the shelf inventory 
 	if !inv:
 		inv = Inv.new(12)
-	#_debug_set_shelf_inv()
+	_debug_set_shelf_inv()
 	
 #Handles player interaction with shelf when appropriate 
 #ui visibility instead controlled by interaction
@@ -39,9 +39,37 @@ func _on_interact()->void:
 			ui_layer.visible = true
 			#links both inventories and respective ui
 			shelf_ui.set_inventories(player_inv, inv)
+			
+func get_inventory()->Array[InvSlot]:
+	var tmp : Array[InvSlot] = []
+	for item in inv.slots:
+		if (!item):
+			continue
+		
+		if (!item.item):
+			continue
+		
+		tmp.append(item)
+		
+	return tmp;
+	
+func remove_item(item_code: String, quantity: int)->void:
+	for item in inv.slots:
+		if(!item or !item.item):
+			continue
+		
+		if (quantity <= 0):
+			return
+			
+		if (item.item.texture_code == item_code and item.amount >= quantity):
+			item.amount -= quantity
+			return
+			
 
 func _debug_set_shelf_inv()->void:
 	var green:InvItem = ItemRegistry.new_item("item_green_potion")
+	green.mixable = 0
+	green.sellable = 1
 	for i in range(5):
 		inv.insert(green)
 

@@ -129,4 +129,16 @@ func animate(x_dir: float, y_dir : float) -> void:
 
 func check_shelf(shelf : Entity) -> void:
 	print("NPC entered ", shelf.entity_code)
-	print("shelf inv: ", shelf.inv.slots)
+	var tmp : Array[InvSlot] = shelf.get_inventory()
+	print("shelf inv: ", shelf.get_inventory())
+	
+	for item in tmp:
+		print(item.item.texture_code)
+		print(item.amount)
+			
+		if (item.item.texture_code == prefered_item):
+			print("Found item")
+			shelf.remove_item(prefered_item, 1)
+			breakw
+	
+	
