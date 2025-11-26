@@ -155,7 +155,8 @@ func stack_items(slot: Button)->void:
 
 func update_cursor()->void:
 	if item_on_cursor:
-		item_on_cursor.shelf_scale()
+		# additional scale for cursor items
+		item_on_cursor.scale = Vector2(5, 5)
 		item_on_cursor.global_position = get_global_mouse_position()
 	# if shelf ui gets closed while item on cursor, remove item stack ui on cursor
 	if item_on_cursor and !ui_layer.visible:

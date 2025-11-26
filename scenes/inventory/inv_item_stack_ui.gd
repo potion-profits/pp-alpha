@@ -1,26 +1,24 @@
 extends Panel
 class_name ItemStackUI
 
-@onready var item_visuals : Sprite2D = $item_display
+@onready var item_visuals : Sprite2D = $item_textures/item_display
 @onready var amount_text: Label = $item_amount
-@onready var sellable_label: Sprite2D = $sellable_icon
-@onready var mixable_label: Sprite2D = $mixable_icon
-
+@onready var sellable_label: Sprite2D = $item_textures/sellable_icon
+@onready var mixable_label: Sprite2D = $item_textures/mixable_icon
+@onready var item_textures: Node2D = $item_textures
 
 var invSlot : InvSlot
 
-var texture_scale:float = 1.7
-var label_scale:float = texture_scale * 0.25
-var label_x_offset:float = -1.25
-var label_y_offset:float = -4
-
 var already_scaled: bool = false
+var texture_scale:float = 2.2
+var label_scale:float = texture_scale * 0.25
+var label_x_offset:float = -6
 
 func _ready() -> void:
 	# if created under the shelf ui, have textures scaled accordingly (There's probably a better way of checking)
 	var shelf_ui_container: GridContainer = get_parent().get_parent().get_parent()
 	if shelf_ui_container.name == "ShelfContainer" or shelf_ui_container.name == "ShelfPlayerContainer":
-		shelf_scale()	
+		shelf_scale()
 
 func update_slot()->void:
 	if !invSlot or !invSlot.item:
@@ -45,12 +43,8 @@ func update_slot()->void:
 #scales texture to fit shelf ui
 func shelf_scale() -> void:
 	if !already_scaled:
-		item_visuals.scale = Vector2(texture_scale,texture_scale)
+		item_textures.scale = Vector2(texture_scale, texture_scale)
 		amount_text.scale = Vector2(label_scale,label_scale)
-		sellable_label.scale = Vector2(label_scale,label_scale)
-		mixable_label.scale = Vector2(texture_scale,texture_scale)
-		
-		sellable_label.position = sellable_label.position + Vector2(label_x_offset, label_y_offset)
 		amount_text.position = amount_text.position + Vector2(label_x_offset, 0)
-		
 		already_scaled = true
+	

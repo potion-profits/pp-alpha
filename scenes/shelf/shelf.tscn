@@ -32,6 +32,12 @@ visible = false
 shape = SubResource("CircleShape2D_ehm0u")
 
 [node name="Inv_UI_Layer" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="Shelf_UI" parent="Inv_UI_Layer" instance=ExtResource("3_y5jy8")]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+offset_left = -960.0
+offset_top = -1080.0
+offset_right = 960.0

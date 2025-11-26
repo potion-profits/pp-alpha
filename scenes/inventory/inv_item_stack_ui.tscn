@@ -12,21 +12,23 @@ region = Rect2(16, 16, 16, 16)
 [node name="inv_item_stack_ui" type="Panel"]
 script = ExtResource("1_elslr")
 
-[node name="item_display" type="Sprite2D" parent="."]
+[node name="item_textures" type="Node2D" parent="."]
+
+[node name="item_display" type="Sprite2D" parent="item_textures"]
 scale = Vector2(0.75, 0.75)
 texture = SubResource("AtlasTexture_ay0tq")
 
-[node name="mixable_icon" type="Sprite2D" parent="."]
+[node name="mixable_icon" type="Sprite2D" parent="item_textures"]
 position = Vector2(0.009754896, 1.1114933)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("3_gyhdo")
 region_enabled = true
 region_rect = Rect2(3, 5, 10, 9)
 
-[node name="sellable_icon" type="Sprite2D" parent="."]
+[node name="sellable_icon" type="Sprite2D" parent="item_textures"]
 position = Vector2(-2.4526196, -0.10715915)
 rotation = 0.7897316
-scale = Vector2(0.4, 0.411)
+scale = Vector2(0.40000004, 0.41100004)
 texture = ExtResource("3_ay0tq")
 
 [node name="item_amount" type="Label" parent="."]
