@@ -12,6 +12,8 @@ var selected_index:int = -1
 func _init(size:int = 5) -> void:
 	for i in range(size):
 		slots.push_back(InvSlot.new())
+		slots[i].owner = self
+		slots[i].index = i
 
 #goes through slots and inserts in correct slot, next empty slot, or returns false
 func insert(item: InvItem) -> bool:
@@ -54,18 +56,26 @@ func deselect()->void:
 	update.emit()
 	selection_changed.emit(selected_index)
 
-func remove_on_cursor(idx: int)->void:
-	slots[idx] = InvSlot.new()
-
 func insert_on_cursor(idx: int, invSlot: InvSlot)->void:
-	var old_idx: int = slots.find(invSlot)
-	remove_on_cursor(old_idx)
+	var old_owner: Inv = invSlot.owner
+	var old_idx: int = invSlot.index
+	 
+	if old_owner and old_owner.slots[old_idx] == invSlot:
+		var empty_slot: InvSlot = InvSlot.new()
+		empty_slot.owner = old_owner
+		empty_slot.index = old_idx
+		old_owner.slots[old_idx] = empty_slot
+		old_owner.update.emit()
+		
+	invSlot.owner = self
+	invSlot.index = idx
 	slots[idx] = invSlot
-
+	update.emit()
+	
 func to_dict()->Dictionary:
 	var slot_data:Array = []
 	for slot in slots:
-		slot_data.append(slot.to_dict())
+		slot_data.append(slot.to_dict() if slot else {})
 	return{
 		"slots":slot_data,
 		"selected_index":selected_index
@@ -73,12 +83,16 @@ func to_dict()->Dictionary:
 
 func from_dict(data: Dictionary)->void:
 	slots.clear()
+	var idx:int = 0
 	for slot_info:Dictionary in data["slots"]:
 		var slot:InvSlot = InvSlot.new()
+		slot.owner = self
 		slot.amount = slot_info["amount"]
+		slot.index = idx
 		if slot_info["item"]:
 			slot.item = InvItem.new()
 			slot.item.from_dict(slot_info["item"])
 		slots.append(slot)
+		idx+=1
 	selected_index = data["selected_index"]
 	update.emit()
