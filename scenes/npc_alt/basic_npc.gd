@@ -31,7 +31,7 @@ var is_checked_out : bool = false
 func _ready() -> void:
 	var color : int = randi_range(0,TYPES.size() - 1)
 	sprite.modulate = TYPES[color]
-	prefered_item = POTIONS[1]
+	prefered_item = POTIONS[color]
 
 func _physics_process(_delta : float) -> void:
 	velocity = Vector2.ZERO
@@ -145,7 +145,7 @@ func check_shelf(shelf : Entity) -> void:
 		print(item.item.texture_code)
 		print(item.amount)
 			
-		if (item.amount > 0 and item.item.texture_code == prefered_item):
+		if (item.amount > 0 and item.item.texture_code == prefered_item and item.item.sellable):
 			print("Found item")
 			shelf.remove_item(prefered_item, 1)
 			

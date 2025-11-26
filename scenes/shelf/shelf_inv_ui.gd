@@ -21,6 +21,7 @@ var inventory_toggle : bool = true # Setting for toggle vs hold inventory
 
 var item_on_cursor: ItemStackUI
 
+
 #dynamically sets inv which is set wherever a inventory is to be made
 func set_inventories(_player_inv: Inv, _shelf_inv: Inv) -> void:
 	# if signal connected, disconnect
@@ -85,6 +86,7 @@ func update_single_slot(ui_slot: Button, inv_slot: InvSlot) -> void:
 		if !ui_slot.item_stack:
 			var stack:ItemStackUI = ItemStackUIClass.instantiate()
 			ui_slot.insert(stack)
+			stack.call_deferred("shelf_scale")
 		ui_slot.item_stack.invSlot = inv_slot
 		ui_slot.item_stack.update_slot()
 	else:
@@ -106,8 +108,9 @@ func on_slot_clicked(slot:Button) -> void:
 
 func take_from_slot(slot:Button)->void:
 	if slot.item_stack:
-		item_on_cursor = slot.pick_item() 
+		item_on_cursor = slot.pick_item()
 		add_child(item_on_cursor)
+		item_on_cursor.call_deferred("shelf_scale")
 		update_cursor()
 
 func insert_to_slot(slot:Button)->void:
@@ -115,6 +118,7 @@ func insert_to_slot(slot:Button)->void:
 	remove_child(item_on_cursor)
 	item_on_cursor = null
 	slot.insert(item)
+	item.call_deferred("shelf_scale")
 
 func swap_items(slot:Button)->void:
 	var tempItem: ItemStackUI = slot.pick_item()
@@ -122,6 +126,7 @@ func swap_items(slot:Button)->void:
 	
 	item_on_cursor = tempItem
 	add_child(item_on_cursor)
+	item_on_cursor.call_deferred("shelf_scale")
 	update_cursor()
 
 # to have all slots connected, treated as one big array
@@ -150,18 +155,9 @@ func stack_items(slot: Button)->void:
 
 func update_cursor()->void:
 	if item_on_cursor:
-		var texture_scale:float = 7
-		var label_scale:float = texture_scale * 0.25
-		var label_x_offset:float = -25
-		var label_y_offset:float = -15
-		item_on_cursor.item_visuals.scale = Vector2(texture_scale,texture_scale)
-		item_on_cursor.amount_text.scale = Vector2(label_scale,label_scale)
-		item_on_cursor.sellable_label.scale = Vector2(label_scale,label_scale)
-		item_on_cursor.mixable_label.scale = Vector2(texture_scale,texture_scale)
-		
-		item_on_cursor.sellable_label.position = Vector2(label_x_offset, label_y_offset)
-		item_on_cursor.amount_text.position = Vector2(label_x_offset, 0)
-		item_on_cursor.global_position = get_global_mouse_position() - item_on_cursor.size/2
+		# additional scale for cursor items
+		item_on_cursor.scale = Vector2(5, 5)
+		item_on_cursor.global_position = get_global_mouse_position()
 	# if shelf ui gets closed while item on cursor, remove item stack ui on cursor
 	if item_on_cursor and !ui_layer.visible:
 		item_on_cursor.queue_free()

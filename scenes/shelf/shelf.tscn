@@ -36,11 +36,11 @@ visible = false
 
 [node name="Shelf_UI" parent="Inv_UI_Layer" instance=ExtResource("3_y5jy8")]
 anchors_preset = -1
-anchor_left = 0.33400002
-anchor_bottom = 1.0250001
-offset_left = 0.7199707
-offset_top = 27.0
-offset_right = -88.0
-offset_bottom = -0.00012207031
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+offset_left = -960.0
+offset_top = -1080.0
+offset_right = 960.0
 
 [connection signal="body_entered" from="Interactable" to="." method="_on_interactable_body_entered"]
