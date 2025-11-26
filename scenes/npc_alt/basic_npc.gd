@@ -2,6 +2,7 @@ class_name Npc extends CharacterBody2D
 @onready var sprite : = $AnimatedSprite2D
 @onready var checkout_timer: Timer = $CheckoutTimer
 var floor_map : Node2D
+# inv not used for alpha, planning to use when npcs can buy multiple items
 var inv : Inv = Inv.new(1)
 
 const TYPES : Array = [Color(1,0.5,0.5,1), Color(0.5,1,0.5,1), Color(0.5,0.5,1,1), Color(0.2,0.2,0.2,1)]
@@ -96,8 +97,6 @@ func npc_action() -> void:
 		action.CHECKOUT:
 			if not is_checked_out:
 				checkout_timer.start(CHECKOUT_TIME)
-				# handle checkout logic and then trigger the checkout timer to timeout
-				# some_checkout_func()
 				await checkout_timer.timeout
 			current_action = action.LEAVE
 			target = floor_map.spawn

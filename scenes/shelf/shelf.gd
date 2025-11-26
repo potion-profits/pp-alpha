@@ -21,7 +21,6 @@ func _ready()-> void:
 	# create the shelf inventory 
 	if !inv:
 		inv = Inv.new(12)
-	_debug_set_shelf_inv()
 	
 #Handles player interaction with shelf when appropriate 
 #ui visibility instead controlled by interaction

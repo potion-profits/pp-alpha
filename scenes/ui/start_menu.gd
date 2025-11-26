@@ -11,7 +11,7 @@ func _ready()->void:
 
 func _on_play_pressed()->void:
 	GameManager.connect_scene_load_callback()
-	get_tree().change_scene_to_file("res://scenes/merged_shop/main_shop.tscn")
+	get_tree().change_scene_to_file("res://scenes/player_shop/main_shop.tscn")
 
 func _on_options_pressed()->void:
 	get_tree().change_scene_to_file("res://scenes/ui/options_menu.tscn")
