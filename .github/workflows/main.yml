@@ -56,6 +56,21 @@ jobs:
           name: exports
           path: exports
 
+      - name: Fix directory location
+        run: |
+          echo "Working directory before move:"
+          pwd
+          ls -R .
+
+          # Move the real export folder to a predictable location
+          if [ -d pp-alpha/exports ]; then
+            mv pp-alpha/exports exports
+            rm -rf pp-alpha
+          fi
+
+          echo "Working directory after move:"
+          ls -R .
+
       - name: Download Butler
         run: |
           curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
