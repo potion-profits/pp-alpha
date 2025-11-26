@@ -56,26 +56,6 @@ jobs:
           name: exports
           path: exports
 
-      - name: Normalize export file paths
-        run: |
-          echo "Normalizing artifact structure..."
-          mkdir -p exports/html
-
-          # Move HTML export
-          if [ -f exports/html/html.zip ]; then
-            echo "HTML export OK"
-          else
-            mv exports/html/*.zip exports/html/html.zip 2>/dev/null || true
-          fi
-
-          # Move desktop exports out of pp-alpha/exports/
-          if [ -d exports/pp-alpha/exports ]; then
-            mv exports/pp-alpha/exports/* exports/ 2>/dev/null || true
-            rm -rf exports/pp-alpha
-          fi
-
-          ls -R exports
-
       - name: Download Butler
         run: |
           curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
@@ -89,7 +69,7 @@ jobs:
         env:
           VERSION: ${{ needs.Build.outputs.version }}
         run: |
-          ./butler push "./exports/html/html.zip"      "$ITCHIO_USERNAME/$PROJECT_NAME:html"     --userversion "$VERSION"
+          ./butler push "./html/html.zip"      "$ITCHIO_USERNAME/$PROJECT_NAME:html"     --userversion "$VERSION"
           ./butler push "./exports/linux.zip"          "$ITCHIO_USERNAME/$PROJECT_NAME:linux"    --userversion "$VERSION"
           ./butler push "./exports/macos.zip"          "$ITCHIO_USERNAME/$PROJECT_NAME:mac"      --userversion "$VERSION"
           ./butler push "./exports/windows.zip"        "$ITCHIO_USERNAME/$PROJECT_NAME:windows"  --userversion "$VERSION"
