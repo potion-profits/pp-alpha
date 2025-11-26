@@ -54,7 +54,8 @@ func get_inventory()->Array[InvSlot]:
 	return tmp;
 	
 func remove_item(item_code: String, quantity: int)->void:
-	for slot in inv.slots:
+	for i in range(inv.slots.size()):
+		var slot: InvSlot = inv.slots[i]
 		if(!slot or !slot.item):
 			continue
 		
@@ -64,7 +65,7 @@ func remove_item(item_code: String, quantity: int)->void:
 		if (slot.item.texture_code == item_code and slot.amount >= quantity):
 			slot.amount -= quantity
 			if slot.amount <= 0:
-				slot = null
+				inv.slots[i] = null
 			inv.update.emit()
 			shelf_ui.update_slots()
 			return

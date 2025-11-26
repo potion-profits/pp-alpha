@@ -25,13 +25,13 @@ var target : Vector2i
 var checkout : Vector2i
 var prefered_item : String
 var item_found : bool = false
-var is_checkout_out : bool = false
+var is_checked_out : bool = false
 
 
 func _ready() -> void:
 	var color : int = randi_range(0,TYPES.size() - 1)
 	sprite.modulate = TYPES[color]
-	prefered_item = POTIONS[color]
+	prefered_item = POTIONS[1]
 
 func _physics_process(_delta : float) -> void:
 	velocity = Vector2.ZERO
@@ -94,10 +94,11 @@ func npc_action() -> void:
 					move_to_point()
 			await get_tree().create_timer(2.0).timeout
 		action.CHECKOUT:
-			checkout_timer.start(CHECKOUT_TIME)
-			# handle checkout logic and then trigger the checkout timer to timeout
-			# some_checkout_func()
-			await checkout_timer.timeout
+			if not is_checked_out:
+				checkout_timer.start(CHECKOUT_TIME)
+				# handle checkout logic and then trigger the checkout timer to timeout
+				# some_checkout_func()
+				await checkout_timer.timeout
 			current_action = action.LEAVE
 			target = floor_map.spawn
 			move_to_point()
