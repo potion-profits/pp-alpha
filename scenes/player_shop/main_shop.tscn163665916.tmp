@@ -1,8 +1,8 @@
-[gd_scene load_steps=24 format=4 uid="uid://c0wgfjbxk58k0"]
+[gd_scene load_steps=23 format=4 uid="uid://c0wgfjbxk58k0"]
 
-[ext_resource type="Script" uid="uid://bs6mohet7ju1d" path="res://scenes/player_shop/main_shop.gd" id="1_47hg3"]
+[ext_resource type="Script" uid="uid://cyi5m0rhrv7o2" path="res://scenes/merged_shop/main_shop.gd" id="1_47hg3"]
 [ext_resource type="Texture2D" uid="uid://cq4mo6l3w2oka" path="res://assets/interior/shop/background.png" id="2_ixtpo"]
-[ext_resource type="Script" uid="uid://dfnny774vqx3t" path="res://scenes/player_shop/astar.gd" id="3_85e8s"]
+[ext_resource type="Script" uid="uid://dfnny774vqx3t" path="res://scenes/merged_shop/astar.gd" id="3_85e8s"]
 [ext_resource type="Texture2D" uid="uid://4c4v2xp0o710" path="res://assets/interior/shop/inshop01.png" id="4_85e8s"]
 [ext_resource type="Script" uid="uid://v2b04jaxuakv" path="res://globals/entity_manager.gd" id="5_41gid"]
 [ext_resource type="Texture2D" uid="uid://b6sxxon0bv8sh" path="res://assets/interior/shop/counter_all01.png" id="5_47hg3"]
@@ -11,9 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://c0nam2jyacktb" path="res://scenes/cauldron/cauldron.tscn" id="7_47hg3"]
 [ext_resource type="PackedScene" uid="uid://m4k8qbbqo7ha" path="res://scenes/shelf/shelf.tscn" id="7_ylhot"]
 [ext_resource type="PackedScene" uid="uid://c13ewv50qvs46" path="res://scenes/crate/crate.tscn" id="8_b6yhm"]
-[ext_resource type="PackedScene" uid="uid://dk76x6o356j3i" path="res://scenes/player_shop/npc_spawner.tscn" id="12_47hg3"]
-[ext_resource type="Script" uid="uid://bxqvwgklsee6r" path="res://scenes/player_shop/npc_spawner.gd" id="13_b6yhm"]
-[ext_resource type="PackedScene" uid="uid://ydlnke6gesg1" path="res://scenes/cash_register/cash_register.tscn" id="14_ylhot"]
+[ext_resource type="PackedScene" uid="uid://dk76x6o356j3i" path="res://scenes/merged_shop/npc_spawner.tscn" id="12_47hg3"]
+[ext_resource type="Script" uid="uid://bxqvwgklsee6r" path="res://scenes/merged_shop/npc_spawner.gd" id="13_b6yhm"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6w02k"]
 texture = ExtResource("4_85e8s")
@@ -628,7 +627,6 @@ position = Vector2(325, -629)
 scale = Vector2(1.2, 1.2)
 
 [node name="Crate2" parent="EntityManager" instance=ExtResource("8_b6yhm")]
-visible = false
 position = Vector2(331, -619)
 scale = Vector2(1.2, 1.2)
 
@@ -667,9 +665,6 @@ position = Vector2(251, -728)
 
 [node name="BottomRight" type="Marker2D" parent="BackRoomEdges"]
 position = Vector2(533, -510)
-
-[node name="CashRegister" parent="." instance=ExtResource("14_ylhot")]
-position = Vector2(448, -145)
 
 [connection signal="body_entered" from="MoveTownDetection" to="." method="_on_move_town_detection_body_entered"]
 [connection signal="body_entered" from="MoveStorageRoomDetection" to="." method="_on_move_storage_room_detection_body_entered"]
