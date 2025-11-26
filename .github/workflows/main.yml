@@ -1,7 +1,11 @@
 name: Deploy to Itch.io
 
 # Manually trigger by going to this workflow in the repository actions tab
-on: workflow_dispatch
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
 
 env:
   BUTLER_API_KEY: ${{secrets.BUTLER_CREDENTIALS}} # Repository Settings -> Secrets and variables -> Actions -> New repository secret
