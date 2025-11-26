@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=4 uid="uid://dqjsd25qefwd8"]
+[gd_scene load_steps=18 format=4 uid="uid://dqjsd25qefwd8"]
 
 [ext_resource type="Script" uid="uid://bs6mohet7ju1d" path="res://scenes/player_shop/main_shop.gd" id="1_bg63s"]
 [ext_resource type="Texture2D" uid="uid://4c4v2xp0o710" path="res://assets/interior/shop/inshop01.png" id="1_or7af"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://c13ewv50qvs46" path="res://scenes/crate/crate.tscn" id="8_bg63s"]
 [ext_resource type="Script" uid="uid://v2b04jaxuakv" path="res://globals/entity_manager.gd" id="9_5nl5b"]
 [ext_resource type="PackedScene" uid="uid://bvpkooupsu5ea" path="res://scenes/registercounter/register_counter.tscn" id="9_yts7i"]
+[ext_resource type="PackedScene" uid="uid://djmch00bhtyqp" path="res://scenes/npc_shark/npc_shark.tscn" id="10_yts7i"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6w02k"]
 texture = ExtResource("1_or7af")
@@ -623,6 +624,10 @@ position_smoothing_speed = 4.0
 
 [node name="RegisterCounter" parent="EntityManager" instance=ExtResource("9_yts7i")]
 position = Vector2(312, 104)
+
+[node name="npc_shark" parent="EntityManager" instance=ExtResource("10_yts7i")]
+position = Vector2(292, 113)
+scale = Vector2(0.8, 0.8)
 
 [connection signal="body_entered" from="FrontRoom/MoveTownDetection" to="." method="_on_move_town_detection_body_entered"]
 [connection signal="body_entered" from="FrontRoom/MoveStorageRoomDetection" to="." method="_on_move_storage_room_detection_body_entered"]

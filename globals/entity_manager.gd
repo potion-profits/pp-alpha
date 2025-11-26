@@ -5,7 +5,7 @@ var entity_codes:Dictionary = {
 	"cauldron": "res://scenes/cauldron/cauldron.tscn",
 	"crate": "res://scenes/crate/crate.tscn",
 	"barrel": "res://scenes/barrel/barrel.tscn",
-	"register-counter": "res.//scenes/register_counter.tscn"
+	"register-counter": "res://scenes/registercounter/register_counter.tscn"
 }
 
 func load_from_dict(data:Dictionary)->void:
