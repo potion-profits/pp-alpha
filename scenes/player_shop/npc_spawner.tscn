@@ -1,9 +1,9 @@
 [gd_scene load_steps=2 format=3 uid="uid://dk76x6o356j3i"]
 
-[ext_resource type="Script" uid="uid://bm7chouabpxuk" path="res://scenes/npc_spawning/npc_spawner.gd" id="1_aw8as"]
+[ext_resource type="Script" uid="uid://bxqvwgklsee6r" path="res://scenes/player_shop/npc_spawner.gd" id="1_hk55j"]
 
 [node name="NpcSpawner" type="Node2D"]
-script = ExtResource("1_aw8as")
+script = ExtResource("1_hk55j")
 
 [node name="NPCRespawnTimer" type="Timer" parent="."]
 
