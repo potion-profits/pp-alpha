@@ -47,6 +47,11 @@ jobs:
           # export_as_pack: # optional
           # # A comma-separated list of export presets to export. If not specified, all presets will be exported.
           # presets_to_export: # optional, default i
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: exports
+          path: exports
 
   Publish:
     needs: Build
