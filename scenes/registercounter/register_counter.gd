@@ -8,6 +8,8 @@ Register and counter
 @onready var customer_detect_area: Area2D = $CustomerDetection
 @onready var customer_detect_icon: Sprite2D = $CustomerWaitingIcon
 
+@export var lantern: Node2D
+
 var customers_in_area: int = 0
 var icon_base_position: Vector2
 var bob_time: float = 0.0
@@ -32,6 +34,7 @@ func _on_customer_detection_body_entered(body: Node2D) -> void:
 	if body is CharacterBody2D and body is not Player:
 		customers_in_area += 1
 		customer_detect_icon.visible = true
+		lantern.start_glow()
 
 
 func _on_customer_detection_body_exited(body: Node2D) -> void:
@@ -39,3 +42,4 @@ func _on_customer_detection_body_exited(body: Node2D) -> void:
 		customers_in_area -= 1
 	if customers_in_area <= 0:
 		customer_detect_icon.visible = false
+		lantern.stop_glow()
