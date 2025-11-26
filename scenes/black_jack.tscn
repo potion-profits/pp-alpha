@@ -1,27 +1,28 @@
 [gd_scene load_steps=5 format=3 uid="uid://hse5bruyxk2r"]
 
-[ext_resource type="Script" uid="uid://jnbffpyw7u5j" path="res://scenes/casino/blackjack.gd" id="1_8i86w"]
-[ext_resource type="Texture2D" uid="uid://qfdg62auv4vh" path="res://assets/casino/temp/blackjack_temp.jpg" id="1_d46qn"]
-[ext_resource type="PackedScene" uid="uid://bk0h32dk6ry1n" path="res://scenes/casino/deck.tscn" id="3_h5ddj"]
-[ext_resource type="PackedScene" uid="uid://b0flhrlw7t57t" path="res://scenes/player/player.tscn" id="4_3oeph"]
+[ext_resource type="Script" uid="uid://jnbffpyw7u5j" path="res://scenes/casino/blackjack.gd" id="1_qp4h2"]
+[ext_resource type="Texture2D" uid="uid://qfdg62auv4vh" path="res://assets/casino/temp/blackjack_temp.jpg" id="2_dad4q"]
+[ext_resource type="PackedScene" uid="uid://bk0h32dk6ry1n" path="res://scenes/casino/deck.tscn" id="3_c0bro"]
+[ext_resource type="PackedScene" uid="uid://b0flhrlw7t57t" path="res://scenes/player/player.tscn" id="4_gwo6v"]
 
 [node name="BlackJack" type="Node2D"]
-script = ExtResource("1_8i86w")
+script = ExtResource("1_qp4h2")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 offset_right = 1920.0
 offset_bottom = 1080.0
-texture = ExtResource("1_d46qn")
+texture = ExtResource("2_dad4q")
 
 [node name="Exit" type="Button" parent="."]
-offset_left = 1788.0
-offset_top = 1028.0
+offset_left = 1640.9032
+offset_top = 988.0
 offset_right = 1902.0
 offset_bottom = 1059.0
+theme_override_font_sizes/font_size = 32
 text = "Exit BlackJack
 "
 
-[node name="Deck" parent="." instance=ExtResource("3_h5ddj")]
+[node name="Deck" parent="." instance=ExtResource("3_c0bro")]
 position = Vector2(1627, 232.00002)
 
 [node name="PlayerPos" type="Marker2D" parent="."]
@@ -39,24 +40,24 @@ scale = Vector2(0.9999999, 0.9999999)
 
 [node name="Hit" type="Button" parent="."]
 visible = false
-offset_left = 184.0
+offset_left = 91.99999
 offset_top = 951.00006
-offset_right = 290.0
+offset_right = 158.91174
 offset_bottom = 982.00006
 scale = Vector2(2.72, 2.72)
 text = "Hit"
 
 [node name="Stand" type="Button" parent="."]
 visible = false
-offset_left = 511.00006
+offset_left = 304.0
 offset_top = 949.99994
-offset_right = 564.00006
+offset_right = 357.0
 offset_bottom = 980.99994
 scale = Vector2(2.8, 2.8)
 text = "Stand
 "
 
-[node name="Player" parent="." instance=ExtResource("4_3oeph")]
+[node name="Player" parent="." instance=ExtResource("4_gwo6v")]
 position = Vector2(-20, -17)
 
 [node name="BetMenu" type="VBoxContainer" parent="."]
@@ -85,6 +86,50 @@ text = "+"
 [node name="Confirm" type="Button" parent="BetMenu"]
 layout_mode = 2
 text = "Confirm"
+
+[node name="DealerScore" type="Label" parent="."]
+visible = false
+offset_left = 551.0
+offset_top = 85.0
+offset_right = 952.0
+offset_bottom = 154.0
+theme_override_font_sizes/font_size = 50
+text = "Dealer Score: 0"
+
+[node name="PlayerScore" type="Label" parent="."]
+visible = false
+offset_left = 551.0
+offset_top = 900.0
+offset_right = 952.0
+offset_bottom = 969.0
+theme_override_font_sizes/font_size = 50
+text = "Player Score: 0"
+
+[node name="GameOver" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = 742.0
+offset_top = 470.0
+offset_right = 782.0
+offset_bottom = 510.0
+
+[node name="Condition" type="Label" parent="GameOver"]
+layout_mode = 0
+offset_top = -73.0
+offset_right = 441.0
+offset_bottom = 64.0
+theme_override_font_sizes/font_size = 100
+text = "YOU WIN"
+
+[node name="Subtext" type="Label" parent="GameOver"]
+layout_mode = 0
+offset_left = 57.0
+offset_top = 101.0
+offset_right = 378.0
+offset_bottom = 146.0
+theme_override_font_sizes/font_size = 32
+text = "You won 1,000 chips!"
 
 [connection signal="pressed" from="Exit" to="." method="_on_exit_pressed"]
 [connection signal="pressed" from="Hit" to="." method="_on_hit_pressed"]
