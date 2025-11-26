@@ -1,56 +1,47 @@
 name: Deploy to Itch.io
 
-# Manually trigger by going to this workflow in the repository actions tab
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   workflow_dispatch:
 
 env:
-  BUTLER_API_KEY: ${{secrets.BUTLER_CREDENTIALS}} # Repository Settings -> Secrets and variables -> Actions -> New repository secret
-  ITCHIO_USERNAME: ${{secrets.ITCHIO_USERNAME}}
-  PROJECT_NAME: "potion-profits" # See README.md about project, channel, and export file naming conventions
+  BUTLER_API_KEY: ${{ secrets.BUTLER_CREDENTIALS }}
+  ITCHIO_USERNAME: ${{ secrets.ITCHIO_USERNAME }}
+  PROJECT_NAME: "potion-profits"
 
 jobs:
   Build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Source Code
+      - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Needed for versioning
 
-      - name: Get Godot Version
-        run: echo "GODOT_VERSION=$(grep '^config/features' project.godot | cut -d "\"" -f 2)" >> $GITHUB_ENV
+      - name: Generate Version
+        id: version
+        run: |
+          DATE=$(date +'%Y.%m.%d')
+          COUNT=$(git rev-list --count HEAD)
+          VERSION="v${DATE}-build-${COUNT}"
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "::set-output name=version::$VERSION"
 
-      - name: Godot Export
+      - name: Extract Godot Version
+        run: |
+          VERSION=$(grep '^config/version=' project.godot | cut -d '"' -f 2)
+          echo "GODOT_VERSION=$VERSION" >> $GITHUB_ENV
+
+      - name: Export Godot Project
         uses: firebelley/godot-export@v7.0.0
         with:
-          # The download url of the Linux Headless Godot executable.
           godot_executable_download_url: https://downloads.godotengine.org/?version=${{ env.GODOT_VERSION }}&flavor=stable&slug=linux.x86_64.zip&platform=linux.64
-          # The url of the export templates corresponding to the Godot executable version.
           godot_export_templates_download_url: https://downloads.godotengine.org/?version=${{ env.GODOT_VERSION }}&flavor=stable&slug=export_templates.tpz&platform=templates
-          # # If "true", all exported files will be archived into a ".zip" file.
-          archive_output: true # optional
-          # # If "true", files that are archived will be placed in a root folder within the archive.
-          # archive_root_folder: # optional
-          # # If "true", the Godot executable and export templates will be cached in the GitHub Actions workspace.
-          cache: true # optional
-          # # If provided, exports will be moved to this directory relative to the root of the Git repository. This setting is overridden by "use_preset_export_path".
-          # relative_export_path: # optional, default is
-          # # If set to true, exports will be moved to directory defined in "export_presets.cfg" relative to "relative_project_path". Prioritized over "relative_export_path".
-          use_preset_export_path: true # optional
-          # # The absolute path to the wine binary. If specified, Godot will use this to run rcedit to update Windows exe icons.
-          # wine_path: # optional, default is
-          # # If "true" Godot will export in debug mode.
-          # export_debug: # optional
-          # # If "true" the --verbose flag will be added when exporting Godot projects.
-          # verbose: # optional
-          # # Build using Godot 3 executable (NOTE: `godot_executable_download_url` and `godot_export_templates_download_url` still need to be configured to download the correct version.)
-          # use_godot_3: # optional
-          # # Export project files as a .pck file.
-          # export_as_pack: # optional
-          # # A comma-separated list of export presets to export. If not specified, all presets will be exported.
-          # presets_to_export: # optional, default i
+          archive_output: true
+          cache: true
+          use_preset_export_path: true
+
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -61,7 +52,7 @@ jobs:
     needs: Build
     runs-on: ubuntu-latest
     steps:
-      - name: Get Artifacts
+      - name: Download Artifacts
         uses: actions/download-artifact@v4
         with:
           name: exports
@@ -72,14 +63,24 @@ jobs:
           curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
           unzip butler.zip
           chmod +x butler
-          ./butler -V
 
-      - name: Login To Butler
+      - name: Login to Butler
         run: ./butler login
 
-      - name: Push To Itch
+      - name: Push to Itch.io
+        env:
+          VERSION: ${{ needs.Build.outputs.version }}
         run: |
-          ./butler push ./exports/html/html.zip $ITCHIO_USERNAME/$PROJECT_NAME:html
-          ./butler push ./exports/linux.zip $ITCHIO_USERNAME/$PROJECT_NAME:linux
-          ./butler push ./exports/macos.zip $ITCHIO_USERNAME/$PROJECT_NAME:mac
-          ./butler push ./exports/windows.zip $ITCHIO_USERNAME/$PROJECT_NAME:windows
+          ./butler push "./exports/html/html.zip"      "$ITCHIO_USERNAME/$PROJECT_NAME:html"     --userversion "$VERSION"
+          ./butler push "./exports/linux.zip"          "$ITCHIO_USERNAME/$PROJECT_NAME:linux"    --userversion "$VERSION"
+          ./butler push "./exports/macos.zip"          "$ITCHIO_USERNAME/$PROJECT_NAME:mac"      --userversion "$VERSION"
+          ./butler push "./exports/windows.zip"        "$ITCHIO_USERNAME/$PROJECT_NAME:windows"  --userversion "$VERSION"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ needs.Build.outputs.version }}
+          name: Release ${{ needs.Build.outputs.version }}
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
