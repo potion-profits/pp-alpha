@@ -4,7 +4,7 @@ class_name Player
 #the resource that will be used to make an inventory (player_inventory.tres)
 var inv: Inv
 
-const SPEED = 100
+const SPEED = 150
 const DASH_MULT = 2.2
 const DASH_DURATION = 0.17
 const DASH_COOLDOWN = 0.5

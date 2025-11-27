@@ -55,8 +55,8 @@ func connect_slots()->void:
 		# disconnect old signal to avoid duplicates
 		if slot.has_meta("callback"):
 			var old:Callable = slot.get_meta("callback")
-			if slot.gui_input	.is_connected(old):
-				slot.gui_input.disconnect(old)
+			if slot.pressed.is_connected(old):
+				slot.pressed.disconnect(old)
 		if i < player_slot_count:
 			slot.index = i
 			slot.inv = player_inv
@@ -64,10 +64,9 @@ func connect_slots()->void:
 		else:
 			slot.index = i - player_slot_count
 			slot.inv = shelf_inv
-		var callable : Callable = Callable(self, "_on_slot_gui_input")
+		var callable : Callable = Callable(on_slot_clicked)
 		callable = callable.bind(slot)
-		slot.button_mask = MOUSE_BUTTON_MASK_LEFT | MOUSE_BUTTON_MASK_RIGHT
-		slot.gui_input.connect(callable)
+		slot.pressed.connect(callable)
 		slot.set_meta("callback",callable)
 
 #update each slot in shelf_ui with the info from both inv objects (player_inv + shelf_inv)
@@ -97,7 +96,7 @@ func update_single_slot(ui_slot: Button, inv_slot: InvSlot) -> void:
 			ui_slot.item_stack = null
 
 # depending on slot index, place into player inventory or shelf inventory
-func on_slot_left_clicked(slot:Button) -> void:
+func on_slot_clicked(slot:Button) -> void:
 	if slot.is_empty() and item_on_cursor:
 		insert_to_slot(slot)
 	elif !item_on_cursor:
@@ -106,20 +105,10 @@ func on_slot_left_clicked(slot:Button) -> void:
 		stack_items(slot)
 	else:
 		swap_items(slot)
-		
-func on_slot_right_clicked(slot:Button) -> void:
-	if slot.is_empty() and item_on_cursor:
-		insert_to_slot(slot)
-	elif !item_on_cursor:
-		take_from_slot(slot, 1)
-	elif slot.item_stack.invSlot.item.equals(item_on_cursor.invSlot.item):
-		stack_items(slot)
-	else:
-		swap_items(slot)
 
-func take_from_slot(slot:Button, amount: int = -1)->void:
+func take_from_slot(slot:Button)->void:
 	if slot.item_stack:
-		item_on_cursor = slot.pick_item(amount)
+		item_on_cursor = slot.pick_item()
 		add_child(item_on_cursor)
 		item_on_cursor.call_deferred("shelf_scale")
 		update_cursor()
@@ -174,12 +163,5 @@ func update_cursor()->void:
 		item_on_cursor.queue_free()
 		item_on_cursor = null
 
-func _on_slot_gui_input(event: InputEvent, slot: Button)->void:
-	if event is InputEventMouseButton and event.is_pressed():
-		if event.button_index == MOUSE_BUTTON_LEFT:
-			on_slot_left_clicked(slot)
-		elif event.button_index == MOUSE_BUTTON_RIGHT:
-			on_slot_right_clicked(slot)
-		
 func _input(_event:InputEvent)->void:
 	update_cursor()
