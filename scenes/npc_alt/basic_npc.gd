@@ -140,11 +140,11 @@ func check_shelf(shelf : Entity) -> void:
 	var tmp : Array[InvSlot] = shelf.get_inventory()
 	
 	for i in range(tmp.size()):
-		var item : = tmp[i]
-		print(item.item.texture_code)
-		print(item.amount)
+		var slot : = tmp[i]
+		print(slot.item.texture_code)
+		print(slot.amount)
 			
-		if (item.amount > 0 and item.item.texture_code == prefered_item and item.item.sellable):
+		if (slot.amount > 0 and slot.item.texture_code == prefered_item and slot.item.sellable):
 			print("Found item")
 			shelf.remove_item(prefered_item, 1)
 			

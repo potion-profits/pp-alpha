@@ -31,7 +31,7 @@ const barrel_bottle_map = {
 }
 
 var ml :int = 1_000
-var barrel_type : String = "red_barrel"
+@export var barrel_type : String = "red_barrel"
 
 func _ready() -> void:	
 	# Links interactable template to barrel specific method
