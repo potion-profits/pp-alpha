@@ -74,11 +74,12 @@ jobs:
           ./butler push "./exports/macos.zip"          "$ITCHIO_USERNAME/$PROJECT_NAME:mac"      --userversion "$VERSION"
           ./butler push "./exports/windows.zip"        "$ITCHIO_USERNAME/$PROJECT_NAME:windows"  --userversion "$VERSION"
 
-      - name: Create GitHub Release
-        id: create_release
-        uses: comnoco/create-release@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Github Release
+        # You may pin to the exact commit or the version.
+        # uses: elgohr/Github-Release-Action@c5ea99036abb741a89f8bf1f2cd7fba845e3313a
+        uses: elgohr/Github-Release-Action@v5
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          # The name of the release to publish
+          title: Release ${{ github.ref }}
+          # The tag of the release to publish
+          tag: ${{ github.ref }}
