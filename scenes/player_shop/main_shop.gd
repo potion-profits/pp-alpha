@@ -1,12 +1,12 @@
 extends Node2D
 @onready var floor_map : Node2D = $AstarTilemap
-@onready var frontroom_backdoor_dest_marker: Marker2D = $frontroom_backdoor_dest_marker
-@onready var backroom_frontdoor_dest_marker: Marker2D = $backdoor_frontroom_dest_marker
+@onready var frontroom_backdoor_dest_marker: Marker2D = $FrontRoom/frontroom_backdoor_dest_marker
+@onready var backroom_frontdoor_dest_marker: Marker2D = $BackRoom/backdoor_frontroom_dest_marker
 @onready var player_camera: Camera2D = $EntityManager/Player/Camera2D
-@onready var f_top_left: Marker2D = $FrontRoomEdges/TopLeft
-@onready var f_bottom_right: Marker2D = $FrontRoomEdges/BottomRight
-@onready var b_top_left: Marker2D = $BackRoomEdges/TopLeft
-@onready var b_bottom_right: Marker2D = $BackRoomEdges/BottomRight
+@onready var f_top_left: Marker2D = $FrontRoom/FrontRoomEdges/TopLeft
+@onready var f_bottom_right: Marker2D = $FrontRoom/FrontRoomEdges/BottomRight
+@onready var b_top_left: Marker2D = $BackRoom/BackRoomEdges/TopLeft
+@onready var b_bottom_right: Marker2D = $BackRoom/BackRoomEdges/BottomRight
 
 func _ready()->void:
 	var pause_scene : Resource = preload("res://scenes/ui/pause_menu.tscn")

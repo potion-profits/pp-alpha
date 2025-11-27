@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://de68bfn16ivla" path="res://assets/interior/shop/cauldron_LARGE-Sheet.png" id="1_afk7o"]
 [ext_resource type="Texture2D" uid="uid://i3o26m2iyuj0" path="res://assets/interior/shop/cauldron_fire_LARGE-Sheet.png" id="1_mdhnj"]
-[ext_resource type="Script" path="res://scenes/cauldron/cauldron.gd" id="1_to7hx"]
+[ext_resource type="Script" uid="uid://d0yy5m7nhxs2i" path="res://scenes/cauldron/cauldron.gd" id="1_to7hx"]
 [ext_resource type="PackedScene" uid="uid://cetfip2wg6fny" path="res://scenes/cauldron/progress_bar.tscn" id="2_8t87t"]
 [ext_resource type="PackedScene" uid="uid://fi1qxearbah2" path="res://scenes/interactions/interactable.tscn" id="7_y06py"]
 
@@ -125,7 +125,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_00gg1")
 }],
-"loop": false,
+"loop": true,
 "name": &"default",
 "speed": 10.0
 }]
