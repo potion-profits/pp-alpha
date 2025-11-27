@@ -56,21 +56,6 @@ jobs:
           name: exports
           path: exports
 
-      - name: Fix directory location
-        run: |
-          echo "Working directory before move:"
-          pwd
-          ls -R .
-
-          # Move the real export folder to a predictable location
-          if [ -d pp-alpha/exports ]; then
-            mv pp-alpha/exports exports
-            rm -rf pp-alpha
-          fi
-
-          echo "Working directory after move:"
-          ls -R .
-
       - name: Download Butler
         run: |
           curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
@@ -84,7 +69,7 @@ jobs:
         env:
           VERSION: ${{ needs.Build.outputs.version }}
         run: |
-          ./butler push "./html/html.zip"      "$ITCHIO_USERNAME/$PROJECT_NAME:html"     --userversion "$VERSION"
+          ./butler push "./exports/html/html.zip"      "$ITCHIO_USERNAME/$PROJECT_NAME:html"     --userversion "$VERSION"
           ./butler push "./exports/linux.zip"          "$ITCHIO_USERNAME/$PROJECT_NAME:linux"    --userversion "$VERSION"
           ./butler push "./exports/macos.zip"          "$ITCHIO_USERNAME/$PROJECT_NAME:mac"      --userversion "$VERSION"
           ./butler push "./exports/windows.zip"        "$ITCHIO_USERNAME/$PROJECT_NAME:windows"  --userversion "$VERSION"
