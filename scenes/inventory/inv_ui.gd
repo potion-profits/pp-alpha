@@ -25,8 +25,8 @@ var inventory_toggle : bool = true # Setting for toggle vs hold inventory
 
 var item_on_cursor: ItemStackUI
 
-var UI_SCALE: int = 6
-var UI_BOTTOM_OFFSET: int = 250
+const UI_SCALE: int = 6
+const UI_BOTTOM_OFFSET: int = 250
 
 #start with ui closed and updated
 #ui is fixed to bottom of screen with size and offset set below

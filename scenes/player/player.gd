@@ -43,8 +43,9 @@ func _ready() -> void:
 	add_to_group("player")
 	if !inv:
 		inv = Inv.new(5)
-	inv_ui.inv = inv #links player inventory and respective ui
-	inv_ui.allow_hotkeys = true #allows 1-5 use for hotbar-like inv
+	if inv_ui:
+		inv_ui.inv = inv #links player inventory and respective ui
+		inv_ui.allow_hotkeys = true #allows 1-5 use for hotbar-like inv
 	coins = GameManager.player_data["coins"]
 	chips = GameManager.player_data["chips"]
 	#_debug_set_player_inv()
@@ -54,6 +55,9 @@ func _ready() -> void:
 #esc when held will close and pause
 #uses keys to enlarge sprites in inventory
 func _input(event: InputEvent) -> void:
+	if !inv_ui:
+		return
+		
 	if !other_ui_open:
 		if inv_ui.inventory_toggle:
 			if inv_ui.is_open:
@@ -221,7 +225,7 @@ func collect(item: InvItem) -> bool:
 
 ## When player blocking UI menu is open
 func open_other_ui(flag: bool) -> void:
-	if inv_ui.is_open:
+	if inv_ui and inv_ui.is_open:
 		inv_ui.close()
 	other_ui_open = flag
 
