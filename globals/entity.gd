@@ -15,7 +15,7 @@ func to_dict()-> Dictionary:
 		"entity_code":entity_code,
 		"x_pos": global_position.x,
 		"y_pos": global_position.y,
-		"inv": inv.to_dict()
+		"inv": inv.to_dict() if inv else {}
 	}
 
 
