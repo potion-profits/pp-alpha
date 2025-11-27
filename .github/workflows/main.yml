@@ -19,14 +19,14 @@ jobs:
         with:
           fetch-depth: 0 # Needed for versioning
 
-      - name: Generate Version
-        id: version
-        run: |
-          DATE=$(date +'%Y.%m.%d')
-          COUNT=$(git rev-list --count HEAD)
-          VERSION="v${DATE}-build-${COUNT}"
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
+      # - name: Generate Version
+      #   id: version
+      #   run: |
+      #     DATE=$(date +'%Y.%m.%d')
+      #     COUNT=$(git rev-list --count HEAD)
+      #     VERSION="v${DATE}-build-${COUNT}"
+      #     echo "VERSION=$VERSION" >> $GITHUB_ENV
+      #     echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Get Godot Version
         run: echo "GODOT_VERSION=$(grep '^config/features' project.godot | cut -d "\"" -f 2)" >> $GITHUB_ENV
@@ -73,14 +73,14 @@ jobs:
           ./butler push "./exports/linux.zip"          "$ITCHIO_USERNAME/$PROJECT_NAME:linux"    --userversion "$VERSION"
           ./butler push "./exports/macos.zip"          "$ITCHIO_USERNAME/$PROJECT_NAME:mac"      --userversion "$VERSION"
           ./butler push "./exports/windows.zip"        "$ITCHIO_USERNAME/$PROJECT_NAME:windows"  --userversion "$VERSION"
-      - name: GH Release
-        # You may pin to the exact commit or the version.
-        # uses: softprops/action-gh-release@5be0e66d93ac7ed76da52eca8bb058f665c3a5fe
-        uses: softprops/action-gh-release@v2.4.2
-        with:
-          # Gives the release a custom name. Defaults to tag name
-          name: Release ${{ needs.Build.outputs.version }}
-          # Gives a tag name. Defaults to github.ref_name
-          tag_name: ${{ needs.Build.outputs.version }} # optional
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
+      # - name: GH Release
+      #   # You may pin to the exact commit or the version.
+      #   # uses: softprops/action-gh-release@5be0e66d93ac7ed76da52eca8bb058f665c3a5fe
+      #   uses: softprops/action-gh-release@v2.4.2
+      #   with:
+      #     # Gives the release a custom name. Defaults to tag name
+      #     name: Release ${{ needs.Build.outputs.version }}
+      #     # Gives a tag name. Defaults to github.ref_name
+      #     tag_name: ${{ needs.Build.outputs.version }} # optional
+      #   env:
+      #     GITHUB_TOKEN: ${{ github.token }}
