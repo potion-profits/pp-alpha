@@ -18,7 +18,7 @@ var other_ui_open: bool = false # when a ui menu is open, restrict player moveme
 @onready var animated_sprite : AnimatedSprite2D = $AnimatedSprite2D
 @onready var dash_cooldown: Timer = $DashCooldown
 @onready var dash_duration: Timer = $DashDuration
-@onready var inv_ui:Control = $Inv_UI
+@export var inv_ui: Control
 
 enum movement_state {
 	IDLE,

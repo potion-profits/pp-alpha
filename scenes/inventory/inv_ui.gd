@@ -25,8 +25,20 @@ var inventory_toggle : bool = true # Setting for toggle vs hold inventory
 
 var item_on_cursor: ItemStackUI
 
+var UI_SCALE: int = 6
+var UI_BOTTOM_OFFSET: int = 250
+
 #start with ui closed and updated
 func _ready()->void:
+	# ui is fixed to bottom of screen
+	# offset and size dictated below
+	scale = Vector2(UI_SCALE, UI_SCALE)
+	var viewport_size: Vector2 = get_viewport().get_visible_rect().size
+	position = Vector2(
+		viewport_size.x / 2 - (size.x * scale.x) / 2,
+		viewport_size.y - UI_BOTTOM_OFFSET
+	)
+	
 	close()
 	update_slots()
 	connect_slots()
