@@ -21,6 +21,7 @@ func _ready()-> void:
 	# create the shelf inventory 
 	if !inv:
 		inv = Inv.new(12)
+	_debug_set_shelf_inv()
 	
 #Handles player interaction with shelf when appropriate 
 #ui visibility instead controlled by interaction
@@ -74,7 +75,7 @@ func _debug_set_shelf_inv()->void:
 	var green:InvItem = ItemRegistry.new_item("item_green_potion")
 	green.mixable = 0
 	green.sellable = 1
-	for i in range(1):
+	for i in range(5):
 		inv.insert(green)
 
 func _on_interactable_body_entered(body: Node2D) -> void:
