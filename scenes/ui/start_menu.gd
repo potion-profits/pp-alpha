@@ -18,5 +18,5 @@ func _on_options_pressed()->void:
 
 func _on_quit_pressed()->void:
 	#we will hard save here for now
-	GameManager.commit_to_storage()
+	#GameManager.commit_to_storage()
 	get_tree().quit()
