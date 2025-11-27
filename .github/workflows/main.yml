@@ -75,10 +75,10 @@ jobs:
           ./butler push "./exports/windows.zip"        "$ITCHIO_USERNAME/$PROJECT_NAME:windows"  --userversion "$VERSION"
 
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: ${{ needs.Build.outputs.version }}
-          name: Release ${{ needs.Build.outputs.version }}
-          generate_release_notes: true
+        id: create_release
+        uses: comnoco/create-release@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
