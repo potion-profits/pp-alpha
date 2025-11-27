@@ -9,6 +9,7 @@ env:
   BUTLER_API_KEY: ${{ secrets.BUTLER_CREDENTIALS }}
   ITCHIO_USERNAME: ${{ secrets.ITCHIO_USERNAME }}
   PROJECT_NAME: "potion-profits"
+  GH_TOKEN: ${{ github.token }}
 
 jobs:
   Build:
