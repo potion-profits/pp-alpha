@@ -9,7 +9,6 @@ env:
   BUTLER_API_KEY: ${{ secrets.BUTLER_CREDENTIALS }}
   ITCHIO_USERNAME: ${{ secrets.ITCHIO_USERNAME }}
   PROJECT_NAME: "potion-profits"
-  GH_TOKEN: ${{ github.token }}
 
 jobs:
   Build:
@@ -74,13 +73,14 @@ jobs:
           ./butler push "./exports/linux.zip"          "$ITCHIO_USERNAME/$PROJECT_NAME:linux"    --userversion "$VERSION"
           ./butler push "./exports/macos.zip"          "$ITCHIO_USERNAME/$PROJECT_NAME:mac"      --userversion "$VERSION"
           ./butler push "./exports/windows.zip"        "$ITCHIO_USERNAME/$PROJECT_NAME:windows"  --userversion "$VERSION"
-
-      - name: Github Release
+      - name: GH Release
         # You may pin to the exact commit or the version.
-        # uses: elgohr/Github-Release-Action@c5ea99036abb741a89f8bf1f2cd7fba845e3313a
-        uses: elgohr/Github-Release-Action@v5
+        # uses: softprops/action-gh-release@5be0e66d93ac7ed76da52eca8bb058f665c3a5fe
+        uses: softprops/action-gh-release@v2.4.2
         with:
-          # The name of the release to publish
-          title: Release ${{ github.ref }}
-          # The tag of the release to publish
-          tag: ${{ github.ref }}
+          # Gives the release a custom name. Defaults to tag name
+          name: Release ${{ needs.Build.outputs.version }}
+          # Gives a tag name. Defaults to github.ref_name
+          tag_name: ${{ needs.Build.outputs.version }} # optional
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
