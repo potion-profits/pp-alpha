@@ -20,7 +20,7 @@ func _ready() -> void:
 func prep_astar() -> void:
 	astar = AStarGrid2D.new()
 	for child in entity_manager.get_children():
-		if child.name.begins_with("shelf"):
+		if child is Entity and child.entity_code == "shelf":
 			#child._ready()
 			var cell : Vector2i = tilemap.local_to_map(child.position)
 			var cells : Array[Vector2i] = [cell, cell + Vector2i(1,0), cell + Vector2i(-1,0)]
