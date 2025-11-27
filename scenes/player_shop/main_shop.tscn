@@ -537,9 +537,9 @@ offset_right = 955.0
 offset_bottom = 150.0
 texture = ExtResource("2_ixtpo")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="Static_UI" type="CanvasLayer" parent="."]
 
-[node name="Inv_UI" parent="CanvasLayer" instance=ExtResource("14_paag6")]
+[node name="Inv_UI" parent="Static_UI" instance=ExtResource("14_paag6")]
 offset_left = 341.0
 offset_top = -18.0
 offset_right = -1473.0
@@ -670,7 +670,7 @@ scale = Vector2(1.2, 1.2)
 
 [node name="Player" parent="EntityManager" node_paths=PackedStringArray("inv_ui") instance=ExtResource("6_b6yhm")]
 position = Vector2(410, -37)
-inv_ui = NodePath("../../CanvasLayer/Inv_UI")
+inv_ui = NodePath("../../Static_UI/Inv_UI")
 
 [node name="Camera2D" type="Camera2D" parent="EntityManager/Player"]
 position = Vector2(-1, 1)
