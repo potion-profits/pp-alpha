@@ -108,6 +108,8 @@ func stack_items(slot: Button)->void:
 	
 	if totalNum<=maxNum:
 		slotItem.invSlot.amount = totalNum
+		item_on_cursor.invSlot.amount = 0
+		item_on_cursor.invSlot.item = null
 		remove_child(item_on_cursor)
 		item_on_cursor= null
 		
