@@ -1,0 +1,371 @@
+{
+	"player": {
+		"chips": 0,
+		"coins": 0,
+		"inventory": {
+			"selected_index": -1,
+			"slots": [
+				{
+					"amount": 0,
+					"item": {
+
+					}
+				},
+				{
+					"amount": 0,
+					"item": {
+
+					}
+				},
+				{
+					"amount": 0,
+					"item": {
+
+					}
+				},
+				{
+					"amount": 0,
+					"item": {
+
+					}
+				},
+				{
+					"amount": 0,
+					"item": {
+
+					}
+				}
+			]
+		}
+	},
+	"scenes": {
+		"MainShop": [
+			{
+				"entity_code": "shelf",
+				"inv": {
+					"selected_index": -1,
+					"slots": [
+						{
+							"amount": 0,
+							"item": {
+
+							}
+						},
+						{
+							"amount": 0,
+							"item": {
+
+							}
+						},
+						{
+							"amount": 0,
+							"item": {
+
+							}
+						},
+						{
+							"amount": 0,
+							"item": {
+
+							}
+						},
+						{
+							"amount": 0,
+							"item": {
+
+							}
+						},
+						{
+							"amount": 0,
+							"item": {
+
+							}
+						},
+						{
+							"amount": 0,
+							"item": {
+
+							}
+						},
+						{
+							"amount": 0,
+							"item": {
+
+							}
+						},
+						{
+							"amount": 0,
+							"item": {
+
+							}
+						},
+						{
+							"amount": 0,
+							"item": {
+
+							}
+						},
+						{
+							"amount": 0,
+							"item": {
+
+							}
+						},
+						{
+							"amount": 0,
+							"item": {
+
+							}
+						}
+					]
+				},
+				"x_pos": 275.0,
+				"y_pos": -199.0
+			},
+			{
+				"entity_code": "shelf",
+				"inv": {
+					"selected_index": -1,
+					"slots": [
+						{
+							"amount": 0,
+							"item": {
+
+							}
+						},
+						{
+							"amount": 0,
+							"item": {
+
+							}
+						},
+						{
+							"amount": 0,
+							"item": {
+
+							}
+						},
+						{
+							"amount": 0,
+							"item": {
+
+							}
+						},
+						{
+							"amount": 0,
+							"item": {
+
+							}
+						},
+						{
+							"amount": 0,
+							"item": {
+
+							}
+						},
+						{
+							"amount": 0,
+							"item": {
+
+							}
+						},
+						{
+							"amount": 0,
+							"item": {
+
+							}
+						},
+						{
+							"amount": 0,
+							"item": {
+
+							}
+						},
+						{
+							"amount": 0,
+							"item": {
+
+							}
+						},
+						{
+							"amount": 0,
+							"item": {
+
+							}
+						},
+						{
+							"amount": 0,
+							"item": {
+
+							}
+						}
+					]
+				},
+				"x_pos": 367.0,
+				"y_pos": -199.0
+			},
+			{
+				"entity_code": "shelf",
+				"inv": {
+					"selected_index": -1,
+					"slots": [
+						{
+							"amount": 0,
+							"item": {
+
+							}
+						},
+						{
+							"amount": 0,
+							"item": {
+
+							}
+						},
+						{
+							"amount": 0,
+							"item": {
+
+							}
+						},
+						{
+							"amount": 0,
+							"item": {
+
+							}
+						},
+						{
+							"amount": 0,
+							"item": {
+
+							}
+						},
+						{
+							"amount": 0,
+							"item": {
+
+							}
+						},
+						{
+							"amount": 0,
+							"item": {
+
+							}
+						},
+						{
+							"amount": 0,
+							"item": {
+
+							}
+						},
+						{
+							"amount": 0,
+							"item": {
+
+							}
+						},
+						{
+							"amount": 0,
+							"item": {
+
+							}
+						},
+						{
+							"amount": 0,
+							"item": {
+
+							}
+						},
+						{
+							"amount": 0,
+							"item": {
+
+							}
+						}
+					]
+				},
+				"x_pos": 275.0,
+				"y_pos": -103.0
+			},
+			{
+				"barrel_id": "red_barrel",
+				"entity_code": "barrel",
+				"inv": {
+					"selected_index": -1,
+					"slots": []
+				},
+				"ml": 1000,
+				"x_pos": 394.0,
+				"y_pos": -670.0
+			},
+			{
+				"barrel_id": "red_barrel",
+				"entity_code": "barrel",
+				"inv": {
+					"selected_index": -1,
+					"slots": []
+				},
+				"ml": 1000,
+				"x_pos": 412.0,
+				"y_pos": -673.0
+			},
+			{
+				"entity_code": "cauldron",
+				"inv": {
+					"selected_index": -1,
+					"slots": [
+						{
+							"amount": 0,
+							"item": {
+
+							}
+						}
+					]
+				},
+				"mix_timer_time_left": 0.0,
+				"mixing": false,
+				"x_pos": 443.0,
+				"y_pos": -623.0
+			},
+			{
+				"bottles": 64,
+				"entity_code": "crate",
+				"inv": {
+					"selected_index": -1,
+					"slots": [
+						{
+							"amount": 64,
+							"item": {
+								"max_stack_size": 16,
+								"mixable": false,
+								"sellable": false,
+								"texture_code": "item_empty_bottle"
+							}
+						}
+					]
+				},
+				"x_pos": 325.0,
+				"y_pos": -629.0
+			},
+			{
+				"bottles": 64,
+				"entity_code": "crate",
+				"inv": {
+					"selected_index": -1,
+					"slots": [
+						{
+							"amount": 64,
+							"item": {
+								"max_stack_size": 16,
+								"mixable": false,
+								"sellable": false,
+								"texture_code": "item_empty_bottle"
+							}
+						}
+					]
+				},
+				"x_pos": 331.0,
+				"y_pos": -619.0
+			}
+		]
+	}
+}

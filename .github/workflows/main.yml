@@ -1,54 +1,46 @@
 name: Deploy to Itch.io
 
-# Manually trigger by going to this workflow in the repository actions tab
-on: workflow_dispatch
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
 
 env:
-  BUTLER_API_KEY: ${{secrets.BUTLER_CREDENTIALS}} # Repository Settings -> Secrets and variables -> Actions -> New repository secret
-  ITCHIO_USERNAME: ${{secrets.ITCHIO_USERNAME}}
-  PROJECT_NAME: "potion-profits" # See README.md about project, channel, and export file naming conventions
+  BUTLER_API_KEY: ${{ secrets.BUTLER_CREDENTIALS }}
+  ITCHIO_USERNAME: ${{ secrets.ITCHIO_USERNAME }}
+  PROJECT_NAME: "potion-profits"
+
 jobs:
   Build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Source Code
+      - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Needed for versioning
+
+      # - name: Generate Version
+      #   id: version
+      #   run: |
+      #     DATE=$(date +'%Y.%m.%d')
+      #     COUNT=$(git rev-list --count HEAD)
+      #     VERSION="v${DATE}-build-${COUNT}"
+      #     echo "VERSION=$VERSION" >> $GITHUB_ENV
+      #     echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Get Godot Version
         run: echo "GODOT_VERSION=$(grep '^config/features' project.godot | cut -d "\"" -f 2)" >> $GITHUB_ENV
 
-      - name: Download Godot
-        run: |
-          curl -L -o godot.zip https://downloads.godotengine.org/?version=$GODOT_VERSION&flavor=stable&slug=linux.x86_64.zip&platform=linux.64
-          unzip godot.zip
-          mv Godot_v$GODOT_VERSION-stable_linux.x86_64 godot
-          chmod +x godot
+      - name: Export Godot Project
+        uses: firebelley/godot-export@v7.0.0
+        with:
+          godot_executable_download_url: https://downloads.godotengine.org/?version=${{ env.GODOT_VERSION }}&flavor=stable&slug=linux.x86_64.zip&platform=linux.64
+          godot_export_templates_download_url: https://downloads.godotengine.org/?version=${{ env.GODOT_VERSION }}&flavor=stable&slug=export_templates.tpz&platform=templates
+          archive_output: true
+          cache: true
+          use_preset_export_path: true
 
-      - name: Download Godot Export Templates
-        run: |
-          curl -L -o export_templates.zip https://downloads.godotengine.org/?version=$GODOT_VERSION&flavor=stable&slug=export_templates.tpz&platform=templates
-          unzip export_templates.zip
-
-      - name: Install Export Templates
-        run: |
-          mkdir -p ~/.local/share/godot/export_templates/$GODOT_VERSION.stable
-          mv ./templates/* ~/.local/share/godot/export_templates/$GODOT_VERSION.stable
-
-      - name: Build
-        run: |
-          ./godot --headless --export-release html
-          ./godot --headless --export-release linux
-          ./godot --headless --export-release macos
-          ./godot --headless --export-release windows
-
-      - name: Zip HTML Export
-        run: |
-          cd exports/html
-          zip $PROJECT_NAME-html.zip -r -m *
-          mv $PROJECT_NAME-html.zip ..
-          cd -
-
-      - name: Save Artifacts for Next Job
+      - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: exports
@@ -58,7 +50,7 @@ jobs:
     needs: Build
     runs-on: ubuntu-latest
     steps:
-      - name: Get Artifacts
+      - name: Download Artifacts
         uses: actions/download-artifact@v4
         with:
           name: exports
@@ -69,14 +61,26 @@ jobs:
           curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
           unzip butler.zip
           chmod +x butler
-          ./butler -V
 
-      - name: Login To Butler
+      - name: Login to Butler
         run: ./butler login
 
-      - name: Push To Itch
+      - name: Push to Itch.io
+        env:
+          VERSION: ${{ needs.Build.outputs.version }}
         run: |
-          ./butler push ./exports/$PROJECT_NAME-html.zip $ITCHIO_USERNAME/$PROJECT_NAME:html
-          ./butler push ./exports/$PROJECT_NAME-linux.zip $ITCHIO_USERNAME/$PROJECT_NAME:linux
-          ./butler push ./exports/$PROJECT_NAME-macos.zip $ITCHIO_USERNAME/$PROJECT_NAME:mac
-          ./butler push ./exports/$PROJECT_NAME-windows.exe $ITCHIO_USERNAME/$PROJECT_NAME:windows
+          ./butler push "./exports/html/html.zip"      "$ITCHIO_USERNAME/$PROJECT_NAME:html"     --userversion "$VERSION"
+          ./butler push "./exports/linux.zip"          "$ITCHIO_USERNAME/$PROJECT_NAME:linux"    --userversion "$VERSION"
+          ./butler push "./exports/macos.zip"          "$ITCHIO_USERNAME/$PROJECT_NAME:mac"      --userversion "$VERSION"
+          ./butler push "./exports/windows.zip"        "$ITCHIO_USERNAME/$PROJECT_NAME:windows"  --userversion "$VERSION"
+      # - name: GH Release
+      #   # You may pin to the exact commit or the version.
+      #   # uses: softprops/action-gh-release@5be0e66d93ac7ed76da52eca8bb058f665c3a5fe
+      #   uses: softprops/action-gh-release@v2.4.2
+      #   with:
+      #     # Gives the release a custom name. Defaults to tag name
+      #     name: Release ${{ needs.Build.outputs.version }}
+      #     # Gives a tag name. Defaults to github.ref_name
+      #     tag_name: ${{ needs.Build.outputs.version }} # optional
+      #   env:
+      #     GITHUB_TOKEN: ${{ github.token }}
