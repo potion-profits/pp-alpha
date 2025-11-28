@@ -540,10 +540,16 @@ texture = ExtResource("2_ixtpo")
 [node name="Static_UI" type="CanvasLayer" parent="."]
 
 [node name="Inv_UI" parent="Static_UI" instance=ExtResource("14_paag6")]
-offset_left = 341.0
-offset_top = -18.0
-offset_right = -1473.0
-offset_bottom = -1069.0
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+offset_left = -333.0
+offset_top = -221.0
+offset_right = -227.0
+offset_bottom = -192.0
+grow_vertical = 0
+scale = Vector2(6, 6)
 
 [node name="FrontRoom" type="Node2D" parent="."]
 
@@ -604,9 +610,6 @@ position = Vector2(251, -246)
 
 [node name="BottomRight" type="Marker2D" parent="FrontRoom/FrontRoomEdges"]
 position = Vector2(533, 17)
-
-[node name="CashRegister" parent="FrontRoom" instance=ExtResource("14_ylhot")]
-position = Vector2(448, -145)
 
 [node name="BackRoom" type="Node2D" parent="."]
 
@@ -682,6 +685,9 @@ limit_bottom = 17
 limit_smoothed = true
 position_smoothing_enabled = true
 position_smoothing_speed = 3.0
+
+[node name="CashRegister" parent="EntityManager" instance=ExtResource("14_ylhot")]
+position = Vector2(448, -145)
 
 [node name="NpcSpawner" parent="." instance=ExtResource("12_47hg3")]
 

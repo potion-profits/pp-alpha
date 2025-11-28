@@ -1,15 +1,12 @@
 [gd_scene load_steps=6 format=3 uid="uid://ydlnke6gesg1"]
 
 [ext_resource type="Script" uid="uid://db2sqxsikj0qr" path="res://scenes/cash_register/cash_register.gd" id="1_otidk"]
-[ext_resource type="Texture2D" uid="uid://cna3dlftjloo6" path="res://assets/interior/shop/shelfandpotion01.png" id="1_rv0dt"]
 [ext_resource type="PackedScene" uid="uid://fi1qxearbah2" path="res://scenes/interactions/interactable.tscn" id="2_4n5aq"]
+[ext_resource type="Texture2D" uid="uid://cx2xrogaqcboo" path="res://assets/interior/shop/register_cat.png" id="3_7ha27"]
+[ext_resource type="Texture2D" uid="uid://umufb6838i6d" path="res://assets/interior/shop/cust_waiting_icon.png" id="4_7ha27"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4n5aq"]
 size = Vector2(20, 47)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lmfkk"]
-atlas = ExtResource("1_rv0dt")
-region = Rect2(64, 96, 24, 16)
 
 [node name="CashRegister" type="Node2D"]
 script = ExtResource("1_otidk")
@@ -22,7 +19,13 @@ position = Vector2(0, 12.5)
 shape = SubResource("RectangleShape2D_4n5aq")
 
 [node name="RegisterSprite" type="Sprite2D" parent="."]
-texture = SubResource("AtlasTexture_lmfkk")
+position = Vector2(2, 8)
+texture = ExtResource("3_7ha27")
+
+[node name="CustWaitingIcon" type="Sprite2D" parent="."]
+position = Vector2(-2, -11.999999)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_7ha27")
 
 [connection signal="body_entered" from="Interactable" to="." method="_on_interactable_body_entered"]
 [connection signal="body_exited" from="Interactable" to="." method="_on_interactable_body_exited"]
