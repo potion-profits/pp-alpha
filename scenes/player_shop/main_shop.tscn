@@ -544,12 +544,12 @@ anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
-offset_left = -333.0
-offset_top = -221.0
-offset_right = -227.0
-offset_bottom = -192.0
+offset_left = -337.0
+offset_top = -223.99994
+offset_right = -231.0
+offset_bottom = -194.99994
 grow_vertical = 0
-scale = Vector2(6, 6)
+scale = Vector2(6.5, 6.5)
 
 [node name="FrontRoom" type="Node2D" parent="."]
 

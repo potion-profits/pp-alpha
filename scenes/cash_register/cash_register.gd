@@ -40,3 +40,5 @@ func _on_interactable_body_exited(body: Node2D) -> void:
 		player = null
 	if body is Npc and body.current_action == body.action.LEAVE:
 		curr_npc = null
+		if cust_waiting_icon.visible:
+			cust_waiting_icon.visible = false
