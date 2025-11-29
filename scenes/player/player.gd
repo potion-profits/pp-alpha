@@ -10,8 +10,8 @@ const DASH_DURATION = 0.17
 const DASH_COOLDOWN = 0.5
 const MAX_COINS = pow(2, 62)
 
-var coins : int = 0
-var chips : int = 0
+var coins : int
+var chips : int
 var is_dashing : bool = false
 var other_ui_open: bool = false # when a ui menu is open, restrict player movement
 
@@ -45,8 +45,8 @@ func _ready() -> void:
 		inv = Inv.new(5)
 	inv_ui.inv = inv #links player inventory and respective ui
 	inv_ui.allow_hotkeys = true #allows 1-5 use for hotbar-like inv
-	coins = GameManager.player_data["coins"]
-	chips = GameManager.player_data["chips"]
+	coins = GameManager.player_data["coins"] if GameManager.player_data else 0
+	chips = GameManager.player_data["chips"] if GameManager.player_data else 0
 	#_debug_set_player_inv()
 
 #handles toggled and held inventory

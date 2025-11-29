@@ -42,10 +42,12 @@ func commit_to_storage()->void:
 		push_error("Failed to open save file.")
 
 func load_from_storage()->void:
+	var save_file:FileAccess = null
 	if not FileAccess.file_exists("user://savegame.save"):
-		return
+		save_file = FileAccess.open("res://globals/default_state.txt", FileAccess.READ)
+	else:
+		save_file = FileAccess.open("user://savegame.save",FileAccess.READ)
 	
-	var save_file:FileAccess = FileAccess.open("user://savegame.save",FileAccess.READ)
 	var json_text:String = save_file.get_as_text()
 	save_file.close()
 	
