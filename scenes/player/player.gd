@@ -46,8 +46,8 @@ func _ready() -> void:
 	if inv_ui:
 		inv_ui.inv = inv #links player inventory and respective ui
 		inv_ui.allow_hotkeys = true #allows 1-5 use for hotbar-like inv
-	coins = GameManager.player_data["coins"]
-	chips = GameManager.player_data["chips"]
+	coins = GameManager.player_data["coins"] if GameManager.player_data else 0
+	chips = GameManager.player_data["chips"] if GameManager.player_data else 0
 	#_debug_set_player_inv()
 
 #handles toggled and held inventory
