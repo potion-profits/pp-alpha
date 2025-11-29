@@ -25,7 +25,7 @@ var inventory_toggle : bool = true # Setting for toggle vs hold inventory
 
 var item_on_cursor: ItemStackUI
 
-#start with ui closed and updated
+#start with ui open and updated
 func _ready()->void:
 	open()
 	update_slots()
