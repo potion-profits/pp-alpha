@@ -219,17 +219,23 @@ grow_vertical = 2
 script = ExtResource("1_tl5e1")
 
 [node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 0
-offset_right = 1920.0
-offset_bottom = 1080.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("2_go3vn")
 
-[node name="ColorRect" type="ColorRect" parent="TextureRect"]
-layout_mode = 0
-offset_left = 576.0
-offset_top = 91.0
-offset_right = 1352.0
-offset_bottom = 154.0
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -388.0
+offset_right = 388.0
+offset_bottom = 84.0
+grow_horizontal = 2
 color = Color(0, 0, 0, 0.78431374)
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -239,10 +245,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -217.0
-offset_top = -149.0
-offset_right = -61.0
-offset_bottom = -48.0
+offset_left = -216.0
+offset_top = -148.0
+offset_right = -60.0
+offset_bottom = -47.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(2.2799997, 2.2799997)
@@ -297,10 +303,9 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -377.0
-offset_top = 77.0
-offset_right = 384.0
-offset_bottom = 160.0
+offset_left = -380.5
+offset_right = 380.5
+offset_bottom = 83.0
 grow_horizontal = 2
 text = "WELCOME TO THE CASINO"
 label_settings = SubResource("LabelSettings_nwq0x")
