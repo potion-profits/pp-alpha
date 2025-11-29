@@ -86,7 +86,6 @@ func play_blackjack() -> void:
 					continue
 				declare_winner()
 			blackjack_state.GAME_OVER:
-				print("game over")
 				await game_over_decision
 				clear_screen()
 				game_over.visible = false
@@ -135,21 +134,17 @@ func dealer_turn() -> void:
 	await spawn_dealer_card(deck.draw())
 	score_dealer_hand()
 	if dealer_score > 21:
-		print("Dealer BUSTED, you win! dealer score = ", dealer_score)
 		player.set_chips(2 * bet)
 		reset("YOU WIN", "Dealer busted. You won " + str(2 * bet) + " chips!")
 
 func declare_winner() -> void:
 	if player_score > dealer_score:
-		print("You win! score = ", player_score, "\ndealer score = ", dealer_score)
 		player.set_chips(2 * bet)
 		reset("YOU WIN", "Won " + str(2 * bet) + " chips!")
 	elif player_score == dealer_score:
-		print("Push on tie!")
 		player.set_chips(bet)
 		reset("PUSH", "Tie, you got your bet of " + str(bet) + " chips back.")
 	else:
-		print("You lose. score = ", player_score, "\ndealer score = ", dealer_score)
 		reset("YOU LOSE", "You lost " + str(bet) + " chips.")
 
 func spawn_player_card(card_name: String) -> void:
@@ -183,7 +178,6 @@ func score_player_hand() -> void:
 			score_player_hand()
 	player_score_lbl.visible = true
 	player_score_lbl.text = "Player Score: " + str(player_score)
-	print("Current score: ", player_score)
 
 func score_dealer_hand() -> void:
 	dealer_score = 0
@@ -196,7 +190,6 @@ func score_dealer_hand() -> void:
 			score_dealer_hand()
 	dealer_score_lbl.visible = true
 	dealer_score_lbl.text = "Dealer Score: " + str(dealer_score)
-	print("Dealer score: ", dealer_score)
 
 func exit_blackjack() -> void:
 	var cs:String = get_tree().current_scene.name
@@ -209,7 +202,6 @@ func _on_hit_pressed() -> void:
 	await spawn_player_card(deck.draw())
 	score_player_hand()
 	if player_score > 21:
-		print("You BUSTED, score = ", player_score)
 		reset("YOU LOSE", "You busted, lost " + str(bet) + " chips")
 		player_turn_over.emit()
 	elif player_score == 21:
