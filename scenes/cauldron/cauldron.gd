@@ -42,6 +42,12 @@ func animation_play() -> void:
 		print("The player interacted with the cauldron")
 	else:
 		push_error("AnimatedSprite2D or animation '" + animation_name + "' not found!")
+
+func animation_stop() -> void:
+	if cauldron_anim and cauldron_anim.sprite_frames.has_animation(animation_name):
+		cauldron_anim.stop()
+	else:
+		push_error("AnimatedSprite2D or animation '" + animation_name + "' not found!")
 	
 #mixes item for MIX_DURATION amount of time
 func start_mixing()->void:
@@ -64,6 +70,7 @@ func receive_item(item:InvItem)->bool:
 
 #when the timer runs out, change the item held to be done and stop the timer
 func _on_mix_timer_timeout() -> void:
+	animation_stop()
 	mixing = false
 	inv.slots[0].item.mixable = false
 	inv.slots[0].item.sellable = true

@@ -36,7 +36,7 @@ func _on_barrels_refill_pressed(button_name: String) -> void:
 				entity["ml"] = BARREL_MAX_CAP
 				entity["barrel_id"] = barrel_type_mapping[button_key]
 				GameManager.player_data["coins"] -= price
-				pass
+				break
 
 func _on_crate_refill_pressed() -> void:
 	if CRATE_PRICE <= GameManager.player_data["coins"]:
@@ -44,6 +44,7 @@ func _on_crate_refill_pressed() -> void:
 			if entity["entity_code"] == "crate" and entity["bottles"]<25:
 				entity["bottles"] = CRATE_MAX_CAP
 				GameManager.player_data["coins"] -= CRATE_PRICE
+				break
 
 
 func _on_player_shop_pressed() -> void:

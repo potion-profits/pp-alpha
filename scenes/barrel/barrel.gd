@@ -31,7 +31,7 @@ const barrel_bottle_map = {
 }
 
 var ml :int = 1_000
-var barrel_type : String = "red_barrel"
+@export var barrel_type : String = "red_barrel"
 
 func _ready() -> void:	
 	# Links interactable template to barrel specific method
@@ -43,6 +43,10 @@ func _ready() -> void:
 	# Used to find out what scene to place in entity manager
 	entity_code = "barrel"
 	change_barrel_color(barrel_type)
+	
+	if (barrel_type == "empty_barrel"):
+		ml = 0
+	
 	if (!inv):
 		inv = Inv.new(0)
 
