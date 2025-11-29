@@ -4,6 +4,8 @@ var player: Player
 var curr_npc : Npc
 var bob_time: float = 0.0
 var base_icon_y: float
+var bob_speed: float = 2.5
+var bob_height: float = 2.0
 
 @onready var cust_waiting_icon: Sprite2D = $CustWaitingIcon
 
@@ -14,8 +16,6 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if cust_waiting_icon.visible:
 		bob_time += delta
-		var bob_speed: float = 2.5
-		var bob_height: float = 2.0
 		cust_waiting_icon.position.y = base_icon_y + sin(bob_time * bob_speed) * bob_height
 
 func _input(event: InputEvent) -> void:

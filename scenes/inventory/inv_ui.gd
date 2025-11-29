@@ -27,7 +27,7 @@ var item_on_cursor: ItemStackUI
 
 #start with ui closed and updated
 func _ready()->void:
-	close()
+	open()
 	update_slots()
 	connect_slots()
 

@@ -58,21 +58,6 @@ func _input(event: InputEvent) -> void:
 	if !inv_ui:
 		return
 		
-	if !other_ui_open:
-		if inv_ui.inventory_toggle:
-			if inv_ui.is_open:
-				if event.is_action_pressed("inventory") or event.is_action_pressed("ui_cancel"):
-					get_viewport().set_input_as_handled()
-					inv_ui.close()
-			else:
-				if event.is_action_pressed("inventory"):
-					inv_ui.open()
-		else:
-			if event.is_action_pressed("inventory") and !inv_ui.is_open:
-				inv_ui.open()
-			elif (event.is_action_released("inventory") or event.is_action_pressed("ui_cancel")) and inv_ui.is_open:
-				inv_ui.close()
-			
 	#only for player inventory
 	if inv_ui.is_open and inv_ui.allow_hotkeys:
 		for key: StringName in input_slot_map:
@@ -227,6 +212,8 @@ func collect(item: InvItem) -> bool:
 func open_other_ui(flag: bool) -> void:
 	if inv_ui and inv_ui.is_open:
 		inv_ui.close()
+	elif inv_ui and !inv_ui.is_open:
+		inv_ui.open()
 	other_ui_open = flag
 
 func interact_with_entity(entity: Entity)->void:
