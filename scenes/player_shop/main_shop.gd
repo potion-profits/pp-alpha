@@ -1,5 +1,5 @@
 extends Node2D
-@onready var floor_map : Node2D = $AstarTilemap
+@onready var floor_map : Node2D = $FrontRoom/AstarTilemap
 @onready var frontroom_backdoor_dest_marker: Marker2D = $FrontRoom/frontroom_backdoor_dest_marker
 @onready var backroom_frontdoor_dest_marker: Marker2D = $BackRoom/backdoor_frontroom_dest_marker
 @onready var player_camera: Camera2D = $EntityManager/Player/Camera2D
@@ -13,7 +13,8 @@ func _ready()->void:
 	var menu_instance : Node = pause_scene.instantiate()
 	add_child(menu_instance)
 	GameManager.set_pause_menu(menu_instance.get_node("PauseMenuControl"))
-
+	
+	await get_tree().process_frame
 
 func _on_move_town_detection_body_entered(body: Node2D) -> void:
 	if body is Player:
