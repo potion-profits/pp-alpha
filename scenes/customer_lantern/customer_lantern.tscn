@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://b6q7c5ydo8awn"]
+
+[ext_resource type="Script" uid="uid://dd26x15wuqjri" path="res://scenes/customer_lantern/customer_lantern.gd" id="1_0xukv"]
+[ext_resource type="Texture2D" uid="uid://xx1nrsmg18o7" path="res://assets/interior/shop/lantern.png" id="2_nksit"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nksit"]
+radius = 3.0
+height = 12.0
+
+[sub_resource type="Gradient" id="Gradient_0xukv"]
+colors = PackedColorArray(18.892157, 18.892157, 18.892157, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_nksit"]
+gradient = SubResource("Gradient_0xukv")
+width = 192
+height = 192
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.8, 0.8)
+metadata/_snap_enabled = true
+
+[node name="CustomerLantern" type="StaticBody2D"]
+script = ExtResource("1_0xukv")
+metadata/_custom_type_script = "uid://b1odcrnx3mby"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0.5, -2)
+texture = ExtResource("2_nksit")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CapsuleShape2D_nksit")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(-1.4901161e-07, 0.24528319)
+scale = Vector2(0.18749997, 0.15094338)
+color = Color(0, 0.82034403, 0.8273181, 1)
+energy = 1.1
+texture = SubResource("GradientTexture2D_nksit")
+offset = Vector2(0, 5)

@@ -9,8 +9,6 @@ var player_in_area:bool = false
 
 var count:int = 0
 
-@onready var animated_sprite: AnimatedSprite2D = get_parent().get_node("CauldronAnim")
-
 #lets player interact if in the area
 func _input(event: InputEvent) -> void:
 	if player_in_area == true:	

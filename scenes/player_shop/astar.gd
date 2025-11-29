@@ -3,7 +3,7 @@ extends Node2D
 # 
 @onready var tilemap : TileMapLayer = $Floor
 @onready var counters : TileMapLayer = $Counters
-@onready var entity_manager: EntityManager = $"../EntityManager"
+@onready var entity_manager: EntityManager = $"../../EntityManager"
 @onready var spawn_marker: Marker2D = $Spawn
 @onready var checkout_marker: Marker2D = $Checkout
 var spawn : Vector2i
