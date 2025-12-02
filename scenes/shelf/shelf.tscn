@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://m4k8qbbqo7ha"]
+[gd_scene load_steps=7 format=3 uid="uid://m4k8qbbqo7ha"]
 
 [ext_resource type="Texture2D" uid="uid://cna3dlftjloo6" path="res://assets/interior/shop/shelfandpotion01.png" id="1_05ovt"]
 [ext_resource type="Script" uid="uid://divf1xvlxvcpf" path="res://scenes/shelf/shelf.gd" id="1_ctj1q"]
@@ -12,24 +12,23 @@ region = Rect2(3.3931427, 17.954672, 25.547321, 31.604937)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y5jy8"]
 size = Vector2(24, 14)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ehm0u"]
-radius = 29.068884
-
 [node name="shelf" type="StaticBody2D"]
+collision_mask = 129
 script = ExtResource("1_ctj1q")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_tj075")
 
 [node name="Collision" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, 7)
 shape = SubResource("RectangleShape2D_y5jy8")
 
 [node name="Interactable" parent="." instance=ExtResource("3_4pg6k")]
 collision_mask = 1
 
-[node name="InteractableShape" type="CollisionShape2D" parent="Interactable"]
-shape = SubResource("CircleShape2D_ehm0u")
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Interactable"]
+polygon = PackedVector2Array(0, 0, 16, 0, 14, 20, -13, 20, -16, 0)
 
 [node name="Inv_UI_Layer" type="CanvasLayer" parent="."]
 visible = false
