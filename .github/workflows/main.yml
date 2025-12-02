@@ -11,43 +11,43 @@ env:
   PROJECT_NAME: "potion-profits"
 
 jobs:
-  Build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0 # Needed for versioning
+  # Build:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v4
+  #       with:
+  #         fetch-depth: 0 # Needed for versioning
 
-      # - name: Generate Version
-      #   id: version
-      #   run: |
-      #     DATE=$(date +'%Y.%m.%d')
-      #     COUNT=$(git rev-list --count HEAD)
-      #     VERSION="v${DATE}-build-${COUNT}"
-      #     echo "VERSION=$VERSION" >> $GITHUB_ENV
-      #     echo "version=$VERSION" >> $GITHUB_OUTPUT
+  #     # - name: Generate Version
+  #     #   id: version
+  #     #   run: |
+  #     #     DATE=$(date +'%Y.%m.%d')
+  #     #     COUNT=$(git rev-list --count HEAD)
+  #     #     VERSION="v${DATE}-build-${COUNT}"
+  #     #     echo "VERSION=$VERSION" >> $GITHUB_ENV
+  #     #     echo "version=$VERSION" >> $GITHUB_OUTPUT
 
-      - name: Get Godot Version
-        run: echo "GODOT_VERSION=$(grep '^config/features' project.godot | cut -d "\"" -f 2)" >> $GITHUB_ENV
+  #     - name: Get Godot Version
+  #       run: echo "GODOT_VERSION=$(grep '^config/features' project.godot | cut -d "\"" -f 2)" >> $GITHUB_ENV
 
-      - name: Export Godot Project
-        uses: firebelley/godot-export@v7.0.0
-        with:
-          godot_executable_download_url: https://downloads.godotengine.org/?version=${{ env.GODOT_VERSION }}&flavor=stable&slug=linux.x86_64.zip&platform=linux.64
-          godot_export_templates_download_url: https://downloads.godotengine.org/?version=${{ env.GODOT_VERSION }}&flavor=stable&slug=export_templates.tpz&platform=templates
-          archive_output: true
-          cache: true
-          use_preset_export_path: true
+  #     - name: Export Godot Project
+  #       uses: firebelley/godot-export@v7.0.0
+  #       with:
+  #         godot_executable_download_url: https://downloads.godotengine.org/?version=${{ env.GODOT_VERSION }}&flavor=stable&slug=linux.x86_64.zip&platform=linux.64
+  #         godot_export_templates_download_url: https://downloads.godotengine.org/?version=${{ env.GODOT_VERSION }}&flavor=stable&slug=export_templates.tpz&platform=templates
+  #         archive_output: true
+  #         cache: true
+  #         use_preset_export_path: true
 
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: exports
-          path: exports
+  #     - name: Upload Artifacts
+  #       uses: actions/upload-artifact@v4
+  #       with:
+  #         name: exports
+  #         path: exports
 
   Publish:
-    needs: Build
+    # needs: Build
     runs-on: ubuntu-latest
     steps:
       - name: Download Artifacts
