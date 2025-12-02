@@ -294,19 +294,41 @@
 					"slots": []
 				},
 				"ml": 1000,
-				"x_pos": 394.0,
-				"y_pos": -670.0
+				"x_pos": 353.0,
+				"y_pos": -433.0
 			},
 			{
-				"barrel_id": "red_barrel",
+				"barrel_id": "empty_barrel",
 				"entity_code": "barrel",
 				"inv": {
 					"selected_index": -1,
 					"slots": []
 				},
-				"ml": 1000,
-				"x_pos": 412.0,
-				"y_pos": -673.0
+				"ml": 0,
+				"x_pos": 378.0,
+				"y_pos": -425.0
+			},
+			{
+				"barrel_id": "empty_barrel",
+				"entity_code": "barrel",
+				"inv": {
+					"selected_index": -1,
+					"slots": []
+				},
+				"ml": 0,
+				"x_pos": 399.0,
+				"y_pos": -415.0
+			},
+			{
+				"barrel_id": "empty_barrel",
+				"entity_code": "barrel",
+				"inv": {
+					"selected_index": -1,
+					"slots": []
+				},
+				"ml": 0,
+				"x_pos": 422.0,
+				"y_pos": -406.0
 			},
 			{
 				"entity_code": "cauldron",
@@ -323,8 +345,8 @@
 				},
 				"mix_timer_time_left": 0.0,
 				"mixing": false,
-				"x_pos": 443.0,
-				"y_pos": -623.0
+				"x_pos": 383.0,
+				"y_pos": -353.0
 			},
 			{
 				"bottles": 64,
@@ -344,7 +366,7 @@
 					]
 				},
 				"x_pos": 325.0,
-				"y_pos": -629.0
+				"y_pos": -397.0
 			},
 			{
 				"bottles": 64,
@@ -363,8 +385,8 @@
 						}
 					]
 				},
-				"x_pos": 331.0,
-				"y_pos": -619.0
+				"x_pos": 325.0,
+				"y_pos": -369.0
 			}
 		]
 	}
