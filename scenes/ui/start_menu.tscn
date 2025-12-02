@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://c4idipr74234u"]
 
 [ext_resource type="Script" uid="uid://dboa8t5rir3yh" path="res://scenes/ui/start_menu.gd" id="1_jfchi"]
-[ext_resource type="Texture2D" uid="uid://db0iojmrs813b" path="res://assets/ui/temp_menu_background.jpg" id="2_hwrqr"]
+[ext_resource type="Texture2D" uid="uid://ceobjrkpsbkb3" path="res://assets/ui/cambria_backyard.jpg" id="2_s1kfm"]
 [ext_resource type="Texture2D" uid="uid://uhdybuaqdi46" path="res://assets/ui/play_button.tres" id="3_8ukq2"]
 [ext_resource type="Texture2D" uid="uid://brnutn3s0x71a" path="res://assets/ui/options_button.tres" id="4_k14w0"]
 [ext_resource type="Texture2D" uid="uid://c0t4a2fh3rqfu" path="res://assets/ui/quit_button.tres" id="5_e1hb5"]
@@ -32,7 +32,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_hwrqr")
+texture = ExtResource("2_s1kfm")
 expand_mode = 3
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
