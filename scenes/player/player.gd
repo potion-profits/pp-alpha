@@ -20,6 +20,8 @@ var other_ui_open: bool = false # when a ui menu is open, restrict player moveme
 @onready var dash_duration: Timer = $DashDuration
 @export var inv_ui: Control
 
+signal update_coins
+
 enum movement_state {
 	IDLE,
 	WALK,
@@ -163,6 +165,7 @@ func set_coins(coins_delta : int) -> int:
 	if new_coins < 0 or new_coins > MAX_COINS:
 		return coins
 	coins = new_coins
+	update_coins.emit() 
 	return new_coins
 
 func get_chips() -> int:

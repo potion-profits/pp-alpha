@@ -1,9 +1,10 @@
-[gd_scene load_steps=24 format=4 uid="uid://c0wgfjbxk58k0"]
+[gd_scene load_steps=25 format=4 uid="uid://c0wgfjbxk58k0"]
 
 [ext_resource type="Script" uid="uid://cyi5m0rhrv7o2" path="res://scenes/player_shop/main_shop.gd" id="1_47hg3"]
 [ext_resource type="Texture2D" uid="uid://cq4mo6l3w2oka" path="res://assets/interior/shop/background.png" id="2_ixtpo"]
 [ext_resource type="Script" uid="uid://dfnny774vqx3t" path="res://scenes/player_shop/astar.gd" id="3_85e8s"]
 [ext_resource type="Texture2D" uid="uid://4c4v2xp0o710" path="res://assets/interior/shop/inshop01.png" id="4_85e8s"]
+[ext_resource type="PackedScene" uid="uid://ckd2slmjdifxy" path="res://scenes/coin_ui/player_coin.tscn" id="4_g03oc"]
 [ext_resource type="Script" uid="uid://v2b04jaxuakv" path="res://globals/entity_manager.gd" id="5_41gid"]
 [ext_resource type="Texture2D" uid="uid://b6sxxon0bv8sh" path="res://assets/interior/shop/counter_all01.png" id="5_47hg3"]
 [ext_resource type="PackedScene" uid="uid://nfogt8087sfy" path="res://scenes/barrel/barrel.tscn" id="6_85e8s"]
@@ -550,6 +551,14 @@ offset_right = -231.0
 offset_bottom = -157.0
 grow_vertical = 0
 scale = Vector2(5.5, 5.5)
+
+[node name="Coin" parent="Static_UI" node_paths=PackedStringArray("player") instance=ExtResource("4_g03oc")]
+offset_left = -4.0
+offset_top = -3.0
+offset_right = -4.0
+offset_bottom = -3.0
+scale = Vector2(1.5, 1.5)
+player = NodePath("../../EntityManager/Player")
 
 [node name="FrontRoom" type="Node2D" parent="."]
 
