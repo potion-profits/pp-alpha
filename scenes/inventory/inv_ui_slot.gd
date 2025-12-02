@@ -2,6 +2,7 @@ extends Button
 
 @onready var container: CenterContainer = $CenterContainer
 @onready var select_border: NinePatchRect = $select_border
+@onready var slot_bg: Sprite2D = $slot_background
 
 #keeps track if its currently selected, should only ever be 1 slot
 var selected:bool = false;
@@ -10,6 +11,7 @@ var index: int
 var inv: Inv
 
 func _ready() -> void:
+	select_border.self_modulate.a = 0.8
 	select_border.visible = false
 
 func insert(i_stack: ItemStackUI) -> void:

@@ -1,12 +1,54 @@
-[gd_scene load_steps=5 format=3 uid="uid://cnhayqo8wrjwj"]
+[gd_scene load_steps=15 format=3 uid="uid://cnhayqo8wrjwj"]
 
-[ext_resource type="Texture2D" uid="uid://c8k4mt42i846i" path="res://assets/inventory/inv_slot.tres" id="1_h1oto"]
 [ext_resource type="Script" uid="uid://e8y8t8xid6gk" path="res://scenes/inventory/inv_ui_slot.gd" id="1_n7f1c"]
-[ext_resource type="Texture2D" uid="uid://r7q51gbk6yqr" path="res://assets/ui/UI-maps 1.38.01 PM.png" id="3_j45t4"]
+[ext_resource type="Texture2D" uid="uid://6fqi8eyk882q" path="res://assets/inventory/inv_slot.png" id="2_j45t4"]
+[ext_resource type="Texture2D" uid="uid://i1t4ecd1fgj" path="res://assets/inventory/inv_select.png" id="3_j45t4"]
+[ext_resource type="Texture2D" uid="uid://b6ym7xievtilf" path="res://assets/inventory/inv_select_anim/inv_select_frame2.tres" id="4_b50tq"]
+[ext_resource type="Texture2D" uid="uid://d04oslorvh2q" path="res://assets/inventory/inv_select_anim/inv_select_frame1.tres" id="4_fm8f5"]
+[ext_resource type="Texture2D" uid="uid://dg85tifj808e7" path="res://assets/inventory/inv_select_anim/inv_select_frame3.tres" id="5_fm8f5"]
+[ext_resource type="Texture2D" uid="uid://birqkw148flwd" path="res://assets/inventory/inv_select_anim/inv_select_frame4.tres" id="6_tvmow"]
+[ext_resource type="Texture2D" uid="uid://dhn5y8bp4a5pm" path="res://assets/inventory/inv_select_anim/inv_select_frame5.tres" id="7_370nv"]
+[ext_resource type="Texture2D" uid="uid://b3k2biv0amxp6" path="res://assets/inventory/inv_select_anim/inv_select_frame6.tres" id="8_a55sl"]
+[ext_resource type="Texture2D" uid="uid://cbgdwre0k45jy" path="res://assets/inventory/inv_select_anim/inv_select_frame7.tres" id="9_mwmss"]
+[ext_resource type="Texture2D" uid="uid://dgb7sjvaurfrf" path="res://assets/inventory/inv_select_anim/inv_select_frame8.tres" id="10_grecm"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_h20iv"]
-atlas = ExtResource("3_j45t4")
-region = Rect2(64, 0, 48, 48)
+[sub_resource type="Animation" id="Animation_bo6r5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("select_border:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_j45t4")]
+}
+
+[sub_resource type="Animation" id="Animation_qjgj6"]
+resource_name = "rotate"
+length = 7.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("select_border:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3, 4, 5, 6, 7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("4_fm8f5"), ExtResource("4_b50tq"), ExtResource("5_fm8f5"), ExtResource("6_tvmow"), ExtResource("7_370nv"), ExtResource("8_a55sl"), ExtResource("9_mwmss"), ExtResource("10_grecm")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_67fpf"]
+_data = {
+&"RESET": SubResource("Animation_bo6r5"),
+&"rotate": SubResource("Animation_qjgj6")
+}
 
 [node name="inv_ui_slot" type="Button"]
 self_modulate = Color(1, 1, 1, 0)
@@ -16,7 +58,7 @@ offset_bottom = 16.0
 script = ExtResource("1_n7f1c")
 
 [node name="slot_background" type="Sprite2D" parent="."]
-texture = ExtResource("1_h1oto")
+texture = ExtResource("2_j45t4")
 centered = false
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
@@ -32,14 +74,19 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -14.0
-offset_top = -12.0
-offset_right = 14.0
-offset_bottom = 12.0
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 12.0
+offset_bottom = 11.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("AtlasTexture_h20iv")
-patch_margin_left = 9
-patch_margin_top = 7
-patch_margin_right = 9
-patch_margin_bottom = 7
+texture = ExtResource("3_j45t4")
+region_rect = Rect2(1, 1, 15, 14)
+
+[node name="inv_select_anim" type="AnimationPlayer" parent="select_border"]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_67fpf")
+}
+autoplay = "rotate"
+speed_scale = 6.0
