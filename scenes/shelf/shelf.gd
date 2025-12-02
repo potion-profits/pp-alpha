@@ -21,6 +21,7 @@ func _ready()-> void:
 	# create the shelf inventory 
 	if !inv:
 		inv = Inv.new(12)
+	#_debug_set_shelf_inv()
 	
 #Handles player interaction with shelf when appropriate 
 #ui visibility instead controlled by interaction
@@ -64,8 +65,9 @@ func remove_item(item_code: String, quantity: int)->void:
 		if (slot.item.texture_code == item_code and slot.amount >= quantity):
 			slot.amount -= quantity
 			if slot.amount <= 0:
-				inv.slots[i].amount = 0
 				inv.slots[i].item = null
+				inv.slots[i].amount = 0
+				
 			inv.update.emit()
 			shelf_ui.update_slots()
 			return
