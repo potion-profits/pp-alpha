@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 
 @onready var deck : = $Deck
 @onready var player_card_container : = $PlayerCardContainer
@@ -17,6 +17,7 @@ extends Node2D
 @onready var subtext_lbl: Label = $GameOver/Subtext
 @onready var play_again: Button = $GameOver/PlayAgain
 @onready var exit: Button = $GameOver/Exit
+@onready var exit_bet: Button = $BetMenu/ExitBet
 var bet : int = 0
 var player_count : int = 0
 var dealer_count : int = 0
@@ -54,9 +55,8 @@ func play_blackjack() -> void:
 		match current_state:
 			blackjack_state.PLAYER_BET:
 				await player_bet()
-				if bet == 0:
-					current_state = blackjack_state.EXIT
-					break
+				if current_state == blackjack_state.EXIT:
+					continue
 				current_state = blackjack_state.PLAYER_DEAL
 			blackjack_state.PLAYER_DEAL:
 				# play card deal sound
@@ -211,8 +211,9 @@ func _on_stand_pressed() -> void:
 	player_turn_over.emit()
 
 func _on_confirm_pressed() -> void:
-	player.set_chips(-bet)
-	bet_confirmed.emit()
+	if bet > 0:
+		player.set_chips(-bet)
+		bet_confirmed.emit()
 
 func _on_plus_chips_pressed() -> void:
 	var current : int = player.get_chips()
@@ -240,3 +241,7 @@ func _on_play_again_pressed() -> void:
 func _on_exit_pressed() -> void:
 	current_state = blackjack_state.EXIT
 	game_over_decision.emit()
+
+func _on_exit_bet_pressed() -> void:
+	current_state = blackjack_state.EXIT
+	bet_confirmed.emit()
