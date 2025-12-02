@@ -1,6 +1,6 @@
 name: Download butler
 on:
-  workflow dispatch:
+  workflow_dispatch:
 
 jobs:
   Download:
