@@ -1,0 +1,13 @@
+name: Download butler
+on: workflow dispatch
+
+jobs:
+  Download:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download Butler
+        run: |
+          curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
+          unzip butler.zip
+          chmod +x butler
