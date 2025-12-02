@@ -12,5 +12,5 @@ func _ready() -> void:
 func _on_npc_respawn_timer_timeout() -> void:
 	var npc_instance : CharacterBody2D = npc.instantiate()
 	npc_spawned.emit(npc_instance)
-	time = randf_range(3.0, 7.0)
+	time = randf_range(3.0, 8.0)
 	npc_respawn_timer.start(time)
