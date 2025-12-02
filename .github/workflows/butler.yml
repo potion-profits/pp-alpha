@@ -1,10 +1,9 @@
-name: Download butler
+name: Download Butler
 on: workflow_dispatch
 
 jobs:
-  Download:
+  Publish:
     runs-on: ubuntu-latest
-
     steps:
       - name: Download Butler
         run: |
