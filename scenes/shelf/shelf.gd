@@ -65,7 +65,9 @@ func remove_item(item_code: String, quantity: int)->void:
 		if (slot.item.texture_code == item_code and slot.amount >= quantity):
 			slot.amount -= quantity
 			if slot.amount <= 0:
-				inv.slots[i] = null
+				inv.slots[i].item = null
+				inv.slots[i].amount = 0
+				
 			inv.update.emit()
 			shelf_ui.update_slots()
 			return
