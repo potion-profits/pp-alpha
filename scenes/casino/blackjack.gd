@@ -7,10 +7,16 @@ extends Node2D
 @onready var dealer_pos : = $DealerPos
 @onready var hit : = $Hit
 @onready var stand : = $Stand
-@onready var exit : = $Exit
 @onready var player : = $Player
 @onready var bet_menu : = $BetMenu
 @onready var chip_amount : = $BetMenu/Bet/ChipAmount
+@onready var dealer_score_lbl: Label = $DealerScore
+@onready var player_score_lbl: Label = $PlayerScore
+@onready var game_over: Control = $GameOver
+@onready var condition_lbl: Label = $GameOver/Condition
+@onready var subtext_lbl: Label = $GameOver/Subtext
+@onready var play_again: Button = $GameOver/PlayAgain
+@onready var exit: Button = $GameOver/Exit
 var bet : int = 0
 var player_count : int = 0
 var dealer_count : int = 0
@@ -25,6 +31,7 @@ enum blackjack_state {
 	DEALER_DEAL,
 	PLAYER_TURN,
 	DEALER_TURN,
+	GAME_OVER,
 	EXIT
 }
 
@@ -36,6 +43,7 @@ const CARD_VALUES = {"A" : 11, "1" : 1, "2" : 2, "3" : 3, "4" : 4, "5" : 5, "6" 
 
 signal bet_confirmed
 signal player_turn_over
+signal game_over_decision
 
 func _ready() -> void:
 	player.set_physics_process(false)
@@ -43,7 +51,6 @@ func _ready() -> void:
 
 func play_blackjack() -> void:
 	while current_state != blackjack_state.EXIT:
-		print(current_state)
 		match current_state:
 			blackjack_state.PLAYER_BET:
 				await player_bet()
@@ -52,35 +59,45 @@ func play_blackjack() -> void:
 					break
 				current_state = blackjack_state.PLAYER_DEAL
 			blackjack_state.PLAYER_DEAL:
-				spawn_player_card(deck.draw())
-				spawn_player_card(deck.draw())
-				score_player_hand()
+				# play card deal sound
+				await spawn_player_card(deck.draw())
+				# play card deal sound
+				await spawn_player_card(deck.draw())
 				current_state = blackjack_state.DEALER_DEAL
 			blackjack_state.DEALER_DEAL:
-				spawn_dealer_card(deck.draw())
-				spawn_dealer_card(deck.draw())
-				score_dealer_hand()
+				# play card deal sound
+				await spawn_dealer_card(deck.draw())
+				await spawn_dealer_card(deck.draw())
 				if dealer_score == 21:
-					print("Dealer scored 21, you lose")
-					reset()
+					declare_winner()
 					continue
 				current_state = blackjack_state.PLAYER_TURN
 			blackjack_state.PLAYER_TURN:
 				# need to check for split scenarios
-				await player_turn()
-				if current_state == blackjack_state.PLAYER_BET:
+				if player_score != 21:
+					await player_turn()
+				if current_state == blackjack_state.GAME_OVER:
 					continue
 				current_state = blackjack_state.DEALER_TURN
 			blackjack_state.DEALER_TURN:
-				dealer_turn()
-				if current_state == blackjack_state.PLAYER_BET:
+				while dealer_score < 18 and dealer_score < player_score:
+					await dealer_turn()
+				if current_state == blackjack_state.GAME_OVER:
 					continue
 				declare_winner()
-				reset()
-	_on_exit_pressed()
+			blackjack_state.GAME_OVER:
+				await game_over_decision
+				clear_screen()
+				game_over.visible = false
+	exit_blackjack()
 
-func reset() -> void:
-	current_state = blackjack_state.PLAYER_BET
+func reset(condition : String, subtext : String) -> void:
+	current_state = blackjack_state.GAME_OVER
+	game_over.visible = true
+	condition_lbl.text = condition
+	subtext_lbl.text = subtext
+
+func clear_screen() -> void:
 	for card in player_card_container.get_children():
 		card.queue_free()
 	for card in dealer_card_container.get_children():
@@ -93,6 +110,8 @@ func reset() -> void:
 	dealer_score = 0
 	player_hand = []
 	dealer_hand = []
+	player_score_lbl.visible = false
+	dealer_score_lbl.visible = false
 
 func toggle_bet_menu() -> void:
 	bet_menu.visible = !bet_menu.visible
@@ -112,23 +131,21 @@ func player_turn() -> void:
 	toggle_hit_stand()
 
 func dealer_turn() -> void:
-	while dealer_score < 18 and dealer_score < player_score:
-		spawn_dealer_card(deck.draw())
-		score_dealer_hand()
+	await spawn_dealer_card(deck.draw())
+	score_dealer_hand()
 	if dealer_score > 21:
-		print("Dealer BUSTED, you win! dealer score = ", dealer_score)
 		player.set_chips(2 * bet)
-		reset()
+		reset("YOU WIN", "Dealer busted. You won " + str(2 * bet) + " chips!")
 
 func declare_winner() -> void:
 	if player_score > dealer_score:
-		print("You win! score = ", player_score, "\ndealer score = ", dealer_score)
 		player.set_chips(2 * bet)
+		reset("YOU WIN", "Won " + str(2 * bet) + " chips!")
 	elif player_score == dealer_score:
-		print("Push on tie!")
 		player.set_chips(bet)
+		reset("PUSH", "Tie, you got your bet of " + str(bet) + " chips back.")
 	else:
-		print("You lose. score = ", player_score, "\ndealer score = ", dealer_score)
+		reset("YOU LOSE", "You lost " + str(bet) + " chips.")
 
 func spawn_player_card(card_name: String) -> void:
 	var card : = CARD_SCENE.instantiate()
@@ -137,6 +154,8 @@ func spawn_player_card(card_name: String) -> void:
 	player_card_container.add_child(card)
 	player_hand.append(card_name.split("_")[0])
 	player_count += 1
+	score_player_hand()
+	await get_tree().create_timer(0.5).timeout
 
 func spawn_dealer_card(card_name: String) -> void:
 	var card : = CARD_SCENE.instantiate()
@@ -145,6 +164,8 @@ func spawn_dealer_card(card_name: String) -> void:
 	dealer_card_container.add_child(card)
 	dealer_hand.append(card_name.split("_")[0])
 	dealer_count += 1
+	score_dealer_hand()
+	await get_tree().create_timer(0.5).timeout
 
 func score_player_hand() -> void:
 	player_score = 0
@@ -155,7 +176,8 @@ func score_player_hand() -> void:
 		if i >= 0:
 			player_hand[i] = "1"
 			score_player_hand()
-	print("Current score: ", player_score)
+	player_score_lbl.visible = true
+	player_score_lbl.text = "Player Score: " + str(player_score)
 
 func score_dealer_hand() -> void:
 	dealer_score = 0
@@ -166,9 +188,10 @@ func score_dealer_hand() -> void:
 		if i >= 0:
 			dealer_hand[i] = "1"
 			score_dealer_hand()
-	print("Dealer score: ", dealer_score)
+	dealer_score_lbl.visible = true
+	dealer_score_lbl.text = "Dealer Score: " + str(dealer_score)
 
-func _on_exit_pressed() -> void:
+func exit_blackjack() -> void:
 	var cs:String = get_tree().current_scene.name
 	GameManager.save_scene_runtime_state(cs)
 	await get_tree().process_frame
@@ -176,11 +199,12 @@ func _on_exit_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/casino/casino_menu.tscn")
 
 func _on_hit_pressed() -> void:
-	spawn_player_card(deck.draw())
+	await spawn_player_card(deck.draw())
 	score_player_hand()
 	if player_score > 21:
-		print("You BUSTED, score = ", player_score)
-		reset()
+		reset("YOU LOSE", "You busted, lost " + str(bet) + " chips")
+		player_turn_over.emit()
+	elif player_score == 21:
 		player_turn_over.emit()
 
 func _on_stand_pressed() -> void:
@@ -208,3 +232,11 @@ func _on_minus_chips_pressed() -> void:
 	if bet <= 0:
 		bet = 0
 	chip_amount.text = str(bet) + " Chips"
+
+func _on_play_again_pressed() -> void:
+	current_state = blackjack_state.PLAYER_BET
+	game_over_decision.emit()
+
+func _on_exit_pressed() -> void:
+	current_state = blackjack_state.EXIT
+	game_over_decision.emit()
