@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bk1hol15q64bh"]
 
 [ext_resource type="Script" uid="uid://bufabvynvtali" path="res://scenes/inventory/inv_ui.gd" id="1_wefod"]
-[ext_resource type="Texture2D" uid="uid://e8bvvifjl4p2" path="res://assets/inventory/inv_background.tres" id="2_2tqa5"]
+[ext_resource type="Texture2D" uid="uid://biu35oi2b1w6t" path="res://assets/inventory/inv_background.png" id="2_fuqkw"]
 [ext_resource type="PackedScene" uid="uid://cnhayqo8wrjwj" path="res://scenes/inventory/inv_ui_slot.tscn" id="3_tmo6b"]
 
 [node name="Inv_UI" type="Control"]
@@ -18,9 +18,9 @@ script = ExtResource("1_wefod")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
 layout_mode = 0
-offset_right = 112.0
-offset_bottom = 31.0
-texture = ExtResource("2_2tqa5")
+offset_right = 133.0
+offset_bottom = 35.0
+texture = ExtResource("2_fuqkw")
 patch_margin_left = 3
 patch_margin_top = 3
 patch_margin_right = 3
@@ -33,10 +33,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -48.0
-offset_top = -8.75
-offset_right = 48.0
-offset_bottom = 8.75
+offset_left = -48.5
+offset_top = -6.5
+offset_right = 47.5
+offset_bottom = 11.0
 grow_horizontal = 2
 grow_vertical = 2
 columns = 5
