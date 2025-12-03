@@ -21,7 +21,6 @@ func _ready()-> void:
 	# create the shelf inventory 
 	if !inv:
 		inv = Inv.new(12)
-	#_debug_set_shelf_inv()
 	
 #Handles player interaction with shelf when appropriate 
 #ui visibility instead controlled by interaction
@@ -34,6 +33,7 @@ func _on_interact()->void:
 		if ui_layer.visible:
 			player.open_other_ui(false)
 			ui_layer.visible = false
+			player_inv.update.emit()
 		else:
 			player.open_other_ui(true)
 			ui_layer.visible = true
