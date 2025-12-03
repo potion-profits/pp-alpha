@@ -1,9 +1,10 @@
-[gd_scene load_steps=24 format=4 uid="uid://c0wgfjbxk58k0"]
+[gd_scene load_steps=26 format=4 uid="uid://c0wgfjbxk58k0"]
 
 [ext_resource type="Script" uid="uid://cyi5m0rhrv7o2" path="res://scenes/player_shop/main_shop.gd" id="1_47hg3"]
 [ext_resource type="Texture2D" uid="uid://cq4mo6l3w2oka" path="res://assets/interior/shop/background.png" id="2_ixtpo"]
 [ext_resource type="Script" uid="uid://dfnny774vqx3t" path="res://scenes/player_shop/astar.gd" id="3_85e8s"]
 [ext_resource type="Texture2D" uid="uid://4c4v2xp0o710" path="res://assets/interior/shop/inshop01.png" id="4_85e8s"]
+[ext_resource type="PackedScene" uid="uid://ckd2slmjdifxy" path="res://scenes/coin_ui/player_coin.tscn" id="4_g03oc"]
 [ext_resource type="Script" uid="uid://v2b04jaxuakv" path="res://globals/entity_manager.gd" id="5_41gid"]
 [ext_resource type="Texture2D" uid="uid://b6sxxon0bv8sh" path="res://assets/interior/shop/counter_all01.png" id="5_47hg3"]
 [ext_resource type="PackedScene" uid="uid://nfogt8087sfy" path="res://scenes/barrel/barrel.tscn" id="6_85e8s"]
@@ -527,6 +528,9 @@ size = Vector2(36, 20)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6w02k"]
 size = Vector2(34, 21)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g03oc"]
+size = Vector2(106, 36)
+
 [node name="MainShop" type="Node2D"]
 script = ExtResource("1_47hg3")
 
@@ -545,11 +549,19 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 offset_left = -337.0
-offset_top = -223.99994
+offset_top = -186.0
 offset_right = -231.0
-offset_bottom = -194.99994
+offset_bottom = -157.0
 grow_vertical = 0
-scale = Vector2(6.5, 6.5)
+scale = Vector2(5.5, 5.5)
+
+[node name="Coin" parent="Static_UI" node_paths=PackedStringArray("player") instance=ExtResource("4_g03oc")]
+offset_left = -4.0
+offset_top = -3.0
+offset_right = -4.0
+offset_bottom = -3.0
+scale = Vector2(1.5, 1.5)
+player = NodePath("../../EntityManager/Player")
 
 [node name="FrontRoom" type="Node2D" parent="."]
 
@@ -611,6 +623,13 @@ position = Vector2(251, -246)
 [node name="BottomRight" type="Marker2D" parent="FrontRoom/FrontRoomEdges"]
 position = Vector2(533, 17)
 
+[node name="BottomCollision" type="Area2D" parent="FrontRoom/FrontRoomEdges"]
+position = Vector2(-1, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FrontRoom/FrontRoomEdges/BottomCollision"]
+position = Vector2(394, -3)
+shape = SubResource("RectangleShape2D_g03oc")
+
 [node name="BackRoom" type="Node2D" parent="."]
 position = Vector2(0, 229)
 
@@ -646,7 +665,14 @@ position = Vector2(464, -540)
 position = Vector2(251, -728)
 
 [node name="BottomRight" type="Marker2D" parent="BackRoom/BackRoomEdges"]
-position = Vector2(533, -510)
+position = Vector2(533, -513)
+
+[node name="BottomCollision" type="Area2D" parent="BackRoom/BackRoomEdges"]
+position = Vector2(-1, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BackRoom/BackRoomEdges/BottomCollision"]
+position = Vector2(394, -535)
+shape = SubResource("RectangleShape2D_g03oc")
 
 [node name="EntityManager" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -695,10 +721,10 @@ inv_ui = NodePath("../../Static_UI/Inv_UI")
 [node name="Camera2D" type="Camera2D" parent="EntityManager/Player"]
 position = Vector2(-1, 1)
 zoom = Vector2(7, 7)
-limit_left = 251
-limit_top = -246
-limit_right = 533
-limit_bottom = 17
+limit_left = 249
+limit_top = -247
+limit_right = 531
+limit_bottom = 16
 limit_smoothed = true
 position_smoothing_enabled = true
 position_smoothing_speed = 3.0
@@ -710,5 +736,9 @@ position = Vector2(448, -145)
 
 [connection signal="body_entered" from="FrontRoom/MoveTownDetection" to="." method="_on_move_town_detection_body_entered"]
 [connection signal="body_entered" from="FrontRoom/MoveStorageRoomDetection" to="." method="_on_move_storage_room_detection_body_entered"]
+[connection signal="body_entered" from="FrontRoom/FrontRoomEdges/BottomCollision" to="." method="_on_bottom_collision_body_entered_frontroom"]
+[connection signal="body_exited" from="FrontRoom/FrontRoomEdges/BottomCollision" to="." method="_on_bottom_collision_body_exited_frontroom"]
 [connection signal="body_entered" from="BackRoom/MoveFrontRoomDetection" to="." method="_on_move_front_room_detection_body_entered"]
+[connection signal="body_entered" from="BackRoom/BackRoomEdges/BottomCollision" to="." method="_on_bottom_collision_body_entered_backroom"]
+[connection signal="body_exited" from="BackRoom/BackRoomEdges/BottomCollision" to="." method="_on_bottom_collision_body_exited_backroom"]
 [connection signal="npc_spawned" from="NpcSpawner" to="." method="_on_npc_spawner_npc_spawned"]
