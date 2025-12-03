@@ -7,7 +7,6 @@ extends Control
 func _ready() -> void:
 	update_coins.call_deferred()
 	player.update_coins.connect(update_coins)
-	pass
 	
 func update_coins() -> void:
 	player_coins.text = str(player.get_coins())
