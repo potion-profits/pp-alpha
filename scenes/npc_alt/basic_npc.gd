@@ -40,6 +40,7 @@ func _physics_process(_delta : float) -> void:
 		animate(0,0)
 		npc_action()
 		return
+		
 	var local_target : Vector2 = floor_map.tilemap.map_to_local(current_path[path_index])
 	var direction : Vector2 = (local_target - global_position).normalized()
 	velocity = direction * SPEED
@@ -150,5 +151,7 @@ func check_shelf(shelf : Entity) -> void:
 			
 			item_found = true
 			break
-	
-	
+
+func _on_navigation_agent_2d_velocity_computed(safe_velocity: Vector2) -> void:
+	velocity = safe_velocity
+	move_and_slide()
