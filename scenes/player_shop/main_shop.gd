@@ -7,13 +7,18 @@ extends Node2D
 @onready var f_bottom_right: Marker2D = $FrontRoom/FrontRoomEdges/BottomRight
 @onready var b_top_left: Marker2D = $BackRoom/BackRoomEdges/TopLeft
 @onready var b_bottom_right: Marker2D = $BackRoom/BackRoomEdges/BottomRight
+@onready var static_ui: CanvasLayer = $Static_UI
+@onready var inv_ui: Control = $Static_UI/Inv_UI
+
+var orig_inv_ui_pos: Vector2
+var ui_tween: Tween
 
 func _ready()->void:
 	var pause_scene : Resource = preload("res://scenes/ui/pause_menu.tscn")
 	var menu_instance : Node = pause_scene.instantiate()
 	add_child(menu_instance)
 	GameManager.set_pause_menu(menu_instance.get_node("PauseMenuControl"))
-	
+	orig_inv_ui_pos = inv_ui.position
 	await get_tree().process_frame
 
 func _on_move_town_detection_body_entered(body: Node2D) -> void:
@@ -52,3 +57,33 @@ func setup_npc(npc : Node2D) -> void:
 	npc.target = npc.shelves.pop_at(randi_range(0, len(npc.shelves) - 1))
 	npc.checkout = floor_map.checkout
 	npc.global_position = floor_map.tilemap.map_to_local(floor_map.spawn)
+
+func shift_ui(to_top: bool) -> void:
+	if ui_tween and ui_tween.is_running():
+		ui_tween.kill()
+	
+	var target_pos: Vector2
+	if to_top:
+		var offset_y: float = get_viewport().get_visible_rect().size.y * 0.825
+		target_pos = Vector2(orig_inv_ui_pos.x, orig_inv_ui_pos.y - offset_y)
+	else:
+		target_pos = orig_inv_ui_pos
+	
+	ui_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUINT)
+	ui_tween.tween_property(inv_ui, "position", target_pos, 0.3)
+
+func _on_bottom_collision_body_entered_frontroom(body: Node2D) -> void:
+	if body is Player:
+		shift_ui(true)
+
+func _on_bottom_collision_body_entered_backroom(body: Node2D) -> void:
+	if body is Player:
+		shift_ui(true)
+
+func _on_bottom_collision_body_exited_frontroom(body: Node2D) -> void:
+	if body is Player:
+		shift_ui(false)
+
+func _on_bottom_collision_body_exited_backroom(body: Node2D) -> void:
+	if body is Player:
+		shift_ui(false)

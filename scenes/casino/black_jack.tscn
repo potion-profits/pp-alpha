@@ -5,10 +5,13 @@
 [ext_resource type="PackedScene" uid="uid://bk0h32dk6ry1n" path="res://scenes/casino/deck.tscn" id="3_c0bro"]
 [ext_resource type="PackedScene" uid="uid://b0flhrlw7t57t" path="res://scenes/player/player.tscn" id="4_gwo6v"]
 
-[node name="BlackJack" type="Node2D"]
+[node name="BlackJack" type="Control"]
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_qp4h2")
 
 [node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
 texture = ExtResource("2_dad4q")
@@ -31,6 +34,7 @@ scale = Vector2(0.9999999, 0.9999999)
 
 [node name="Hit" type="Button" parent="."]
 visible = false
+layout_mode = 0
 offset_left = 64.0
 offset_top = 952.0
 offset_right = 134.58823
@@ -40,6 +44,7 @@ text = "Hit"
 
 [node name="Stand" type="Button" parent="."]
 visible = false
+layout_mode = 0
 offset_left = 320.0
 offset_top = 952.0
 offset_right = 388.5714
@@ -53,6 +58,7 @@ position = Vector2(-20, -17)
 
 [node name="BetMenu" type="VBoxContainer" parent="."]
 visible = false
+layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -87,8 +93,13 @@ text = "+"
 layout_mode = 2
 text = "Confirm"
 
+[node name="ExitBet" type="Button" parent="BetMenu"]
+layout_mode = 2
+text = "Exit"
+
 [node name="DealerScore" type="Label" parent="."]
 visible = false
+layout_mode = 0
 offset_left = 608.0
 offset_top = 88.0
 offset_right = 1009.0
@@ -98,6 +109,7 @@ text = "Dealer Score: 0"
 
 [node name="PlayerScore" type="Label" parent="."]
 visible = false
+layout_mode = 0
 offset_left = 608.0
 offset_top = 928.0
 offset_right = 1009.0
@@ -107,7 +119,6 @@ text = "Player Score: 0"
 
 [node name="GameOver" type="Control" parent="."]
 visible = false
-layout_mode = 3
 anchors_preset = 0
 offset_left = 544.0
 offset_top = 504.0
@@ -164,5 +175,6 @@ text = "Exit BlackJack
 [connection signal="pressed" from="BetMenu/Bet/MinusChips" to="." method="_on_minus_chips_pressed"]
 [connection signal="pressed" from="BetMenu/Bet/PlusChips" to="." method="_on_plus_chips_pressed"]
 [connection signal="pressed" from="BetMenu/Confirm" to="." method="_on_confirm_pressed"]
+[connection signal="pressed" from="BetMenu/ExitBet" to="." method="_on_exit_bet_pressed"]
 [connection signal="pressed" from="GameOver/PlayAgain" to="." method="_on_play_again_pressed"]
 [connection signal="pressed" from="GameOver/Exit" to="." method="_on_exit_pressed"]
