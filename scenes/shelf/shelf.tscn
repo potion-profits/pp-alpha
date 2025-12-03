@@ -27,7 +27,7 @@ shape = SubResource("RectangleShape2D_y5jy8")
 collision_mask = 1
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Interactable"]
-polygon = PackedVector2Array(0, 0, 16, 0, 14, 20, -13, 20, -16, 0)
+polygon = PackedVector2Array(0, 7, 16, 7, 16, 20, -16, 20, -16, 7)
 
 [node name="Inv_UI_Layer" type="CanvasLayer" parent="."]
 visible = false
