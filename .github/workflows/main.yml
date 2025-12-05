@@ -8,7 +8,7 @@ on:
 env:
   BUTLER_API_KEY: ${{ secrets.BUTLER_CREDENTIALS }}
   ITCHIO_USERNAME: ${{ secrets.ITCHIO_USERNAME }}
-  PROJECT_NAME: "potion-profits"
+  PROJECT_NAME: ${{ github.event_name == 'push' && 'private-potions' || 'potion-profits' }}
 
 jobs:
   Build:
