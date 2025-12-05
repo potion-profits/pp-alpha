@@ -1,6 +1,6 @@
 extends Button
 
-@onready var container: CenterContainer = $CenterContainer
+@onready var container: CenterContainer = $ShelfCenterContainer
 
 var item_stack: ItemStackUI
 var index: int

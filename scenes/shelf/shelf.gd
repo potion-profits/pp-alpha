@@ -34,6 +34,7 @@ func _on_interact()->void:
 		if ui_layer.visible:
 			player.open_other_ui(false)
 			ui_layer.visible = false
+			player_inv.update.emit()
 		else:
 			player.open_other_ui(true)
 			ui_layer.visible = true
@@ -77,7 +78,7 @@ func _debug_set_shelf_inv()->void:
 	var green:InvItem = ItemRegistry.new_item("item_green_potion")
 	green.mixable = 0
 	green.sellable = 1
-	for i in range(1):
+	for i in range(5):
 		inv.insert(green)
 
 func _on_interactable_body_entered(body: Node2D) -> void:

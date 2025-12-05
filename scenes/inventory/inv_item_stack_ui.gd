@@ -15,9 +15,9 @@ var label_scale:float = texture_scale * 0.25
 var label_x_offset:float = -6
 
 func _ready() -> void:
-	# if created under the shelf ui, have textures scaled accordingly (There's probably a better way of checking)
-	var shelf_ui_container: GridContainer = get_parent().get_parent().get_parent()
-	if shelf_ui_container.name == "ShelfContainer" or shelf_ui_container.name == "ShelfPlayerContainer":
+	# if created under the shelf ui, have textures scaled accordingly
+	var shelf_ui_container: CenterContainer = get_parent()
+	if shelf_ui_container and shelf_ui_container.name == "ShelfCenterContainer":
 		shelf_scale()
 
 func update_slot()->void:

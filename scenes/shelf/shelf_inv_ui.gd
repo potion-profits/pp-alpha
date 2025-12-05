@@ -95,7 +95,6 @@ func update_single_slot(ui_slot: Button, inv_slot: InvSlot) -> void:
 			ui_slot.item_stack.queue_free()
 			ui_slot.item_stack = null
 
-# depending on slot index, place into player inventory or shelf inventory
 func on_slot_clicked(slot:Button) -> void:
 	if slot.is_empty() and item_on_cursor:
 		insert_to_slot(slot)
@@ -141,11 +140,13 @@ func stack_items(slot: Button)->void:
 	var maxNum:int = slotItem.invSlot.item.max_stack_size
 	var totalNum:int = slotItem.invSlot.amount + item_on_cursor.invSlot.amount
 	
+	# if not max slots, need to set original inv slot to 0 and null
 	if totalNum<=maxNum:
 		slotItem.invSlot.amount = totalNum
+		item_on_cursor.invSlot.amount = 0
+		item_on_cursor.invSlot.item = null
 		remove_child(item_on_cursor)
 		item_on_cursor= null
-		
 	else:
 		slotItem.invSlot.amount = maxNum
 		item_on_cursor.invSlot.amount = totalNum-maxNum

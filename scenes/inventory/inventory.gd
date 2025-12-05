@@ -59,14 +59,15 @@ func deselect()->void:
 func insert_on_cursor(idx: int, invSlot: InvSlot)->void:
 	var old_owner: Inv = invSlot.owner
 	var old_idx: int = invSlot.index
-	 
+	
+	# when inserting item from a different owner
 	if old_owner and old_owner.slots[old_idx] == invSlot:
 		var empty_slot: InvSlot = InvSlot.new()
 		empty_slot.owner = old_owner
 		empty_slot.index = old_idx
 		old_owner.slots[old_idx] = empty_slot
 		old_owner.update.emit()
-		
+	
 	invSlot.owner = self
 	invSlot.index = idx
 	slots[idx] = invSlot

@@ -15,7 +15,7 @@ position = Vector2(16, 17)
 scale = Vector2(2.25, 2.25)
 texture = ExtResource("2_tveic")
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
+[node name="ShelfCenterContainer" type="CenterContainer" parent="."]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 0
 offset_right = 32.0
