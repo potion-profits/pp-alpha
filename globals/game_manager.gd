@@ -63,7 +63,7 @@ func load_from_storage()->void:
 	
 	
 func save_scene_runtime_state(scene_name:String) -> void:
-	print("before save: ",runtime_entities,"\n\n")
+	#print("before save: ",runtime_entities,"\n\n")
 	var em:EntityManager = get_tree().current_scene.get_node("EntityManager")
 	if em:
 		runtime_entities[scene_name] = []
@@ -71,11 +71,11 @@ func save_scene_runtime_state(scene_name:String) -> void:
 			if entity is Entity:
 				runtime_entities[scene_name].append(entity.to_dict())
 				print("saved: ",entity.to_dict())
-	print("after save: ",runtime_entities,"\n\n")
+	#print("after save: ",runtime_entities,"\n\n")
 	var player_node: Node = get_tree().current_scene.find_child("Player", true, false)
 	if player_node:
 		player_data = player_node.to_dict()
-		print("player snapshot captured: ",player_data)
+		#print("\nplayer snapshot captured: \n",player_data)
 	
 
 func load_scene_runtime_state()->void:

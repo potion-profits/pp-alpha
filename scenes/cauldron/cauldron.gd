@@ -39,7 +39,6 @@ func animation_play() -> void:
 	if cauldron_anim and cauldron_anim.sprite_frames.has_animation(animation_name):
 		cauldron_anim.play(animation_name)
 		interactable.is_interactable = false
-		print("The player interacted with the cauldron")
 	else:
 		push_error("AnimatedSprite2D or animation '" + animation_name + "' not found!")
 
@@ -74,8 +73,6 @@ func _on_mix_timer_timeout() -> void:
 	mixing = false
 	inv.slots[0].item.mixable = false
 	inv.slots[0].item.sellable = true
-	#held_item = null
-	print("Mixing finished for ", inv.slots[0].item.texture_code)
 	progress_bar.visible = false
 	progress_bar.value = 100
 	mix_timer.stop()
