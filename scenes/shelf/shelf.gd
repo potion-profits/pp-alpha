@@ -30,17 +30,22 @@ func _on_interact()->void:
 	player_inv = player.get_inventory()
 	#makes sure interaction is from a player
 	#when ui open, ensure player can not move (or pause scene)
-	if player:
+	if player and not ui_layer.visible:
+		player.open_other_ui(true)
+		ui_layer.visible = true
+		#links both inventories and respective ui
+		shelf_ui.set_inventories(player_inv, inv)
+
+func _input(event: InputEvent) -> void:
+	var player:Player = get_tree().get_first_node_in_group("player")
+	if event.is_action_pressed("ui_cancel"):
 		if ui_layer.visible:
 			player.open_other_ui(false)
 			ui_layer.visible = false
 			player_inv.update.emit()
-		else:
-			player.open_other_ui(true)
-			ui_layer.visible = true
-			#links both inventories and respective ui
-			shelf_ui.set_inventories(player_inv, inv)
-			
+			get_viewport().set_input_as_handled()
+		
+
 func get_inventory()->Array[InvSlot]:
 	var tmp : Array[InvSlot] = []
 	for item in inv.slots:
