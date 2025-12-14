@@ -162,7 +162,7 @@ func get_coins() -> int:
 
 func set_coins(coins_delta : int) -> int:
 	var new_coins : int = coins + coins_delta
-	if new_coins < 0 or new_coins > MAX_COINS:
+	if new_coins < 0 or new_coins > int(MAX_COINS):
 		return coins
 	coins = new_coins
 	update_coins.emit() 
@@ -173,7 +173,7 @@ func get_chips() -> int:
 
 func set_chips(chips_delta : int) -> int:
 	var new_chips : int = chips + chips_delta
-	if new_chips < 0 or new_chips > MAX_COINS:
+	if new_chips < 0 or new_chips > int(MAX_COINS):
 		return chips
 	chips = new_chips
 	return new_chips
@@ -194,7 +194,7 @@ func has_empty_slot() -> bool:
 ## Checks if the player has a slot with [item] and that slot can accept
 func can_stack_item(item: InvItem) -> bool:
 	for slot in inv.slots:
-		if (slot.item.equals(item) and slot.amount < slot.item.max_stack_size):
+		if (slot.item and slot.item.equals(item) and slot.amount < slot.item.max_stack_size):
 			return true
 	return false
 	
