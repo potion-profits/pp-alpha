@@ -31,10 +31,8 @@ func _ready()-> void:
 func _on_interact()->void:
 	var player:Player = get_tree().get_first_node_in_group("player")
 	player_inv = player.get_inventory()
-	#makes sure interaction is from a player
-	#when ui open, ensure player can not move
 	if player and GameManager.current_ui_state == GameManager.UIState.NONE:
-		player.open_other_ui()
+		player.close_inv_ui()
 		GameManager.open_inter_ui()
 		ui_layer.visible = true
 		#links both inventories and respective ui on open
@@ -43,8 +41,8 @@ func _on_interact()->void:
 func _close_shelf()->void:
 	var player:Player = get_tree().get_first_node_in_group("player")
 	player_inv = player.get_inventory()
-	if player:
-		player.close_other_ui()
+	if player and GameManager.current_ui_state == GameManager.UIState.INTER_UI:
+		player.open_inv_ui()
 		GameManager.close_inter_ui()
 		ui_layer.visible = false
 		# sync inventories to ui on close

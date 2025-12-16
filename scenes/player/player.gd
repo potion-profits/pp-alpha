@@ -211,15 +211,15 @@ func remove_from_selected() -> void:
 func collect(item: InvItem) -> bool:
 	return inv.insert(item)
 
-## When a ui menu is open, restrict player movement and close inv_ui
-func open_other_ui() -> void:
-	if inv_ui and !inv_ui.is_open:
-		inv_ui.open()
-		can_move = false
-
-func close_other_ui() -> void:
+## When another ui menu is open, restrict player movement and close player inv_ui
+func close_inv_ui() -> void:
 	if inv_ui and inv_ui.is_open:
 		inv_ui.close()
+		can_move = false
+
+func open_inv_ui() -> void:
+	if inv_ui and !inv_ui.is_open:
+		inv_ui.open()
 		can_move = true
 
 func interact_with_entity(entity: Entity)->void:

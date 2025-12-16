@@ -169,8 +169,8 @@ func update_cursor()->void:
 func _input(event:InputEvent)->void:
 	if !ui_layer.visible:
 		return
-	if event.is_action_pressed("ui_cancel") and GameManager.current_ui_state == GameManager.UIState.INTER_UI:
-			#need to set as handled so pause does not run
-			get_viewport().set_input_as_handled()
-			close_requested.emit()
+	if event.is_action_pressed("ui_cancel"):
+		#need to set as handled so pause does not run
+		get_viewport().set_input_as_handled()
+		close_requested.emit()
 	update_cursor()
