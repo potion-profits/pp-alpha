@@ -11,6 +11,7 @@ var player_inv: Inv
 @onready var ui_layer: CanvasLayer = $Inv_UI_Layer
 @onready var shelf_ui: Control = $Inv_UI_Layer/Shelf_UI
 
+
 func _ready()-> void:
 	#links interactable template to shelf specific method (needed for all interactables)
 	interactable.interact = _on_interact
@@ -21,26 +22,35 @@ func _ready()-> void:
 	# create the shelf inventory 
 	if !inv:
 		inv = Inv.new(12)
-	#_debug_set_shelf_inv()
-	
-#Handles player interaction with shelf when appropriate 
-#ui visibility instead controlled by interaction
+	#connect close signal, which is emmited from shelf_ui
+	if not shelf_ui.close_requested.is_connected(_close_shelf):
+		shelf_ui.close_requested.connect(_close_shelf)
+
+#handles player interaction with shelf when appropriate 
+#ui open controlled by interaction
 func _on_interact()->void:
 	var player:Player = get_tree().get_first_node_in_group("player")
 	player_inv = player.get_inventory()
 	#makes sure interaction is from a player
-	#when ui open, ensure player can not move (or pause scene)
+	#when ui open, ensure player can not move
+	if player and GameManager.current_ui_state == GameManager.UIState.NONE:
+		player.open_other_ui()
+		GameManager.open_inter_ui()
+		ui_layer.visible = true
+		#links both inventories and respective ui on open
+		shelf_ui.set_inventories(player_inv, inv)
+
+func _close_shelf()->void:
+	var player:Player = get_tree().get_first_node_in_group("player")
+	player_inv = player.get_inventory()
 	if player:
-		if ui_layer.visible:
-			player.open_other_ui(false)
-			ui_layer.visible = false
-			player_inv.update.emit()
-		else:
-			player.open_other_ui(true)
-			ui_layer.visible = true
-			#links both inventories and respective ui
-			shelf_ui.set_inventories(player_inv, inv)
-			
+		player.close_other_ui()
+		GameManager.close_inter_ui()
+		ui_layer.visible = false
+		# sync inventories to ui on close
+		player_inv.update.emit()
+		inv.update.emit()
+
 func get_inventory()->Array[InvSlot]:
 	var tmp : Array[InvSlot] = []
 	for item in inv.slots:

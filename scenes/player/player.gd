@@ -13,7 +13,7 @@ const MAX_COINS = pow(2, 62)
 var coins : int
 var chips : int
 var is_dashing : bool = false
-var other_ui_open: bool = false # when a ui menu is open, restrict player movement
+var can_move : bool = true
 
 @onready var animated_sprite : AnimatedSprite2D = $AnimatedSprite2D
 @onready var dash_cooldown: Timer = $DashCooldown
@@ -77,7 +77,7 @@ func _input(event: InputEvent) -> void:
 					inv.selected_index = -1
 
 func _physics_process(delta : float)->void:
-	if(!other_ui_open):
+	if(can_move):
 		move(current_state, delta)
 		move_and_slide()
 
@@ -211,13 +211,16 @@ func remove_from_selected() -> void:
 func collect(item: InvItem) -> bool:
 	return inv.insert(item)
 
-## When player blocking UI menu is open
-func open_other_ui(flag: bool) -> void:
+## When a ui menu is open, restrict player movement and close inv_ui
+func open_other_ui() -> void:
+	if inv_ui and !inv_ui.is_open:
+		inv_ui.open()
+		can_move = false
+
+func close_other_ui() -> void:
 	if inv_ui and inv_ui.is_open:
 		inv_ui.close()
-	elif inv_ui and !inv_ui.is_open:
-		inv_ui.open()
-	other_ui_open = flag
+		can_move = true
 
 func interact_with_entity(entity: Entity)->void:
 	var selected_slot:InvSlot = inv.get_selected_slot()
