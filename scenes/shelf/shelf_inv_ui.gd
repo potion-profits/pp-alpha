@@ -166,6 +166,7 @@ func update_cursor()->void:
 		item_on_cursor.queue_free()
 		item_on_cursor = null
 
+# might refactor to gui_input
 func _input(event:InputEvent)->void:
 	if !ui_layer.visible:
 		return

@@ -27,7 +27,7 @@ func _unhandled_input(event : InputEvent)->void:
 		if(pause_menu and current_ui_state != UIState.INTER_UI):
 			get_tree().paused = !get_tree().paused
 			pause_menu.visible = get_tree().paused
-			if pause_menu.visible == true:
+			if current_ui_state == UIState.NONE:
 				current_ui_state = UIState.PAUSE_UI
 			else:
 				current_ui_state = UIState.NONE
