@@ -37,6 +37,9 @@ func _on_interact()->void:
 		ui_layer.visible = true
 		#links both inventories and respective ui on open
 		shelf_ui.set_inventories(player_inv, inv)
+	# close if already open
+	elif player and GameManager.current_ui_state == GameManager.UIState.INTER_UI:
+		_close_shelf()
 
 func _close_shelf()->void:
 	var player:Player = get_tree().get_first_node_in_group("player")
