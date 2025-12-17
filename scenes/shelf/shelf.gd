@@ -31,22 +31,20 @@ func _ready()-> void:
 func _on_interact()->void:
 	var player:Player = get_tree().get_first_node_in_group("player")
 	player_inv = player.get_inventory()
-	if player and GameManager.current_ui_state == GameManager.UIState.NONE:
+	if player and !ui_layer.visible:
 		player.close_inv_ui()
-		GameManager.open_inter_ui()
 		ui_layer.visible = true
 		#links both inventories and respective ui on open
 		shelf_ui.set_inventories(player_inv, inv)
 	# close if already open
-	elif player and GameManager.current_ui_state == GameManager.UIState.INTER_UI:
+	elif player and ui_layer.visible:
 		_close_shelf()
 
 func _close_shelf()->void:
 	var player:Player = get_tree().get_first_node_in_group("player")
 	player_inv = player.get_inventory()
-	if player and GameManager.current_ui_state == GameManager.UIState.INTER_UI:
+	if player:
 		player.open_inv_ui()
-		GameManager.close_inter_ui()
 		ui_layer.visible = false
 		# sync inventories to ui on close
 		player_inv.update.emit()

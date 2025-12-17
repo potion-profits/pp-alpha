@@ -4,14 +4,6 @@ var pause_menu: Control
 var runtime_entities:Dictionary = {}
 var player_data:Dictionary = {}
 
-#state machine for ui opened
-enum UIState {
-	NONE,
-	PAUSE_UI,
-	INTER_UI
-}
-var current_ui_state:UIState = UIState.NONE
-
 func _ready()->void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	load_from_storage()
@@ -24,26 +16,15 @@ func set_pause_menu(menu: Control)->void:
 func _unhandled_input(event : InputEvent)->void:
 	if event.is_action_pressed("ui_cancel"):
 		#Case where pausing is allowed
-		if(pause_menu and current_ui_state != UIState.INTER_UI):
+		if(pause_menu):
 			get_tree().paused = !get_tree().paused
 			pause_menu.visible = get_tree().paused
-			if current_ui_state == UIState.NONE:
-				current_ui_state = UIState.PAUSE_UI
-			else:
-				current_ui_state = UIState.NONE
-
-func open_inter_ui()->void:
-	current_ui_state = UIState.INTER_UI
-
-func close_inter_ui()->void:
-	current_ui_state = UIState.NONE
 
 func unpause()->void:
 	if (pause_menu):
 		get_tree().paused = false
 		pause_menu.hide()
 		pause_menu.visible = false
-		current_ui_state = UIState.NONE
 
 func commit_to_storage()->void:
 	var save_payload:Dictionary = {
