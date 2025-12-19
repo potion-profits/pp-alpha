@@ -43,7 +43,6 @@ func from_dict(data: Dictionary)->void:
 	max_stack_size = data["max_stack_size"]
 	mixable = data["mixable"]
 	sellable = data["sellable"]
-	#print("item created: " ,self.to_dict())
 
 func to_dict()->Dictionary:
 	return {
