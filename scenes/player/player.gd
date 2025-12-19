@@ -66,9 +66,8 @@ func _input(event: InputEvent) -> void:
 		for key: StringName in input_slot_map:
 			if Input.is_action_just_pressed(key):
 				var slot : int = input_slot_map[key]
-				#if something already selected, deselect
-				if inv.selected_index !=-1:
-					inv_ui.slots[inv.selected_index].deselect()
+
+				inv_ui.slots[inv.selected_index].deselect()
 				#change slots
 				inv.selected_index = slot
 				inv_ui.slots[slot].select()
