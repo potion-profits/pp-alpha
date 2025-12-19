@@ -1,8 +1,8 @@
 extends GutTest
 
 var Player_Scene : Resource = load("res://scenes/player/player.gd")
-var bottle:InvItem = ItemRegistry.new_item("item_empty_bottle");
-var red:InvItem = ItemRegistry.new_item("item_red_potion");
+var bottle:InvItem = ItemRegistry.new_item("item_empty_bottle")
+var red:InvItem = ItemRegistry.new_item("item_red_potion")
 var green:InvItem = ItemRegistry.new_item("item_green_potion")
 var blue:InvItem = ItemRegistry.new_item("item_blue_potion")
 var black:InvItem = ItemRegistry.new_item("item_dark_potion")
@@ -23,7 +23,7 @@ func test_set_coins_lt_zero() -> void:
 	assert_eq(player.coins, 10, "Player coins should return same number on invalid transaction")
 
 func test_set_coins_gt_max() -> void:
-	var init : int = int(player.MAX_COINS) - 2
+	var init : int = player.MAX_COINS - 2
 	player.coins = init
 	player.set_coins(5)
 	assert_eq(player.coins, init, "Player coins should return same number on invalid transaction")
@@ -34,7 +34,7 @@ func test_set_chips_lt_zero() -> void:
 	assert_eq(player.chips, 10, "Player chips should return same number on invalid transaction")
 
 func test_set_chips_gt_max() -> void:
-	var init : int = int(player.MAX_COINS) - 2
+	var init : int = player.MAX_COINS - 2
 	player.chips = init
 	player.set_chips(5)
 	assert_eq(player.chips, init, "Player chips should return same number on invalid transaction")

@@ -8,7 +8,7 @@ const SPEED = 100
 const DASH_MULT = 2.2
 const DASH_DURATION = 0.17
 const DASH_COOLDOWN = 0.5
-const MAX_COINS = pow(2, 62)
+const MAX_COINS = int(pow(2, 62))
 
 var coins : int
 var chips : int
@@ -162,7 +162,7 @@ func get_coins() -> int:
 
 func set_coins(coins_delta : int) -> int:
 	var new_coins : int = coins + coins_delta
-	if new_coins < 0 or new_coins > int(MAX_COINS):
+	if new_coins < 0 or new_coins > MAX_COINS:
 		return coins
 	coins = new_coins
 	update_coins.emit() 
@@ -173,7 +173,7 @@ func get_chips() -> int:
 
 func set_chips(chips_delta : int) -> int:
 	var new_chips : int = chips + chips_delta
-	if new_chips < 0 or new_chips > int(MAX_COINS):
+	if new_chips < 0 or new_chips > MAX_COINS:
 		return chips
 	chips = new_chips
 	return new_chips
