@@ -1,7 +1,7 @@
 extends Entity	#will help store placement and inventory information for persistence
 
 var player_inv: Inv
-
+var queue : Array[Npc] = []
 #interactable entities will need an interactble scene as a child node 
 @onready var interactable: Area2D = $Interactable
 
@@ -32,10 +32,13 @@ func _on_interact()->void:
 	#when ui open, ensure player can not move (or pause scene)
 	if player:
 		if ui_layer.visible:
+			inv.lock = false
+			clear_queue()
 			player.open_other_ui(false)
 			ui_layer.visible = false
 			player_inv.update.emit()
 		else:
+			inv.lock = true
 			player.open_other_ui(true)
 			ui_layer.visible = true
 			#links both inventories and respective ui
@@ -83,4 +86,25 @@ func _debug_set_shelf_inv()->void:
 
 func _on_interactable_body_entered(body: Node2D) -> void:
 	if body is Npc:
+		if(inv.lock):
+			queue.push_back(body)
+			return
+		else:
+			inv.lock = true
+			body.check_shelf(self)
+			if !body.item_found:
+				queue.push_back(body) 
+			inv.lock = false
+
+func _on_interactable_body_exited(body: Node2D) -> void:
+	if body is Npc:
+		var idx : int = queue.find(body)
+		if (idx != -1):
+			queue.pop_at(idx)
+
+func clear_queue()->void:
+	var body: Npc = queue.pop_front()
+	while(body):
 		body.check_shelf(self)
+		await get_tree().process_frame
+		body = queue.pop_front()

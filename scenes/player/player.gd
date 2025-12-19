@@ -46,6 +46,7 @@ func _ready() -> void:
 	if !inv:
 		inv = Inv.new(5)
 	if inv_ui:
+		inv.selected_index = GameManager.player_data["inventory"]["selected_index"] if GameManager.player_data else 0
 		inv_ui.inv = inv #links player inventory and respective ui
 		inv_ui.allow_hotkeys = true #allows 1-5 use for hotbar-like inv
 	coins = GameManager.player_data["coins"] if GameManager.player_data else 0
@@ -65,16 +66,11 @@ func _input(event: InputEvent) -> void:
 		for key: StringName in input_slot_map:
 			if Input.is_action_just_pressed(key):
 				var slot : int = input_slot_map[key]
-				#if something already selected, deselect
-				if inv.selected_index !=-1:
-					inv_ui.slots[inv.selected_index].deselect()
+
+				inv_ui.slots[inv.selected_index].deselect()
 				#change slots
-				if inv.selected_index != slot:
-					inv.selected_index = slot
-					inv_ui.slots[slot].select()
-				#deselect current slot
-				else:
-					inv.selected_index = -1
+				inv.selected_index = slot
+				inv_ui.slots[slot].select()
 
 func _physics_process(delta : float)->void:
 	if(!other_ui_open):
