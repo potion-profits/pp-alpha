@@ -84,14 +84,10 @@ func npc_action() -> void:
 		action.GET_POTION:
 			# check shelf for potion
 			if item_found:
-				current_action = action.CHECKOUT
-				target = checkout
-				move_to_point()
+				move_to_checkout()
 			else:
 				if shelves.is_empty():	# no more shelves to visit
-					current_action = action.LEAVE
-					target = floor_map.spawn
-					move_to_point()
+					move_to_spawn()
 				else:
 					var next_shelf : int = randi_range(0, len(shelves) - 1)
 					target = shelves.pop_at(next_shelf)
@@ -102,9 +98,7 @@ func npc_action() -> void:
 			if not is_checked_out:
 				checkout_timer.start(CHECKOUT_TIME)
 				await checkout_timer.timeout
-			current_action = action.LEAVE
-			target = floor_map.spawn
-			move_to_point()
+			move_to_spawn()
 		action.LEAVE:
 			queue_free()
 	set_physics_process(true)
@@ -139,6 +133,16 @@ func animate(x_dir: float, y_dir : float) -> void:
 		if sprite.sprite_frames.has_animation("idle_" + last_dir):
 			sprite.play("idle_" + last_dir)
 
+func move_to_checkout() -> void:
+	current_action = action.CHECKOUT
+	target = checkout
+	move_to_point()
+
+func move_to_spawn() -> void:
+	current_action = action.LEAVE
+	target = floor_map.spawn
+	move_to_point()
+
 func check_shelf(shelf : Entity) -> void:
 	var tmp : Array[InvSlot] = shelf.get_inventory()
 	
@@ -148,6 +152,7 @@ func check_shelf(shelf : Entity) -> void:
 		if (item.amount > 0 and item.item.texture_code == prefered_item and item.item.sellable):
 			shelf.remove_item(prefered_item, 1)
 			item_found = true
+			move_to_checkout()
 			break	
 
 func _on_navigation_agent_2d_velocity_computed(safe_velocity: Vector2) -> void:
