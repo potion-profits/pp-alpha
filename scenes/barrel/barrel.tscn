@@ -8,28 +8,25 @@
 atlas = ExtResource("2_miycq")
 region = Rect2(16, 0, 16, 16)
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mgwd7"]
-radius = 4.0
-height = 16.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s15th"]
+size = Vector2(16, 16)
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5o6sy"]
-radius = 9.0
-height = 24.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mgwd7"]
+size = Vector2(17.75, 17.75)
 
 [node name="Barrel" type="StaticBody2D"]
 script = ExtResource("1_8tcro")
 metadata/_custom_type_script = "uid://b1odcrnx3mby"
 
 [node name="BarrelSprite" type="Sprite2D" parent="."]
-scale = Vector2(1.3, 1.3)
 texture = SubResource("AtlasTexture_s15th")
 
 [node name="BarrelCollision" type="CollisionShape2D" parent="."]
-position = Vector2(0, 5)
 rotation = 1.5707964
-shape = SubResource("CapsuleShape2D_mgwd7")
+shape = SubResource("RectangleShape2D_s15th")
 
 [node name="Interactable" parent="." instance=ExtResource("3_s15th")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable"]
-shape = SubResource("CapsuleShape2D_5o6sy")
+position = Vector2(0.125, -0.125)
+shape = SubResource("RectangleShape2D_mgwd7")
