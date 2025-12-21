@@ -26,7 +26,7 @@ var last_dir : String = "up"
 var shelves : Array
 var target : Vector2i
 var checkout : Vector2i
-var prefered_item : String
+var preferred_item : String
 var item_found : bool = false
 var is_checked_out : bool = false
 
@@ -34,7 +34,7 @@ var is_checked_out : bool = false
 func _ready() -> void:
 	var color : int = randi_range(0,TYPES.size() - 1)
 	sprite.modulate = TYPES[color]
-	prefered_item = POTIONS[color]
+	preferred_item = POTIONS[color]
 
 func _physics_process(_delta : float) -> void:
 	velocity = Vector2.ZERO
@@ -145,8 +145,8 @@ func check_shelf(shelf : Entity) -> void:
 	for i in range(tmp.size()):
 		var item : = tmp[i]
 			
-		if (item.amount > 0 and item.item.texture_code == prefered_item and item.item.sellable):
-			shelf.remove_item(prefered_item, 1)
+		if (item.amount > 0 and item.item.texture_code == preferred_item and item.item.sellable):
+			shelf.remove_item(preferred_item, 1)
 			item_found = true
 			break	
 
