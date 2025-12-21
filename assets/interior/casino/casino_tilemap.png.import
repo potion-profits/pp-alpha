@@ -2,17 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bhew20crsywxr"
-path="res://.godot/imported/VSplitContainer.svg-6cec29fefa7e65d6ff7c2fdb9a1bb9ab.ctex"
+uid="uid://b7jx6m1vn82gh"
+path="res://.godot/imported/casino_tilemap.png-277c2c37a210c5e74ab1d45142fff4eb.ctex"
 metadata={
-"has_editor_variant": true,
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/gut/images/VSplitContainer.svg"
-dest_files=["res://.godot/imported/VSplitContainer.svg-6cec29fefa7e65d6ff7c2fdb9a1bb9ab.ctex"]
+source_file="res://assets/interior/casino/casino_tilemap.png"
+dest_files=["res://.godot/imported/casino_tilemap.png-277c2c37a210c5e74ab1d45142fff4eb.ctex"]
 
 [params]
 
@@ -39,6 +38,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=true
-editor/convert_colors_with_editor_theme=false
