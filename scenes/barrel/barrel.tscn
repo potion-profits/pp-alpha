@@ -9,7 +9,7 @@ atlas = ExtResource("2_miycq")
 region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s15th"]
-size = Vector2(16, 16)
+size = Vector2(9, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mgwd7"]
 size = Vector2(17.75, 17.75)
@@ -22,6 +22,7 @@ metadata/_custom_type_script = "uid://b1odcrnx3mby"
 texture = SubResource("AtlasTexture_s15th")
 
 [node name="BarrelCollision" type="CollisionShape2D" parent="."]
+position = Vector2(-1.5298986e-07, 3.5)
 rotation = 1.5707964
 shape = SubResource("RectangleShape2D_s15th")
 

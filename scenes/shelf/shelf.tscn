@@ -10,7 +10,7 @@ atlas = ExtResource("1_05ovt")
 region = Rect2(64, 64, 16, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y5jy8"]
-size = Vector2(16, 16)
+size = Vector2(16, 9)
 
 [node name="shelf" type="StaticBody2D"]
 collision_mask = 129
@@ -21,6 +21,7 @@ position = Vector2(0, -8)
 texture = SubResource("AtlasTexture_tj075")
 
 [node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3.5)
 shape = SubResource("RectangleShape2D_y5jy8")
 
 [node name="Interactable" parent="." instance=ExtResource("3_4pg6k")]
