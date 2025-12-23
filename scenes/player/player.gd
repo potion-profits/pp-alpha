@@ -8,7 +8,7 @@ const SPEED = 100
 const DASH_MULT = 2.2
 const DASH_DURATION = 0.17
 const DASH_COOLDOWN = 0.5
-const MAX_COINS = pow(2, 62)
+const MAX_COINS = int(pow(2, 62))
 
 var coins : int
 var chips : int
@@ -190,7 +190,7 @@ func has_empty_slot() -> bool:
 ## Checks if the player has a slot with [item] and that slot can accept
 func can_stack_item(item: InvItem) -> bool:
 	for slot in inv.slots:
-		if (slot.item.equals(item) and slot.amount < slot.item.max_stack_size):
+		if (slot.item and slot.item.equals(item) and slot.amount < slot.item.max_stack_size):
 			return true
 	return false
 	

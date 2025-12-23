@@ -1,6 +1,5 @@
 extends Node2D
 
-# 
 @onready var tilemap : TileMapLayer = $Floor
 @onready var counters : TileMapLayer = $Counters
 @onready var entity_manager: EntityManager = $"../../EntityManager"
@@ -41,13 +40,14 @@ func setup_grid() -> void:
 	astar.update()
 	
 	# set counter cells as not walkable
-	# TO-DO: set cells that contain shelves as unwalkable
 	for cell in counters.get_used_cells() + shelf_cells:
 		var target : Vector2i = cell - Vector2i(astar.offset)
 		astar.set_point_solid(target, true)
 
 func tile_to_id(tile_cell: Vector2i) -> Vector2i:
+	"""Converts a tilemap tile to its respective atar grid id"""
 	return tile_cell - Vector2i(astar.offset)
 
 func id_to_tile(id_cell: Vector2i) -> Vector2i:
+	"""Converts an astar grid id to its respective tilemap tile"""
 	return id_cell + Vector2i(astar.offset)
