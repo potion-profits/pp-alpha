@@ -148,7 +148,7 @@ func check_shelf(shelf : Entity) -> void:
 		if (item.amount > 0 and item.item.texture_code == preferred_item and item.item.sellable):
 			shelf.remove_item(preferred_item, 1)
 			item_found = true
-			break	
+			break
 
 func _on_navigation_agent_2d_velocity_computed(safe_velocity: Vector2) -> void:
 	velocity = safe_velocity
