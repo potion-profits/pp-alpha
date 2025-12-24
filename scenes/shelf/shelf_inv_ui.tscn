@@ -8,7 +8,7 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p7pu3"]
 atlas = ExtResource("1_uanp5")
-region = Rect2(2.3272324, 15.717583, 27.51812, 34.295364)
+region = Rect2(64, 64, 16, 32)
 
 [node name="Shelf_UI" type="Control"]
 custom_minimum_size = Vector2(106, 29)
@@ -25,9 +25,10 @@ script = ExtResource("1_p7pu3")
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.55104166
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_left = 0.52916664
+anchor_top = 0.055555556
+anchor_right = 0.84166664
+anchor_bottom = 0.9916667
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("AtlasTexture_p7pu3")
