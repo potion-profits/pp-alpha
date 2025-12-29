@@ -35,9 +35,6 @@ func _ready()-> void:
 	# create the shelf inventory 
 	if !inv:
 		inv = Inv.new(inv_size)
-	#connect close signal, which is emmited from shelf_ui
-	if not shelf_ui.close_requested.is_connected(_close_shelf):
-		shelf_ui.close_requested.connect(_close_shelf)
 	#set up in world potion visuals
 	_debug_set_shelf_inv()
 	init_visuals()
@@ -67,10 +64,16 @@ func _on_interact()->void:
 		#links both inventories and respective ui on open
 		shelf_ui.set_inventories(player_inv, inv)
 	# close on "e" 
-	elif player and ui_layer.visible:
-		_close_shelf()
+	elif ui_layer.visible:
+		close_shelf()
+		
+func _input(event: InputEvent) -> void:
+	# close on "esc"
+	if event.is_action_pressed("ui_cancel"):
+		if ui_layer.visible:
+			close_shelf()
 
-func _close_shelf()->void:
+func close_shelf()->void:
 	var player:Player = get_tree().get_first_node_in_group("player")
 	player_inv = player.get_inventory()
 	if player:
@@ -78,7 +81,7 @@ func _close_shelf()->void:
 		ui_layer.visible = false
 		# sync inventories to ui on close
 		player_inv.update.emit()
-		inv.update.emit()
+		get_viewport().set_input_as_handled()
 		# update visual on close
 		update_visuals()
 

@@ -21,9 +21,6 @@ var inventory_toggle : bool = true # Setting for toggle vs hold inventory
 
 var item_on_cursor: ItemStackUI
 
-#signal for shelf ui to close
-signal close_requested
-
 #dynamically sets inv which is set wherever a inventory is to be made
 func set_inventories(_player_inv: Inv, _shelf_inv: Inv) -> void:
 	# if signal connected, disconnect
@@ -166,11 +163,5 @@ func update_cursor()->void:
 		item_on_cursor.queue_free()
 		item_on_cursor = null
 
-func _input(event:InputEvent)->void:
-	if !ui_layer.visible:
-		return
-	if event.is_action_pressed("ui_cancel"):
-		#need to set as handled so pause does not run
-		get_viewport().set_input_as_handled()
-		close_requested.emit()
+func _input(_event:InputEvent)->void:
 	update_cursor()
