@@ -32,14 +32,14 @@ texture = SubResource("AtlasTexture_tj075")
 
 [node name="Cell0" type="Node2D" parent="ShelfPotions"]
 
-[node name="Fill0" type="Sprite2D" parent="ShelfPotions/Cell0"]
+[node name="Fill" type="Sprite2D" parent="ShelfPotions/Cell0"]
 visible = false
 modulate = Color(1, 1, 1, 0)
 position = Vector2(-7, -7.6)
 scale = Vector2(0.975, 0.975)
 texture = SubResource("AtlasTexture_feyxw")
 
-[node name="PotionSingle0" type="Sprite2D" parent="ShelfPotions/Cell0"]
+[node name="PotionSingle" type="Sprite2D" parent="ShelfPotions/Cell0"]
 visible = false
 position = Vector2(-7, -7.6)
 scale = Vector2(0.975, 0.975)
@@ -47,13 +47,13 @@ texture = SubResource("AtlasTexture_rm86u")
 
 [node name="Cell1" type="Node2D" parent="ShelfPotions"]
 
-[node name="PotionSingle1" type="Sprite2D" parent="ShelfPotions/Cell1"]
+[node name="PotionSingle" type="Sprite2D" parent="ShelfPotions/Cell1"]
 visible = false
 position = Vector2(0, -7.6)
 scale = Vector2(0.975, 0.975)
 texture = SubResource("AtlasTexture_rm86u")
 
-[node name="Fill1" type="Sprite2D" parent="ShelfPotions/Cell1"]
+[node name="Fill" type="Sprite2D" parent="ShelfPotions/Cell1"]
 visible = false
 modulate = Color(0.78431374, 0.1254902, 0, 0)
 position = Vector2(8.34465e-07, -7.6)
@@ -62,13 +62,13 @@ texture = SubResource("AtlasTexture_feyxw")
 
 [node name="Cell2" type="Node2D" parent="ShelfPotions"]
 
-[node name="PotionSingle2" type="Sprite2D" parent="ShelfPotions/Cell2"]
+[node name="PotionSingle" type="Sprite2D" parent="ShelfPotions/Cell2"]
 visible = false
 position = Vector2(7, -7.6)
 scale = Vector2(0.975, 0.975)
 texture = SubResource("AtlasTexture_rm86u")
 
-[node name="Fill2" type="Sprite2D" parent="ShelfPotions/Cell2"]
+[node name="Fill" type="Sprite2D" parent="ShelfPotions/Cell2"]
 visible = false
 modulate = Color(0.78431374, 0.1254902, 0, 1)
 position = Vector2(7.000002, -7.6)
@@ -77,13 +77,13 @@ texture = SubResource("AtlasTexture_feyxw")
 
 [node name="Cell3" type="Node2D" parent="ShelfPotions"]
 
-[node name="PotionSingle3" type="Sprite2D" parent="ShelfPotions/Cell3"]
+[node name="PotionSingle" type="Sprite2D" parent="ShelfPotions/Cell3"]
 visible = false
 position = Vector2(-7, -1.6)
 scale = Vector2(0.975, 0.975)
 texture = SubResource("AtlasTexture_rm86u")
 
-[node name="Fill3" type="Sprite2D" parent="ShelfPotions/Cell3"]
+[node name="Fill" type="Sprite2D" parent="ShelfPotions/Cell3"]
 visible = false
 modulate = Color(0.78431374, 0.1254902, 0, 1)
 position = Vector2(-7, -1.5999994)
@@ -92,13 +92,13 @@ texture = SubResource("AtlasTexture_feyxw")
 
 [node name="Cell4" type="Node2D" parent="ShelfPotions"]
 
-[node name="PotionSingle4" type="Sprite2D" parent="ShelfPotions/Cell4"]
+[node name="PotionSingle" type="Sprite2D" parent="ShelfPotions/Cell4"]
 visible = false
 position = Vector2(0, -1.6)
 scale = Vector2(0.975, 0.975)
 texture = SubResource("AtlasTexture_rm86u")
 
-[node name="Fill4" type="Sprite2D" parent="ShelfPotions/Cell4"]
+[node name="Fill" type="Sprite2D" parent="ShelfPotions/Cell4"]
 visible = false
 modulate = Color(0.78431374, 0.1254902, 0, 1)
 position = Vector2(8.34465e-07, -1.6)
@@ -107,13 +107,13 @@ texture = SubResource("AtlasTexture_feyxw")
 
 [node name="Cell5" type="Node2D" parent="ShelfPotions"]
 
-[node name="PotionSingle5" type="Sprite2D" parent="ShelfPotions/Cell5"]
+[node name="PotionSingle" type="Sprite2D" parent="ShelfPotions/Cell5"]
 visible = false
 position = Vector2(7, -1.6)
 scale = Vector2(0.975, 0.975)
 texture = SubResource("AtlasTexture_rm86u")
 
-[node name="Fill5" type="Sprite2D" parent="ShelfPotions/Cell5"]
+[node name="Fill" type="Sprite2D" parent="ShelfPotions/Cell5"]
 visible = false
 modulate = Color(0.78431374, 0.1254902, 0, 1)
 position = Vector2(7.000002, -1.5999999)
@@ -122,13 +122,13 @@ texture = SubResource("AtlasTexture_feyxw")
 
 [node name="Cell6" type="Node2D" parent="ShelfPotions"]
 
-[node name="PotionSingle6" type="Sprite2D" parent="ShelfPotions/Cell6"]
+[node name="PotionSingle" type="Sprite2D" parent="ShelfPotions/Cell6"]
 visible = false
 position = Vector2(-7, 4.4)
 scale = Vector2(0.975, 0.975)
 texture = SubResource("AtlasTexture_rm86u")
 
-[node name="Fill6" type="Sprite2D" parent="ShelfPotions/Cell6"]
+[node name="Fill" type="Sprite2D" parent="ShelfPotions/Cell6"]
 visible = false
 position = Vector2(-6.9999995, 4.4000006)
 scale = Vector2(0.975, 0.975)
@@ -136,13 +136,13 @@ texture = SubResource("AtlasTexture_feyxw")
 
 [node name="Cell7" type="Node2D" parent="ShelfPotions"]
 
-[node name="PotionSingle7" type="Sprite2D" parent="ShelfPotions/Cell7"]
+[node name="PotionSingle" type="Sprite2D" parent="ShelfPotions/Cell7"]
 visible = false
 position = Vector2(0, 4.4)
 scale = Vector2(0.975, 0.975)
 texture = SubResource("AtlasTexture_rm86u")
 
-[node name="Fill7" type="Sprite2D" parent="ShelfPotions/Cell7"]
+[node name="Fill" type="Sprite2D" parent="ShelfPotions/Cell7"]
 visible = false
 position = Vector2(1.3113022e-06, 4.4000006)
 scale = Vector2(0.975, 0.975)
@@ -150,13 +150,13 @@ texture = SubResource("AtlasTexture_feyxw")
 
 [node name="Cell8" type="Node2D" parent="ShelfPotions"]
 
-[node name="PotionSingle8" type="Sprite2D" parent="ShelfPotions/Cell8"]
+[node name="PotionSingle" type="Sprite2D" parent="ShelfPotions/Cell8"]
 visible = false
 position = Vector2(7, 4.4)
 scale = Vector2(0.975, 0.975)
 texture = SubResource("AtlasTexture_rm86u")
 
-[node name="Fill8" type="Sprite2D" parent="ShelfPotions/Cell8"]
+[node name="Fill" type="Sprite2D" parent="ShelfPotions/Cell8"]
 visible = false
 position = Vector2(7.000002, 4.4000006)
 scale = Vector2(0.975, 0.975)
@@ -164,13 +164,13 @@ texture = SubResource("AtlasTexture_feyxw")
 
 [node name="Cell9" type="Node2D" parent="ShelfPotions"]
 
-[node name="PotionSingle9" type="Sprite2D" parent="ShelfPotions/Cell9"]
+[node name="PotionSingle" type="Sprite2D" parent="ShelfPotions/Cell9"]
 visible = false
 position = Vector2(-7, 10.4)
 scale = Vector2(0.975, 0.975)
 texture = SubResource("AtlasTexture_rm86u")
 
-[node name="Fill9" type="Sprite2D" parent="ShelfPotions/Cell9"]
+[node name="Fill" type="Sprite2D" parent="ShelfPotions/Cell9"]
 visible = false
 position = Vector2(-7, 10.400002)
 scale = Vector2(0.975, 0.975)
@@ -178,13 +178,13 @@ texture = SubResource("AtlasTexture_feyxw")
 
 [node name="Cell10" type="Node2D" parent="ShelfPotions"]
 
-[node name="PotionSingle10" type="Sprite2D" parent="ShelfPotions/Cell10"]
+[node name="PotionSingle" type="Sprite2D" parent="ShelfPotions/Cell10"]
 visible = false
 position = Vector2(0, 10.4)
 scale = Vector2(0.975, 0.975)
 texture = SubResource("AtlasTexture_rm86u")
 
-[node name="Fill10" type="Sprite2D" parent="ShelfPotions/Cell10"]
+[node name="Fill" type="Sprite2D" parent="ShelfPotions/Cell10"]
 visible = false
 position = Vector2(1.3113022e-06, 10.400002)
 scale = Vector2(0.975, 0.975)
@@ -192,13 +192,13 @@ texture = SubResource("AtlasTexture_feyxw")
 
 [node name="Cell11" type="Node2D" parent="ShelfPotions"]
 
-[node name="PotionSingle11" type="Sprite2D" parent="ShelfPotions/Cell11"]
+[node name="PotionSingle" type="Sprite2D" parent="ShelfPotions/Cell11"]
 visible = false
 position = Vector2(7, 10.4)
 scale = Vector2(0.975, 0.975)
 texture = SubResource("AtlasTexture_rm86u")
 
-[node name="Fill11" type="Sprite2D" parent="ShelfPotions/Cell11"]
+[node name="Fill" type="Sprite2D" parent="ShelfPotions/Cell11"]
 visible = false
 position = Vector2(7.000002, 10.400002)
 scale = Vector2(0.975, 0.975)

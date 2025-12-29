@@ -16,7 +16,7 @@ var queue : Array[Npc] = []
 var potion_visuals : Array[Sprite2D] = []
 var fill_visuals : Array[Sprite2D] = []
 
-## Mapping item_id -> rgb color modulation
+# Mapping item_id -> rgb color for modulation
 const visual_color_map = {
 	"item_red_potion": Color(1, 0, 0, 1),
 	"item_green_potion": Color(0, 1, 0, 1),
@@ -36,7 +36,6 @@ func _ready()-> void:
 	if !inv:
 		inv = Inv.new(inv_size)
 	#set up in world potion visuals
-	_debug_set_shelf_inv()
 	init_visuals()
 	update_visuals()
 
@@ -47,8 +46,8 @@ func init_visuals()->void:
 	for i in range(inv_size):
 		var cell:Node2D = potion_visual_root.get_node("Cell%d" % i)
 		if cell:
-			var potion_sprite:Sprite2D = cell.get_node("PotionSingle%d" % i)
-			var fill_sprite:Sprite2D = cell.get_node("Fill%d" % i)
+			var potion_sprite:Sprite2D = cell.get_node("PotionSingle")
+			var fill_sprite:Sprite2D = cell.get_node("Fill")
 			if potion_sprite and fill_sprite:
 				potion_visuals[i] = potion_sprite
 				fill_visuals[i] = fill_sprite
@@ -59,6 +58,7 @@ func _on_interact()->void:
 	var player:Player = get_tree().get_first_node_in_group("player")
 	player_inv = player.get_inventory()
 	if player and !ui_layer.visible:
+		inv.lock = true
 		player.close_inv_ui()
 		ui_layer.visible = true
 		#links both inventories and respective ui on open
@@ -77,6 +77,8 @@ func close_shelf()->void:
 	var player:Player = get_tree().get_first_node_in_group("player")
 	player_inv = player.get_inventory()
 	if player:
+		inv.lock = false
+		clear_queue()
 		player.open_inv_ui()
 		ui_layer.visible = false
 		# sync inventories to ui on close
@@ -85,7 +87,7 @@ func close_shelf()->void:
 		# update visual on close
 		update_visuals()
 
-# I do want this to eventually be more reactive (only update on change rather than checking every slot
+# eventually will update on change (currently only on close and npc grabbing item)
 func update_visuals()->void:
 	if potion_visuals.is_empty() or inv == null:
 		return
