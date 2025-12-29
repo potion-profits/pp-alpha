@@ -8,6 +8,7 @@ signal selection_changed(selected_index:int)
 #sprites currently holds 5 statically, could do dynamic but not currently
 @export var slots: Array [InvSlot]
 var selected_index:int = -1
+var lock: bool = false
 
 func _init(size:int = 5) -> void:
 	for i in range(size):

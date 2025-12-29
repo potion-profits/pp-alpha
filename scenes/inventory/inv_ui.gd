@@ -38,6 +38,8 @@ func connect_slots()->void:
 		var slot:Button = slots[i]
 		slot.index = i
 		slot.inv = inv
+		if i == inv.selected_index:
+			slot.select()
 		var callable : Callable = Callable(on_slot_clicked)
 		callable = callable.bind(slot)
 		slot.pressed.connect(callable)

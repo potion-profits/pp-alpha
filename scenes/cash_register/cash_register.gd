@@ -24,7 +24,6 @@ func _input(event: InputEvent) -> void:
 		
 		curr_npc.is_checked_out = true
 		curr_npc.checkout_timer.timeout.emit()
-		print("+50 gold\n")
 		player.set_coins(50)
 		
 		if (len(queue) == 0):

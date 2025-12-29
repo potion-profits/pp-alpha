@@ -365,6 +365,8 @@ shape = SubResource("CapsuleShape2D_5w1mn")
 
 [node name="CheckoutTimer" type="Timer" parent="."]
 
+[node name="WaitTimer" type="Timer" parent="."]
+
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 avoidance_enabled = true
 radius = 2.0
