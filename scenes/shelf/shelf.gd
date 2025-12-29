@@ -7,10 +7,23 @@ var player_inv: Inv
 
 @onready var collision : CollisionShape2D = $Collision
 
+@onready var inv_size : int = 12
+
 #shelf specific references
 @onready var ui_layer: CanvasLayer = $Inv_UI_Layer
 @onready var shelf_ui: Control = $Inv_UI_Layer/Shelf_UI
+@onready var potion_visual_root : Node2D = $ShelfPotions
+var potion_visuals : Array[Sprite2D] = []
+var fill_visuals : Array[Sprite2D] = []
 
+## Mapping item_id -> rgb color modulation
+const visual_color_map = {
+	"item_red_potion": Color(1, 0, 0, 1),
+	"item_green_potion": Color(0, 1, 0, 1),
+	"item_blue_potion": Color(0, 0, 1, 1),
+	"item_dark_potion": Color(0, 0, 0, 1),
+	"item_empty_bottle": Color(0, 0, 0, 0)
+}
 
 func _ready()-> void:
 	#links interactable template to shelf specific method (needed for all interactables)
@@ -21,10 +34,27 @@ func _ready()-> void:
 	entity_code = "shelf"
 	# create the shelf inventory 
 	if !inv:
-		inv = Inv.new(12)
+		inv = Inv.new(inv_size)
 	#connect close signal, which is emmited from shelf_ui
 	if not shelf_ui.close_requested.is_connected(_close_shelf):
 		shelf_ui.close_requested.connect(_close_shelf)
+	#set up in world potion visuals
+	_debug_set_shelf_inv()
+	init_visuals()
+	update_visuals()
+
+func init_visuals()->void:
+	potion_visuals.resize(inv_size)
+	fill_visuals.resize(inv_size)
+	
+	for i in range(inv_size):
+		var cell:Node2D = potion_visual_root.get_node("Cell%d" % i)
+		if cell:
+			var potion_sprite:Sprite2D = cell.get_node("PotionSingle%d" % i)
+			var fill_sprite:Sprite2D = cell.get_node("Fill%d" % i)
+			if potion_sprite and fill_sprite:
+				potion_visuals[i] = potion_sprite
+				fill_visuals[i] = fill_sprite
 
 #handles player interaction with shelf when appropriate 
 #ui open controlled by interaction
@@ -36,7 +66,7 @@ func _on_interact()->void:
 		ui_layer.visible = true
 		#links both inventories and respective ui on open
 		shelf_ui.set_inventories(player_inv, inv)
-	# close if already open
+	# close on "e" 
 	elif player and ui_layer.visible:
 		_close_shelf()
 
@@ -49,6 +79,26 @@ func _close_shelf()->void:
 		# sync inventories to ui on close
 		player_inv.update.emit()
 		inv.update.emit()
+		# update visual on close
+		update_visuals()
+
+# I do want this to eventually be more reactive (only update on change rather than checking every slot
+func update_visuals()->void:
+	if potion_visuals.is_empty() or inv == null:
+		return
+	#check every single inventory slot and sync as needed
+	for i in range(inv_size):
+		# get inventory item at index
+		if potion_visuals[i] and fill_visuals[i]:
+			var inv_slot : InvSlot = inv.slots[i]
+			var has_item : bool = inv_slot != null and inv_slot.item != null
+			potion_visuals[i].visible = has_item
+			fill_visuals[i].visible = has_item
+			
+			# color based on texture_id (until custom colors added)
+			if has_item:
+				var texture_code:String = inv_slot.item.texture_code
+				fill_visuals[i].modulate = visual_color_map[texture_code]
 
 func get_inventory()->Array[InvSlot]:
 	var tmp : Array[InvSlot] = []
