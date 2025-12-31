@@ -205,12 +205,10 @@ scale = Vector2(0.975, 0.975)
 texture = SubResource("AtlasTexture_feyxw")
 
 [node name="Collision" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(0, 7)
 shape = SubResource("RectangleShape2D_y5jy8")
 
 [node name="Interactable" parent="." instance=ExtResource("3_4pg6k")]
-visible = false
 collision_mask = 1
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Interactable"]

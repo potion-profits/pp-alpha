@@ -151,7 +151,6 @@ func check_shelf(shelf : Entity) -> void:
 			
 		if (item.amount > 0 and item.item.texture_code == prefered_item and item.item.sellable):
 			shelf.remove_item(prefered_item, 1)
-			shelf.update_visuals()
 			item_found = true
 			move_to_checkout()
 			break	

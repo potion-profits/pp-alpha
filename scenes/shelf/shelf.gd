@@ -135,6 +135,8 @@ func remove_item(item_code: String, quantity: int)->void:
 				
 			inv.update.emit()
 			shelf_ui.update_slots()
+			# when npc takes item
+			update_visuals()
 			return
 			
 
