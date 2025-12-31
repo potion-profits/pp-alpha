@@ -242,5 +242,8 @@ offset_left = -960.0
 offset_top = -1080.0
 offset_right = 960.0
 
+[node name="NpcTarget" type="Marker2D" parent="."]
+position = Vector2(0, 11)
+
 [connection signal="body_entered" from="Interactable" to="." method="_on_interactable_body_entered"]
 [connection signal="body_exited" from="Interactable" to="." method="_on_interactable_body_exited"]
