@@ -21,7 +21,7 @@ func prep_astar() -> void:
 	astar = AStarGrid2D.new()
 	for child in entity_manager.get_children():
 		if child is Entity and child.entity_code == "shelf":
-			# get tilemap tiles for shelf and x adjacent cells to make solid
+			# get tilemap tiles for shelves to make solid
 			var cell : Vector2i = tilemap.local_to_map(child.global_position)
 			shelf_tiles.append(cell)
 			for shelf_child in child.get_children():
