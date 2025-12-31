@@ -40,6 +40,8 @@ func _ready()-> void:
 	update_visuals()
 
 func init_visuals()->void:
+	potion_visuals.clear()
+	fill_visuals.clear()
 	potion_visuals.resize(inv_size)
 	fill_visuals.resize(inv_size)
 	
