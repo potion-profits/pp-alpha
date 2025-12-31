@@ -8,6 +8,8 @@ be filled with 100 ml of liquid from the barrel
 """
 @onready var interactable : Area2D = $Interactable
 @onready var barrel_sprite: Sprite2D = $BarrelSprite
+@onready var select_sprite: AnimatedSprite2D = $SelectionAnimation
+@export var animation_name: String = "default"
 
 const SPRITE_SIZE = 16
 const SHEET_PATH = "res://assets/interior/shop/all_barrels01.png"
@@ -113,3 +115,13 @@ func from_dict(data : Dictionary) -> void:
 	barrel_type = data["barrel_id"]
 	ml = data["ml"]
 	
+
+func highlight()->void:
+	if select_sprite && select_sprite.sprite_frames.has_animation(animation_name):
+		select_sprite.visible = true
+		select_sprite.play(animation_name)
+
+func un_highlight()->void:
+	if select_sprite:
+		select_sprite.visible = false
+		select_sprite.stop()

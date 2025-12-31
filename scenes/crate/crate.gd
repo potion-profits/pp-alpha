@@ -4,6 +4,8 @@ extends Entity	#will help store placement and inventory information for persiste
 @onready var interactable: Area2D = $Interactable
 @onready var full_crate: Sprite2D = $full_crate
 @onready var empty_crate: Sprite2D = $empty_crate
+@onready var select_sprite: AnimatedSprite2D = $SelectionAnimation
+@export var animation_name: String = "default"
 
 # default vars
 var crate_inv_amt : int = 64
