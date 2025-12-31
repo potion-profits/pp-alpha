@@ -9,7 +9,7 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tj075"]
 atlas = ExtResource("1_05ovt")
-region = Rect2(3.3931427, 17.954672, 25.547321, 31.604937)
+region = Rect2(64, 64, 16, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_feyxw"]
 atlas = ExtResource("3_e2dnf")
@@ -19,13 +19,14 @@ region = Rect2(22, 6, 4.707, 4)
 atlas = ExtResource("4_e2dnf")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y5jy8"]
-size = Vector2(24, 14)
+size = Vector2(16, 9)
 
 [node name="shelf" type="StaticBody2D"]
 collision_mask = 129
 script = ExtResource("1_ctj1q")
 
-[node name="ShelfSprite" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -8)
 texture = SubResource("AtlasTexture_tj075")
 
 [node name="ShelfPotions" type="Node2D" parent="."]
@@ -205,14 +206,14 @@ scale = Vector2(0.975, 0.975)
 texture = SubResource("AtlasTexture_feyxw")
 
 [node name="Collision" type="CollisionShape2D" parent="."]
-position = Vector2(0, 7)
+position = Vector2(0, 3.5)
 shape = SubResource("RectangleShape2D_y5jy8")
 
 [node name="Interactable" parent="." instance=ExtResource("3_4pg6k")]
 collision_mask = 1
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Interactable"]
-polygon = PackedVector2Array(0, 7, 16, 7, 16, 20, -16, 20, -16, 7)
+polygon = PackedVector2Array(0, 0, 8, 0, 8, 15, -8, 15, -8, 0)
 
 [node name="Inv_UI_Layer" type="CanvasLayer" parent="."]
 visible = false
