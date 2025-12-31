@@ -24,8 +24,6 @@ func prep_astar() -> void:
 			# get tilemap tiles for shelf and x adjacent cells to make solid
 			var cell : Vector2i = tilemap.local_to_map(child.global_position)
 			shelf_tiles.append(cell)
-			shelf_tiles.append(cell + Vector2i(1, 0))
-			shelf_tiles.append(cell + Vector2i(-1, 0))
 			for shelf_child in child.get_children():
 				if shelf_child.name == "NpcTarget":
 					var target_tile : Vector2i = tilemap.local_to_map(shelf_child.global_position)
