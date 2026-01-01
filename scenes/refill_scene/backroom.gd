@@ -1,10 +1,28 @@
 extends Node2D
 
+@export var target: String = "barrel"
+
+@onready var em: EntityManager = $EntityManager
 @onready var player: Player = $EntityManager/Player
 @onready var static_ui: CanvasLayer = $Static_UI
 
-var orig_inv_ui_pos: Vector2
-var ui_tween: Tween
+enum Direction{
+	NONE,
+	LEFT,
+	RIGHT,
+	UP,
+	DOWN
+}
+
+var selectables: Array = []
+var idx: int = 0
+
+var first_delay: float = 0.3
+var repeat_delay: float = 0.1
+var hold_time: float = 0.0
+
+var repeat : bool = false
+var holding_dir : Direction = Direction.NONE
 
 func _ready()->void:
 	player.set_physics_process(false)
@@ -14,3 +32,68 @@ func _ready()->void:
 	GameManager.set_pause_menu(menu_instance.get_node("PauseMenuControl"))
 	await get_tree().process_frame
 	
+	if em:
+		for child in em.get_children():
+			if child is Entity and child.entity_code == target:
+				selectables.append(child)
+	
+	if not selectables.is_empty():
+		selectables[idx].highlight()
+
+func move_right()->void:
+	selectables[idx].un_highlight()
+	idx = (idx+1)%selectables.size()
+	selectables[idx].highlight()
+
+func move_left()->void:
+	selectables[idx].un_highlight()
+	idx = (idx-1)%selectables.size()
+	selectables[idx].highlight()
+
+func _start_hold(dir: Direction) -> void:
+	holding_dir = dir
+	hold_time = 0.0
+	repeat = false
+	_step()
+	
+func _stop_hold()->void:
+	holding_dir = Direction.NONE
+	
+func _step() -> void:
+	match holding_dir:
+		Direction.LEFT:
+			move_left()
+		Direction.RIGHT:
+			move_right()
+		Direction.UP:
+			pass
+		Direction.DOWN:
+			pass
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("move_left"):
+		_start_hold(Direction.LEFT)
+		
+	if event.is_action_pressed("move_right"):
+		_start_hold(Direction.RIGHT)
+	
+	if event.is_action_released("move_left") and holding_dir == Direction.LEFT:
+		_stop_hold()
+	
+	if event.is_action_released("move_right") and holding_dir == Direction.RIGHT:
+		_stop_hold()
+
+func _process(delta: float) -> void:
+	if holding_dir == Direction.NONE:
+		return
+	
+	hold_time += delta
+	
+	if not repeat:
+		if hold_time >= first_delay:
+			repeat = true
+			hold_time = 0.0
+	else:
+		if hold_time >= repeat_delay:
+			hold_time = 0.0
+			_step()

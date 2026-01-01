@@ -31,12 +31,16 @@ func _on_barrels_refill_pressed(button_name: String) -> void:
 	var coins: int = GameManager.player_data["coins"]
 	var price: int = barrel_prices[button_key]
 	if price <= coins:
-		for entity: Dictionary in GameManager.runtime_entities["MainShop"]:
-			if entity["entity_code"] == "barrel" and entity["ml"] < 100:
-				entity["ml"] = BARREL_MAX_CAP
-				entity["barrel_id"] = barrel_type_mapping[button_key]
-				GameManager.player_data["coins"] -= price
-				break
+		GameManager.connect_scene_load_callback()
+		var refill : Node = preload("res://scenes/refill_scene/backroom.tscn").instantiate()
+		refill.target = "barrel"
+		add_child(refill)
+		#for entity: Dictionary in GameManager.runtime_entities["MainShop"]:
+			#if entity["entity_code"] == "barrel" and entity["ml"] < 100:
+				#entity["ml"] = BARREL_MAX_CAP
+				#entity["barrel_id"] = barrel_type_mapping[button_key]
+				#GameManager.player_data["coins"] -= price
+				#break
 
 func _on_crate_refill_pressed() -> void:
 	if CRATE_PRICE <= GameManager.player_data["coins"]:

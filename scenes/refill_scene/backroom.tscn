@@ -581,9 +581,8 @@ scale = Vector2(1.2, 1.2)
 position = Vector2(325, -369.00003)
 scale = Vector2(1.2, 1.2)
 
-[node name="Player" parent="EntityManager" node_paths=PackedStringArray("inv_ui") instance=ExtResource("11_egyl4")]
+[node name="Player" parent="EntityManager" instance=ExtResource("11_egyl4")]
 position = Vector2(410, -37)
-inv_ui = NodePath("")
 
 [node name="CashRegister" parent="EntityManager" instance=ExtResource("12_evep0")]
 position = Vector2(448, -145)
