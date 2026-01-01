@@ -125,3 +125,8 @@ func un_highlight()->void:
 	if select_sprite:
 		select_sprite.visible = false
 		select_sprite.stop()
+		
+func refill(barrel_id: String)->void:
+	ml = 1000
+	barrel_type = barrel_id
+	change_barrel_color(barrel_type)

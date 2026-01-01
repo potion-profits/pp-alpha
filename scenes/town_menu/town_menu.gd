@@ -31,24 +31,20 @@ func _on_barrels_refill_pressed(button_name: String) -> void:
 	var coins: int = GameManager.player_data["coins"]
 	var price: int = barrel_prices[button_key]
 	if price <= coins:
-		GameManager.connect_scene_load_callback()
-		var refill : Node = preload("res://scenes/refill_scene/backroom.tscn").instantiate()
-		refill.target = "barrel"
-		add_child(refill)
-		#for entity: Dictionary in GameManager.runtime_entities["MainShop"]:
-			#if entity["entity_code"] == "barrel" and entity["ml"] < 100:
-				#entity["ml"] = BARREL_MAX_CAP
-				#entity["barrel_id"] = barrel_type_mapping[button_key]
-				#GameManager.player_data["coins"] -= price
-				#break
+		var payload : Dictionary = {
+			"target" = "barrel",
+			"cost" = price,
+			"type" = barrel_type_mapping[button_key]
+		}
+		SceneManager.change_to("res://scenes/refill_scene/backroom.tscn", payload)
 
 func _on_crate_refill_pressed() -> void:
 	if CRATE_PRICE <= GameManager.player_data["coins"]:
-		for entity:Dictionary in GameManager.runtime_entities["MainShop"]:
-			if entity["entity_code"] == "crate" and entity["bottles"]<25:
-				entity["bottles"] = CRATE_MAX_CAP
-				GameManager.player_data["coins"] -= CRATE_PRICE
-				break
+		var payload : Dictionary = {
+			"target" = "crate",
+			"cost" = CRATE_PRICE
+		}
+		SceneManager.change_to("res://scenes/refill_scene/backroom.tscn", payload)
 
 
 func _on_player_shop_pressed() -> void:

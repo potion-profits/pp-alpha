@@ -8,7 +8,8 @@ extends Entity	#will help store placement and inventory information for persiste
 @export var animation_name: String = "default"
 
 # default vars
-var crate_inv_amt : int = 64
+const MAX_AMT: int = 8
+var crate_inv_amt : int = 8
 
 func _ready()-> void:
 	#links interactable template to cauldron specific method (needed for all interactables)
@@ -61,3 +62,19 @@ func from_dict(data:Dictionary)->void:
 	super.from_dict(data)
 	if data.has("bottles") and data["bottles"] >= 0:
 		crate_inv_amt = data["bottles"]
+
+func highlight()->void:
+	if select_sprite && select_sprite.sprite_frames.has_animation(animation_name):
+		select_sprite.visible = true
+		select_sprite.play(animation_name)
+
+func un_highlight()->void:
+	if select_sprite:
+		select_sprite.visible = false
+		select_sprite.stop()
+
+func refill(_type: String)->void:
+	var bottle: InvItem = ItemRegistry.new_item("item_empty_bottle")
+	inv.slots[0].item = bottle
+	inv.slots[0].amount = MAX_AMT
+	update_crate()

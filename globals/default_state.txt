@@ -349,7 +349,7 @@
 				"y_pos": -353.0
 			},
 			{
-				"bottles": 64,
+				"bottles": 0,
 				"entity_code": "crate",
 				"inv": {
 					"selected_index": -1,
@@ -369,7 +369,7 @@
 				"y_pos": -397.0
 			},
 			{
-				"bottles": 64,
+				"bottles": 8,
 				"entity_code": "crate",
 				"inv": {
 					"selected_index": -1,
