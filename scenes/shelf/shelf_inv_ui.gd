@@ -21,7 +21,6 @@ var inventory_toggle : bool = true # Setting for toggle vs hold inventory
 
 var item_on_cursor: ItemStackUI
 
-
 #dynamically sets inv which is set wherever a inventory is to be made
 func set_inventories(_player_inv: Inv, _shelf_inv: Inv) -> void:
 	# if signal connected, disconnect
