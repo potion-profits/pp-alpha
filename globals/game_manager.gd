@@ -63,24 +63,31 @@ func load_from_storage()->void:
 	
 	
 func save_scene_runtime_state(scene_name:String) -> void:
-	var em:EntityManager = get_tree().current_scene.get_node("EntityManager")
+	var cs:Node = SceneManager.current_scene()
+	var em:EntityManager = null
+	if cs.has_node("EntityManager"):
+		em = cs.get_node("EntityManager")
 	if em:
 		runtime_entities[scene_name] = []
 		for entity in em.get_children():
 			if entity is Entity:
 				runtime_entities[scene_name].append(entity.to_dict())
 				print("saved: ",entity.to_dict())
-	var player_node: Node = get_tree().current_scene.find_child("Player", true, false)
+	var player_node: Node = cs.find_child("Player", true, false)
 	if player_node:
 		player_data = player_node.to_dict()
 	
 
 func load_scene_runtime_state()->void:
+	var cs:Node = SceneManager.current_scene()
 	var player_node: Node = get_tree().current_scene.find_child("Player", true, false)
 	if player_node and player_data:
 		player_node.from_dict(player_data)
-	var scene_name:String = get_tree().current_scene.name
-	var em:EntityManager = get_tree().current_scene.get_node("EntityManager")
+
+	var em:EntityManager = null
+	var scene_name:String = cs.name
+	if cs.has_node("EntityManager"):
+		em = cs.get_node("EntityManager")
 	if em:
 		for child in em.get_children():
 			if child is Entity:
