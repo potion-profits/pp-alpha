@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 class_name Player
+
 #the resource that will be used to make an inventory (player_inventory.tres)
 var inv: Inv
 
@@ -57,7 +58,7 @@ func _ready() -> void:
 #esc when toggled will close ui not pause
 #esc when held will close and pause
 #uses keys to enlarge sprites in inventory
-func _input(event: InputEvent) -> void:
+func _input(_event: InputEvent) -> void:
 	if !inv_ui:
 		return
 		
