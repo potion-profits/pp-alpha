@@ -16,10 +16,7 @@ var scene_payload : Dictionary = {}
 ## Takes [param scene_path] as file path to the scene[br]
 ## Optionally takes [param payload] as a dictionary of information to be passed[br]
 func change_to(scene_path: String, payload : Dictionary = {}) -> void:
-	var cs:Node = get_tree().current_scene
-	if cs:
-		GameManager.save_scene_runtime_state(cs.name) # save state
-
+	GameManager.save_scene_runtime_state() # save state
 	scene_payload = {}	# in case payload was not consumed
 	scene_payload = payload	# save given payload
 	GameManager.connect_scene_load_callback()	# ready to load next scene's state
