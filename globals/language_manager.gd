@@ -1,7 +1,7 @@
 extends Node
 
 ## Used to manage the menu sprites for each language.[br]
-## @depricated: Will be removed
+## @deprecated: Will be removed
 
 const CONFIG_PATH = "user://settings.cfg"
 

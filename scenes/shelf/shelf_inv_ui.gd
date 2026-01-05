@@ -17,7 +17,6 @@ var shelf_inv: Inv
 var allow_hotkeys : bool = false
 
 var is_open : bool = false
-var inventory_toggle : bool = true # Setting for toggle vs hold inventory
 
 var item_on_cursor: ItemStackUI
 
