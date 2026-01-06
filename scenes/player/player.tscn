@@ -338,9 +338,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2els"]
-radius = 4.0
-height = 8.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lvxji"]
+size = Vector2(6, 7)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_onrkg")
@@ -351,8 +350,8 @@ animation = &"idle_down"
 autoplay = "idle_down"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 4)
-shape = SubResource("CapsuleShape2D_g2els")
+position = Vector2(0, 4.5)
+shape = SubResource("RectangleShape2D_lvxji")
 
 [node name="DashCooldown" type="Timer" parent="."]
 wait_time = 2.0

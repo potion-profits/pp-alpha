@@ -91,8 +91,8 @@ func _on_interactable_body_entered(body: Node2D) -> void:
 			return
 		else:
 			inv.lock = true
-			body.check_shelf(self)
 			if !body.item_found:
+				body.check_shelf(self)
 				queue.push_back(body) 
 			inv.lock = false
 

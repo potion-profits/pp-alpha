@@ -9,6 +9,7 @@ extends Node2D
 @onready var b_bottom_right: Marker2D = $BackRoom/BackRoomEdges/BottomRight
 @onready var static_ui: CanvasLayer = $Static_UI
 @onready var inv_ui: Control = $Static_UI/Inv_UI
+@onready var entity_manager: EntityManager = $EntityManager
 
 var orig_inv_ui_pos: Vector2
 var ui_tween: Tween
@@ -48,7 +49,7 @@ func _on_npc_spawner_npc_spawned(npc_instance : Node2D) -> void:
 	if floor_map.shelf_targets.is_empty():
 		return # no shelves in shop scene => no valid target for npcs
 	setup_npc(npc_instance)
-	add_child(npc_instance)
+	entity_manager.add_child(npc_instance)
 	npc_instance.move_to_point()
 
 func setup_npc(npc : Node2D) -> void:
