@@ -7,7 +7,7 @@ var npc : Node = null
 
 func before_each() -> void:
 	shop = shop_scene.instantiate()
-	var spawner : Node2D = shop.get_node("NpcSpawner")
+	var spawner : Node2D = shop.get_node("EntityManager/NpcSpawner")
 	add_child_autofree(shop)
 	await wait_process_frames(2)
 	spawner.npc_respawn_timer.stop()

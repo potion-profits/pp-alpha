@@ -15,7 +15,7 @@ func test_astar_initialized() -> void:
 	var astar : Node = shop.floor_map
 	assert_not_null(astar.spawn, "Astar/tilemap should have spawn coordinates, but spawn set to null")
 	# may fail when we switch to placeable shop entities
-	assert_not_null(astar.shelf_cells, "Astar/tilemap should have shelf coordinates, but shelf cells empty")
+	assert_not_null(astar.shelf_tiles, "Astar/tilemap should have shelf coordinates, but shelf cells empty")
 	assert_not_null(astar.checkout, "Astar/tilemap should have checkout coordinates, but checkout set to null")
 	
 func test_setup_npc() -> void:
