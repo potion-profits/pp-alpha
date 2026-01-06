@@ -1,6 +1,5 @@
 extends Node2D
 
-# 
 @onready var tilemap : TileMapLayer = $Floor
 @onready var counters : TileMapLayer = $Counters
 @onready var entity_manager: EntityManager = $"../../EntityManager"
@@ -48,7 +47,9 @@ func setup_grid() -> void:
 		astar.set_point_solid(target, true)
 
 func tile_to_id(tile_cell: Vector2i) -> Vector2i:
+	"""Converts a tilemap tile to its respective atar grid id"""
 	return tile_cell - Vector2i(astar.offset)
 
 func id_to_tile(id_cell: Vector2i) -> Vector2i:
+	"""Converts an astar grid id to its respective tilemap tile"""
 	return id_cell + Vector2i(astar.offset)
