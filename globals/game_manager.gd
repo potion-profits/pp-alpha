@@ -1,6 +1,6 @@
 extends Node
 
-## Handles the game state and any mechanics that persist throughout the game.[br][br]
+## Handles the game state and any mechanics that persist throughout the game.
 ##
 ## Primarily handles saving/loading from both memory and disk. 
 ## Also handles unhandled inputs, which is used for the pause menu.
@@ -81,7 +81,7 @@ func load_from_storage()->void:
 	player_data = json["player"]
 	
 	print("Game Loaded with : ",player_data,"\n", runtime_entities)
-	
+
 ## Stores current scene's and player's state into the runtime memory.[br][br]
 ##
 ## Ensures safe saving if possible. Scene name is used over Scene path to allow

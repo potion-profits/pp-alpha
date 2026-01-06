@@ -31,9 +31,9 @@ collision_mask = 1
 polygon = PackedVector2Array(0, 0, 8, 0, 8, 15, -8, 15, -8, 0)
 
 [node name="Inv_UI_Layer" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="Shelf_UI" parent="Inv_UI_Layer" instance=ExtResource("3_y5jy8")]
+visible = false
 anchors_preset = -1
 anchor_left = 0.5
 anchor_top = 1.0
