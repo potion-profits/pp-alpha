@@ -21,6 +21,7 @@ var other_ui_open: bool = false # when a ui menu is open, restrict player moveme
 @export var inv_ui: Control
 
 signal update_coins
+signal update_chips
 
 enum movement_state {
 	IDLE,
@@ -172,6 +173,7 @@ func set_chips(chips_delta : int) -> int:
 	if new_chips < 0 or new_chips > MAX_COINS:
 		return chips
 	chips = new_chips
+	update_chips.emit()
 	return new_chips
 
 

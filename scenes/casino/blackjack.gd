@@ -196,7 +196,7 @@ func exit_blackjack() -> void:
 	GameManager.save_scene_runtime_state(cs)
 	await get_tree().process_frame
 	GameManager.connect_scene_load_callback()
-	get_tree().change_scene_to_file("res://scenes/casino/casino_menu.tscn")
+	get_tree().change_scene_to_file("res://scenes/casino/casino_floor.tscn")
 
 func _on_hit_pressed() -> void:
 	await spawn_player_card(deck.draw())
