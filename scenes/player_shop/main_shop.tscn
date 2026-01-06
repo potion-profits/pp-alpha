@@ -732,7 +732,7 @@ position_smoothing_speed = 3.0
 [node name="CashRegister" parent="EntityManager" instance=ExtResource("14_ylhot")]
 position = Vector2(448, -145)
 
-[node name="NpcSpawner" parent="." instance=ExtResource("12_47hg3")]
+[node name="NpcSpawner" parent="EntityManager" instance=ExtResource("12_47hg3")]
 
 [connection signal="body_entered" from="FrontRoom/MoveTownDetection" to="." method="_on_move_town_detection_body_entered"]
 [connection signal="body_entered" from="FrontRoom/MoveStorageRoomDetection" to="." method="_on_move_storage_room_detection_body_entered"]
@@ -741,4 +741,4 @@ position = Vector2(448, -145)
 [connection signal="body_entered" from="BackRoom/MoveFrontRoomDetection" to="." method="_on_move_front_room_detection_body_entered"]
 [connection signal="body_entered" from="BackRoom/BackRoomEdges/BottomCollision" to="." method="_on_bottom_collision_body_entered_backroom"]
 [connection signal="body_exited" from="BackRoom/BackRoomEdges/BottomCollision" to="." method="_on_bottom_collision_body_exited_backroom"]
-[connection signal="npc_spawned" from="NpcSpawner" to="." method="_on_npc_spawner_npc_spawned"]
+[connection signal="npc_spawned" from="EntityManager/NpcSpawner" to="." method="_on_npc_spawner_npc_spawned"]
