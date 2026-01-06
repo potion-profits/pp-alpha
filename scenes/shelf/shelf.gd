@@ -110,12 +110,12 @@ func _on_interactable_body_entered(body: Node2D) -> void:
 			return
 		else:
 			inv.lock = true
-			body.check_shelf(self)
-			if !body.item_found:
+			body.check_shelf(self)	# First check
+			if !body.item_found:	# If not found, waiting queue
 				queue.push_back(body)
 			inv.lock = false
 
-# Removes the NPC from the queue
+# Removes the NPC that exited from the queue
 func _on_interactable_body_exited(body: Node2D) -> void:
 	if body is Npc:
 		var idx : int = queue.find(body)
