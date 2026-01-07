@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 class_name Player
 
+## This class represents the player.
+
 ## See Inv
 var inv: Inv
 
