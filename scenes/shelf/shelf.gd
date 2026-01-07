@@ -108,37 +108,31 @@ func update_visuals()->void:
 func get_inventory()->Array[InvSlot]:
 	var tmp : Array[InvSlot] = []
 	for item in inv.slots:
-		if (!item):
+		#if slot doesn't exist
+		if(!item):
 			continue
-		
-		if (!item.item):
-			continue
-		
 		tmp.append(item)
 		
 	return tmp;
 	
-func remove_item(item_code: String, quantity: int)->void:
-	for i in range(inv.slots.size()):
-		var slot: InvSlot = inv.slots[i]
-		if(!slot or !slot.item):
-			continue
+# given an index, remove an item from inventory
+func remove_item(index:int, quantity: int)->void:
+	var slot: InvSlot = inv.slots[index]
+	if(!slot or !slot.item):
+		return
+	
+	if (quantity <= 0):
+		return
 		
-		if (quantity <= 0):
-			return
-			
-		if (slot.item.texture_code == item_code and slot.amount >= quantity):
-			slot.amount -= quantity
-			if slot.amount <= 0:
-				inv.slots[i].item = null
-				inv.slots[i].amount = 0
-				
-			inv.update.emit()
-			shelf_ui.update_slots()
-			# when npc takes item
-			update_visuals()
-			return
-			
+	slot.amount -= quantity
+	if slot.amount <= 0:
+		inv.slots[index].item = null
+		inv.slots[index].amount = 0
+	inv.update.emit()
+	shelf_ui.update_slots()
+	# when npc takes item
+	update_visuals()
+	return
 
 func _debug_set_shelf_inv()->void:
 	var green:InvItem = ItemRegistry.new_item("item_green_potion")
