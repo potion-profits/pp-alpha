@@ -29,4 +29,4 @@ func _input(event: InputEvent)->void:
 		go_to_start()
 
 func go_to_start()->void:
-	get_tree().change_scene_to_file("res://scenes/ui/start_menu.tscn")
+	SceneManager.change_to("res://scenes/ui/start_menu.tscn")
