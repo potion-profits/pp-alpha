@@ -1,5 +1,9 @@
 extends "res://scenes/ui/base_menu.gd"
 
+## Handles the initial menu that is shown to the user.
+##
+## Has the ability to play the game, open the options, and quit/close the game.
+
 func _ready()->void:
 	button_map = {
 		"MarginContainer/VBoxContainer/Play": "res://assets/ui/play_button.tres",

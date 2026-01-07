@@ -1,5 +1,9 @@
 extends "res://scenes/ui/base_menu.gd"
 
+## Handles all the buttons in the options menu
+##
+## @experimental: Currently, the buttons kind of do nothing important
+
 func _ready()->void:
 	button_map = {
 		"MarginContainer/VBoxContainer/Music": "res://assets/ui/music_button.tres",

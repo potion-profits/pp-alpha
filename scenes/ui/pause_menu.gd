@@ -1,5 +1,8 @@
 extends "res://scenes/ui/base_menu.gd"
 
+## Handles the pause menu options.
+##
+## Has the option to unpause the game and to return to the main menu.
 
 func _ready()->void:
 	button_map = {
