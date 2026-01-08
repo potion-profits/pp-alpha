@@ -67,4 +67,4 @@ func _on_player_shop_pressed() -> void:
 
 # go to casino
 func _on_casino_pressed() -> void:
-	SceneManager.change_to("res://scenes/casino/casino_menu.tscn")
+	SceneManager.change_to("res://scenes/casino/casino_floor.tscn")

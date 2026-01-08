@@ -11,7 +11,7 @@ const SPEED = 100
 const DASH_MULT = 2.2
 const DASH_DURATION = 0.17
 const DASH_COOLDOWN = 0.5
-const MAX_COINS = pow(2, 62)
+const MAX_COINS = int(pow(2, 62))
 
 ## Represents amount of coins owned by the player
 var coins : int
@@ -19,8 +19,7 @@ var coins : int
 var chips : int
 ## Tracks whether the player is currently dashing or not
 var is_dashing : bool = false
-## Indicates whether another (shelf) UI is currently open by the player
-var other_ui_open: bool = false
+var can_move : bool = true	## False when player is in an unmoveable state (UI open)
 
 ## See [AnimatedSprite2D]
 @onready var animated_sprite : AnimatedSprite2D = $AnimatedSprite2D
@@ -32,6 +31,7 @@ var other_ui_open: bool = false
 @export var inv_ui: Control
 
 signal update_coins	## Triggers the coin UI to update on any change to coin amount
+signal update_chips ## Triggers the chip UI to update on any change to chip amount
 
 ## Utilized in the state machine for player movement
 enum movement_state {
@@ -86,7 +86,7 @@ func _input(_event: InputEvent) -> void:
 				inv_ui.slots[slot].select()
 
 func _physics_process(delta : float)->void:
-	if(!other_ui_open):
+	if(can_move):
 		move(current_state, delta)
 		move_and_slide()
 
@@ -191,6 +191,7 @@ func set_chips(chips_delta : int) -> int:
 	if new_chips < 0 or new_chips > MAX_COINS:
 		return chips
 	chips = new_chips
+	update_chips.emit()
 	return new_chips
 
 
@@ -209,7 +210,7 @@ func has_empty_slot() -> bool:
 ## Checks if the player has a slot with [item] and that slot can accept
 func can_stack_item(item: InvItem) -> bool:
 	for slot in inv.slots:
-		if (slot.item.equals(item) and slot.amount < slot.item.max_stack_size):
+		if (slot.item and slot.item.equals(item) and slot.amount < slot.item.max_stack_size):
 			return true
 	return false
 	
@@ -226,13 +227,16 @@ func remove_from_selected() -> void:
 func collect(item: InvItem) -> bool:
 	return inv.insert(item)
 
-## When player blocking UI menu is open
-func open_other_ui(flag: bool) -> void:
+## When another ui menu is open, restrict player movement and close player inv_ui
+func close_inv_ui() -> void:
 	if inv_ui and inv_ui.is_open:
 		inv_ui.close()
-	elif inv_ui and !inv_ui.is_open:
+		can_move = false
+
+func open_inv_ui() -> void:
+	if inv_ui and !inv_ui.is_open:
 		inv_ui.open()
-	other_ui_open = flag
+		can_move = true
 
 ## Retrieves items from entity inventories[br]
 ## i.e.: bottles from crates or brewed potion from cauldron

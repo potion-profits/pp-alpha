@@ -27,7 +27,7 @@ func set_pause_menu(menu: Control)->void:
 # explicitly handled elsewhere
 func _unhandled_input(event : InputEvent)->void:
 	if event.is_action_pressed("ui_cancel"):
-#		Case where pausing is allowed
+		#Case where pausing is allowed
 		if(pause_menu):
 			get_tree().paused = !get_tree().paused
 			pause_menu.visible = get_tree().paused

@@ -29,7 +29,6 @@ var is_open : bool = false
 ## Holds an ItemStackUI object that maintains the item to be moved.
 var item_on_cursor: ItemStackUI
 
-
 #dynamically sets inv which is set wherever a inventory is to be made
 ## Stores and correctly connects the given 
 ## [param _player_inv] and [param _shelf_inv] to [member player_inv] and
