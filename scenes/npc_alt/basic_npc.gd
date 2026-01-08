@@ -145,14 +145,15 @@ func move_to_spawn() -> void:
 
 func check_shelf(shelf : Entity) -> void:
 	var tmp : Array[InvSlot] = shelf.get_inventory()
+	
 	for i in range(tmp.size()):
 		var item : = tmp[i]
 			
 		if (item.amount > 0 and item.item.texture_code == prefered_item and item.item.sellable):
+			shelf.remove_item(prefered_item, 1)
 			item_found = true
-			shelf.remove_item(i, 1)
 			move_to_checkout()
-			break	
+			break
 
 func _on_navigation_agent_2d_velocity_computed(safe_velocity: Vector2) -> void:
 	velocity = safe_velocity
