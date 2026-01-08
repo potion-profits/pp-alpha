@@ -7,6 +7,7 @@ extends Entity	#will help store placement and inventory information for persiste
 
 var player_inv: Inv	## Holds the inventory of the player
 var queue : Array[Npc] = []	## Holds any NPCs that are waiting to check the shelf
+var inv_size: int = 12 ## The size of the shelf's inventory
 
 ## Reference to interactable area
 @onready var interactable: Area2D = $Interactable	
@@ -62,20 +63,20 @@ func init_visuals()->void:
 func _on_interact()->void:
 	var player:Player = get_tree().get_first_node_in_group("player")
 	player_inv = player.get_inventory()
-	if player and !ui_layer.visible:
+	if player and !shelf_ui.visible:
 		inv.lock = true
 		player.close_inv_ui()
-		ui_layer.visible = true
+		shelf_ui.visible = true
 		#links both inventories and respective ui on open
 		shelf_ui.set_inventories(player_inv, inv)
 	# close on "e" 
-	elif ui_layer.visible:
+	elif shelf_ui.visible:
 		close_shelf()
 		
 func _input(event: InputEvent) -> void:
 	# close on "esc"
 	if event.is_action_pressed("ui_cancel"):
-		if ui_layer.visible:
+		if shelf_ui.visible:
 			close_shelf()
 
 func close_shelf()->void:
@@ -85,7 +86,7 @@ func close_shelf()->void:
 		inv.lock = false
 		clear_queue()
 		player.open_inv_ui()
-		ui_layer.visible = false
+		shelf_ui.visible = false
 		# sync inventories to ui on close
 		player_inv.update.emit()
 		get_viewport().set_input_as_handled()
