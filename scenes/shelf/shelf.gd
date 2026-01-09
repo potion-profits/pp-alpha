@@ -1,16 +1,21 @@
 extends Entity	#will help store placement and inventory information for persistence
 
-var player_inv: Inv
-var queue : Array[Npc] = []
-#interactable entities will need an interactble scene as a child node 
-@onready var interactable: Area2D = $Interactable
+## Represents and maintains functionality of a shelf. 
+##
+## Primarily handles the use of shelf by both player and NPCs. Mainly includes
+## data handling, the visual handling is dealt with in shelf_inv_ui script.
 
+var player_inv: Inv	## Holds the inventory of the player
+var queue : Array[Npc] = []	## Holds any NPCs that are waiting to check the shelf
+var inv_size: int = 12 ## The size of the shelf's inventory
+
+## Reference to interactable area
+@onready var interactable: Area2D = $Interactable	
+
+## Reference to physics collision
 @onready var collision : CollisionShape2D = $Collision
 
-@onready var inv_size : int = 12
-
-#shelf specific references
-@onready var ui_layer: CanvasLayer = $Inv_UI_Layer
+## Reference to this shelf's UI menu
 @onready var shelf_ui: Control = $Inv_UI_Layer/Shelf_UI
 @onready var potion_visual_root : Node2D = $ShelfPotions
 var potion_visuals : Array[Sprite2D] = []
@@ -25,6 +30,7 @@ const visual_color_map = {
 	"item_empty_bottle": Color(0, 0, 0, 0)
 }
 
+# Sets up the shelf as an entity and gives it an inventory with 12 spaces
 func _ready()-> void:
 	#links interactable template to shelf specific method (needed for all interactables)
 	interactable.interact = _on_interact
@@ -52,25 +58,25 @@ func init_visuals()->void:
 				potion_visuals[i] = potion_sprite
 				fill_visuals[i] = fill_sprite
 
-#handles player interaction with shelf when appropriate 
-#ui open controlled by interaction
+# Handles player interaction with shelf when appropriate 
+# ui visibility instead controlled by interaction
 func _on_interact()->void:
 	var player:Player = get_tree().get_first_node_in_group("player")
 	player_inv = player.get_inventory()
-	if player and !ui_layer.visible:
+	if player and !shelf_ui.visible:
 		inv.lock = true
 		player.close_inv_ui()
-		ui_layer.visible = true
+		shelf_ui.visible = true
 		#links both inventories and respective ui on open
 		shelf_ui.set_inventories(player_inv, inv)
 	# close on "e" 
-	elif ui_layer.visible:
+	elif shelf_ui.visible:
 		close_shelf()
 		
 func _input(event: InputEvent) -> void:
 	# close on "esc"
 	if event.is_action_pressed("ui_cancel"):
-		if ui_layer.visible:
+		if shelf_ui.visible:
 			close_shelf()
 
 func close_shelf()->void:
@@ -80,7 +86,7 @@ func close_shelf()->void:
 		inv.lock = false
 		clear_queue()
 		player.open_inv_ui()
-		ui_layer.visible = false
+		shelf_ui.visible = false
 		# sync inventories to ui on close
 		player_inv.update.emit()
 		get_viewport().set_input_as_handled()
@@ -104,18 +110,22 @@ func update_visuals()->void:
 			if has_item:
 				var texture_code:String = inv_slot.item.texture_code
 				fill_visuals[i].modulate = visual_color_map[texture_code]
-
+## Returns the shelf's inventory slots that have an item
 func get_inventory()->Array[InvSlot]:
 	var tmp : Array[InvSlot] = []
-	for item in inv.slots:
-		#if slot doesn't exist
-		if(!item):
+	for slot in inv.slots:
+		if (!slot):
 			continue
-		tmp.append(item)
+		tmp.append(slot)
 		
 	return tmp;
 	
-# given an index, remove an item from inventory
+## Removes the given quantity from the given index of the inventory.[br][br]
+##
+## Emits an [signal Inv.update] signal and updates the shelf ui.
+## Takes [param index] to locate the item to remove. 
+## Takes [param quantity] as the item's amount to remove from this shelf.
+## See [member ItemRegistry.items].
 func remove_item(index:int, quantity: int)->void:
 	var slot: InvSlot = inv.slots[index]
 	if(!slot or !slot.item):
@@ -134,6 +144,7 @@ func remove_item(index:int, quantity: int)->void:
 	update_visuals()
 	return
 
+# debug function to make 5 green potions in the shelf
 func _debug_set_shelf_inv()->void:
 	var green:InvItem = ItemRegistry.new_item("item_green_potion")
 	green.mixable = 0
@@ -141,24 +152,30 @@ func _debug_set_shelf_inv()->void:
 	for i in range(5):
 		inv.insert(green)
 
+# handles NPC entering the interact area.
+# when there is a lock, the npc goes into a waiting queue
+# otherwise they just check the shelf and enter the waiting queue if their item
+# was not found
 func _on_interactable_body_entered(body: Node2D) -> void:
 	if body is Npc:
-		if(inv.lock):
-			queue.push_back(body)
+		if(inv.lock):	# case when player is in the shelf
+			queue.push_back(body)	# waiting queue
 			return
 		else:
 			inv.lock = true
-			if !body.item_found:
-				body.check_shelf(self)
-				queue.push_back(body) 
+			body.check_shelf(self)	# First check
+			if !body.item_found:	# If not found, waiting queue
+				queue.push_back(body)
 			inv.lock = false
 
+# Removes the NPC that exited from the queue
 func _on_interactable_body_exited(body: Node2D) -> void:
 	if body is Npc:
 		var idx : int = queue.find(body)
 		if (idx != -1):
 			queue.pop_at(idx)
 
+## Empties the queue and every NPC in the queue checks the shelf
 func clear_queue()->void:
 	var body: Npc = queue.pop_front()
 	while(body):

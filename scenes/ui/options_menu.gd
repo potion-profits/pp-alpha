@@ -1,5 +1,9 @@
 extends "res://scenes/ui/base_menu.gd"
 
+## Handles all the buttons in the options menu
+##
+## @experimental: Currently, the buttons kind of do nothing important
+
 func _ready()->void:
 	button_map = {
 		"MarginContainer/VBoxContainer/Music": "res://assets/ui/music_button.tres",
@@ -25,4 +29,4 @@ func _input(event: InputEvent)->void:
 		go_to_start()
 
 func go_to_start()->void:
-	get_tree().change_scene_to_file("res://scenes/ui/start_menu.tscn")
+	SceneManager.change_to("res://scenes/ui/start_menu.tscn")

@@ -22,6 +22,7 @@ run/size/initial_screen=0
 LanguageManager="*res://globals/language_manager.gd"
 GameManager="*res://globals/game_manager.gd"
 ItemRegistry="*res://globals/item_registry.gd"
+SceneManager="*res://globals/scene_manager.gd"
 
 [debug]
 

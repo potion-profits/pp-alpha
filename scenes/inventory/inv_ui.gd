@@ -1,10 +1,14 @@
 extends Control
 
-#gets all slots in inv_ui scene node's grid container
+## Handles the front end representation of the player's inventory.
+
+## All the slots pertaining to the player's inventory
 @onready var slots: Array = $NinePatchRect/GridContainer.get_children()
+## Item stack scene preloaded to be instantiated when necessary
 @onready var ItemStackUIClass : PackedScene = preload("res://scenes/inventory/inv_item_stack_ui.tscn")
-#dynamically sets inv which is set wherever a inventory is to be made
-#currently only gets set in player.gd but will later be used in chest, etc
+
+## Holds the players back end representation of the inventory and 
+## connects [signal Inv.update] to [method update_slots].
 var inv: Inv:
 	set(value):
 		#if signal connected, disconnect
@@ -17,12 +21,13 @@ var inv: Inv:
 			update_slots()
 			connect_slots()
 
-#makes script applicable to player and other inventory (chests/shelves)
-var allow_hotkeys : bool = false
+## @deprecated: Currently used in player script but unneccessary since this script is solely for player
+var allow_hotkeys : bool = false 
 
+## Flags when other inventories are open (like shelf)
 var is_open : bool = false
-var inventory_toggle : bool = true # Setting for toggle vs hold inventory
 
+## Holds an item that was clicked by the user
 var item_on_cursor: ItemStackUI
 
 #start with ui open and updated
@@ -31,6 +36,7 @@ func _ready()->void:
 	update_slots()
 	connect_slots()
 
+## Connect the back end and front end of the slots in the player's inventory 
 func connect_slots()->void:
 	if !inv:
 		return
@@ -40,11 +46,13 @@ func connect_slots()->void:
 		slot.inv = inv
 		if i == inv.selected_index:
 			slot.select()
-		var callable : Callable = Callable(on_slot_clicked)
+		var callable : Callable = Callable(_on_slot_clicked)
 		callable = callable.bind(slot)
 		slot.pressed.connect(callable)
 
-#update each slot in inv_ui with the info from the inv object (player_inv)
+## Visually updates each slot with the item information in the player's inventory.[br][br]
+## [method ItemStackUI.update_slot] gets called for each slot of the inventory.
+## See also [Inv]. 
 func update_slots()->void:
 	if !inv:
 		return
@@ -63,47 +71,54 @@ func update_slots()->void:
 				slots[i].item_stack.queue_free()
 				slots[i].item_stack = null
 
-#show inventory
+## Visually display the inventory and change state to open
 func open() -> void:
 	visible = true
 	is_open = true
 	
-#hide inventory
+## Visually hide the inventory and change state to closed
 func close() -> void:
 	visible = false
 	is_open = false
 
-func on_slot_clicked(slot:Button) -> void:
+# Handles clicking a slot in the inventory
+func _on_slot_clicked(slot:Button) -> void:
 	if slot.is_empty() and item_on_cursor:
-		insert_to_slot(slot)
+		_insert_to_slot(slot)
 	elif !item_on_cursor:
-		take_from_slot(slot)
+		_take_from_slot(slot)
 	elif slot.item_stack.invSlot.item.equals(item_on_cursor.invSlot.item):
-		stack_items(slot)
+		_stack_items(slot)
 	else:
-		swap_items(slot)
+		_swap_items(slot)
 
-func take_from_slot(slot:Button)->void:
+# Handles taking an item from a slot and putting it as the item_on_cursor
+func _take_from_slot(slot:Button)->void:
 	if slot.item_stack:
 		item_on_cursor = slot.pick_item() 
 		add_child(item_on_cursor)
 		update_cursor()
 
-func insert_to_slot(slot:Button)->void:
+# Handles placing the item_on_cursor into a slot
+func _insert_to_slot(slot:Button)->void:
 	var item:ItemStackUI = item_on_cursor
 	remove_child(item_on_cursor)
 	item_on_cursor = null
 	slot.insert(item)
 
-func swap_items(slot:Button)->void:
+# Handles swapping the item in the slot with item_on_cursor
+func _swap_items(slot:Button)->void:
 	var tempItem: ItemStackUI = slot.pick_item()
-	insert_to_slot(slot)
+	_insert_to_slot(slot)
 	
 	item_on_cursor = tempItem
 	add_child(item_on_cursor)
 	update_cursor()
 
-func stack_items(slot: Button)->void:
+# Handles placing items from item_on_cursor into the stack in the given slot. 
+# Essentially merging them until they hit the max stack size, at which point
+# the item_on_cursor will be left with the lesser amount or the two.  
+func _stack_items(slot: Button)->void:
 	var slotItem: ItemStackUI = slot.item_stack
 	var maxNum:int = slotItem.invSlot.item.max_stack_size
 	var totalNum:int = slotItem.invSlot.amount + item_on_cursor.invSlot.amount
@@ -122,9 +137,11 @@ func stack_items(slot: Button)->void:
 	if item_on_cursor:
 		item_on_cursor.update_slot()
 
+## Updates the sprite to be at the mouse's position
 func update_cursor()->void:
 	if item_on_cursor:
 		item_on_cursor.global_position = get_global_mouse_position() - item_on_cursor.size/2
 
+## Each time the mouse moves, updates the item_on_cursor's position using [method update_cursor].
 func _input(_event:InputEvent)->void:
 	update_cursor()

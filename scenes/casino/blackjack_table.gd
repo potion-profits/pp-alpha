@@ -16,8 +16,4 @@ func _on_interact() -> void:
 		if player.chips == 0:
 			# invalid chip amount to play blackjack
 			return
-		var cs:String = get_tree().current_scene.name
-		GameManager.save_scene_runtime_state(cs)
-		await get_tree().process_frame
-		GameManager.connect_scene_load_callback()
-		get_tree().change_scene_to_file("res://scenes/casino/black_jack.tscn")
+		SceneManager.change_to("res://scenes/casino/black_jack.tscn")

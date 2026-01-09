@@ -1,5 +1,11 @@
 extends Control
 
+## Handles switching buttons to appropriate alternate sprite depending on state
+##
+## Based on the LanguageManager offset and the state offset
+##
+## @deprecated: Currently used but will be reduced in functionality when multi-language support becomes unsupported
+
 var button_map := {}
 
 const BTN_W = LanguageManager.BTN_W

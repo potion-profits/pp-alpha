@@ -1,5 +1,10 @@
 extends Area2D
 
+## @experimental: Unused currently, but may potentially use
+##
+## Basic functionality for an item that can be placed in the scene
+## and picked up by the player
+
 #the item resource that this collectable represents
 @export var item: InvItem
 
