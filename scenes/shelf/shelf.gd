@@ -116,10 +116,6 @@ func get_inventory()->Array[InvSlot]:
 	for slot in inv.slots:
 		if (!slot):
 			continue
-		
-		if (!slot.item):
-			continue
-		
 		tmp.append(slot)
 		
 	return tmp;
