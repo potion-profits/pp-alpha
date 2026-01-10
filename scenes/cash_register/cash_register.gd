@@ -1,13 +1,18 @@
 extends Node2D
 
-var player: Player
-var queue : Array[Npc] = []
-var bob_time: float = 0.0
-var base_icon_y: float
-var bob_speed: float = 2.5
-var bob_height: float = 2.0
+## Handles interaction with the cash register
+##
+## Has members and methods to deal with multiple NPCs, transactions, and 
+## displaying a ready to checkout icon
 
-@onready var cust_waiting_icon: Sprite2D = $CustWaitingIcon
+var player: Player	## Holds the player when possible
+var queue : Array[Npc] = []	## Queue of NPCs that are ready to checkout
+var bob_time: float = 0.0	## Time that the icon has been bobbing
+var base_icon_y: float	## The position of the icon
+var bob_speed: float = 2.5	## The speed at which the icon should bob
+var bob_height: float = 2.0	## How much the icon should bob
+
+@onready var cust_waiting_icon: Sprite2D = $CustWaitingIcon	## Ready to checkout icon
 
 func _ready() -> void:
 	cust_waiting_icon.visible = false

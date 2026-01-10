@@ -49,7 +49,4 @@ func update_exchange_label(new_amt : int) -> void:
 
 func _on_move_town_area_body_entered(body: Node2D) -> void:
 	if body is Player:
-		var cs:String = get_tree().current_scene.name
-		GameManager.save_scene_runtime_state(cs)
-		await get_tree().process_frame
-		get_tree().call_deferred("change_scene_to_file", "res://scenes/town_menu/town_menu.tscn")
+		SceneManager.change_to("res://scenes/town_menu/town_menu.tscn")

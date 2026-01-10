@@ -1,6 +1,12 @@
 extends Node
 class_name EntityManager
 
+## Handles loading a new instance of an [Entity] into the scene tree. [br][br]
+##
+## Maintains all the possible entity codes that correspond to loadable entities. 
+## Has a method to load an Entity into the scene tree from a dictionary.
+
+## All valid entity codes and their corresponding scene
 var entity_codes:Dictionary = {
 	"cauldron": "res://scenes/cauldron/cauldron.tscn",
 	"shelf": "res://scenes/shelf/shelf.tscn",
@@ -8,6 +14,10 @@ var entity_codes:Dictionary = {
 	"barrel": "res://scenes/barrel/barrel.tscn"
 }
 
+## Creates an in game representation of an Entity given it's data.[br][br]
+##
+## Takes [param data] and expects a valid entity code. [br][br]
+## See [member entity_codes] and [method Entity.from_dict].
 func load_from_dict(data:Dictionary)->void:
 	var entity_scene : PackedScene = load(entity_codes[data["entity_code"]])
 	var entity: Entity = entity_scene.instantiate() as Entity
