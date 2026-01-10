@@ -133,6 +133,10 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact"):
 		_stop_hold()
 		refill()
+	
+	if event.is_action_pressed("ui_cancel"):
+		menu()
+		get_viewport().set_input_as_handled()
 
 # Handles holding a direction
 func _process(delta: float) -> void:
