@@ -20,8 +20,8 @@ func before_each() -> void:
 func after_each() -> void:
 	pass
 
-func test_npc_has_preferred_item() -> void:
-	assert_not_null(npc.preferred_item)
+func test_npc_has_prefered_item() -> void:
+	assert_not_null(npc.prefered_item)
 
 func test_npc_path_to_shelf() -> void:
 	assert_not_null(npc.target, "NPC should have a target to move towards")
@@ -57,9 +57,9 @@ func test_npc_check_shelf() -> void:
 	await wait_process_frames(1)
 	var red:InvItem = ItemRegistry.new_item("item_red_potion")
 	red.sellable = true
-	npc.preferred_item = "item_red_potion"
+	npc.prefered_item = "item_red_potion"
 	npc.check_shelf(shelf)
-	assert_false(npc.item_found, "NPC should not have found their preferred item")
+	assert_false(npc.item_found, "NPC should not have found their prefered item")
 	shelf.inv.insert(red)
 	npc.check_shelf(shelf)
-	assert_true(npc.item_found, "NPC should have found their preferred item")
+	assert_true(npc.item_found, "NPC should have found their prefered item")

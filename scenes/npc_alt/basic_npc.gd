@@ -53,7 +53,7 @@ var is_checked_out : bool = false
 func _ready() -> void:
 	var color : int = randi_range(0,TYPES.size() - 1)
 	sprite.modulate = TYPES[color]
-	preferred_item = POTIONS[color]
+	prefered_item = POTIONS[color]
 
 func _physics_process(_delta : float) -> void:
 	velocity = Vector2.ZERO
