@@ -62,10 +62,8 @@ func setup_grid() -> void:
 
 ## Translates a tilemap tile to an AstarGrid id
 func tile_to_id(tile_cell: Vector2i) -> Vector2i:
-	"""Converts a tilemap tile to its respective atar grid id"""
 	return tile_cell - Vector2i(astar.offset)
 
 ## Translates an AstarGrid id to a tilemap tile
 func id_to_tile(id_cell: Vector2i) -> Vector2i:
-	"""Converts an astar grid id to its respective tilemap tile"""
 	return id_cell + Vector2i(astar.offset)
