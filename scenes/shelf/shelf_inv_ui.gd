@@ -1,28 +1,38 @@
 extends Control
 
-#gets all slots in inv_ui scene node's grid container
-@onready var player_slots: Array = $NinePatchRect2/ShelfPlayerContainer.get_children()
-@onready var shelf_slots: Array = $NinePatchRect/ShelfContainer.get_children()
-@onready var ItemStackUIClass : PackedScene = preload("res://scenes/inventory/inv_item_stack_ui.tscn")
-@onready var ui_layer: CanvasLayer = get_parent()
+## Controls the visual representation of the shelf/player inventory UI.
+##
+## Includes functionality to merge player and shelf inventory information and
+## display properly.
 
-var player_slot_count: int = 5
-var shelf_slot_count: int = 12
+## Reference to the players slots as buttons
+@onready var player_slots: Array = $NinePatchRect2/ShelfPlayerContainer.get_children()
+## Reference to the shelf slots as buttons
+@onready var shelf_slots: Array = $NinePatchRect/ShelfContainer.get_children()
+## Reference to the ItemStackUI that visually represents an item
+@onready var ItemStackUIClass : PackedScene = preload("res://scenes/inventory/inv_item_stack_ui.tscn")
+
+var player_slot_count: int = 5	## The amount of slots the player owns
+var shelf_slot_count: int = 12	## The amount of slots the shelf owns
+
+## Holds the combination of player slots and shelf slots
 var slots: Array = player_slots + shelf_slots
 
+## Holds the players inventory after using [method set_inventories]
 var player_inv: Inv
+## Holds the shelf's inventory after using [method set_inventories]
 var shelf_inv: Inv
 
-#makes script applicable to player and other inventory (chests/shelves)
-var allow_hotkeys : bool = false
-
+## Flag toggled on when the UI is being shown
 var is_open : bool = false
-var inventory_toggle : bool = true # Setting for toggle vs hold inventory
 
+## Holds an ItemStackUI object that maintains the item to be moved.
 var item_on_cursor: ItemStackUI
 
-
 #dynamically sets inv which is set wherever a inventory is to be made
+## Stores and correctly connects the given 
+## [param _player_inv] and [param _shelf_inv] to [member player_inv] and
+## [member shelf_inv].
 func set_inventories(_player_inv: Inv, _shelf_inv: Inv) -> void:
 	# if signal connected, disconnect
 	if player_inv and player_inv.update.is_connected(update_slots):
@@ -47,6 +57,7 @@ func _ready()->void:
 	update_slots()
 	connect_slots()
 
+## Binds the slot buttons to send proper signals
 func connect_slots()->void:
 	if !shelf_inv and !player_inv:
 		return
@@ -70,6 +81,7 @@ func connect_slots()->void:
 		slot.set_meta("callback",callable)
 
 #update each slot in shelf_ui with the info from both inv objects (player_inv + shelf_inv)
+## Updates each slot in the UI based on the player and shelf inventory 
 func update_slots() ->void:
 	if !player_inv or !shelf_inv:
 		return
@@ -81,6 +93,7 @@ func update_slots() ->void:
 	for i in range(shelf_inv.slots.size()):
 		update_single_slot(slots[player_slot_count + i], shelf_inv.slots[i])
 
+## Updates the given [param ui_slot] to reflect the given [param inv_slot].
 func update_single_slot(ui_slot: Button, inv_slot: InvSlot) -> void:
 	if inv_slot and inv_slot.item:
 		if !ui_slot.item_stack:
@@ -95,6 +108,9 @@ func update_single_slot(ui_slot: Button, inv_slot: InvSlot) -> void:
 			ui_slot.item_stack.queue_free()
 			ui_slot.item_stack = null
 
+## Handles the different scenarios of clicking on a [param slot]. [br][br]
+##
+## Scenarios are, taking an item, placing an item, stacking items, or swapping.
 func on_slot_clicked(slot:Button) -> void:
 	if slot.is_empty() and item_on_cursor:
 		insert_to_slot(slot)
@@ -105,6 +121,7 @@ func on_slot_clicked(slot:Button) -> void:
 	else:
 		swap_items(slot)
 
+## Places the item from the given [param slot] in the [member item_on_cursor].
 func take_from_slot(slot:Button)->void:
 	if slot.item_stack:
 		item_on_cursor = slot.pick_item()
@@ -112,6 +129,7 @@ func take_from_slot(slot:Button)->void:
 		item_on_cursor.call_deferred("shelf_scale")
 		update_cursor()
 
+## Inserts the [member item_on_cursor] to the given [param slot].
 func insert_to_slot(slot:Button)->void:
 	var item:ItemStackUI = item_on_cursor
 	remove_child(item_on_cursor)
@@ -119,6 +137,8 @@ func insert_to_slot(slot:Button)->void:
 	slot.insert(item)
 	item.call_deferred("shelf_scale")
 
+## Handles switching the places of the [member item_on_cursor] and 
+## the given [param slot].
 func swap_items(slot:Button)->void:
 	var tempItem: ItemStackUI = slot.pick_item()
 	insert_to_slot(slot)
@@ -129,12 +149,15 @@ func swap_items(slot:Button)->void:
 	update_cursor()
 
 # to have all slots connected, treated as one big array
+## Returns a concatenation of the player inventory and the shelf inventory visuals
 func get_all_slots() -> Array:
 	var list: Array = []
 	list.append_array($NinePatchRect2/ShelfPlayerContainer.get_children())
 	list.append_array($NinePatchRect/ShelfContainer.get_children())
 	return list
 
+## Stacks items from the item_on_cursor to the given slot. Stacking appropriately
+## when the stack would be larger than the max stack size.
 func stack_items(slot: Button)->void:
 	var slotItem: ItemStackUI = slot.item_stack
 	var maxNum:int = slotItem.invSlot.item.max_stack_size
@@ -154,15 +177,18 @@ func stack_items(slot: Button)->void:
 	if item_on_cursor:
 		item_on_cursor.update_slot()
 
+## Visually updates the position of the [member item_on_cursor].
+## Removes the item from the cursor when the UI closes.
 func update_cursor()->void:
 	if item_on_cursor:
 		# additional scale for cursor items
 		item_on_cursor.scale = Vector2(5, 5)
 		item_on_cursor.global_position = get_global_mouse_position()
 	# if shelf ui gets closed while item on cursor, remove item stack ui on cursor
-	if item_on_cursor and !ui_layer.visible:
+	if item_on_cursor and !self.visible:
 		item_on_cursor.queue_free()
 		item_on_cursor = null
 
+# Every time the mouse moves, update the cursor visual
 func _input(_event:InputEvent)->void:
 	update_cursor()

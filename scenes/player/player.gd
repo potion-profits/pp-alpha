@@ -1,7 +1,10 @@
 extends CharacterBody2D
 
 class_name Player
-#the resource that will be used to make an inventory (player_inventory.tres)
+
+## This class represents the player.
+
+## See Inv
 var inv: Inv
 
 const SPEED = 100
@@ -10,25 +13,34 @@ const DASH_DURATION = 0.17
 const DASH_COOLDOWN = 0.5
 const MAX_COINS = int(pow(2, 62))
 
+## Represents amount of coins owned by the player
 var coins : int
+## Represents amount of casino chips owned by the player
 var chips : int
+## Tracks whether the player is currently dashing or not
 var is_dashing : bool = false
-var other_ui_open: bool = false # when a ui menu is open, restrict player movement
+var can_move : bool = true	## False when player is in an unmoveable state (UI open)
 
+## See [AnimatedSprite2D]
 @onready var animated_sprite : AnimatedSprite2D = $AnimatedSprite2D
+## After each dash, disables preceding dashes until timeout
 @onready var dash_cooldown: Timer = $DashCooldown
+## Determines the duration of a dash
 @onready var dash_duration: Timer = $DashDuration
+## UI element for the player inventory
 @export var inv_ui: Control
 
-signal update_coins
+signal update_coins	## Triggers the coin UI to update on any change to coin amount
+signal update_chips ## Triggers the chip UI to update on any change to chip amount
 
+## Utilized in the state machine for player movement
 enum movement_state {
 	IDLE,
 	WALK,
 	DASH
 }
 
-#updated to use input map in project settings
+## Maps inventory slot names to their indices
 var input_slot_map : Dictionary = {
 	"slot_1" : 0,
 	"slot_2" : 1,
@@ -37,10 +49,11 @@ var input_slot_map : Dictionary = {
 	"slot_5" : 4,
 }
 
+## Tracks current state of player movement
 var current_state : movement_state = movement_state.IDLE
+## Tracks current direction of player
 var last_dir := "down"
 
-#sets up player inventory on each run
 func _ready() -> void:
 	add_to_group("player")
 	if !inv:
@@ -57,7 +70,7 @@ func _ready() -> void:
 #esc when toggled will close ui not pause
 #esc when held will close and pause
 #uses keys to enlarge sprites in inventory
-func _input(event: InputEvent) -> void:
+func _input(_event: InputEvent) -> void:
 	if !inv_ui:
 		return
 		
@@ -73,10 +86,11 @@ func _input(event: InputEvent) -> void:
 				inv_ui.slots[slot].select()
 
 func _physics_process(delta : float)->void:
-	if(!other_ui_open):
+	if(can_move):
 		move(current_state, delta)
 		move_and_slide()
 
+## State machine that tilizes [enum movement_state] to process player movement
 func move(curr_state : movement_state, delta : float) -> void:
 	match curr_state:
 		movement_state.IDLE:
@@ -88,7 +102,7 @@ func move(curr_state : movement_state, delta : float) -> void:
 		movement_state.DASH:
 			animated_sprite.speed_scale = DASH_MULT
 
-# Updated function for 8 directional movement
+## Handles keyboard inputs to move the player around the scene and play animations
 func get_movement_input(_delta : float) -> void:
 	velocity = Vector2.ZERO
 	
@@ -152,10 +166,12 @@ func _on_dash_duration_timeout() -> void:
 	current_state = movement_state.IDLE
 	dash_cooldown.start(DASH_COOLDOWN)
 
-# update getters/setters for currency once db is implemented
+## Getter function for player coins
 func get_coins() -> int:
 	return coins
 
+## Setter function for player coins, returns new coin amount on successful transaction,
+## returns old coin amount on failed transaction
 func set_coins(coins_delta : int) -> int:
 	var new_coins : int = coins + coins_delta
 	if new_coins < 0 or new_coins > MAX_COINS:
@@ -164,14 +180,18 @@ func set_coins(coins_delta : int) -> int:
 	update_coins.emit() 
 	return new_coins
 
+## Getter function for player chips
 func get_chips() -> int:
 	return chips
 
+## Setter function for player chips, returns new chip amount on successful transaction,
+## returns old chip amount on failed transaction
 func set_chips(chips_delta : int) -> int:
 	var new_chips : int = chips + chips_delta
 	if new_chips < 0 or new_chips > MAX_COINS:
 		return chips
 	chips = new_chips
+	update_chips.emit()
 	return new_chips
 
 
@@ -202,25 +222,31 @@ func get_selected_slot() -> InvSlot:
 func remove_from_selected() -> void:
 	inv.remove_selected()
 
-## Picks up an item and adds to inventory
+## Picks up an item and adds to inventory[br]
 ## Can also be used for collecting items from entities
 func collect(item: InvItem) -> bool:
 	return inv.insert(item)
 
-## When player blocking UI menu is open
-func open_other_ui(flag: bool) -> void:
+## When another ui menu is open, restrict player movement and close player inv_ui
+func close_inv_ui() -> void:
 	if inv_ui and inv_ui.is_open:
 		inv_ui.close()
-	elif inv_ui and !inv_ui.is_open:
-		inv_ui.open()
-	other_ui_open = flag
+		can_move = false
 
+func open_inv_ui() -> void:
+	if inv_ui and !inv_ui.is_open:
+		inv_ui.open()
+		can_move = true
+
+## Retrieves items from entity inventories[br]
+## i.e.: bottles from crates or brewed potion from cauldron
 func interact_with_entity(entity: Entity)->void:
 	var selected_slot:InvSlot = inv.get_selected_slot()
 	if selected_slot and selected_slot.item:
 		if entity.receive_item(selected_slot.item):
 			inv.remove_selected()
 
+## Translates player inventory, coins, and chips into a dictionary for save state
 func to_dict()->Dictionary:
 	return{
 		"inventory": inv.to_dict(),
@@ -228,6 +254,7 @@ func to_dict()->Dictionary:
 		"chips": chips
 	}
 
+## Translates save state data into player inventory, coins, and chips
 func from_dict(data:Dictionary)->void:
 	inv.from_dict(data["inventory"])
 	coins = data["coins"]

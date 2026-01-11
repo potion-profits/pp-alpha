@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=3 uid="uid://dp7r8vke6s7c5"]
+
+[ext_resource type="Script" uid="uid://dfhy4xft7hs5e" path="res://scenes/coin_ui/player_chip.gd" id="1_ypal8"]
+[ext_resource type="Texture2D" uid="uid://cv55asmmy332" path="res://assets/casino/chip.png" id="2_rqtvj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6pepg"]
+atlas = ExtResource("2_rqtvj")
+region = Rect2(0, 0, 16, 16)
+
+[node name="PlayerChips" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ypal8")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_direction = 2
+layout_mode = 0
+offset_left = 5.0
+offset_top = 6.0
+offset_right = 88.0
+offset_bottom = 43.0
+scale = Vector2(1.5, 1.5)
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="Chip" type="Sprite2D" parent="HBoxContainer"]
+position = Vector2(14, 19)
+scale = Vector2(1.5, 1.5)
+texture = SubResource("AtlasTexture_6pepg")
+
+[node name="chip_amount" type="Label" parent="HBoxContainer"]
+custom_minimum_size = Vector2(39, 23)
+layout_direction = 2
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+text = "10"
+horizontal_alignment = 2

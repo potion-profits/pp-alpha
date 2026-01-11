@@ -1,16 +1,21 @@
 extends Entity	#will help store placement and inventory information for persistence
 
+## Handles cauldron functionality and visual representation.
+##
+## Includes methods to handle player interactions, animations, functionality, 
+## and saving/loading the state.
+ 
 #interactable entities will need an interactble scene as a child node 
-@onready var interactable: Area2D = $Interactable
+@onready var interactable: Area2D = $Interactable ## Reference to interactable component
 
 #cauldron specific references
-@onready var cauldron_anim: AnimatedSprite2D = $CauldronAnim
-@onready var mix_timer: Timer = $MixTimer
-@onready var progress_bar: TextureProgressBar = $ProgressBar
-@export var animation_name: String = "default"
+@onready var cauldron_anim: AnimatedSprite2D = $CauldronAnim ## Animated Sprite Reference
+@onready var mix_timer: Timer = $MixTimer	## Reference to mixing timer
+@onready var progress_bar: TextureProgressBar = $ProgressBar	## Reference to progress bar
+@export var animation_name: String = "default"	## Cauldron animation name
 
-var mixing: bool = false
-const MIX_DURATION := 3.0
+var mixing: bool = false	## Keeps track of the cauldron's state
+const MIX_DURATION : float = 3.0
 
 func _ready()-> void:
 	#links interactable template to cauldron specific method (needed for all interactables)
@@ -34,7 +39,7 @@ func _on_interact()->void:
 				inv.slots[0].amount-=1	#the player collected, so remove item from cauldron
 				inv.slots[0].item = null
 
-#plays animation
+## Safely plays the cauldron's mixing animation
 func animation_play() -> void:
 	if cauldron_anim and cauldron_anim.sprite_frames.has_animation(animation_name):
 		cauldron_anim.play(animation_name)
@@ -42,13 +47,15 @@ func animation_play() -> void:
 	else:
 		push_error("AnimatedSprite2D or animation '" + animation_name + "' not found!")
 
+## Safely stops the cauldron's mixing animation
 func animation_stop() -> void:
 	if cauldron_anim and cauldron_anim.sprite_frames.has_animation(animation_name):
 		cauldron_anim.stop()
 	else:
 		push_error("AnimatedSprite2D or animation '" + animation_name + "' not found!")
 	
-#mixes item for MIX_DURATION amount of time
+## Handles switching the state of the cauldron to mixing, 
+## including playing the animation and displaying the progress bar.
 func start_mixing()->void:
 	if inv.slots[0].item:
 		mixing = true
@@ -58,7 +65,11 @@ func start_mixing()->void:
 			progress_bar.visible = true
 		animation_play()
 
-#Prompts cauldron to take an item. If success, start mixing. Else, return false
+## Checks if the cauldron can take in the given item and starts mixing 
+## if successful. See [method start_mixing].[br][br]
+##
+## Returns true when [param item] is mixable InvItem and the 
+## cauldron is not holding something else.
 func receive_item(item:InvItem)->bool:
 	if not inv.slots[0].item and item.mixable:
 		inv.slots[0].item = item._duplicate()
@@ -81,7 +92,8 @@ func _process(_delta: float) -> void:
 	if mixing:
 		var progress_fill: float = (mix_timer.time_left / MIX_DURATION) * 100
 		progress_bar.value = progress_fill
-#
+
+## Creates and returns a dictionary representation of this cauldron. See also [method from_dict].
 func to_dict()-> Dictionary:
 	var mix_timer_left :float = mix_timer.time_left if mix_timer and mixing else 0.0
 	var cauldron_state:Dictionary = {
@@ -91,6 +103,9 @@ func to_dict()-> Dictionary:
 	cauldron_state.merge(super.to_dict())
 	return cauldron_state
 
+## Reconstructs a cauldron with the given data.[br][br]
+##
+## Expects [param data] to have mixing and mix_timer_time_left keys. See also [method to_dict].
 func from_dict(data:Dictionary)->void:
 	super.from_dict(data)
 	mixing = data["mixing"]
@@ -98,6 +113,7 @@ func from_dict(data:Dictionary)->void:
 	if time_left > 0.0:
 		call_deferred("_restore_timer", time_left)
 
+# Restores the cauldron's timer state after loading
 func _restore_timer(time_left: float)->void:
 	if mix_timer:
 		progress_bar.value = (time_left/MIX_DURATION) * 100

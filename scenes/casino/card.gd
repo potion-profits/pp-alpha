@@ -1,5 +1,9 @@
 extends Node2D
 
+## Handles the card attributes
+##
+## Gets the correct card sprite as well as sets the suit and value of a card
+
 const CARD_WIDTH = 100
 const CARD_HEIGHT = 144
 const SHEET_PATH = "res://assets/casino/temp/CuteCards.png"
@@ -10,6 +14,8 @@ const VALUE_ORDER = {
 	"8": 7, "9": 8, "10": 9, "J": 10, "Q": 11, "K": 12
 }
 
+## Sets a cards value, suit, and texture based on the given string. 
+## See [constant SUIT_ORDER] and [constant VALUE_ORDER].
 func set_card(card_name: String) -> void:
 	var parts : Array = card_name.split("_")
 	var value : String = parts[0]
