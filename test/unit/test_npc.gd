@@ -3,20 +3,20 @@ extends GutTest
 var shop_scene : Resource = load("res://scenes/player_shop/main_shop.tscn")
 var shop : Node = null
 var npc_scene : Resource = load("res://scenes/npc_alt/basic_npc.tscn")
-var npc : Node = null
+var npc : Npc = null
 
+# setup shop and npc before each test runs
 func before_each() -> void:
 	shop = shop_scene.instantiate()
-	var spawner : Node2D = shop.get_node("EntityManager/NpcSpawner")
 	add_child_autofree(shop)
-	await wait_process_frames(2)
-	spawner.npc_respawn_timer.stop()
+	await wait_process_frames(2)	# allows instances to call _ready()
 	
 	npc = npc_scene.instantiate()
 	add_child_autofree(npc)
 	shop.setup_npc(npc)
-	await wait_process_frames(2)
+	await wait_process_frames(2) # allows instances to call _ready()
 
+# required to allow autofree to run on added children
 func after_each() -> void:
 	pass
 
@@ -54,7 +54,7 @@ func test_npc_check_shelf() -> void:
 	var shelf_scene : Resource = load("res://scenes/shelf/shelf.tscn")
 	var shelf : Node = shelf_scene.instantiate()
 	add_child_autofree(shelf)
-	await wait_process_frames(1)
+	await wait_process_frames(1) # allows instances to call _ready()
 	var red:InvItem = ItemRegistry.new_item("item_red_potion")
 	red.sellable = true
 	npc.prefered_item = "item_red_potion"
@@ -63,3 +63,48 @@ func test_npc_check_shelf() -> void:
 	shelf.inv.insert(red)
 	npc.check_shelf(shelf)
 	assert_true(npc.item_found, "NPC should have found their prefered item")
+"""
+func test_npc_on_locked_shelf() -> void:
+	var shelf_scene : Resource = load("res://scenes/shelf/shelf.tscn")
+	var shelf : Node = shelf_scene.instantiate()
+	add_child_autofree(shelf)
+	await wait_process_frames(1) # allows instances to call _ready()
+	shelf.inv.lock = true
+	shelf._on_interactable_body_entered(npc)
+	assert_has(shelf.queue, npc, "NPC should be in shelf queue if shelf is locked by player")
+	# simulates player adding potion to shelf
+	var red:InvItem = ItemRegistry.new_item("item_red_potion")
+	red.sellable = true
+	npc.prefered_item = "item_red_potion"
+	shelf.inv.insert(red)
+	shelf.close_shelf()
+	assert_true(npc.item_found, "NPC should have found their prefered item")
+	assert_eq(shelf.queue, [], "NPC should have been popped from queue")
+"""
+func test_multiple_npc_on_locked_shelf() -> void:
+	var shelf_scene : Resource = load("res://scenes/shelf/shelf.tscn")
+	var shelf : Node = shelf_scene.instantiate()
+	var npc2 : Npc = npc_scene.instantiate()
+	add_child_autofree(shelf)
+	add_child_autofree(npc2)
+	shop.setup_npc(npc2)
+	await wait_process_frames(1) # allows instances to call _ready()
+	shelf.inv.lock = true
+	shelf._on_interactable_body_entered(npc)
+	shelf._on_interactable_body_entered(npc2)
+	assert_has(shelf.queue, npc, "NPC should be in shelf queue if shelf is locked by player")
+	assert_has(shelf.queue, npc2, "NPC2 should be in shelf queue if shelf is locked by player")
+	# simulates player adding potion to shelf
+	var red:InvItem = ItemRegistry.new_item("item_red_potion")
+	red.sellable = true
+	var blue : InvItem = ItemRegistry.new_item("item_blue_potion")
+	blue.sellable = true
+	npc.prefered_item = "item_red_potion"
+	npc.prefered_item = "item_blue_potion"
+	shelf.inv.insert(red)
+	shelf.inv.insert(blue)
+	shelf.close_shelf()
+	assert_true(npc.item_found, "Red NPC should have found their prefered item")
+	assert_true(npc2.item_found, "Blue NPC should have found their prefered item")
+	assert_eq(shelf.queue, [], "NPC should have been popped from queue")
+	
