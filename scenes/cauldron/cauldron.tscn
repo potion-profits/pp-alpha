@@ -279,7 +279,6 @@ frame_progress = 0.057780802
 
 [node name="Interactable" parent="." instance=ExtResource("7_y06py")]
 position = Vector2(8, -2)
-interact_name = "Use Cauldron"
 
 [node name="InteractableShape" type="CollisionShape2D" parent="Interactable"]
 position = Vector2(-8, 1.9999999)

@@ -4,10 +4,15 @@ extends Entity
 
 @onready var interactable : Area2D = $Interactable ## Reference to component used for interactions
 
+const SAVE_PROMPT = "Press E to save the game"
+const SAVE_OK = "Game saved successfully"
+
+var timed_out: bool = false
+
 func _ready() -> void:
 	# Links interactable template to bed specific method
 	interactable.interact = _on_interact
-	
+	interactable.tooltip = SAVE_PROMPT
 	# Sets up entity info
 	super._ready()
 	
@@ -15,5 +20,16 @@ func _ready() -> void:
 	entity_code = "bed"
 
 func _on_interact() -> void:
+	if timed_out:
+		return
 	GameManager.save_scene_runtime_state()
 	GameManager.commit_to_storage()
+	_save_timeout()
+
+func _save_timeout() -> void:
+	interactable.tooltip = SAVE_OK
+	timed_out = true
+	var t: SceneTreeTimer = get_tree().create_timer(2)
+	await t.timeout
+	interactable.tooltip = SAVE_PROMPT
+	timed_out = false

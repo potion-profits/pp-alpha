@@ -4,9 +4,9 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sil8h"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_0w7yd"]
-font_size = 14
-outline_size = 3
+[sub_resource type="LabelSettings" id="LabelSettings_tpfe0"]
+font_size = 40
+outline_size = 10
 outline_color = Color(0, 0, 0, 1)
 
 [node name="InteractingComponent" type="Node2D"]
@@ -20,23 +20,16 @@ collision_mask = 2
 shape = SubResource("CircleShape2D_sil8h")
 
 [node name="InteractLabel" type="Label" parent="."]
-z_index = 10
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -47.0
-offset_top = -70.0
-offset_right = 48.0
-offset_bottom = -47.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-text = "E to Interact"
-label_settings = SubResource("LabelSettings_0w7yd")
+offset_left = -48.999996
+offset_top = -23.999998
+offset_right = 940.9999
+offset_bottom = 205.99998
+scale = Vector2(0.1, 0.1)
+text = "Press E To Interact!!!!!!!!!!!!!!! ! Elijah said he was doing this so I cant work on anything more than the bed text just for user enjoyment but he will handle it dont worry :D"
+label_settings = SubResource("LabelSettings_tpfe0")
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 3
 
 [connection signal="area_entered" from="InteractRange" to="." method="_on_interact_range_area_entered"]
 [connection signal="area_exited" from="InteractRange" to="." method="_on_interact_range_area_exited"]
