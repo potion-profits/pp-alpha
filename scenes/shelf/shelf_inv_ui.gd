@@ -141,6 +141,12 @@ func insert_to_slot(slot:Button)->void:
 ## the given [param slot].
 func swap_items(slot:Button)->void:
 	var tempItem: ItemStackUI = slot.pick_item()
+	
+	## In the old inv, at the old slot, put the swapped item (backend only)
+	var origin_inv: Inv = item_on_cursor.invSlot.owner	## The former inv
+	var origin_idx: int = item_on_cursor.invSlot.index	## Where the old item was
+	origin_inv.insert_slot_at(origin_idx, tempItem.invSlot)
+	
 	insert_to_slot(slot)
 	
 	item_on_cursor = tempItem
