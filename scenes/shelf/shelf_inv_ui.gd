@@ -149,16 +149,9 @@ func auto_insert_to_slot(clicked_slot: Button)->void:
 	var free_slot : Button = null
 	
 	# Check whether the clicked button was on the player or shelf
-	
-	"""
-	NEED HELP HERE:
-		I don't like this string comparison to determine who the button belongs
-		to. However, the buttons are connected to the same script :(
-	"""
-	if("player_ui_slot" in clicked_slot.name):
+	if(clicked_slot in player_slots):
 		# Find available shelf slot
 		free_slot = get_available_slot(shelf_slots)
-		
 	else:
 		# Find available player slot
 		free_slot = get_available_slot(player_slots)
