@@ -100,7 +100,7 @@ func test_multiple_npc_on_locked_shelf() -> void:
 	var blue : InvItem = ItemRegistry.new_item("item_blue_potion")
 	blue.sellable = true
 	npc.prefered_item = "item_red_potion"
-	npc.prefered_item = "item_blue_potion"
+	npc2.prefered_item = "item_blue_potion"
 	shelf.inv.insert(red)
 	shelf.inv.insert(blue)
 	shelf.close_shelf()
