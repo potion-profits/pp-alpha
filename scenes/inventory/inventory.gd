@@ -90,7 +90,7 @@ func deselect()->void:
 ## Used specifically when moving items with the mouse. 
 ## Ensures that if an item is clicked but not dropped, 
 ## it will remain in the correct slot even when exiting the scene.
-func insert_on_cursor(idx: int, invSlot: InvSlot)->void:
+func insert_slot_at(idx: int, invSlot: InvSlot)->void:
 	var old_owner: Inv = invSlot.owner
 	var old_idx: int = invSlot.index
 	
@@ -100,12 +100,10 @@ func insert_on_cursor(idx: int, invSlot: InvSlot)->void:
 		empty_slot.owner = old_owner
 		empty_slot.index = old_idx
 		old_owner.slots[old_idx] = empty_slot
-		old_owner.update.emit()
 	
 	invSlot.owner = self
 	invSlot.index = idx
 	slots[idx] = invSlot
-	update.emit()
 	
 ## Creates and returns a dictionary representation of this inventory. [br][br]
 ##

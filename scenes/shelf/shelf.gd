@@ -78,18 +78,18 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
 		if shelf_ui.visible:
 			close_shelf()
+			get_viewport().set_input_as_handled()
 
 func close_shelf()->void:
 	var player:Player = get_tree().get_first_node_in_group("player")
-	player_inv = player.get_inventory()
 	if player:
+		player_inv = player.get_inventory()
 		inv.lock = false
 		clear_queue()
 		player.open_inv_ui()
 		shelf_ui.visible = false
 		# sync inventories to ui on close
 		player_inv.update.emit()
-		get_viewport().set_input_as_handled()
 		# update visual on close
 		update_visuals()
 
@@ -151,6 +151,7 @@ func _debug_set_shelf_inv()->void:
 	green.sellable = 1
 	for i in range(5):
 		inv.insert(green)
+	inv.insert(ItemRegistry.new_item("item_red_potion"))
 
 # handles NPC entering the interact area.
 # when there is a lock, the npc goes into a waiting queue
