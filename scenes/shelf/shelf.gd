@@ -177,8 +177,6 @@ func _on_interactable_body_exited(body: Node2D) -> void:
 
 ## Empties the queue and every NPC in the queue checks the shelf
 func clear_queue()->void:
-	var body: Npc = queue.pop_front()
-	while(body):
+	while queue.size() > 0:
+		var body : Npc = queue.pop_front()
 		body.check_shelf(self)
-		await get_tree().process_frame
-		body = queue.pop_front()
