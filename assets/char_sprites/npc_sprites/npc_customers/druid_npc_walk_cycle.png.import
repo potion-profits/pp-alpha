@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://si742vq42wq7"
-path="res://.godot/imported/16x16 Walk Cycle-Sheet.png-c0feed58c9c3a810890b5617b0c20dfe.ctex"
+uid="uid://cgi54gwwbue8b"
+path="res://.godot/imported/druid_npc_walk_cycle.png-d2e300d2cbdebb91fe16b4f87004812d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/char_sprites/Eris Esra's Character Template/16x16 Walk Cycle-Sheet.png"
-dest_files=["res://.godot/imported/16x16 Walk Cycle-Sheet.png-c0feed58c9c3a810890b5617b0c20dfe.ctex"]
+source_file="res://assets/char_sprites/npc_sprites/npc_customers/druid_npc_walk_cycle.png"
+dest_files=["res://.godot/imported/druid_npc_walk_cycle.png-d2e300d2cbdebb91fe16b4f87004812d.ctex"]
 
 [params]
 

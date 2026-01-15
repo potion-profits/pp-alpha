@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cysqboopraf6e"
-path="res://.godot/imported/16x32 Walk Cycle-Sheet.png-c13ae6a5e2d2c7baae6a597692e9d485.ctex"
+uid="uid://hq0w7hfjfqv5"
+path="res://.godot/imported/mage_npc_walk_cycle.png-73f965e84259b9ec9a3ecd959bb1af71.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/char_sprites/Eris Esra's Character Template/16x32 Walk Cycle-Sheet.png"
-dest_files=["res://.godot/imported/16x32 Walk Cycle-Sheet.png-c13ae6a5e2d2c7baae6a597692e9d485.ctex"]
+source_file="res://assets/char_sprites/npc_sprites/npc_customers/mage_npc_walk_cycle.png"
+dest_files=["res://.godot/imported/mage_npc_walk_cycle.png-73f965e84259b9ec9a3ecd959bb1af71.ctex"]
 
 [params]
 

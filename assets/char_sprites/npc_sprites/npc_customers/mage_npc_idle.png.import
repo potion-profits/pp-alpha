@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://2gn6ugf3ctn4"
-path="res://.godot/imported/16x32 Idle-Sheet.png-7ef4fea95342e81af0a156a1e57b9671.ctex"
+uid="uid://bumdwj6a70p3l"
+path="res://.godot/imported/mage_npc_idle.png-a1b2b8197e016eec964bcbe7f99e1c81.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/char_sprites/Eris Esra's Character Template/16x32 Idle-Sheet.png"
-dest_files=["res://.godot/imported/16x32 Idle-Sheet.png-7ef4fea95342e81af0a156a1e57b9671.ctex"]
+source_file="res://assets/char_sprites/npc_sprites/npc_customers/mage_npc_idle.png"
+dest_files=["res://.godot/imported/mage_npc_idle.png-a1b2b8197e016eec964bcbe7f99e1c81.ctex"]
 
 [params]
 

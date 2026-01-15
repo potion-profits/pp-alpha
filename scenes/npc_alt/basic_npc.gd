@@ -15,9 +15,7 @@ var floor_map : Node2D
 ## arbitrarily set to one in current build
 var inv : Inv = Inv.new(1)
 
-const TYPES : Array = [Color(1,0.5,0.5,1), Color(0.5,1,0.5,1), Color(0.5,0.5,1,1), Color(0.2,0.2,0.2,1)]
 const SPEED : int = 100
-const POTIONS : Array = ["item_red_potion", "item_green_potion", "item_blue_potion", "item_dark_potion"]
 const PROX_THRESHOLD : float = 2.0
 const CHECKOUT_TIME : float = 10.0
 
@@ -43,17 +41,11 @@ var target : Vector2i
 ## Represents the checkout tile
 var checkout : Vector2i
 ## Represents the NPC's prefered item that they will shop for
-var prefered_item : String
+var prefered_item : String = "item_red_potion"
 ## Tracks if the perfered item has been found by the NPC
 var item_found : bool = false
 ## Tracks if the NPC has been checked out
 var is_checked_out : bool = false
-
-
-func _ready() -> void:
-	var color : int = randi_range(0,TYPES.size() - 1)
-	sprite.modulate = TYPES[color]
-	prefered_item = POTIONS[color]
 
 func _physics_process(_delta : float) -> void:
 	velocity = Vector2.ZERO
