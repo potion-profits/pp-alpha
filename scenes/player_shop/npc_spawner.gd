@@ -13,6 +13,15 @@ const init_max = 15.0
 const cont_min = 3.0
 const cont_max = 8.0
 
+## Idle/Walk directions in row order of sprite sheets
+const directions : Array = ["down", "downleft", "left", "upleft", "up"]
+## Frame size, dictated by idle/walk cycle sprite sheet
+const frame_size_idle : Vector2 = Vector2(16, 16)
+const frame_size_walk : Vector2 = Vector2(20, 19)
+## Animation constants
+const frames_per_anim : int = 4
+const fps : float = 5.0
+
 ## Holds variants of customerse, specifically their sprite sheets and potion preference
 var customer_variants : Array = [
 	{
@@ -57,13 +66,6 @@ func _on_npc_respawn_timer_timeout() -> void:
 func build_sprite_frames(idle_sheet: Texture2D, walk_sheet: Texture2D) -> SpriteFrames:
 	var sf : SpriteFrames = SpriteFrames.new()
 	sf.remove_animation("default")
-
-	## directions in alphabetical order
-	var directions : Array = ["down", "downleft", "left", "up", "upleft"]
-	var frame_size_idle : Vector2 = Vector2(16, 16)
-	var frame_size_walk : Vector2 = Vector2(20, 19)
-	var frames_per_anim : int = 4
-	var fps : float = 5.0
 
 	for row in range(directions.size()):
 		var dir : String = directions[row]
