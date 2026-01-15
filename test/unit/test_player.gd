@@ -65,8 +65,9 @@ func test_has_empty_slots() -> void:
 	player.inv.insert(black)
 	assert_false(player.has_empty_slot(), "Player inv should have 5 full slots")
 
-func test_can_stack_items() -> void:
-	player.inv = Inv.new()
-	assert_false(player.can_stack_item(red), "Player doesn't have any red, can't stack red")
-	player.inv.insert(red)
-	assert_true(player.can_stack_item(red), "Player has red, can stack red")
+# Temporarily remove test since stack 1 only is new, current functionality
+#func test_can_stack_items() -> void:
+	#player.inv = Inv.new()
+	#assert_false(player.can_stack_item(red), "Player doesn't have any red, can't stack red")
+	#player.inv.insert(red)
+	#assert_true(player.can_stack_item(red), "Player has red, can stack red")
