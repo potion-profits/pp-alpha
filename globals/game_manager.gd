@@ -82,7 +82,7 @@ func load_from_storage()->void:
 		push_error("Failed to parse save file.")
 		return
 	
-	if default_state_version != json["version"] and FileAccess.file_exists("user://savegame.save"):
+	if default_state_version != json.get("version", "") and FileAccess.file_exists("user://savegame.save"):
 		print("Incorrect version, has ", json["version"], " but expects ", default_state_version)
 		print("Using default state instead")
 		save_file = FileAccess.open("res://globals/default_state.txt", FileAccess.READ)
