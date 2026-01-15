@@ -42,7 +42,7 @@ var customer_variants : Array = [
 	{
 		"idle": preload("res://assets/char_sprites/npc_sprites/npc_customers/rogue_npc_idle.png"),
 		"walk": preload("res://assets/char_sprites/npc_sprites/npc_customers/rogue_npc_walk_cycle.png"),
-		"preferred_item": "item_black_potion"
+		"preferred_item": "item_dark_potion"
 	},
 ]
 
