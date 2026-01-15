@@ -31,6 +31,10 @@ var viewport_size: Vector2
 var ui_tween: Tween
 ## Holds inventory UI position state
 var shifted_to_top: bool = false
+## Holds inventory UI scaling values
+var scaled_size: Vector2
+## Holds position for inventory UI to default to
+var orig_pos: Vector2
 
 func _ready()->void:
 	var pause_scene : Resource = preload("res://scenes/ui/pause_menu.tscn")
@@ -40,7 +44,7 @@ func _ready()->void:
 	get_viewport().size_changed.connect(_on_viewport_size_changed)
 	await get_tree().process_frame
 	viewport_size = get_viewport_rect().size
-	_on_viewport_size_changed()
+	_on_viewport_size_changed() # initalize inv UI position
 
 func _on_move_town_detection_body_entered(body: Node2D) -> void:
 	if body is Player:
@@ -81,38 +85,33 @@ func setup_npc(npc : Node2D) -> void:
 
 func _on_viewport_size_changed() -> void:
 	viewport_size = get_viewport_rect().size
-	var scaled_size = inv_ui.size * inv_ui.scale
-	var orig_pos = Vector2(
+	scaled_size = inv_ui.size * inv_ui.scale
+	orig_pos = Vector2(
 		(viewport_size.x - scaled_size.x) /2 ,
 		viewport_size.y - scaled_size.y - inv_ui.size.y
 	)
 	
+	inv_ui.position = get_target_pos()
+
+## Calculates ideal inventory UI position based on window screen
+func get_target_pos() -> Vector2:
+	var offset_scale: float = 6
+	var target_y: float
 	if shifted_to_top:
-		inv_ui.position = Vector2(orig_pos.x, orig_pos.y - (viewport_size.y) + 6*inv_ui.size.y)
+		target_y = orig_pos.y - (viewport_size.y) + (offset_scale*inv_ui.size.y)
 	else:
-		inv_ui.position = orig_pos
+		target_y = orig_pos.y
+	return Vector2(orig_pos.x, target_y)
 
 ## Handles dynamic movement of inventory UI when it blocks the player at the bottom of the screen
 func shift_ui(to_top: bool) -> void:
-	var target_y
 	shifted_to_top = to_top
 	
 	if ui_tween and ui_tween.is_running():
 		ui_tween.kill()
-		
-	var scaled_size = inv_ui.size * inv_ui.scale
-	var orig_pos = Vector2(
-		(viewport_size.x - scaled_size.x) /2 ,
-		viewport_size.y - scaled_size.y - inv_ui.size.y
-	)
-	
-	if to_top:
-		target_y = orig_pos.y - (viewport_size.y) + 6*inv_ui.size.y
-	else:
-		target_y = orig_pos.y
 	
 	ui_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUINT)
-	ui_tween.tween_property(inv_ui, "position", Vector2(orig_pos.x, target_y), 0.3)
+	ui_tween.tween_property(inv_ui, "position", get_target_pos(), 0.3)
 
 func _on_bottom_collision_body_entered_frontroom(body: Node2D) -> void:
 	if body is Player:
