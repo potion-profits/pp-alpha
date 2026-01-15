@@ -21,31 +21,31 @@ var item_icons := {
 ## Mapping of item codes to [InvItem] attributes
 var items:Dictionary = {
 	"item_empty_bottle":{
-		"max_stack_size":16,
+		"max_stack_size":1,
 		"mixable": false,
 		"sellable": false,
 		"texture_code": "item_empty_bottle"
 	},
 	"item_red_potion":{
-		"max_stack_size":8,
+		"max_stack_size":1,
 		"mixable": true,
 		"sellable": false,
 		"texture_code": "item_red_potion"
 	},
 	"item_green_potion":{
-		"max_stack_size":8,
+		"max_stack_size":1,
 		"mixable": true,
 		"sellable": false,
 		"texture_code": "item_green_potion"
 	},
 	"item_blue_potion":{
-		"max_stack_size":8,
+		"max_stack_size":1,
 		"mixable": true,
 		"sellable": false,
 		"texture_code": "item_blue_potion"
 	},
 	"item_dark_potion":{
-		"max_stack_size":8,
+		"max_stack_size":1,
 		"mixable": true,
 		"sellable": false,
 		"texture_code": "item_dark_potion"

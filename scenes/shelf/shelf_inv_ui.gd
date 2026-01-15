@@ -111,15 +111,22 @@ func update_single_slot(ui_slot: Button, inv_slot: InvSlot) -> void:
 ## Handles the different scenarios of clicking on a [param slot]. [br][br]
 ##
 ## Scenarios are, taking an item, placing an item, stacking items, or swapping.
+##
+## On shift click, items are automatically placed in an opposing inventory if
+## there is a free slot.
 func on_slot_clicked(slot:Button) -> void:
-	if slot.is_empty() and item_on_cursor:
-		insert_to_slot(slot)
-	elif !item_on_cursor:
-		take_from_slot(slot)
-	elif slot.item_stack.invSlot.item.equals(item_on_cursor.invSlot.item):
-		stack_items(slot)
+	if(Input.is_physical_key_pressed(KEY_SHIFT)):
+		if !item_on_cursor and !slot.is_empty():
+			auto_insert_to_slot(slot)
 	else:
-		swap_items(slot)
+		if slot.is_empty() and item_on_cursor:
+			insert_to_slot(slot)
+		elif !item_on_cursor:
+			take_from_slot(slot)
+		elif slot.item_stack.invSlot.item.equals(item_on_cursor.invSlot.item):
+			stack_items(slot)
+		else:
+			swap_items(slot)
 
 ## Places the item from the given [param slot] in the [member item_on_cursor].
 func take_from_slot(slot:Button)->void:
@@ -136,6 +143,22 @@ func insert_to_slot(slot:Button)->void:
 	item_on_cursor = null
 	slot.insert(item)
 	item.call_deferred("shelf_scale")
+
+## Auto inserts the item at [param clicked_slot] to the opposing inventory
+func auto_insert_to_slot(clicked_slot: Button)->void:
+	var free_slot : Button = null
+	
+	# Check whether the clicked button was on the player or shelf
+	if(clicked_slot in player_slots):
+		# Find available shelf slot
+		free_slot = get_available_slot(shelf_slots)
+	else:
+		# Find available player slot
+		free_slot = get_available_slot(player_slots)
+		
+	if (free_slot):
+		var item : ItemStackUI = clicked_slot.pick_item()
+		free_slot.insert(item)	
 
 ## Handles switching the places of the [member item_on_cursor] and 
 ## the given [param slot].
@@ -161,6 +184,14 @@ func get_all_slots() -> Array:
 	list.append_array($NinePatchRect2/ShelfPlayerContainer.get_children())
 	list.append_array($NinePatchRect/ShelfContainer.get_children())
 	return list
+
+## Returns an button with an available slot from [param inv_slots]
+func get_available_slot(inv_slots: Array)->Button:
+	for slot : Button in inv_slots:
+		if (!slot.item_stack):
+			return slot
+			
+	return null
 
 ## Stacks items from the item_on_cursor to the given slot. Stacking appropriately
 ## when the stack would be larger than the max stack size.
