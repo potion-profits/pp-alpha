@@ -26,7 +26,7 @@ func insert(i_stack: ItemStackUI) -> void:
 	
 	if !item_stack.invSlot or inv.slots[index] == item_stack.invSlot:
 		return
-	inv.insert_on_cursor(index, i_stack.invSlot)
+	inv.insert_slot_at(index, i_stack.invSlot)
 	inv.update.emit()
 
 ## Signifies this slot is selected by turning on the selected border

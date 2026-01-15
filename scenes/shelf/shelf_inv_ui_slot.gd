@@ -21,7 +21,7 @@ func insert(i_stack: ItemStackUI) -> void:
 	if !item_stack.invSlot or inv.slots[index] == item_stack.invSlot:
 		return
 	#item_stack.update_slot()
-	inv.insert_on_cursor(index, i_stack.invSlot)
+	inv.insert_slot_at(index, i_stack.invSlot)
 
 ## Removes the item from this slot and returns it.
 func pick_item()->ItemStackUI:
