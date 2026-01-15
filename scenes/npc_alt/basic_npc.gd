@@ -16,7 +16,6 @@ var floor_map : Node2D
 var inv : Inv = Inv.new(1)
 
 const SPEED : int = 100
-#const POTIONS : Array = ["item_red_potion", "item_green_potion", "item_blue_potion", "item_dark_potion"]
 const PROX_THRESHOLD : float = 2.0
 const CHECKOUT_TIME : float = 10.0
 
