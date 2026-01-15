@@ -10,6 +10,10 @@ var pause_menu: Control	## The instance of the pause menu (likely will change)
 var runtime_entities:Dictionary = {} ## Holds all the entities in every scene. See [Entity].
 var player_data:Dictionary = {}	## Holds the player's data. See [Player].
 
+# PLEASE UPDATE THIS IF THE DEFAULT STATE NEEDS TO BE UPDATED
+# format is MM.DD.YR/Version
+const default_state_version: String = "1.12.26/1" 
+
 func _ready()->void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	load_from_storage()
@@ -45,6 +49,7 @@ func unpause()->void:
 ## file called [i]savegame.save[/i].
 func commit_to_storage()->void:
 	var save_payload:Dictionary = {
+		"version": default_state_version,
 		"player": player_data,
 		"scenes": runtime_entities
 	}
@@ -76,6 +81,17 @@ func load_from_storage()->void:
 	if json == null:
 		push_error("Failed to parse save file.")
 		return
+	
+	if default_state_version != json.get("version", "") and FileAccess.file_exists("user://savegame.save"):
+		print("Incorrect version, has ", json.get("version", "no version"), " but expects ", default_state_version)
+		print("Using default state instead")
+		save_file = FileAccess.open("res://globals/default_state.txt", FileAccess.READ)
+		json_text = save_file.get_as_text()
+		save_file.close()
+		json = JSON.parse_string(json_text)
+		if json == null:
+			push_error("Failed to parse save file.")
+			return
 		
 	runtime_entities = json["scenes"]
 	player_data = json["player"]
