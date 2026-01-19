@@ -15,6 +15,7 @@ extends Node2D
 var target: String 	## Entity currently highlighted as a string.
 var cost: int		## The cost to refill target.
 var type: String 	## Specifies additional information about what is being refilled (barrel color).
+
 var holding_dir : Direction = Direction.NONE ## Tells what direction is being held.
 
 ## All possible directions the selection can move & none for when it should not move.
