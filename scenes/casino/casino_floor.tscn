@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://cydb0qypcgibl"]
+[gd_scene load_steps=13 format=4 uid="uid://cydb0qypcgibl"]
 
 [ext_resource type="Texture2D" uid="uid://b7jx6m1vn82gh" path="res://assets/interior/casino/casino_tilemap.png" id="1_0k5tk"]
 [ext_resource type="Script" uid="uid://bgfajl2miu8ge" path="res://scenes/casino/casino_floor.gd" id="1_dnyyd"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://m6dvdqtwgruy" path="res://scenes/casino/blackjack_table.tscn" id="3_dfl8t"]
 [ext_resource type="PackedScene" uid="uid://dp7r8vke6s7c5" path="res://scenes/coin_ui/player_chip.tscn" id="4_ka76d"]
 [ext_resource type="PackedScene" uid="uid://ckd2slmjdifxy" path="res://scenes/coin_ui/player_coin.tscn" id="5_y1lbc"]
+[ext_resource type="AudioStream" uid="uid://dk2og8fa00x2e" path="res://assets/audio/music/casino loop.wav" id="7_y1lbc"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_0k5tk"]
 tile_data = PackedInt32Array(0, 131072, 9, 65536, 65536, 8, 131072, 65536, 805306375, 1, 65536, 805306375, 65537, 65536, 7, 131073, 131072, 805306377)
@@ -254,6 +255,11 @@ position = Vector2(704, 960)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MoveTownArea"]
 position = Vector2(832, 1101)
 shape = SubResource("RectangleShape2D_ka76d")
+
+[node name="CasinoMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_y1lbc")
+volume_db = -20.071
+bus = &"Music"
 
 [connection signal="pressed" from="Player/Camera2D/ExchangeContainer/HBoxContainer/LessCoins" to="." method="_on_less_coins_pressed"]
 [connection signal="pressed" from="Player/Camera2D/ExchangeContainer/HBoxContainer/MoreCoins" to="." method="_on_more_coins_pressed"]

@@ -126,7 +126,6 @@ func update_music_status() -> void:
 			shop_music.play()
 	else:
 		shop_music.stop()
-			
 
 func _on_bottom_collision_body_entered_frontroom(body: Node2D) -> void:
 	if body is Player:
