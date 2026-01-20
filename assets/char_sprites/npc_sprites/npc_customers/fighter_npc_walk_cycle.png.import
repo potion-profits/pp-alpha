@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://db440yrn1o8j5"
-path="res://.godot/imported/16x16 Run Cycle-Sheet.png-3f7634065eda88f13b0ea0ba663ad473.ctex"
+uid="uid://bm8o5ta35u3r"
+path="res://.godot/imported/fighter_npc_walk_cycle.png-f27f5becd064efbd27b4d4a8ed6e2b16.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/char_sprites/Eris Esra's Character Template/16x16 Run Cycle-Sheet.png"
-dest_files=["res://.godot/imported/16x16 Run Cycle-Sheet.png-3f7634065eda88f13b0ea0ba663ad473.ctex"]
+source_file="res://assets/char_sprites/npc_sprites/npc_customers/fighter_npc_walk_cycle.png"
+dest_files=["res://.godot/imported/fighter_npc_walk_cycle.png-f27f5becd064efbd27b4d4a8ed6e2b16.ctex"]
 
 [params]
 

@@ -41,6 +41,14 @@
 	"scenes": {
 		"MainShop": [
 			{
+				"entity_code": "bed",
+				"inv": {
+
+				},
+				"x_pos": 520.0,
+				"y_pos": -429.0
+			},
+			{
 				"entity_code": "shelf",
 				"inv": {
 					"selected_index": -1,
@@ -355,7 +363,7 @@
 					"selected_index": -1,
 					"slots": [
 						{
-							"amount": 64,
+							"amount": 0,
 							"item": {
 								"max_stack_size": 16,
 								"mixable": false,
@@ -375,7 +383,7 @@
 					"selected_index": -1,
 					"slots": [
 						{
-							"amount": 64,
+							"amount": 8,
 							"item": {
 								"max_stack_size": 16,
 								"mixable": false,
@@ -389,5 +397,6 @@
 				"y_pos": -369.0
 			}
 		]
-	}
+	},
+	"version": "1.12.26/1"
 }

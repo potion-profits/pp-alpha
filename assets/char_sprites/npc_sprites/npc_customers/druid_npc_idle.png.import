@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cviv0fi3bu6a5"
-path="res://.godot/imported/Radial-Sheet.png-e54f34b0fbe2891b4b9b561d62daa042.ctex"
+uid="uid://cb8os1qt0ldch"
+path="res://.godot/imported/druid_npc_idle.png-c91f0bbb589c1b7cd8d22b373521789f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/char_sprites/Eris Esra's Character Template/Radial-Sheet.png"
-dest_files=["res://.godot/imported/Radial-Sheet.png-e54f34b0fbe2891b4b9b561d62daa042.ctex"]
+source_file="res://assets/char_sprites/npc_sprites/npc_customers/druid_npc_idle.png"
+dest_files=["res://.godot/imported/druid_npc_idle.png-c91f0bbb589c1b7cd8d22b373521789f.ctex"]
 
 [params]
 

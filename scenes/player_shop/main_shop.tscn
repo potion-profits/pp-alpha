@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://bk1hol15q64bh" path="res://scenes/inventory/inv_ui.tscn" id="14_paag6"]
 [ext_resource type="PackedScene" uid="uid://ydlnke6gesg1" path="res://scenes/cash_register/cash_register.tscn" id="14_ylhot"]
 [ext_resource type="AudioStream" uid="uid://b2a10sgqhmvv6" path="res://assets/audio/music/in-shop loop.wav" id="16_0rphg"]
+[ext_resource type="PackedScene" uid="uid://g1ngeh7fhfwq" path="res://scenes/bed/bed.tscn" id="16_0rphg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6w02k"]
 texture = ExtResource("4_85e8s")
@@ -678,6 +679,9 @@ shape = SubResource("RectangleShape2D_g03oc")
 [node name="EntityManager" type="Node2D" parent="."]
 y_sort_enabled = true
 script = ExtResource("5_41gid")
+
+[node name="Bed" parent="EntityManager" instance=ExtResource("16_0rphg")]
+position = Vector2(520, -429)
 
 [node name="shelf" parent="EntityManager" instance=ExtResource("7_ylhot")]
 position = Vector2(275, -199)

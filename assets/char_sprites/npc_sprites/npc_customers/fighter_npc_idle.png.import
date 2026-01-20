@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://spxpvjf4eamt"
-path="res://.godot/imported/16x16 Idle-Sheet.png-a8385572c5387c9625e68ff1fb5f42aa.ctex"
+uid="uid://bcjr0xhgvjkq1"
+path="res://.godot/imported/fighter_npc_idle.png-dd9e702feb39cfb322c9ff515c1da8c4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/char_sprites/Eris Esra's Character Template/16x16 Idle-Sheet.png"
-dest_files=["res://.godot/imported/16x16 Idle-Sheet.png-a8385572c5387c9625e68ff1fb5f42aa.ctex"]
+source_file="res://assets/char_sprites/npc_sprites/npc_customers/fighter_npc_idle.png"
+dest_files=["res://.godot/imported/fighter_npc_idle.png-dd9e702feb39cfb322c9ff515c1da8c4.ctex"]
 
 [params]
 

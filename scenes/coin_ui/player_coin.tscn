@@ -5,37 +5,34 @@
 
 [node name="Control" type="Control"]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -1.0
-offset_bottom = -1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
+size_flags_horizontal = 0
 script = ExtResource("1_glcwg")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_direction = 2
 layout_mode = 0
-offset_left = 5.0
-offset_top = 6.0
-offset_right = 88.0
-offset_bottom = 43.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 91.0
+offset_bottom = 45.0
 scale = Vector2(1.5, 1.5)
-theme_override_constants/separation = 5
-alignment = 1
+theme_override_constants/separation = 2
 
-[node name="Coin" type="Sprite2D" parent="HBoxContainer"]
-position = Vector2(14, 19)
-scale = Vector2(1.5, 1.5)
+[node name="Coin" type="TextureRect" parent="HBoxContainer"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+size_flags_horizontal = 0
 texture = ExtResource("1_hoe22")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="coin_amount" type="Label" parent="HBoxContainer"]
-custom_minimum_size = Vector2(39, 23)
+custom_minimum_size = Vector2(0, 23)
 layout_direction = 2
 layout_mode = 2
+size_flags_horizontal = 0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
 text = "10"
-horizontal_alignment = 2

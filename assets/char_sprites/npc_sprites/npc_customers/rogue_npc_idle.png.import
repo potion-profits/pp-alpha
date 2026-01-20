@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://br67unorua8if"
-path="res://.godot/imported/Spin-Sheet.png-890d7c5696a42a61fe40a2b557f162f4.ctex"
+uid="uid://bnh5c0bmeottg"
+path="res://.godot/imported/rogue_npc_idle.png-2bd84e6e5f0706abc0ee94e67c03bc57.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/char_sprites/Eris Esra's Character Template/Spin-Sheet.png"
-dest_files=["res://.godot/imported/Spin-Sheet.png-890d7c5696a42a61fe40a2b557f162f4.ctex"]
+source_file="res://assets/char_sprites/npc_sprites/npc_customers/rogue_npc_idle.png"
+dest_files=["res://.godot/imported/rogue_npc_idle.png-2bd84e6e5f0706abc0ee94e67c03bc57.ctex"]
 
 [params]
 

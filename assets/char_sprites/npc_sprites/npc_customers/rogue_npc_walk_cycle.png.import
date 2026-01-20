@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://haavy0i5ql1f"
-path="res://.godot/imported/16x32 Run Cycle-Sheet.png-4b4b7a01b3676cac27ee2b05b862f09a.ctex"
+uid="uid://b1aegi7w6ybjd"
+path="res://.godot/imported/rogue_npc_walk_cycle.png-f7d1c6e0173351f86fc899483331f1e3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/char_sprites/Eris Esra's Character Template/16x32 Run Cycle-Sheet.png"
-dest_files=["res://.godot/imported/16x32 Run Cycle-Sheet.png-4b4b7a01b3676cac27ee2b05b862f09a.ctex"]
+source_file="res://assets/char_sprites/npc_sprites/npc_customers/rogue_npc_walk_cycle.png"
+dest_files=["res://.godot/imported/rogue_npc_walk_cycle.png-f7d1c6e0173351f86fc899483331f1e3.ctex"]
 
 [params]
 
