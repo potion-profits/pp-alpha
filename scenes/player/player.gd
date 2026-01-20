@@ -27,6 +27,10 @@ var can_move : bool = true	## False when player is in an unmoveable state (UI op
 @onready var dash_cooldown: Timer = $DashCooldown
 ## Determines the duration of a dash
 @onready var dash_duration: Timer = $DashDuration
+## Sound effect when dash is used
+@onready var dash_sfx: AudioStreamPlayer2D = $DashSFX
+## Footsteps sound effects
+@onready var walk_sfx: AudioStreamPlayer2D = $WalkingSFX
 ## UI element for the player inventory
 @export var inv_ui: Control
 
@@ -113,6 +117,10 @@ func get_movement_input(_delta : float) -> void:
 	if velocity != Vector2.ZERO:
 		velocity = velocity.normalized() * SPEED
 		
+		# Start walking footsteps sound effect when moving
+		if !walk_sfx.playing:
+			walk_sfx.play()
+		
 		# Determine direction name for animation
 		# Appends direction based on directional input
 		var anim_dir := ""
@@ -140,6 +148,7 @@ func get_movement_input(_delta : float) -> void:
 		if sprint and dash_cooldown.is_stopped():
 			dash_duration.start(DASH_DURATION)
 			velocity *= DASH_MULT
+			dash_sfx.play()
 			current_state = movement_state.DASH
 		else:
 			current_state = movement_state.WALK
@@ -151,6 +160,11 @@ func get_movement_input(_delta : float) -> void:
 				animated_sprite.play("walk")
 	else:
 		current_state = movement_state.IDLE
+		
+		# Stop walking footstep sound effect once idle
+		if walk_sfx.playing:
+			walk_sfx.stop()
+		
 		if animated_sprite.sprite_frames.has_animation("idle_" + last_dir):
 			animated_sprite.play("idle_" + last_dir)
 		else:

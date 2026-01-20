@@ -1,0 +1,5 @@
+[gd_scene load_steps=0 format=3 uid="uid://dgxv3iwdgerek"]
+
+[node name="AudioManager" type="Node2D"]
+
+[node name="MainShopBackground" type="AudioStreamPlayer2D" parent="."]

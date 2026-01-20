@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=4 uid="uid://c0wgfjbxk58k0"]
+[gd_scene load_steps=27 format=4 uid="uid://c0wgfjbxk58k0"]
 
 [ext_resource type="Script" uid="uid://cyi5m0rhrv7o2" path="res://scenes/player_shop/main_shop.gd" id="1_47hg3"]
 [ext_resource type="Texture2D" uid="uid://cq4mo6l3w2oka" path="res://assets/interior/shop/background.png" id="2_ixtpo"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://dk76x6o356j3i" path="res://scenes/player_shop/npc_spawner.tscn" id="12_47hg3"]
 [ext_resource type="PackedScene" uid="uid://bk1hol15q64bh" path="res://scenes/inventory/inv_ui.tscn" id="14_paag6"]
 [ext_resource type="PackedScene" uid="uid://ydlnke6gesg1" path="res://scenes/cash_register/cash_register.tscn" id="14_ylhot"]
+[ext_resource type="AudioStream" uid="uid://b2a10sgqhmvv6" path="res://assets/audio/music/in-shop loop.wav" id="16_0rphg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6w02k"]
 texture = ExtResource("4_85e8s")
@@ -733,6 +734,11 @@ position_smoothing_speed = 3.0
 position = Vector2(448, -145)
 
 [node name="NpcSpawner" parent="EntityManager" instance=ExtResource("12_47hg3")]
+
+[node name="ShopMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("16_0rphg")
+volume_db = -18.112
+bus = &"Music"
 
 [connection signal="body_entered" from="FrontRoom/MoveTownDetection" to="." method="_on_move_town_detection_body_entered"]
 [connection signal="body_entered" from="FrontRoom/MoveStorageRoomDetection" to="." method="_on_move_storage_room_detection_body_entered"]
