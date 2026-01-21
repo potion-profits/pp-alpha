@@ -12,7 +12,7 @@ var player_data:Dictionary = {}	## Holds the player's data. See [Player].
 
 # PLEASE UPDATE THIS IF THE DEFAULT STATE NEEDS TO BE UPDATED
 # format is MM.DD.YR/Version
-const default_state_version: String = "1.12.26/1" 
+const default_state_version: String = "1.20.26/1"
 
 func _ready()->void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -96,7 +96,7 @@ func load_from_storage()->void:
 	runtime_entities = json["scenes"]
 	player_data = json["player"]
 	
-	print("Game Loaded with : ",player_data,"\n", runtime_entities)
+	#print("Game Loaded with : ",player_data,"\n", runtime_entities)
 
 ## Stores current scene's and player's state into the runtime memory.[br][br]
 ##
@@ -113,7 +113,7 @@ func save_scene_runtime_state() -> void:
 		for entity in em.get_children():
 			if entity is Entity:
 				runtime_entities[scene_name].append(entity.to_dict())
-				print("saved: ",entity.to_dict())
+				#print("saved: ",entity.to_dict())
 	var player_node: Node = cs.find_child("Player", true, false)
 	if player_node:
 		player_data = player_node.to_dict()
@@ -138,7 +138,7 @@ func load_scene_runtime_state()->void:
 	if em and runtime_entities.has(scene_name):
 		for data:Dictionary in runtime_entities[scene_name]:
 			em.load_from_dict(data)
-			print("loaded: ", data)
+			#print("loaded: ", data)
 
 ## Creates a callback to load the next scene's state. [br][br]
 ##

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=4 uid="uid://ct477pxb22qoi"]
+[gd_scene load_steps=27 format=4 uid="uid://ct477pxb22qoi"]
 
 [ext_resource type="Script" uid="uid://hhi25ocanfc8" path="res://scenes/grid_placement/grid_placement.gd" id="1_fq01t"]
 [ext_resource type="Texture2D" uid="uid://cq4mo6l3w2oka" path="res://assets/interior/shop/background.png" id="2_ym71g"]
@@ -10,7 +10,11 @@
 [ext_resource type="PackedScene" uid="uid://c13ewv50qvs46" path="res://scenes/crate/crate.tscn" id="8_qajh6"]
 [ext_resource type="PackedScene" uid="uid://c0nam2jyacktb" path="res://scenes/cauldron/cauldron.tscn" id="9_y8302"]
 [ext_resource type="PackedScene" uid="uid://m4k8qbbqo7ha" path="res://scenes/shelf/shelf.tscn" id="10_w7g5k"]
+[ext_resource type="PackedScene" uid="uid://cysl4wlh1iw8n" path="res://scenes/grid_placement/invalid_block.tscn" id="11_fpmwk"]
 [ext_resource type="PackedScene" uid="uid://b0flhrlw7t57t" path="res://scenes/player/player.tscn" id="11_pgdk6"]
+[ext_resource type="Script" uid="uid://v2b04jaxuakv" path="res://globals/entity_manager.gd" id="12_vmht1"]
+[ext_resource type="PackedScene" uid="uid://ydlnke6gesg1" path="res://scenes/cash_register/cash_register.tscn" id="13_fpmwk"]
+[ext_resource type="PackedScene" uid="uid://dk76x6o356j3i" path="res://scenes/player_shop/npc_spawner.tscn" id="14_wxjbm"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fq01t"]
 texture = ExtResource("4_vmht1")
@@ -712,6 +716,7 @@ scenes/2/scene = ExtResource("7_tu3xx")
 scenes/3/scene = ExtResource("8_qajh6")
 scenes/4/scene = ExtResource("9_y8302")
 scenes/5/scene = ExtResource("10_w7g5k")
+scenes/6/scene = ExtResource("11_fpmwk")
 
 [sub_resource type="TileSet" id="TileSet_epjix"]
 custom_data_layer_0/name = "shelf_footprint"
@@ -722,7 +727,6 @@ sources/0 = SubResource("TileSetScenesCollectionSource_kpwuw")
 script = ExtResource("1_fq01t")
 
 [node name="TextureRect" type="TextureRect" parent="."]
-visible = false
 offset_left = -120.0
 offset_top = -925.0
 offset_right = 955.0
@@ -738,6 +742,32 @@ offset_right = -4.0
 offset_bottom = -3.0
 scale = Vector2(1.5, 1.5)
 player = NodePath("../../Player")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Static_UI"]
+layout_direction = 2
+offset_left = -4.0
+offset_top = 47.0
+offset_right = 79.0
+offset_bottom = 84.0
+scale = Vector2(2.25, 2.25)
+theme_override_constants/separation = 2
+
+[node name="BlankTexture" type="TextureRect" parent="Static_UI/HBoxContainer"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Cost" type="Label" parent="Static_UI/HBoxContainer"]
+custom_minimum_size = Vector2(0, 23)
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+text = "-10"
 
 [node name="ConnectingLayer" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray("AAAcAPP/AAACAAoAAAAdAPP/AAADAAoAAAAcAPL/AAACAAkAAAAdAPL/AAADAAkAAAAZAAAAAAACAAkAAAAaAAAAAAADAAkAAAAcAO3/AAACAAkAAAAdAO3/AAADAAkAAAA=")
@@ -797,11 +827,24 @@ tile_map_data = PackedByteArray("AAAPAOD/AAAHAAYAAAAPAOH/AAAHAAcAAAAPAOL/AAAHAAg
 tile_set = SubResource("TileSet_s7qt3")
 
 [node name="EntityLayer" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAAQAPT/AAAAAAAABQAQAPr/AAAAAAAABQAUAOf/AAAAAAAAAwAUAOn/AAAAAAAAAwAWAOX/AAAAAAAAAQAWAPT/AAAAAAAABQAXAOX/AAAAAAAAAQAXAOr/AAAAAAAABAAZAOb/AAAAAAAAAQAaAOf/AAAAAAAAAQAgAOX/AAAAAAAAAgA=")
+tile_map_data = PackedByteArray("AAAbAPj/AAAAAAAABgAcAPj/AAAAAAAABgAcAPb/AAAAAAAABgAdAPb/AAAAAAAABgAcAPT/AAAAAAAABgAcAPX/AAAAAAAABgAdAPX/AAAAAAAABgAdAPT/AAAAAAAABgAaAPj/AAAAAAAABgAdAPj/AAAAAAAABgAaAPn/AAAAAAAABgAdAPn/AAAAAAAABgAbAPn/AAAAAAAABgAcAPn/AAAAAAAABgAQAP//AAAAAAAABgARAP//AAAAAAAABgASAP//AAAAAAAABgATAP//AAAAAAAABgAUAP//AAAAAAAABgAVAP//AAAAAAAABgAWAP//AAAAAAAABgAXAP//AAAAAAAABgAYAP//AAAAAAAABgAZAP//AAAAAAAABgAaAP//AAAAAAAABgAbAP//AAAAAAAABgAcAP//AAAAAAAABgAdAP//AAAAAAAABgAeAP//AAAAAAAABgAfAP//AAAAAAAABgAgAP//AAAAAAAABgAQAOz/AAAAAAAABgARAOz/AAAAAAAABgASAOz/AAAAAAAABgATAOz/AAAAAAAABgAUAOz/AAAAAAAABgAVAOz/AAAAAAAABgAWAOz/AAAAAAAABgAXAOz/AAAAAAAABgAYAOz/AAAAAAAABgAZAOz/AAAAAAAABgAaAOz/AAAAAAAABgAbAOz/AAAAAAAABgAcAOz/AAAAAAAABgAdAOz/AAAAAAAABgAeAOz/AAAAAAAABgAfAOz/AAAAAAAABgAgAOz/AAAAAAAABgA=")
 tile_set = SubResource("TileSet_epjix")
 
 [node name="Player" parent="." instance=ExtResource("11_pgdk6")]
 position = Vector2(907, -242)
 
+[node name="EntityManager" type="Node2D" parent="."]
+y_sort_enabled = true
+script = ExtResource("12_vmht1")
+
+[node name="CashRegister" parent="EntityManager" instance=ExtResource("13_fpmwk")]
+position = Vector2(448, -145)
+
+[node name="NpcSpawner" parent="EntityManager" instance=ExtResource("14_wxjbm")]
+
 [node name="TempLayer" type="TileMapLayer" parent="."]
 tile_set = SubResource("TileSet_epjix")
+
+[node name="Debug" type="Camera2D" parent="."]
+position = Vector2(402, -243)
+zoom = Vector2(2, 2)

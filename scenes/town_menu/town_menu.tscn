@@ -31,6 +31,12 @@ size_flags_vertical = 3
 theme_override_font_sizes/font_size = 50
 text = "Go To Player Shop"
 
+[node name="Crate&Barrel" type="Button" parent="TabContainer/Travel"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 50
+text = "Go To Crate & Barrel"
+
 [node name="Casino" type="Button" parent="TabContainer/Travel"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -78,5 +84,6 @@ theme_override_font_sizes/font_size = 50
 text = "Refill crates    (100 Gold)"
 
 [connection signal="pressed" from="TabContainer/Travel/PlayerShop" to="." method="_on_player_shop_pressed"]
+[connection signal="pressed" from="TabContainer/Travel/Crate&Barrel" to="." method="_on_crate_barrel_pressed"]
 [connection signal="pressed" from="TabContainer/Travel/Casino" to="." method="_on_casino_pressed"]
 [connection signal="pressed" from="TabContainer/Crates/CrateRefill" to="." method="_on_crate_refill_pressed"]
