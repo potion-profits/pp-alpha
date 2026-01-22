@@ -185,7 +185,6 @@ func _place() -> void:
 		return
 
 	if temp_layer.modulate == VALID_COLOR:
-		print("PLACED")
 		entity_layer.set_cell(current_tile, ENTITY_SOURCE, Vector2i.ZERO, ENTITY_ID[current_entity])
 		if(current_entity == "shelf"):
 			entity_layer.set_cell(current_tile + Vector2i.UP, ENTITY_SOURCE, Vector2i.ZERO, BLOCK_ID)
@@ -237,7 +236,7 @@ func _draw_tile()->void:
 		temp_layer.set_cell(current_tile, ENTITY_SOURCE, Vector2i.ZERO, ENTITY_ID[current_entity])
 		temp_layer.modulate = VALIDITY
 		
-	elif _empty_cell(temp_layer, current_tile):
+	elif _empty_cell(temp_layer, current_tile) or temp_layer.modulate == INVALID_COLOR:
 		temp_layer.set_cell(current_tile, ENTITY_SOURCE, Vector2i.ZERO, ENTITY_ID[current_entity])
 		temp_layer.modulate = INVALID_COLOR
 	else:
