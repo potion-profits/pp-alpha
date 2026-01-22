@@ -20,6 +20,8 @@ var chips : int
 ## Tracks whether the player is currently dashing or not
 var is_dashing : bool = false
 var can_move : bool = true	## False when player is in an unmoveable state (UI open)
+var step_frames: Array = [1, 3]
+
 
 ## See [AnimatedSprite2D]
 @onready var animated_sprite : AnimatedSprite2D = $AnimatedSprite2D
@@ -116,11 +118,6 @@ func get_movement_input(_delta : float) -> void:
 	
 	if velocity != Vector2.ZERO:
 		velocity = velocity.normalized() * SPEED
-		
-		# Start walking footsteps sound effect when moving
-		if !walk_sfx.playing:
-			walk_sfx.play()
-		
 		# Determine direction name for animation
 		# Appends direction based on directional input
 		var anim_dir := ""
@@ -152,7 +149,6 @@ func get_movement_input(_delta : float) -> void:
 			current_state = movement_state.DASH
 		else:
 			current_state = movement_state.WALK
-
 		if anim_dir != "":
 			if animated_sprite.sprite_frames.has_animation("walk_" + anim_dir):
 				animated_sprite.play("walk_" + anim_dir)
@@ -160,11 +156,6 @@ func get_movement_input(_delta : float) -> void:
 				animated_sprite.play("walk")
 	else:
 		current_state = movement_state.IDLE
-		
-		# Stop walking footstep sound effect once idle
-		if walk_sfx.playing:
-			walk_sfx.stop()
-		
 		if animated_sprite.sprite_frames.has_animation("idle_" + last_dir):
 			animated_sprite.play("idle_" + last_dir)
 		else:
@@ -286,3 +277,11 @@ func _debug_set_player_inv()->void:
 	inv.insert(red)
 	inv.insert(red)
 	
+
+
+func _on_animated_sprite_2d_frame_changed() -> void:
+	if current_state != movement_state.WALK:
+		return
+	# When the animated sprite is currently on a stepping frame, play footstep sfx
+	if animated_sprite and animated_sprite.frame in step_frames:
+		walk_sfx.play()

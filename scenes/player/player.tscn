@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://mgupfasihl7i" path="res://assets/char_sprites/Chay Walk Cycle-Sheet.png" id="4_qlg0r"]
 [ext_resource type="Texture2D" uid="uid://bl24jrao46dmm" path="res://assets/char_sprites/Chay Idle-Sheet.png" id="4_tuyoq"]
 [ext_resource type="AudioStream" uid="uid://cj20adps565ul" path="res://assets/audio/sfx/dash.wav" id="5_p47bc"]
-[ext_resource type="AudioStream" uid="uid://bpsrsf4uhedja" path="res://assets/audio/sfx/steps.wav" id="6_0owmy"]
+[ext_resource type="AudioStream" uid="uid://c5qe1oqg1noom" path="res://assets/audio/sfx/footstep.ogg" id="6_0owmy"]
 [ext_resource type="PackedScene" uid="uid://b54ms70wtbbo1" path="res://scenes/interactions/interacting_component.tscn" id="6_75vfm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y4r1p"]
@@ -348,7 +348,7 @@ script = ExtResource("1_onrkg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_onrkg")
-animation = &"idle_down"
+animation = &"walk_upleft"
 autoplay = "idle_down"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -370,8 +370,10 @@ bus = &"SFX"
 
 [node name="WalkingSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_0owmy")
-volume_db = -3.814
+volume_db = 2.525
+pitch_scale = 1.24
 bus = &"SFX"
 
+[connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]
 [connection signal="timeout" from="DashCooldown" to="." method="_on_dash_cooldown_timeout"]
 [connection signal="timeout" from="DashDuration" to="." method="_on_dash_duration_timeout"]
