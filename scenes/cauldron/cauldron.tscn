@@ -292,14 +292,15 @@ shape = SubResource("CapsuleShape2D_y06py")
 
 [node name="AmbienceSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_hsnw7")
-volume_db = -8.824
+volume_db = -5.042
+pitch_scale = 1.07
 autoplay = true
 max_distance = 224.0
 bus = &"SFX"
 
 [node name="MixSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_hmojl")
-volume_db = 14.497
+volume_db = 17.018
 pitch_scale = 0.8
 bus = &"SFX"
 
