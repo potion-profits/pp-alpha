@@ -370,7 +370,8 @@ bus = &"SFX"
 
 [node name="WalkingSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_0owmy")
-volume_db = -7.596
+volume_db = -3.814
+bus = &"SFX"
 
 [connection signal="timeout" from="DashCooldown" to="." method="_on_dash_cooldown_timeout"]
 [connection signal="timeout" from="DashDuration" to="." method="_on_dash_duration_timeout"]

@@ -1,5 +1,16 @@
-[gd_scene load_steps=0 format=3 uid="uid://dgxv3iwdgerek"]
+[gd_scene load_steps=3 format=3 uid="uid://dgxv3iwdgerek"]
+
+[ext_resource type="AudioStream" uid="uid://dk2og8fa00x2e" path="res://assets/audio/music/casino loop.wav" id="1_exsf0"]
+[ext_resource type="AudioStream" uid="uid://b2a10sgqhmvv6" path="res://assets/audio/music/in-shop loop.wav" id="2_hilj8"]
 
 [node name="AudioManager" type="Node2D"]
 
-[node name="MainShopBackground" type="AudioStreamPlayer2D" parent="."]
+[node name="CasinoMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_exsf0")
+volume_db = -20.071
+bus = &"Music"
+
+[node name="ShopMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_hilj8")
+volume_db = -18.112
+bus = &"Music"
