@@ -24,15 +24,11 @@ extends Node2D
 @onready var inv_ui: Control = $Static_UI/Inv_UI
 ## Scene's [EntityManager]
 @onready var entity_manager: EntityManager = $EntityManager
-## Background music for the shop
-@onready var shop_music: AudioStreamPlayer = $ShopMusic
 
 ## Size of player's window
 var viewport_size: Vector2
 ## Moves the inventory UI element
 var ui_tween: Tween
-## Condition if music playing
-var music_on:bool = true
 ## Holds inventory UI position state
 var shifted_to_top: bool = false
 ## Holds inventory UI scaling values
@@ -47,9 +43,6 @@ func _ready()->void:
 	GameManager.set_pause_menu(menu_instance.get_node("PauseMenuControl"))
 	get_viewport().size_changed.connect(_on_viewport_size_changed)
 	await get_tree().process_frame
-#
-func _process(_delta: float)->void:
-	update_music_status()
 	viewport_size = get_viewport_rect().size
 	_on_viewport_size_changed() # initalize inv UI position
 
@@ -119,13 +112,6 @@ func shift_ui(to_top: bool) -> void:
 	
 	ui_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUINT)
 	ui_tween.tween_property(inv_ui, "position", get_target_pos(), 0.3)
-
-func update_music_status() -> void:
-	if music_on:
-		if !shop_music.playing:
-			shop_music.play()
-	else:
-		shop_music.stop()
 
 func _on_bottom_collision_body_entered_frontroom(body: Node2D) -> void:
 	if body is Player:

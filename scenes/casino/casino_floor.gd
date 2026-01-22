@@ -4,18 +4,11 @@ extends Node2D
 @onready var exchange_bttn: Button = $Player/Camera2D/ExchangeBttn
 @onready var exchange_container: VBoxContainer = $Player/Camera2D/ExchangeContainer
 @onready var num_coins_to_exchange: Label = $Player/Camera2D/ExchangeContainer/HBoxContainer/NumCoinsToExchange
-## Background music for the casino
-@onready var bg_music: AudioStreamPlayer = $CasinoMusic
 var exchange_amt : int = 0
-## Condition if music should be playing
-var music_on : bool = true
 
 func _ready() -> void:
 	exchange_container.visible = false
 	exchange_bttn.visible = true
-
-func _process(_delta: float) -> void:
-	update_music_status()
 
 func _on_exchange_bttn_pressed() -> void:
 	exchange_container.visible = true
@@ -53,13 +46,6 @@ func _on_more_coins_pressed() -> void:
 
 func update_exchange_label(new_amt : int) -> void:
 	num_coins_to_exchange.text = str(new_amt) + " Coins"
-
-func update_music_status() -> void:
-	if music_on:
-		if !bg_music.playing:
-			bg_music.play()
-	else:
-		bg_music.stop()
 
 func _on_move_town_area_body_entered(body: Node2D) -> void:
 	if body is Player:
