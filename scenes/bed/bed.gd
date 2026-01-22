@@ -3,7 +3,7 @@ extends Entity
 ## The bed is an interactable entity that saves the game.
 
 @onready var interactable : Area2D = $Interactable ## Reference to component used for interactions
-@onready var bed_sfx : AudioStreamPlayer2D = $BedSFX ## Reference to SFX audio stream to control when to play
+@onready var bed_sfx : AudioStreamPlayer2D = $BedSFX ## Reference to audio stream 
 const SAVE_PROMPT = "Press E to save the game"
 const SAVE_OK = "Game saved successfully"
 
