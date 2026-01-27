@@ -278,10 +278,9 @@ func _debug_set_player_inv()->void:
 	inv.insert(red)
 	
 
-
+	# When the animated sprite is currently on a stepping frame, play footstep sfx
 func _on_animated_sprite_2d_frame_changed() -> void:
 	if current_state != movement_state.WALK:
 		return
-	# When the animated sprite is currently on a stepping frame, play footstep sfx
 	if animated_sprite and animated_sprite.frame in step_frames:
 		walk_sfx.play()

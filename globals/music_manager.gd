@@ -17,24 +17,32 @@ extends Node
 
 ## Condition if music playing
 var music_on: bool = true
+## Flag that an audio stream is fading out
+var fading_out: bool = false
 ## A reference to the currently playing song
 var current_song: AudioStreamPlayer
+## A reference to the song to transition to, needed for seemless transitions
+var temp_song: AudioStreamPlayer
 #var tween: Tween = create_tween()
 
 func _ready() -> void:
 	current_song = shop_music
 	current_song.play()
 
-#func _process(_delta: float)->void:
-	#update_music_status()
-	#
-#func update_music_status() -> void:
-	#if current_song:
-		#if music_on:
-			#if !current_song.playing:
-				#current_song.play()
-		#else:
-			#current_song.stop()
+func _process(delta: float)->void:
+	if fading_out:
+		temp_song.volume_db += 30*delta
+		current_song.volume_db -= 30*delta
+		# Once reached desired volume
+		if temp_song.volume_db >= 0:
+			current_song.volume_db = 0
+			temp_song.volume_db = -70
+			#Switch reference to new song and resume
+			current_song = temp_song
+			current_song.play(temp_song.get_playback_position())
+			
+			temp_song.stop()
+			fading_out = false
 
 func play_bg_music(scene: String) -> void:
 	var next_scene_song: AudioStreamPlayer = song_contexts.get(scene)
@@ -43,20 +51,24 @@ func play_bg_music(scene: String) -> void:
 		if current_song != next_scene_song:
 			transition_song(next_scene_song)
 
-# takes in new song to transition to
+# Takes in new song to transition to
 # Uses tween interpolation to fade in/out with music
 func transition_song(new_song: AudioStreamPlayer) -> void:
-	if current_song.playing:
-		current_song.stop()
-		current_song = new_song
-		current_song.play()
-		
+	# load in song to transition/fade to
+	temp_song = new_song
+	temp_song.volume_db = -70
+	temp_song.play()
+	#if current_song.playing:
+		#current_song.stop()
+		#current_song = new_song
+		#current_song.play()
+	fading_out = true
 	#if current_song.playing and new_song.playing:
 		#return
 		#
 		#var fade_out : Tween = create_tween()
-		## fade out
-		#fade_out.tween_property(current_song, "volume_db", linear_to_db(0.0), 2.0
+		### fade out
+		#fade_out.tween_property(current_song, "volume_db", linear_to_db(0.0), 2.0)
 
 		#current_song.stop()
 		# fade in new song
