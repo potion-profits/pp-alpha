@@ -4,75 +4,69 @@ extends Node
 @onready var shop_music: AudioStreamPlayer = $ShopMusic
 ## Background music for the casino_floor, blackjack
 @onready var casino_music: AudioStreamPlayer = $CasinoMusic
-## Animation player used to interpolate and transition between songs
-@onready var crossfade: AnimationPlayer = $Crossfade
-
 ## Maps the level scene paths (from SceneManager) to the song that should play for that scene
 @onready var song_contexts: Dictionary = {
 	"res://scenes/player_shop/main_shop.tscn": shop_music,
 	"res://scenes/town_menu/town_menu.tscn": shop_music,
 	"res://scenes/casino/casino_floor.tscn": casino_music,
-	"res://scenes/casino/black_jack.tscn": casino_music
+	"res://scenes/casino/black_jack.tscn": casino_music,
+	"res://scenes/ui/start_menu.tscn": shop_music
 }
 
-## Condition if music playing
-var music_on: bool = true
-## Flag that an audio stream is fading out
-var fading_out: bool = false
 ## A reference to the currently playing song
 var current_song: AudioStreamPlayer
-## A reference to the song to transition to, needed for seemless transitions
-var temp_song: AudioStreamPlayer
-#var tween: Tween = create_tween()
+## A reference to the old song to transition from, needed for seemless transitions
+var old_song: AudioStreamPlayer
+## A reference to 
+var crossfade: Tween
+## (~ -70db is inaudible)
+var silent_db: float = -70.0
+## in seconds
+var fade_time: float = 2.5
 
 func _ready() -> void:
-	current_song = shop_music
-	current_song.play()
+	current_song = song_contexts.get("res://scenes/ui/start_menu.tscn")
+	if current_song:
+		current_song.play()
 
-func _process(delta: float)->void:
-	if fading_out:
-		temp_song.volume_db += 30*delta
-		current_song.volume_db -= 30*delta
-		# Once reached desired volume
-		if temp_song.volume_db >= 0:
-			current_song.volume_db = 0
-			temp_song.volume_db = -70
-			#Switch reference to new song and resume
-			current_song = temp_song
-			current_song.play(temp_song.get_playback_position())
-			
-			temp_song.stop()
-			fading_out = false
-
+# Called when scenes are changed with the SceneManager
 func play_bg_music(scene: String) -> void:
 	var next_scene_song: AudioStreamPlayer = song_contexts.get(scene)
 	if next_scene_song:
-		# Check if scenes have changed, if so, transition if not don't transition
 		if current_song != next_scene_song:
 			transition_song(next_scene_song)
 
 # Takes in new song to transition to
 # Uses tween interpolation to fade in/out with music
 func transition_song(new_song: AudioStreamPlayer) -> void:
-	# load in song to transition/fade to
-	temp_song = new_song
-	temp_song.volume_db = -70
-	temp_song.play()
-	#if current_song.playing:
-		#current_song.stop()
-		#current_song = new_song
-		#current_song.play()
-	fading_out = true
-	#if current_song.playing and new_song.playing:
-		#return
-		#
-		#var fade_out : Tween = create_tween()
-		### fade out
-		#fade_out.tween_property(current_song, "volume_db", linear_to_db(0.0), 2.0)
+	if !current_song:
+		current_song = new_song
+		current_song.volume_db = 0
+		current_song.play()
+		return
+		
+	# kill any in-progress crossfade
+	if crossfade and crossfade.is_running():
+		crossfade.kill()
+	# prepare incoming song 
+	new_song.volume_db = silent_db
+	if !new_song.playing:
+		new_song.play()
+	# reassign respective songs
+	old_song = current_song
+	current_song = new_song
 
-		#current_song.stop()
-		# fade in new song
-		#current_song = new_song
-	
-	#tween cleanup
-	
+	crossfade = create_tween()
+	# allows both the new and old song to fade concurrently
+	crossfade.set_parallel(true)
+	crossfade.tween_property(old_song, "volume_db", silent_db, fade_time)
+	crossfade.tween_property(new_song, "volume_db", 0.0, fade_time)
+
+	# tween signal once crossfade is done
+	crossfade.finished.connect(on_crossfade_finish)
+
+## Resets states when crossfades finish
+func on_crossfade_finish() -> void:
+	if old_song:
+		old_song.stop()
+		old_song.volume_db = 0.0

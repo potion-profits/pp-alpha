@@ -1,40 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://dgxv3iwdgerek"]
+[gd_scene load_steps=4 format=3 uid="uid://dgxv3iwdgerek"]
 
-[ext_resource type="AudioStream" uid="uid://dk2og8fa00x2e" path="res://assets/audio/music/casino loop.wav" id="1_exsf0"]
 [ext_resource type="Script" uid="uid://7gdm86pb8vil" path="res://globals/music_manager.gd" id="1_gq8vl"]
-[ext_resource type="AudioStream" uid="uid://b2a10sgqhmvv6" path="res://assets/audio/music/in-shop loop.wav" id="2_hilj8"]
+[ext_resource type="AudioStream" uid="uid://beql7yrtdrqdt" path="res://assets/audio/music/in-shop loop.ogg" id="1_h5l8h"]
+[ext_resource type="AudioStream" uid="uid://cthrn1k11us3u" path="res://assets/audio/music/casino loop.ogg" id="1_i6s1y"]
 
-[sub_resource type="Animation" id="Animation_gq8vl"]
-resource_name = "FadeToSong"
-tracks/0/type = "audio"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CasinoMusic")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"clips": [],
-"times": PackedFloat32Array()
-}
-tracks/0/use_blend = true
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_i6s1y"]
-_data = {
-&"FadeToSong": SubResource("Animation_gq8vl")
-}
-
-[node name="MusicManager" type="Node"]
+[node name="MusicManager" type="Node2D"]
 script = ExtResource("1_gq8vl")
 
 [node name="CasinoMusic" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("1_exsf0")
+stream = ExtResource("1_i6s1y")
 bus = &"Music"
 
 [node name="ShopMusic" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("2_hilj8")
+stream = ExtResource("1_h5l8h")
 bus = &"Music"
-
-[node name="Crossfade" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_i6s1y")
-}
