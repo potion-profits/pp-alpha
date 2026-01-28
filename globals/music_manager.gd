@@ -22,7 +22,7 @@ var crossfade: Tween
 ## Starting inaudible volume for fading in
 var silent_db: float = -70.0
 ## Time for crossfade
-var fade_time: float = 2.5
+var fade_time: float = 2.0
 
 func _ready() -> void:
 	current_song = song_contexts.get("res://scenes/ui/start_menu.tscn")
