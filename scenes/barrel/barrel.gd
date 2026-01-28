@@ -44,7 +44,7 @@ func _ready() -> void:
 	
 	# Used to find out what scene to place in entity manager
 	entity_code = "barrel"
-	change_barrel_color(barrel_type)
+	check_barrel_capacity()
 	
 	if (barrel_type == "empty_barrel"):
 		ml = 0
@@ -55,12 +55,12 @@ func _ready() -> void:
 ## Changes this barrel's type to the given type and updates the sprite.[br][br]
 ##
 ## Takes [param barrel_id] as the type that this barrel will become. See [constant barrel_color_map].
-func change_barrel_color(barrel_id : String) -> void:
+func change_barrel_color(barrel_id : String, y : int = 0) -> void:
 	var atlas_texture : AtlasTexture = AtlasTexture.new()
 	atlas_texture.atlas = preload(SHEET_PATH)
 	atlas_texture.region = Rect2(
 						barrel_color_map[barrel_id] * SPRITE_SIZE, 
-						0,
+						y * 16,
 						SPRITE_SIZE,
 						SPRITE_SIZE)
 	barrel_type = barrel_id
@@ -98,10 +98,8 @@ func _on_interact() -> void:
 			player.collect(new_bottle)
 			ml -= 100
 		
-		# Check if barrel is empty
-		if (ml <= 0):
-			change_barrel_color("empty_barrel")
-		
+		check_barrel_capacity()
+			
 
 ## Creates and returns a dictionary representation of this barrel. See also [method from_dict].
 func to_dict() -> Dictionary:
@@ -142,3 +140,32 @@ func refill(barrel_id: String)->void:
 	ml = MAX_ML
 	barrel_type = barrel_id
 	change_barrel_color(barrel_type)
+	
+
+func check_barrel_capacity()->void:
+	if (ml <= 0):
+		change_barrel_color("empty_barrel")
+		return
+	
+	if (ml == MAX_ML):
+		change_barrel_color(barrel_type)
+		return
+	
+	@warning_ignore("integer_division")
+	var pad : int = MAX_ML / 6
+	
+	@warning_ignore("integer_division")
+	if (ml < MAX_ML and ml > MAX_ML / 2 + pad):
+		change_barrel_color(barrel_type, 2)
+		return
+		
+	@warning_ignore("integer_division")
+	if (ml < MAX_ML / 2 + pad and ml > MAX_ML / 2 - pad):
+		change_barrel_color(barrel_type, 3)
+		return
+	
+	@warning_ignore("integer_division")
+	if (ml < MAX_ML / 2 - pad and ml > 0):
+		change_barrel_color(barrel_type, 4)
+		return
+		
