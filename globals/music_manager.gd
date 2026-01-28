@@ -4,7 +4,7 @@ extends Node
 @onready var shop_music: AudioStreamPlayer = $ShopMusic
 ## Background music for the casino_floor, blackjack
 @onready var casino_music: AudioStreamPlayer = $CasinoMusic
-## Maps the level scene paths (from SceneManager) to the song that should play for that scene
+## Maps the level scene paths (called from SceneManager) to the song that should play for that scene
 @onready var song_contexts: Dictionary = {
 	"res://scenes/player_shop/main_shop.tscn": shop_music,
 	"res://scenes/town_menu/town_menu.tscn": shop_music,
@@ -17,11 +17,11 @@ extends Node
 var current_song: AudioStreamPlayer
 ## A reference to the old song to transition from, needed for seemless transitions
 var old_song: AudioStreamPlayer
-## A reference to 
+## A reference to the tween used for crossfading
 var crossfade: Tween
-## (~ -70db is inaudible)
+## Starting inaudible volume for fading in
 var silent_db: float = -70.0
-## in seconds
+## Time for crossfade
 var fade_time: float = 2.5
 
 func _ready() -> void:
@@ -29,23 +29,29 @@ func _ready() -> void:
 	if current_song:
 		current_song.play()
 
-# Called when scenes are changed with the SceneManager
-func play_bg_music(scene: String) -> void:
-	var next_scene_song: AudioStreamPlayer = song_contexts.get(scene)
+## Play background music for the given scene [br][br]
+##
+## Finds the relavent song to play for the given scene. Songs will change if the 
+## given scene has a different song from the current song that needs to be switched to. [br][br]
+##
+## Takes [param scene_path] as file path to the scene [br]
+func play_bg_music(scene_path: String) -> void:
+	var next_scene_song: AudioStreamPlayer = song_contexts.get(scene_path)
 	if next_scene_song:
 		if current_song != next_scene_song:
 			transition_song(next_scene_song)
 
-# Takes in new song to transition to
-# Uses tween interpolation to fade in/out with music
+## Crossfades from the current song to the new song [br][br]
+## 
+## Takes [param new_song] to switch to as [param AudioStreamPlayer] [br]
 func transition_song(new_song: AudioStreamPlayer) -> void:
 	if !current_song:
 		current_song = new_song
 		current_song.volume_db = 0
 		current_song.play()
 		return
-		
-	# kill any in-progress crossfade
+
+	# kill any in-progress crossfade tweens
 	if crossfade and crossfade.is_running():
 		crossfade.kill()
 	# prepare incoming song 
@@ -62,10 +68,10 @@ func transition_song(new_song: AudioStreamPlayer) -> void:
 	crossfade.tween_property(old_song, "volume_db", silent_db, fade_time)
 	crossfade.tween_property(new_song, "volume_db", 0.0, fade_time)
 
-	# tween signal once crossfade is done
+	# tween signal once crossfade is finished
 	crossfade.finished.connect(on_crossfade_finish)
 
-## Resets states when crossfades finish
+## Resets audio states when crossfades finish
 func on_crossfade_finish() -> void:
 	if old_song:
 		old_song.stop()
