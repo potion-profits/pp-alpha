@@ -16,13 +16,15 @@ func _ready()->void:
 	}
 	super._ready()
 
+## Initializes slider values to represent current bus layout[br][br]
+##
+## Must be called within _ready()
 func init_sliders() -> void:
-	# Set default slider values to represent current bus layout
-	# Syncs current volume to slider value
 	master_slider.value = db_to_linear(AudioServer.get_bus_volume_db(MASTER_BUS_IDX))
 	music_slider.value = db_to_linear(AudioServer.get_bus_volume_db(MUSIC_BUS_IDX))
 	sfx_slider.value = db_to_linear(AudioServer.get_bus_volume_db(SFX_BUS_IDX))
 
+# Slider value changed signals for each respective slider
 func _on_master_value_changed(value: float) -> void:
 	AudioServer.set_bus_volume_db(MASTER_BUS_IDX, linear_to_db(value))
 
