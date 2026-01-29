@@ -5,9 +5,9 @@ extends "res://scenes/ui/base_menu.gd"
 @onready var MASTER_BUS_IDX: int = AudioServer.get_bus_index("Master")
 @onready var MUSIC_BUS_IDX: int = AudioServer.get_bus_index("Music")
 @onready var SFX_BUS_IDX: int = AudioServer.get_bus_index("SFX")
-@onready var master_slider: HSlider = $MarginContainer/VBoxContainer/Master
-@onready var music_slider: HSlider = $MarginContainer/VBoxContainer/Music
-@onready var sfx_slider: HSlider = $MarginContainer/VBoxContainer/SFX
+@onready var master_slider: HSlider = $MarginContainer/VBoxContainer/VolumeBG/VolumeContainer/Master
+@onready var music_slider: HSlider = $MarginContainer/VBoxContainer/VolumeBG/VolumeContainer/Music
+@onready var sfx_slider: HSlider = $MarginContainer/VBoxContainer/VolumeBG/VolumeContainer/SFX
 
 func _ready()->void:
 	init_sliders()

@@ -1,4 +1,4 @@
-[gd_resource type="AudioBusLayout" load_steps=3 format=3 uid="uid://js4syijb6lsh"]
+[gd_resource type="AudioBusLayout" load_steps=4 format=3 uid="uid://js4syijb6lsh"]
 
 [sub_resource type="AudioEffectLimiter" id="AudioEffectLimiter_j3pel"]
 resource_name = "Limiter"
@@ -7,6 +7,11 @@ threshold_db = -14.4
 [sub_resource type="AudioEffectAmplify" id="AudioEffectAmplify_j3pel"]
 resource_name = "Amplify"
 volume_db = 0.61
+
+[sub_resource type="AudioEffectCompressor" id="AudioEffectCompressor_j3pel"]
+resource_name = "Compressor"
+threshold = -2.9
+gain = 0.8
 
 [resource]
 bus/0/volume_db = 0.26724052
@@ -26,3 +31,5 @@ bus/2/volume_db = 0.0694828
 bus/2/send = &"Master"
 bus/2/effect/0/effect = SubResource("AudioEffectAmplify_j3pel")
 bus/2/effect/0/enabled = true
+bus/2/effect/1/effect = SubResource("AudioEffectCompressor_j3pel")
+bus/2/effect/1/enabled = true
