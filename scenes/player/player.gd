@@ -52,7 +52,7 @@ var input_slot_map : Dictionary = {
 ## Tracks current state of player movement
 var current_state : movement_state = movement_state.IDLE
 ## Tracks current direction of player
-var last_dir := "down"
+var last_dir := "up"
 
 func _ready() -> void:
 	add_to_group("player")
@@ -60,6 +60,11 @@ func _ready() -> void:
 	# Load town position if returning to town
 	if GameManager.has_town_position and get_tree().current_scene.name == "Town":
 		global_position = GameManager.town_position
+
+	# Always face down when entering Town
+	if get_tree().current_scene.name == "Town":
+		last_dir = "down"
+		animated_sprite.play("idle_down")
 	
 	if !inv:
 		inv = Inv.new(5)
