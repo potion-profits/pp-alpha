@@ -15,6 +15,9 @@ var inv_size: int = 12 ## The size of the shelf's inventory
 ## Reference to physics collision
 @onready var collision : CollisionShape2D = $Collision
 
+## Reference to audio stream for sound effects
+@onready var shelf_sfx : AudioStreamPlayer2D = $ShelfSFX
+
 ## Reference to this shelf's UI menu
 @onready var shelf_ui: Control = $Inv_UI_Layer/Shelf_UI
 @onready var potion_visual_root : Node2D = $ShelfPotions
@@ -69,10 +72,13 @@ func _on_interact()->void:
 		shelf_ui.visible = true
 		#links both inventories and respective ui on open
 		shelf_ui.set_inventories(player_inv, inv)
+		# play sound effect on open
+		shelf_sfx.pitch_scale = 1
+		shelf_sfx.play()
 	# close on "e" 
 	elif shelf_ui.visible:
 		close_shelf()
-		
+
 func _input(event: InputEvent) -> void:
 	# close on "esc"
 	if event.is_action_pressed("ui_cancel"):
@@ -92,6 +98,9 @@ func close_shelf()->void:
 		player_inv.update.emit()
 		# update visual on close
 		update_visuals()
+		# play sound effect on close
+		shelf_sfx.pitch_scale = 0.75
+		shelf_sfx.play()
 
 # eventually will update on change (currently only on close and npc grabbing item)
 func update_visuals()->void:
@@ -110,6 +119,7 @@ func update_visuals()->void:
 			if has_item:
 				var texture_code:String = inv_slot.item.texture_code
 				fill_visuals[i].modulate = visual_color_map[texture_code]
+
 ## Returns the shelf's inventory slots that have an item
 func get_inventory()->Array[InvSlot]:
 	var tmp : Array[InvSlot] = []

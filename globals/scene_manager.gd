@@ -21,6 +21,7 @@ func change_to(scene_path: String, payload : Dictionary = {}) -> void:
 	scene_payload = payload	# save given payload
 	GameManager.connect_scene_load_callback()	# ready to load next scene's state
 	get_tree().call_deferred("change_scene_to_file", scene_path)	# change the scene when possible
+	MusicManager.play_bg_music(scene_path) # play the relevant song for the new scene
 
 ## Consumes and returns the current payload. [br][br]
 ## 

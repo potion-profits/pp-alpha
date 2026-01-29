@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://beql7yrtdrqdt"
+path="res://.godot/imported/in-shop loop.ogg-381c136e6262f21b5bd955f338b8fa9f.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/music/in-shop loop.ogg"
+dest_files=["res://.godot/imported/in-shop loop.ogg-381c136e6262f21b5bd955f338b8fa9f.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0
+bpm=110.0
+beat_count=0
+bar_beats=4

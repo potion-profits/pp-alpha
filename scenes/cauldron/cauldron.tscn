@@ -1,9 +1,11 @@
-[gd_scene load_steps=42 format=3 uid="uid://c0nam2jyacktb"]
+[gd_scene load_steps=44 format=3 uid="uid://c0nam2jyacktb"]
 
 [ext_resource type="Texture2D" uid="uid://de68bfn16ivla" path="res://assets/interior/shop/cauldron_LARGE-Sheet.png" id="1_afk7o"]
 [ext_resource type="Texture2D" uid="uid://i3o26m2iyuj0" path="res://assets/interior/shop/cauldron_fire_LARGE-Sheet.png" id="1_mdhnj"]
 [ext_resource type="Script" uid="uid://d0yy5m7nhxs2i" path="res://scenes/cauldron/cauldron.gd" id="1_to7hx"]
 [ext_resource type="PackedScene" uid="uid://cetfip2wg6fny" path="res://scenes/cauldron/progress_bar.tscn" id="2_8t87t"]
+[ext_resource type="AudioStream" uid="uid://ki5wxlwxkupu" path="res://assets/audio/sfx/cauldron_ambience.ogg" id="6_hsnw7"]
+[ext_resource type="AudioStream" uid="uid://u1rxch6run7q" path="res://assets/audio/sfx/cauldron_stir.ogg" id="7_hmojl"]
 [ext_resource type="PackedScene" uid="uid://fi1qxearbah2" path="res://scenes/interactions/interactable.tscn" id="7_y06py"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8t87t"]
@@ -287,5 +289,19 @@ scale = Vector2(0.5, 0.5)
 shape = SubResource("CapsuleShape2D_y06py")
 
 [node name="MixTimer" type="Timer" parent="."]
+
+[node name="AmbienceSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_hsnw7")
+volume_db = -5.042
+pitch_scale = 1.07
+autoplay = true
+max_distance = 224.0
+bus = &"SFX"
+
+[node name="MixSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_hmojl")
+volume_db = 17.018
+pitch_scale = 0.8
+bus = &"SFX"
 
 [connection signal="timeout" from="MixTimer" to="." method="_on_mix_timer_timeout"]
