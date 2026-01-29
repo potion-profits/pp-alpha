@@ -22,7 +22,7 @@ func _on_music_pressed() -> void:
 	pass # Replace with function body.
 
 func _on_volume_pressed() -> void:
-	pass # Replace with function body.
+	SceneManager.change_to("res://scenes/ui/volume_menu.tscn")
 
 func _input(event: InputEvent)->void:
 	if event.is_action_pressed("ui_cancel"):

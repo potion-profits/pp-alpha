@@ -20,6 +20,8 @@ var chips : int
 ## Tracks whether the player is currently dashing or not
 var is_dashing : bool = false
 var can_move : bool = true	## False when player is in an unmoveable state (UI open)
+var step_frames: Array = [1, 3]
+
 
 ## See [AnimatedSprite2D]
 @onready var animated_sprite : AnimatedSprite2D = $AnimatedSprite2D
@@ -27,6 +29,10 @@ var can_move : bool = true	## False when player is in an unmoveable state (UI op
 @onready var dash_cooldown: Timer = $DashCooldown
 ## Determines the duration of a dash
 @onready var dash_duration: Timer = $DashDuration
+## Sound effect when dash is used
+@onready var dash_sfx: AudioStreamPlayer2D = $DashSFX
+## Footsteps sound effects
+@onready var walk_sfx: AudioStreamPlayer2D = $WalkingSFX
 ## UI element for the player inventory
 @export var inv_ui: Control
 
@@ -128,7 +134,7 @@ func get_movement_input(_delta : float) -> void:
 	
 	if velocity != Vector2.ZERO:
 		velocity = velocity.normalized() * SPEED
-		
+
 		# Determine direction name for animation
 		# Appends direction based on directional input
 		var anim_dir := ""
@@ -156,6 +162,7 @@ func get_movement_input(_delta : float) -> void:
 		if sprint and dash_cooldown.is_stopped():
 			dash_duration.start(DASH_DURATION)
 			velocity *= DASH_MULT
+			dash_sfx.play()
 			current_state = movement_state.DASH
 		else:
 			current_state = movement_state.WALK
@@ -287,3 +294,11 @@ func _debug_set_player_inv()->void:
 	inv.insert(red)
 	inv.insert(red)
 	inv.insert(red)
+	
+
+# When the animated sprite is currently on a stepping frame, play footstep sfx
+func _on_animated_sprite_2d_frame_changed() -> void:
+	if current_state != movement_state.WALK:
+		return
+	if animated_sprite and animated_sprite.frame in step_frames:
+		walk_sfx.play()

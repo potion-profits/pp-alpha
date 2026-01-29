@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cthrn1k11us3u"
+path="res://.godot/imported/casino loop.ogg-753bd428fed5f76fb60349c8aa1f7a2e.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/music/casino loop.ogg"
+dest_files=["res://.godot/imported/casino loop.ogg-753bd428fed5f76fb60349c8aa1f7a2e.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=10.53
+bpm=87.0
+beat_count=0
+bar_beats=4
