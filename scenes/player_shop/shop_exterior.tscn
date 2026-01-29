@@ -12,30 +12,30 @@ height = 28.0
 script = ExtResource("1_ehdrw")
 metadata/_custom_type_script = "uid://b1odcrnx3mby"
 
-[node name="base" type="Sprite2D" parent="."]
+[node name="BaseBuilding" type="Sprite2D" parent="."]
 texture = ExtResource("2_ehdrw")
 region_enabled = true
 region_rect = Rect2(16, 32, 80, 64)
 
-[node name="base2" type="Sprite2D" parent="."]
+[node name="Roof" type="Sprite2D" parent="."]
 position = Vector2(0, -24)
 texture = ExtResource("2_ehdrw")
 region_enabled = true
 region_rect = Rect2(4, 391, 104, 68)
 
-[node name="base3" type="Sprite2D" parent="."]
+[node name="Door" type="Sprite2D" parent="."]
 position = Vector2(16, 18)
 texture = ExtResource("2_ehdrw")
 region_enabled = true
 region_rect = Rect2(64, 163, 16, 29)
 
-[node name="base4" type="Sprite2D" parent="."]
+[node name="Window" type="Sprite2D" parent="."]
 position = Vector2(-16, 14)
 texture = ExtResource("2_ehdrw")
 region_enabled = true
 region_rect = Rect2(32, 257, 16, 16)
 
-[node name="base5" type="Sprite2D" parent="."]
+[node name="Banner" type="Sprite2D" parent="."]
 position = Vector2(0, -9)
 texture = ExtResource("2_ehdrw")
 region_enabled = true
