@@ -13,6 +13,9 @@ extends Entity	#will help store placement and inventory information for persiste
 @onready var capacity_popup: Sprite2D = $capacity_popup	## Sprite reference
 @export var animation_name: String = "default"	## Name of animation to play
 
+# Capacity Popup vars
+const Y_POS : int = 0
+const SPRITE_SIZE : int = 16
 # default vars
 const MAX_AMT: int = 8	## Max amount crates can hold
 var crate_inv_amt : int = 8	## Current amount this crate has
@@ -101,15 +104,17 @@ func refill(_type: String)->void:
 
 ## Calculates and updates the crate's current capacity popup
 func update_popup()->void:
+	# Popup sprite is layed our horizontally, only change x position
 	var new_x : int = 16 * (inv.slots[0].amount)
 	
 	var new_region : Rect2 = Rect2(
 		new_x,
-		0,
-		16,
-		16
+		Y_POS,
+		SPRITE_SIZE,
+		SPRITE_SIZE
 	)
 	
+	# Sets new region
 	capacity_popup.region_rect = new_region
 	
 	
