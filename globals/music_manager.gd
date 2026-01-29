@@ -23,6 +23,8 @@ var crossfade: Tween
 var silent_db: float = -70.0
 ## Time for crossfade
 var fade_time: float = 2.0
+## Volume level for music
+var music_db: float = -20.0
 
 func _ready() -> void:
 	current_song = song_contexts.get("res://scenes/ui/start_menu.tscn")
@@ -66,7 +68,7 @@ func transition_song(new_song: AudioStreamPlayer) -> void:
 	# allows both the new and old song to fade concurrently
 	crossfade.set_parallel(true)
 	crossfade.tween_property(old_song, "volume_db", silent_db, fade_time)
-	crossfade.tween_property(new_song, "volume_db", 0.0, fade_time)
+	crossfade.tween_property(new_song, "volume_db", music_db, fade_time)
 
 	# tween signal once crossfade is finished
 	crossfade.finished.connect(on_crossfade_finish)

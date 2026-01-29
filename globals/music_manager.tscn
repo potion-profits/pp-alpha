@@ -5,12 +5,15 @@
 [ext_resource type="AudioStream" uid="uid://cthrn1k11us3u" path="res://assets/audio/music/casino loop.ogg" id="1_i6s1y"]
 
 [node name="MusicManager" type="Node2D"]
+process_mode = 3
 script = ExtResource("1_gq8vl")
 
 [node name="CasinoMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("1_i6s1y")
+volume_db = -20.07
 bus = &"Music"
 
 [node name="ShopMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("1_h5l8h")
+volume_db = -20.678
 bus = &"Music"

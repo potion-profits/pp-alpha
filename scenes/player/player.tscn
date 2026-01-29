@@ -370,7 +370,7 @@ bus = &"SFX"
 
 [node name="WalkingSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_0owmy")
-volume_db = 3.786
+volume_db = 2.525
 pitch_scale = 1.24
 bus = &"SFX"
 
