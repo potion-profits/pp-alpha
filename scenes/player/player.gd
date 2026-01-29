@@ -56,6 +56,11 @@ var last_dir := "down"
 
 func _ready() -> void:
 	add_to_group("player")
+	
+	# Load town position if returning to town
+	if GameManager.has_town_position and get_tree().current_scene.name == "Town":
+		global_position = GameManager.town_position
+	
 	if !inv:
 		inv = Inv.new(5)
 	if inv_ui:
@@ -65,6 +70,12 @@ func _ready() -> void:
 	coins = GameManager.player_data["coins"] if GameManager.player_data else 0
 	chips = GameManager.player_data["chips"] if GameManager.player_data else 0
 	#_debug_set_player_inv()
+
+## Save town position when leaving scene
+func _exit_tree() -> void:
+	if get_tree().current_scene.name == "Town":
+		GameManager.town_position = global_position
+		GameManager.has_town_position = true
 
 #handles toggled and held inventory
 #esc when toggled will close ui not pause
@@ -271,4 +282,3 @@ func _debug_set_player_inv()->void:
 	inv.insert(red)
 	inv.insert(red)
 	inv.insert(red)
-	
