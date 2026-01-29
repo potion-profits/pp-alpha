@@ -48,7 +48,7 @@ func _ready()->void:
 
 func _on_move_town_detection_body_entered(body: Node2D) -> void:
 	if body is Player:
-		SceneManager.change_to("res://scenes/town_menu/town_menu.tscn")
+		SceneManager.change_to("res://scenes/town/town.tscn")
 
 ## Moves the camera when the player transitions from the frontroom to the backroom or the backroom 
 ## to the frontroom

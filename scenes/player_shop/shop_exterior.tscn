@@ -1,0 +1,51 @@
+[gd_scene load_steps=5 format=3 uid="uid://mdmvxwcxxsjx"]
+
+[ext_resource type="Script" uid="uid://bcfab0laypxc" path="res://scenes/player_shop/shop_exterior.gd" id="1_ehdrw"]
+[ext_resource type="Texture2D" uid="uid://dvv0n3rj35hie" path="res://assets/exterior/buildings/player_shop_sprite.png" id="2_ehdrw"]
+[ext_resource type="PackedScene" uid="uid://fi1qxearbah2" path="res://scenes/interactions/interactable.tscn" id="3_ehdrw"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rgosd"]
+radius = 9.0
+height = 28.0
+
+[node name="PlayerShop" type="StaticBody2D"]
+script = ExtResource("1_ehdrw")
+metadata/_custom_type_script = "uid://b1odcrnx3mby"
+
+[node name="base" type="Sprite2D" parent="."]
+texture = ExtResource("2_ehdrw")
+region_enabled = true
+region_rect = Rect2(16, 32, 80, 64)
+
+[node name="base2" type="Sprite2D" parent="."]
+position = Vector2(0, -24)
+texture = ExtResource("2_ehdrw")
+region_enabled = true
+region_rect = Rect2(4, 391, 104, 68)
+
+[node name="base3" type="Sprite2D" parent="."]
+position = Vector2(16, 18)
+texture = ExtResource("2_ehdrw")
+region_enabled = true
+region_rect = Rect2(64, 163, 16, 29)
+
+[node name="base4" type="Sprite2D" parent="."]
+position = Vector2(-16, 14)
+texture = ExtResource("2_ehdrw")
+region_enabled = true
+region_rect = Rect2(32, 257, 16, 16)
+
+[node name="base5" type="Sprite2D" parent="."]
+position = Vector2(0, -9)
+texture = ExtResource("2_ehdrw")
+region_enabled = true
+region_rect = Rect2(48, 337, 16, 16)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-39, 32, -40, -24, 0, -57, 41, -24, 40, 31)
+
+[node name="Interactable" parent="." instance=ExtResource("3_ehdrw")]
+
+[node name="InteractableShape" type="CollisionShape2D" parent="Interactable"]
+position = Vector2(16, 30)
+shape = SubResource("CapsuleShape2D_rgosd")
