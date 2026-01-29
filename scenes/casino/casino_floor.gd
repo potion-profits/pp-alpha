@@ -49,4 +49,4 @@ func update_exchange_label(new_amt : int) -> void:
 
 func _on_move_town_area_body_entered(body: Node2D) -> void:
 	if body is Player:
-		SceneManager.change_to("res://scenes/town_menu/town_menu.tscn")
+		SceneManager.change_to("res://scenes/town/town.tscn")
