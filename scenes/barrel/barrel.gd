@@ -21,6 +21,14 @@ const barrel_color_map = {
 	"blue_barrel": 3,
 	"dark_barrel": 4
 }
+## Mapping cur_capacity -> idx on sheet
+const barrel_capacity_map = {
+	"full": 0,
+	"empty": 0,
+	"moderate": 2,
+	"half": 3,
+	"low": 4,
+}
 
 ## Mapping barrel_id -> potion
 const barrel_bottle_map = {
@@ -54,13 +62,15 @@ func _ready() -> void:
 
 ## Changes this barrel's type to the given type and updates the sprite.[br][br]
 ##
-## Takes [param barrel_id] as the type that this barrel will become. See [constant barrel_color_map].
-func change_barrel_color(barrel_id : String, y : int = 0) -> void:
+## Takes [param barrel_id] as the type that this barrel will become. See [constant barrel_color_map].[br]
+##
+## Optionally takes [param level] as the level for the capacity of the barrel. See [constant barrel_capacity_map].
+func change_barrel_color(barrel_id : String, level : String = "full") -> void:
 	var atlas_texture : AtlasTexture = AtlasTexture.new()
 	atlas_texture.atlas = preload(SHEET_PATH)
 	atlas_texture.region = Rect2(
 						barrel_color_map[barrel_id] * SPRITE_SIZE, 
-						y * 16,
+						barrel_capacity_map[level] * 16,
 						SPRITE_SIZE,
 						SPRITE_SIZE)
 	barrel_type = barrel_id
@@ -140,32 +150,34 @@ func refill(barrel_id: String)->void:
 	ml = MAX_ML
 	barrel_type = barrel_id
 	change_barrel_color(barrel_type)
-	
 
+
+## Checks the barrel's current capacity and changes the sprite appropriately.[br][br]
 func check_barrel_capacity()->void:
 	if (ml <= 0):
-		change_barrel_color("empty_barrel")
+		change_barrel_color("empty_barrel", "empty")
 		return
 	
 	if (ml == MAX_ML):
-		change_barrel_color(barrel_type)
+		change_barrel_color(barrel_type, "full")
 		return
 	
 	@warning_ignore("integer_division")
+	# Padding for +- ml used to determine when to change the sprite
 	var pad : int = MAX_ML / 6
 	
 	@warning_ignore("integer_division")
 	if (ml < MAX_ML and ml > MAX_ML / 2 + pad):
-		change_barrel_color(barrel_type, 2)
+		change_barrel_color(barrel_type, "moderate")
 		return
 		
 	@warning_ignore("integer_division")
 	if (ml < MAX_ML / 2 + pad and ml > MAX_ML / 2 - pad):
-		change_barrel_color(barrel_type, 3)
+		change_barrel_color(barrel_type, "half")
 		return
 	
 	@warning_ignore("integer_division")
 	if (ml < MAX_ML / 2 - pad and ml > 0):
-		change_barrel_color(barrel_type, 4)
+		change_barrel_color(barrel_type, "low")
 		return
 		

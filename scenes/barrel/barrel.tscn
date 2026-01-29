@@ -65,4 +65,5 @@ shape = SubResource("RectangleShape2D_mgwd7")
 visible = false
 position = Vector2(0, 1)
 sprite_frames = SubResource("SpriteFrames_8kr5j")
-frame_progress = 0.16874132
+frame = 2
+frame_progress = 0.061206102
