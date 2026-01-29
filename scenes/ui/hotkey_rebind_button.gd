@@ -40,7 +40,6 @@ func set_text_for_key() -> void:
 	var action_event:InputEvent = action_events[0]
 	# Map action to keycode
 	var action_keycode: String = OS.get_keycode_string(action_event.physical_keycode)
-	
 	button.text = "%s" % action_keycode
 
 func _on_button_toggled(toggled_on: bool) -> void:

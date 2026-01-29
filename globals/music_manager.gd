@@ -22,7 +22,7 @@ var crossfade: Tween
 ## Starting inaudible volume for fading in
 var silent_db: float = -70.0
 ## Time for crossfade
-var fade_time: float = 2.0
+var fade_time: float = 1.0
 ## Volume level for music
 var music_db: float = -20.0
 

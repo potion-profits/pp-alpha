@@ -19,7 +19,7 @@ func _on_lang_pressed()->void:
 	LanguageManager.next_language()
 
 func _on_music_pressed() -> void:
-	pass # Replace with function body.
+	SceneManager.change_to("res://scenes/ui/controls_menu.tscn")
 
 func _on_volume_pressed() -> void:
 	SceneManager.change_to("res://scenes/ui/volume_menu.tscn")
