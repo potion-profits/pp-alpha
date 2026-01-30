@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=4 uid="uid://ct477pxb22qoi"]
+[gd_scene load_steps=28 format=4 uid="uid://ct477pxb22qoi"]
 
 [ext_resource type="Script" uid="uid://hhi25ocanfc8" path="res://scenes/grid_placement/grid_placement.gd" id="1_fq01t"]
 [ext_resource type="Texture2D" uid="uid://cq4mo6l3w2oka" path="res://assets/interior/shop/background.png" id="2_ym71g"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://v2b04jaxuakv" path="res://globals/entity_manager.gd" id="12_vmht1"]
 [ext_resource type="PackedScene" uid="uid://ydlnke6gesg1" path="res://scenes/cash_register/cash_register.tscn" id="13_fpmwk"]
 [ext_resource type="PackedScene" uid="uid://dk76x6o356j3i" path="res://scenes/player_shop/npc_spawner.tscn" id="14_wxjbm"]
+[ext_resource type="Script" uid="uid://348byftoo3e7" path="res://globals/direction_hold_controller.gd" id="16_wxjbm"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fq01t"]
 texture = ExtResource("4_vmht1")
@@ -842,9 +843,13 @@ position = Vector2(448, -145)
 
 [node name="NpcSpawner" parent="EntityManager" instance=ExtResource("14_wxjbm")]
 
-[node name="TempLayer" type="TileMapLayer" parent="."]
+[node name="PreviewLayer" type="TileMapLayer" parent="."]
 tile_set = SubResource("TileSet_epjix")
 
 [node name="Debug" type="Camera2D" parent="."]
 position = Vector2(402, -243)
 zoom = Vector2(2, 2)
+
+[node name="DirectionalHoldController" type="Node" parent="."]
+script = ExtResource("16_wxjbm")
+metadata/_custom_type_script = "uid://348byftoo3e7"
