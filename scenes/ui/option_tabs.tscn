@@ -1,0 +1,104 @@
+[gd_scene load_steps=4 format=3 uid="uid://cmw478b4fbd1o"]
+
+[ext_resource type="PackedScene" uid="uid://dule5eggsxyvo" path="res://scenes/ui/volume_menu.tscn" id="1_0sy41"]
+
+[sub_resource type="Theme" id="Theme_0sy41"]
+default_font_size = 45
+
+[sub_resource type="Theme" id="Theme_4i7af"]
+
+[node name="OptionTabs" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 100.0
+offset_top = 50.0
+offset_right = -100.0
+offset_bottom = -100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_0sy41")
+theme_override_constants/side_margin = 0
+theme_override_constants/icon_separation = 0
+tab_alignment = 1
+current_tab = 0
+
+[node name="Graphics" type="TabBar" parent="TabContainer"]
+layout_mode = 2
+theme = SubResource("Theme_4i7af")
+metadata/_tab_index = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Graphics"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Graphics/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 64
+alignment = 1
+
+[node name="Sound" type="TabBar" parent="TabContainer"]
+visible = false
+layout_mode = 2
+theme = SubResource("Theme_4i7af")
+metadata/_tab_index = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Sound"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Sound/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 64
+alignment = 1
+
+[node name="VolumeMenu" parent="TabContainer/Sound/MarginContainer/VBoxContainer" instance=ExtResource("1_0sy41")]
+layout_mode = 2
+
+[node name="Controls" type="TabBar" parent="TabContainer"]
+visible = false
+layout_mode = 2
+theme = SubResource("Theme_4i7af")
+metadata/_tab_index = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Controls"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Controls/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 64
+alignment = 1

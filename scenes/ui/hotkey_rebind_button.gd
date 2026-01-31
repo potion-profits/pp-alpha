@@ -3,6 +3,7 @@ class_name HotkeyRebindButton
 
 @onready var label: Label = $HBoxContainer/Label
 @onready var button: Button = $HBoxContainer/Button
+@onready var key_prompt: Panel = $HBoxContainer/Button/Panel
 
 # Action names are defined the project settings under input_map
 # Exported to button field 
@@ -44,9 +45,9 @@ func set_text_for_key() -> void:
 
 func _on_button_toggled(toggled_on: bool) -> void:
 	if toggled_on:
-		button.text = "PRESS ANY KEY..."
+		key_prompt.visible = true
 		# Listen for any key
-		set_process_unhandled_key_input(toggled_on)
+		set_process_unhandled_key_input(true)
 		for i in get_tree().get_nodes_in_group("hotkey_button"):
 			if i.action_name != self.action_name:
 				# stops any other button to toggled (only one toggled at a time
@@ -54,6 +55,8 @@ func _on_button_toggled(toggled_on: bool) -> void:
 				i.set_process_unhandled_key_input(false)
 	else:
 		# reset states once untoggled
+		key_prompt.visible = false
+		set_process_unhandled_key_input(false)
 		for i in get_tree().get_nodes_in_group("hotkey_button"):
 			if i.action_name != self.action_name:
 				# stops any other button to toggled (only one toggled at a time

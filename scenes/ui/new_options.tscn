@@ -1,0 +1,51 @@
+[gd_scene load_steps=3 format=3 uid="uid://b16i0ho4yfjyn"]
+
+[ext_resource type="Script" uid="uid://cv1o6putb3ynx" path="res://scenes/ui/new_options.gd" id="1_v0nx7"]
+[ext_resource type="PackedScene" uid="uid://cmw478b4fbd1o" path="res://scenes/ui/option_tabs.tscn" id="2_30omx"]
+
+[node name="NewOptions" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_v0nx7")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 50
+text = "Options"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="OptionTabs" parent="MarginContainer/VBoxContainer" instance=ExtResource("2_30omx")]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Exit" type="Button" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(150, 10)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 32
+text = "Exit"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Exit" to="." method="_on_exit_pressed"]

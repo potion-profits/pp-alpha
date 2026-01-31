@@ -1,6 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://d281e5lbh85s7"]
+[gd_scene load_steps=3 format=3 uid="uid://dpruocjd4c4eq"]
 
 [ext_resource type="Script" uid="uid://dp5hh3qhh4s3o" path="res://scenes/ui/hotkey_rebind_button.gd" id="1_3tgem"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3tgem"]
+bg_color = Color(0.80784315, 0.7529412, 0.45882353, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
 
 [node name="HotkeyRebindButton" type="Control" groups=["hotkey_button"]]
 layout_mode = 3
@@ -25,6 +37,7 @@ alignment = 1
 [node name="Label" type="Label" parent="HBoxContainer"]
 custom_minimum_size = Vector2(300, 30)
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 35
 text = "Action"
 vertical_alignment = 1
@@ -38,8 +51,40 @@ theme_override_constants/separation = 200
 [node name="Button" type="Button" parent="HBoxContainer"]
 custom_minimum_size = Vector2(165, 0)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.83889705, 0.83889705, 0.838897, 1)
 theme_override_font_sizes/font_size = 35
 toggle_mode = true
 text = "ACTION_KEY"
+
+[node name="Panel" type="Panel" parent="HBoxContainer/Button"]
+visible = false
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -72.5
+offset_top = -43.0
+offset_right = 72.5
+offset_bottom = -3.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3tgem")
+
+[node name="KeyPrompt" type="Label" parent="HBoxContainer/Button/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.5
+offset_top = -11.5
+offset_right = 60.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "Press Any Key..."
 
 [connection signal="toggled" from="HBoxContainer/Button" to="." method="_on_button_toggled"]

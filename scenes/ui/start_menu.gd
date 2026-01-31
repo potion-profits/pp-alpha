@@ -17,7 +17,8 @@ func _on_play_pressed()->void:
 	SceneManager.change_to("res://scenes/player_shop/main_shop.tscn")
 
 func _on_options_pressed()->void:
-	SceneManager.change_to("res://scenes/ui/options_menu.tscn")
+	#SceneManager.change_to("res://scenes/ui/options_menu.tscn")
+	SceneManager.change_to("res://scenes/ui/new_options.tscn")
 
 func _on_quit_pressed()->void:
 	#we will hard save here for now
