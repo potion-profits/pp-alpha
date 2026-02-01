@@ -19,7 +19,7 @@ func test_astar_initialized() -> void:
 	assert_not_null(astar.checkout, "Astar/tilemap should have checkout coordinates, but checkout set to null")
 	
 func test_setup_npc() -> void:
-	var npc_scene : Resource = load("res://scenes/npc_alt/basic_npc.tscn")
+	var npc_scene : Resource = load("res://scenes/npc_alt/shop_npc.tscn")
 	var npc_instance : Node2D = npc_scene.instantiate()
 	add_child_autofree(npc_instance)
 	shop.setup_npc(npc_instance)
@@ -35,4 +35,3 @@ func test_setup_npc() -> void:
 	var spawn_tilemap_tile : Vector2i = shop.floor_map.tilemap.local_to_map(shop.floor_map.spawn_marker.position)
 	var npc_spawn_tile : Vector2i = npc_instance.floor_map.tilemap.local_to_map(npc_instance.global_position)
 	assert_eq(spawn_tilemap_tile, npc_spawn_tile, "NPC should spawn on spawn marker tile")
-	
