@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=4 uid="uid://boosny1gly5cp"]
+[gd_scene load_steps=20 format=4 uid="uid://boosny1gly5cp"]
 
 [ext_resource type="Script" uid="uid://bscltagfnjtrv" path="res://scenes/refill_scene/backroom.gd" id="1_e5qh1"]
 [ext_resource type="Texture2D" uid="uid://cq4mo6l3w2oka" path="res://assets/interior/shop/background.png" id="2_idwnr"]
@@ -10,10 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://c0nam2jyacktb" path="res://scenes/cauldron/cauldron.tscn" id="9_ph7cv"]
 [ext_resource type="PackedScene" uid="uid://c13ewv50qvs46" path="res://scenes/crate/crate.tscn" id="10_fg38m"]
 [ext_resource type="PackedScene" uid="uid://b0flhrlw7t57t" path="res://scenes/player/player.tscn" id="11_egyl4"]
+[ext_resource type="PackedScene" uid="uid://g1ngeh7fhfwq" path="res://scenes/bed/bed.tscn" id="12_5xger"]
 [ext_resource type="PackedScene" uid="uid://ydlnke6gesg1" path="res://scenes/cash_register/cash_register.tscn" id="12_evep0"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6w02k"]
-size = Vector2(34, 21)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6w02k"]
 texture = ExtResource("5_poyl6")
@@ -470,8 +468,15 @@ texture = ExtResource("5_poyl6")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_4xnb3")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_g03oc"]
-size = Vector2(106, 36)
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_idwnr"]
+scenes/1/scene = ExtResource("8_ccx10")
+scenes/2/scene = ExtResource("12_5xger")
+scenes/3/scene = ExtResource("10_fg38m")
+scenes/4/scene = ExtResource("9_ph7cv")
+scenes/5/scene = ExtResource("7_0ui02")
+
+[sub_resource type="TileSet" id="TileSet_fkrch"]
+sources/0 = SubResource("TileSetScenesCollectionSource_idwnr")
 
 [node name="MainShop" type="Node2D"]
 script = ExtResource("1_e5qh1")
@@ -500,12 +505,6 @@ position = Vector2(0, 229)
 position = Vector2(400, -621)
 zoom = Vector2(5, 5)
 
-[node name="MoveFrontRoomDetection" type="Area2D" parent="BackRoom"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BackRoom/MoveFrontRoomDetection"]
-position = Vector2(464, -518)
-shape = SubResource("RectangleShape2D_6w02k")
-
 [node name="BackroomFloors" type="TileMapLayer" parent="BackRoom"]
 position = Vector2(0, -530)
 tile_map_data = PackedByteArray("AAAUAPz/AAAEAAcAAAAUAP3/AAAEAAgAAAAUAP7/AAAEAAkAAAAUAP//AAAEAAoAAAAVAPz/AAABAAcAAAAVAP3/AAABAAgAAAAVAP7/AAABAAkAAAAVAP//AAABAAoAAAAWAPz/AAACAAcAAAAWAP3/AAACAAgAAAAWAP7/AAACAAkAAAAWAP//AAACAAoAAAAXAPz/AAADAAcAAAAXAP3/AAADAAgAAAAXAP7/AAADAAkAAAAXAP//AAADAAoAAAAVAPr/AAABAAkAAAAVAPv/AAABAAoAAAAWAPr/AAACAAkAAAAWAPv/AAACAAoAAAAXAPr/AAADAAkAAAAXAPv/AAADAAoAAAAUAPr/AAAEAAkAAAAUAPv/AAAEAAoAAAAZAPz/AAABAAcAAAAaAPz/AAACAAcAAAAaAP3/AAACAAgAAAAaAP7/AAACAAkAAAAaAP//AAACAAoAAAAbAPz/AAADAAcAAAAbAP3/AAADAAgAAAAbAP7/AAADAAkAAAAbAP//AAADAAoAAAAcAPz/AAAEAAcAAAAcAP3/AAAEAAgAAAAcAP7/AAAEAAkAAAAcAP//AAAEAAoAAAAdAPz/AAABAAcAAAAdAP3/AAABAAgAAAAdAP7/AAABAAkAAAAdAP//AAABAAoAAAAeAPz/AAACAAcAAAAeAP3/AAACAAgAAAAeAP7/AAACAAkAAAAeAP//AAACAAoAAAAfAPz/AAADAAcAAAAfAP3/AAADAAgAAAAfAP7/AAADAAkAAAAfAP//AAADAAoAAAAgAPz/AAAEAAcAAAAgAP3/AAAEAAgAAAAgAP7/AAAEAAkAAAAgAP//AAAEAAoAAAAdAPr/AAABAAkAAAAdAPv/AAABAAoAAAAeAPr/AAACAAkAAAAeAPv/AAACAAoAAAAfAPr/AAADAAkAAAAfAPv/AAADAAoAAAAgAPr/AAAEAAkAAAAgAPv/AAAEAAoAAAAZAPr/AAABAAkAAAAZAPv/AAABAAoAAAAaAPr/AAACAAkAAAAaAPv/AAACAAoAAAAbAPr/AAADAAkAAAAbAPv/AAADAAoAAAAcAPr/AAAEAAkAAAAcAPv/AAAEAAoAAAAZAP//AAABAAoAAAAZAP7/AAABAAkAAAAZAP3/AAABAAgAAAAYAPz/AAAEAAcAAAAYAPv/AAAEAAoAAAAYAPr/AAAEAAkAAAAYAP3/AAAEAAgAAAAYAP7/AAAEAAkAAAAYAP//AAAEAAoAAAATAPr/AAADAAkAAAATAPv/AAADAAoAAAATAPz/AAADAAcAAAATAP3/AAADAAgAAAATAP7/AAADAAkAAAATAP//AAADAAoAAAASAPz/AAACAAcAAAASAPv/AAACAAoAAAASAPr/AAACAAkAAAASAP3/AAACAAgAAAASAP7/AAACAAkAAAASAP//AAACAAoAAAARAPr/AAABAAkAAAARAPv/AAABAAoAAAARAPz/AAABAAcAAAARAP3/AAABAAgAAAARAP7/AAABAAkAAAARAP//AAABAAoAAAAQAP//AAAEAAoAAAAQAP7/AAAEAAkAAAAQAP3/AAAEAAgAAAAQAPz/AAAEAAcAAAAQAPv/AAAEAAoAAAAQAPr/AAAEAAkAAAAcAAAAAAACAAcAAAAdAAAAAAADAAcAAAAcAPb/AAACAAgAAAAdAPb/AAADAAgAAAAQAPf/AAAEAAcAAAAQAPj/AAAEAAgAAAAQAPn/AAAEAAkAAAARAPf/AAABAAcAAAARAPj/AAABAAgAAAARAPn/AAABAAkAAAASAPf/AAACAAcAAAASAPj/AAACAAgAAAASAPn/AAACAAkAAAATAPf/AAADAAcAAAATAPj/AAADAAgAAAATAPn/AAADAAkAAAAUAPf/AAAEAAcAAAAUAPj/AAAEAAgAAAAUAPn/AAAEAAkAAAAVAPf/AAABAAcAAAAVAPj/AAABAAgAAAAVAPn/AAABAAkAAAAWAPf/AAACAAcAAAAWAPj/AAACAAgAAAAWAPn/AAACAAkAAAAXAPf/AAADAAcAAAAXAPj/AAADAAgAAAAXAPn/AAADAAkAAAAYAPf/AAAEAAcAAAAYAPj/AAAEAAgAAAAYAPn/AAAEAAkAAAAZAPf/AAABAAcAAAAZAPj/AAABAAgAAAAZAPn/AAABAAkAAAAaAPf/AAACAAcAAAAaAPj/AAACAAgAAAAaAPn/AAACAAkAAAAbAPf/AAADAAcAAAAbAPj/AAADAAgAAAAbAPn/AAADAAkAAAAcAPf/AAAEAAcAAAAcAPj/AAAEAAgAAAAcAPn/AAAEAAkAAAAdAPf/AAABAAcAAAAdAPj/AAABAAgAAAAdAPn/AAABAAkAAAAeAPf/AAACAAcAAAAeAPj/AAACAAgAAAAeAPn/AAACAAkAAAAfAPf/AAADAAcAAAAfAPj/AAADAAgAAAAfAPn/AAADAAkAAAAgAPf/AAAEAAcAAAAgAPj/AAAEAAgAAAAgAPn/AAAEAAkAAAA=")
@@ -522,24 +521,6 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_4xnb3")
 position = Vector2(0, -530)
 tile_map_data = PackedByteArray("AAAeAAAAAAANABAAAAAfAAAAAAAIAAUAAAAgAAAAAAAJAAUAAAAhAPr/AAAGAAcAAAAhAPv/AAAGAAgAAAAhAPz/AAAGAAkAAAAhAP3/AAAGAAcAAAAhAP7/AAAGAAgAAAAhAP//AAAGAAkAAAAhAAAAAAAMAA0AAAAXAAAAAAAIAAUAAAAVAAAAAAANABAAAAAWAAAAAAAHAAUAAAAPAPr/AAAHAAgAAAAPAPv/AAAHAAkAAAAPAPz/AAAHAAcAAAAPAP3/AAAHAAcAAAAPAP7/AAAHAAgAAAAPAP//AAAHAAkAAAARAAAAAAAIAA0AAAASAAAAAAAHAAUAAAATAAAAAAAIAAUAAAAUAAAAAAAJAAUAAAAPAAAAAAAGAA0AAAAQAAAAAAAHAA0AAAAbAAAAAAAIAAUAAAAcAAAAAAANAA8AAAAdAAAAAAAMABAAAAAYAAAAAAAHAAUAAAAZAAAAAAAIAAUAAAAaAAAAAAAHAAUAAAAPAPP/AAAHAAYAAAAPAPT/AAAHAAcAAAAPAPX/AAAHAAgAAAAPAPb/AAAHAAkAAAAQAPP/AAAJAAEAAAARAPP/AAAGAAEAAAASAPP/AAAHAAEAAAATAPP/AAAGAAEAAAAUAPP/AAAHAAEAAAAVAPP/AAAGAAEAAAAWAPP/AAAHAAEAAAAXAPP/AAAIAAEAAAAYAPP/AAAJAAEAAAAZAPP/AAAGAAEAAAAaAPP/AAAHAAEAAAAbAPP/AAAIAAEAAAAcAPP/AAAJAAEAAAAdAPP/AAAGAAEAAAAeAPP/AAAHAAEAAAAfAPP/AAAGAAEAAAAgAPP/AAAJAAEAAAAhAPP/AAAGAAYAAAAhAPT/AAAGAAcAAAAhAPX/AAAGAAcAAAAhAPb/AAAGAAgAAAAPAPf/AAAHAAcAAAAPAPj/AAAHAAgAAAAPAPn/AAAHAAkAAAAQAPT/AAAJAAIAAAAQAPX/AAAEAAQAAAAQAPb/AAAEAAUAAAARAPT/AAAGAAIAAAARAPX/AAAGAAIAAAARAPb/AAABAAUAAAASAPT/AAAHAAIAAAASAPX/AAAHAAIAAAASAPb/AAACAAUAAAATAPT/AAAGAAIAAAATAPX/AAAGAAIAAAATAPb/AAADAAUAAAAUAPT/AAAHAAIAAAAUAPX/AAAHAAIAAAAUAPb/AAAEAAUAAAAVAPT/AAAGAAIAAAAVAPX/AAABAAQAAAAVAPb/AAABAAUAAAAWAPT/AAAHAAIAAAAWAPX/AAACAAQAAAAWAPb/AAACAAUAAAAXAPT/AAAIAAIAAAAXAPX/AAADAAQAAAAXAPb/AAADAAUAAAAYAPT/AAAJAAIAAAAYAPX/AAAEAAQAAAAYAPb/AAAEAAUAAAAZAPT/AAAGAAIAAAAZAPX/AAABAAQAAAAZAPb/AAABAAUAAAAaAPT/AAAHAAIAAAAaAPX/AAACAAQAAAAaAPb/AAACAAUAAAAbAPT/AAAGAAIAAAAbAPX/AAADAAQAAAAbAPb/AAADAAUAAAAcAPT/AAAHAAIAAAAcAPX/AAAEAAQAAAAcAPb/AAAEAAUAAAAdAPT/AAAIAAIAAAAdAPX/AAADAAQAAAAdAPb/AAADAAUAAAAeAPT/AAAJAAIAAAAeAPX/AAAEAAQAAAAeAPb/AAAEAAUAAAAfAPT/AAAGAAIAAAAfAPX/AAAEAAQAAAAfAPb/AAAEAAUAAAAgAPT/AAAJAAIAAAAgAPX/AAAEAAQAAAAgAPb/AAAEAAUAAAAhAPf/AAAGAAcAAAAhAPj/AAAGAAgAAAAhAPn/AAAGAAkAAAA=")
 tile_set = SubResource("TileSet_s7qt3")
-
-[node name="backdoor_frontroom_dest_marker" type="Marker2D" parent="BackRoom"]
-position = Vector2(464, -540)
-
-[node name="BackRoomEdges" type="Node2D" parent="BackRoom"]
-
-[node name="TopLeft" type="Marker2D" parent="BackRoom/BackRoomEdges"]
-position = Vector2(251, -728)
-
-[node name="BottomRight" type="Marker2D" parent="BackRoom/BackRoomEdges"]
-position = Vector2(533, -513)
-
-[node name="BottomCollision" type="Area2D" parent="BackRoom/BackRoomEdges"]
-position = Vector2(-1, 1)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BackRoom/BackRoomEdges/BottomCollision"]
-position = Vector2(394, -535)
-shape = SubResource("RectangleShape2D_g03oc")
 
 [node name="EntityManager" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -587,6 +568,7 @@ position = Vector2(410, -37)
 [node name="CashRegister" parent="EntityManager" instance=ExtResource("12_evep0")]
 position = Vector2(448, -145)
 
-[connection signal="body_entered" from="BackRoom/MoveFrontRoomDetection" to="." method="_on_move_front_room_detection_body_entered"]
-[connection signal="body_entered" from="BackRoom/BackRoomEdges/BottomCollision" to="." method="_on_bottom_collision_body_entered_backroom"]
-[connection signal="body_exited" from="BackRoom/BackRoomEdges/BottomCollision" to="." method="_on_bottom_collision_body_exited_backroom"]
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+visible = false
+tile_map_data = PackedByteArray("AAAUAOf/AAAAAAAAAwAUAOn/AAAAAAAAAwAXAOr/AAAAAAAABAAWAOX/AAAAAAAAAQAXAOX/AAAAAAAAAQAZAOb/AAAAAAAAAQAaAOf/AAAAAAAAAQAgAOX/AAAAAAAAAgAQAPr/AAAAAAAABQAQAPT/AAAAAAAABQAWAPT/AAAAAAAABQA=")
+tile_set = SubResource("TileSet_fkrch")

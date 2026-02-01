@@ -15,7 +15,7 @@ extends Entity	#will help store placement and inventory information for persiste
 
 # default vars
 const MAX_AMT: int = 8	## Max amount crates can hold
-var crate_inv_amt : int = 8	## Current amount this crate has
+var crate_inv_amt : int = 0	## Current amount this crate has
 
 func _ready()-> void:
 	#links interactable template to cauldron specific method (needed for all interactables)

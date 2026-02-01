@@ -1,24 +1,212 @@
-[gd_scene load_steps=27 format=4 uid="uid://c0wgfjbxk58k0"]
+[gd_scene load_steps=28 format=4 uid="uid://ct477pxb22qoi"]
 
-[ext_resource type="Script" uid="uid://cyi5m0rhrv7o2" path="res://scenes/player_shop/main_shop.gd" id="1_47hg3"]
-[ext_resource type="Texture2D" uid="uid://cq4mo6l3w2oka" path="res://assets/interior/shop/background.png" id="2_ixtpo"]
-[ext_resource type="Script" uid="uid://dfnny774vqx3t" path="res://scenes/player_shop/astar.gd" id="3_85e8s"]
-[ext_resource type="Texture2D" uid="uid://4c4v2xp0o710" path="res://assets/interior/shop/inshop01.png" id="4_85e8s"]
-[ext_resource type="PackedScene" uid="uid://ckd2slmjdifxy" path="res://scenes/coin_ui/player_coin.tscn" id="4_g03oc"]
-[ext_resource type="Script" uid="uid://v2b04jaxuakv" path="res://globals/entity_manager.gd" id="5_41gid"]
-[ext_resource type="Texture2D" uid="uid://b6sxxon0bv8sh" path="res://assets/interior/shop/counter_all01.png" id="5_47hg3"]
-[ext_resource type="PackedScene" uid="uid://nfogt8087sfy" path="res://scenes/barrel/barrel.tscn" id="6_85e8s"]
-[ext_resource type="PackedScene" uid="uid://b0flhrlw7t57t" path="res://scenes/player/player.tscn" id="6_b6yhm"]
-[ext_resource type="PackedScene" uid="uid://c0nam2jyacktb" path="res://scenes/cauldron/cauldron.tscn" id="7_47hg3"]
-[ext_resource type="PackedScene" uid="uid://m4k8qbbqo7ha" path="res://scenes/shelf/shelf.tscn" id="7_ylhot"]
-[ext_resource type="PackedScene" uid="uid://c13ewv50qvs46" path="res://scenes/crate/crate.tscn" id="8_b6yhm"]
-[ext_resource type="PackedScene" uid="uid://dk76x6o356j3i" path="res://scenes/player_shop/npc_spawner.tscn" id="12_47hg3"]
-[ext_resource type="PackedScene" uid="uid://bk1hol15q64bh" path="res://scenes/inventory/inv_ui.tscn" id="14_paag6"]
-[ext_resource type="PackedScene" uid="uid://ydlnke6gesg1" path="res://scenes/cash_register/cash_register.tscn" id="14_ylhot"]
-[ext_resource type="PackedScene" uid="uid://g1ngeh7fhfwq" path="res://scenes/bed/bed.tscn" id="16_0rphg"]
+[ext_resource type="Script" uid="uid://hhi25ocanfc8" path="res://scenes/grid_placement/grid_placement.gd" id="1_fq01t"]
+[ext_resource type="Texture2D" uid="uid://cq4mo6l3w2oka" path="res://assets/interior/shop/background.png" id="2_ym71g"]
+[ext_resource type="PackedScene" uid="uid://ckd2slmjdifxy" path="res://scenes/coin_ui/player_coin.tscn" id="3_u04ik"]
+[ext_resource type="Texture2D" uid="uid://4c4v2xp0o710" path="res://assets/interior/shop/inshop01.png" id="4_vmht1"]
+[ext_resource type="Texture2D" uid="uid://b6sxxon0bv8sh" path="res://assets/interior/shop/counter_all01.png" id="5_fpmwk"]
+[ext_resource type="PackedScene" uid="uid://nfogt8087sfy" path="res://scenes/barrel/barrel.tscn" id="6_wxjbm"]
+[ext_resource type="PackedScene" uid="uid://g1ngeh7fhfwq" path="res://scenes/bed/bed.tscn" id="7_tu3xx"]
+[ext_resource type="PackedScene" uid="uid://c13ewv50qvs46" path="res://scenes/crate/crate.tscn" id="8_qajh6"]
+[ext_resource type="PackedScene" uid="uid://c0nam2jyacktb" path="res://scenes/cauldron/cauldron.tscn" id="9_y8302"]
+[ext_resource type="PackedScene" uid="uid://m4k8qbbqo7ha" path="res://scenes/shelf/shelf.tscn" id="10_w7g5k"]
+[ext_resource type="PackedScene" uid="uid://cysl4wlh1iw8n" path="res://scenes/grid_placement/invalid_block.tscn" id="11_fpmwk"]
+[ext_resource type="PackedScene" uid="uid://b0flhrlw7t57t" path="res://scenes/player/player.tscn" id="11_pgdk6"]
+[ext_resource type="Script" uid="uid://v2b04jaxuakv" path="res://globals/entity_manager.gd" id="12_vmht1"]
+[ext_resource type="PackedScene" uid="uid://ydlnke6gesg1" path="res://scenes/cash_register/cash_register.tscn" id="13_fpmwk"]
+[ext_resource type="PackedScene" uid="uid://dk76x6o356j3i" path="res://scenes/player_shop/npc_spawner.tscn" id="14_wxjbm"]
+[ext_resource type="Script" uid="uid://348byftoo3e7" path="res://globals/direction_hold_controller.gd" id="16_wxjbm"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fq01t"]
+texture = ExtResource("4_vmht1")
+6:0/0 = 0
+7:0/0 = 0
+8:0/0 = 0
+9:0/0 = 0
+10:0/0 = 0
+11:0/0 = 0
+12:0/0 = 0
+13:0/0 = 0
+14:0/0 = 0
+15:0/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+8:1/0 = 0
+9:1/0 = 0
+11:1/0 = 0
+12:1/0 = 0
+13:1/0 = 0
+14:1/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+6:2/0 = 0
+7:2/0 = 0
+8:2/0 = 0
+9:2/0 = 0
+11:2/0 = 0
+12:2/0 = 0
+13:2/0 = 0
+14:2/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+6:3/0 = 0
+7:3/0 = 0
+8:3/0 = 0
+9:3/0 = 0
+11:3/0 = 0
+12:3/0 = 0
+13:3/0 = 0
+14:3/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+8:4/0 = 0
+9:4/0 = 0
+10:4/0 = 0
+11:4/0 = 0
+12:4/0 = 0
+13:4/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+4:5/0 = 0
+6:5/0 = 0
+7:5/0 = 0
+8:5/0 = 0
+9:5/0 = 0
+11:5/0 = 0
+12:5/0 = 0
+13:5/0 = 0
+14:5/0 = 0
+0:6/0 = 0
+1:6/0 = 0
+2:6/0 = 0
+3:6/0 = 0
+4:6/0 = 0
+5:6/0 = 0
+6:6/0 = 0
+7:6/0 = 0
+11:6/0 = 0
+12:6/0 = 0
+1:7/0 = 0
+2:7/0 = 0
+3:7/0 = 0
+4:7/0 = 0
+6:7/0 = 0
+7:7/0 = 0
+11:7/0 = 0
+12:7/0 = 0
+14:7/0 = 0
+15:7/0 = 0
+16:7/0 = 0
+17:7/0 = 0
+1:8/0 = 0
+2:8/0 = 0
+3:8/0 = 0
+4:8/0 = 0
+6:8/0 = 0
+7:8/0 = 0
+11:8/0 = 0
+12:8/0 = 0
+1:9/0 = 0
+2:9/0 = 0
+3:9/0 = 0
+4:9/0 = 0
+6:9/0 = 0
+7:9/0 = 0
+11:9/0 = 0
+12:9/0 = 0
+1:10/0 = 0
+2:10/0 = 0
+3:10/0 = 0
+4:10/0 = 0
+17:10/0 = 0
+18:10/0 = 0
+6:11/0 = 0
+7:11/0 = 0
+8:11/0 = 0
+9:11/0 = 0
+10:11/0 = 0
+11:11/0 = 0
+12:11/0 = 0
+13:11/0 = 0
+15:11/0 = 0
+16:11/0 = 0
+6:12/0 = 0
+7:12/0 = 0
+8:12/0 = 0
+10:12/0 = 0
+11:12/0 = 0
+12:12/0 = 0
+15:12/0 = 0
+16:12/0 = 0
+0:13/0 = 0
+1:13/0 = 0
+2:13/0 = 0
+3:13/0 = 0
+4:13/0 = 0
+5:13/0 = 0
+6:13/0 = 0
+7:13/0 = 0
+8:13/0 = 0
+10:13/0 = 0
+11:13/0 = 0
+12:13/0 = 0
+0:14/0 = 0
+1:14/0 = 0
+2:14/0 = 0
+3:14/0 = 0
+4:14/0 = 0
+5:14/0 = 0
+10:14/0 = 0
+11:14/0 = 0
+12:14/0 = 0
+0:15/0 = 0
+1:15/0 = 0
+2:15/0 = 0
+3:15/0 = 0
+4:15/0 = 0
+5:15/0 = 0
+6:15/0 = 0
+7:15/0 = 0
+8:15/0 = 0
+10:15/0 = 0
+11:15/0 = 0
+12:15/0 = 0
+13:15/0 = 0
+0:16/0 = 0
+1:16/0 = 0
+2:16/0 = 0
+3:16/0 = 0
+4:16/0 = 0
+5:16/0 = 0
+12:16/0 = 0
+13:16/0 = 0
+0:17/0 = 0
+1:17/0 = 0
+2:17/0 = 0
+3:17/0 = 0
+4:17/0 = 0
+5:17/0 = 0
+0:18/0 = 0
+1:18/0 = 0
+2:18/0 = 0
+3:18/0 = 0
+4:18/0 = 0
+5:18/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_ym71g"]
+sources/0 = SubResource("TileSetAtlasSource_fq01t")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6w02k"]
-texture = ExtResource("4_85e8s")
+texture = ExtResource("4_vmht1")
 6:0/0 = 0
 7:0/0 = 0
 8:0/0 = 0
@@ -195,7 +383,7 @@ texture = ExtResource("4_85e8s")
 sources/0 = SubResource("TileSetAtlasSource_6w02k")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8eiuf"]
-texture = ExtResource("5_47hg3")
+texture = ExtResource("5_fpmwk")
 1:0/0 = 0
 2:0/0 = 0
 3:0/0 = 0
@@ -249,7 +437,7 @@ sources/1 = SubResource("TileSetAtlasSource_8eiuf")
 bg_color = Color(0, 0, 0, 0.54901963)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4xnb3"]
-texture = ExtResource("4_85e8s")
+texture = ExtResource("4_vmht1")
 6:0/0 = 0
 7:0/0 = 0
 8:0/0 = 0
@@ -523,65 +711,82 @@ texture = ExtResource("4_85e8s")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_4xnb3")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_s7qt3"]
-size = Vector2(36, 20)
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_kpwuw"]
+scenes/1/scene = ExtResource("6_wxjbm")
+scenes/2/scene = ExtResource("7_tu3xx")
+scenes/3/scene = ExtResource("8_qajh6")
+scenes/4/scene = ExtResource("9_y8302")
+scenes/5/scene = ExtResource("10_w7g5k")
+scenes/6/scene = ExtResource("11_fpmwk")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6w02k"]
-size = Vector2(34, 21)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_g03oc"]
-size = Vector2(106, 36)
+[sub_resource type="TileSet" id="TileSet_epjix"]
+custom_data_layer_0/name = "shelf_footprint"
+custom_data_layer_0/type = 28
+sources/0 = SubResource("TileSetScenesCollectionSource_kpwuw")
 
 [node name="MainShop" type="Node2D"]
-script = ExtResource("1_47hg3")
+script = ExtResource("1_fq01t")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 offset_left = -120.0
 offset_top = -925.0
 offset_right = 955.0
 offset_bottom = 150.0
-texture = ExtResource("2_ixtpo")
+texture = ExtResource("2_ym71g")
 
 [node name="Static_UI" type="CanvasLayer" parent="."]
 
-[node name="Inv_UI" parent="Static_UI" instance=ExtResource("14_paag6")]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-offset_left = -337.0
-offset_top = -186.0
-offset_right = -231.0
-offset_bottom = -157.0
-grow_vertical = 0
-scale = Vector2(5.5, 5.5)
-
-[node name="Coin" parent="Static_UI" node_paths=PackedStringArray("player") instance=ExtResource("4_g03oc")]
+[node name="Coin" parent="Static_UI" node_paths=PackedStringArray("player") instance=ExtResource("3_u04ik")]
 offset_left = -4.0
 offset_top = -3.0
 offset_right = -4.0
 offset_bottom = -3.0
 scale = Vector2(1.5, 1.5)
-player = NodePath("../../EntityManager/Player")
+player = NodePath("../../Player")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Static_UI"]
+layout_direction = 2
+offset_left = -4.0
+offset_top = 47.0
+offset_right = 79.0
+offset_bottom = 84.0
+scale = Vector2(2.25, 2.25)
+theme_override_constants/separation = 2
+
+[node name="BlankTexture" type="TextureRect" parent="Static_UI/HBoxContainer"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Cost" type="Label" parent="Static_UI/HBoxContainer"]
+custom_minimum_size = Vector2(0, 23)
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+text = "-10"
+
+[node name="ConnectingLayer" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAAcAPP/AAACAAoAAAAdAPP/AAADAAoAAAAcAPL/AAACAAkAAAAdAPL/AAADAAkAAAAZAAAAAAACAAkAAAAaAAAAAAADAAkAAAAcAO3/AAACAAkAAAAdAO3/AAADAAkAAAA=")
+tile_set = SubResource("TileSet_ym71g")
 
 [node name="FrontRoom" type="Node2D" parent="."]
 
-[node name="AstarTilemap" type="Node2D" parent="FrontRoom"]
-script = ExtResource("3_85e8s")
+[node name="FrontCam" type="Camera2D" parent="FrontRoom"]
+position = Vector2(392, -116)
+zoom = Vector2(4, 4)
 
-[node name="Floor" type="TileMapLayer" parent="FrontRoom/AstarTilemap"]
-tile_map_data = PackedByteArray("AAAUAPz/AAAEAAcAAAAUAP3/AAAEAAgAAAAUAP7/AAAEAAkAAAAUAP//AAAEAAoAAAAVAPz/AAABAAcAAAAVAP3/AAABAAgAAAAVAP7/AAABAAkAAAAVAP//AAABAAoAAAAWAPz/AAACAAcAAAAWAP3/AAACAAgAAAAWAP7/AAACAAkAAAAWAP//AAACAAoAAAAXAPz/AAADAAcAAAAXAP3/AAADAAgAAAAXAP7/AAADAAkAAAAXAP//AAADAAoAAAAVAPj/AAABAAcAAAAVAPn/AAABAAgAAAAVAPr/AAABAAkAAAAVAPv/AAABAAoAAAAWAPj/AAACAAcAAAAWAPn/AAACAAgAAAAWAPr/AAACAAkAAAAWAPv/AAACAAoAAAAXAPj/AAADAAcAAAAXAPn/AAADAAgAAAAXAPr/AAADAAkAAAAXAPv/AAADAAoAAAAUAPj/AAAEAAcAAAAUAPn/AAAEAAgAAAAUAPr/AAAEAAkAAAAUAPv/AAAEAAoAAAAUAPT/AAAEAAcAAAAUAPX/AAAEAAgAAAAUAPb/AAAEAAkAAAAUAPf/AAAEAAoAAAAVAPT/AAABAAcAAAAVAPX/AAABAAgAAAAVAPb/AAABAAkAAAAVAPf/AAABAAoAAAAWAPT/AAACAAcAAAAWAPX/AAACAAgAAAAWAPb/AAACAAkAAAAWAPf/AAACAAoAAAAXAPT/AAADAAcAAAAXAPX/AAADAAgAAAAXAPb/AAADAAkAAAAXAPf/AAADAAoAAAAZAPz/AAABAAcAAAAaAPz/AAACAAcAAAAaAP3/AAACAAgAAAAaAP7/AAACAAkAAAAaAP//AAACAAoAAAAbAPz/AAADAAcAAAAbAP3/AAADAAgAAAAbAP7/AAADAAkAAAAbAP//AAADAAoAAAAcAPz/AAAEAAcAAAAcAP3/AAAEAAgAAAAcAP7/AAAEAAkAAAAcAP//AAAEAAoAAAAdAPz/AAABAAcAAAAdAP3/AAABAAgAAAAdAP7/AAABAAkAAAAdAP//AAABAAoAAAAeAPz/AAACAAcAAAAeAP3/AAACAAgAAAAeAP7/AAACAAkAAAAeAP//AAACAAoAAAAfAPz/AAADAAcAAAAfAP3/AAADAAgAAAAfAP7/AAADAAkAAAAfAP//AAADAAoAAAAgAPz/AAAEAAcAAAAgAP3/AAAEAAgAAAAgAP7/AAAEAAkAAAAgAP//AAAEAAoAAAAdAPj/AAABAAcAAAAdAPn/AAABAAgAAAAdAPr/AAABAAkAAAAdAPv/AAABAAoAAAAeAPj/AAACAAcAAAAeAPn/AAACAAgAAAAeAPr/AAACAAkAAAAeAPv/AAACAAoAAAAfAPj/AAADAAcAAAAfAPn/AAADAAgAAAAfAPr/AAADAAkAAAAfAPv/AAADAAoAAAAgAPj/AAAEAAcAAAAgAPn/AAAEAAgAAAAgAPr/AAAEAAkAAAAgAPv/AAAEAAoAAAAZAPj/AAABAAcAAAAZAPn/AAABAAgAAAAZAPr/AAABAAkAAAAZAPv/AAABAAoAAAAaAPj/AAACAAcAAAAaAPn/AAACAAgAAAAaAPr/AAACAAkAAAAaAPv/AAACAAoAAAAbAPj/AAADAAcAAAAbAPn/AAADAAgAAAAbAPr/AAADAAkAAAAbAPv/AAADAAoAAAAcAPj/AAAEAAcAAAAcAPn/AAAEAAgAAAAcAPr/AAAEAAkAAAAcAPv/AAAEAAoAAAAZAPT/AAABAAcAAAAZAPX/AAABAAgAAAAZAPb/AAABAAkAAAAZAPf/AAABAAoAAAAaAPT/AAACAAcAAAAaAPX/AAACAAgAAAAaAPb/AAACAAkAAAAaAPf/AAACAAoAAAAbAPT/AAADAAcAAAAbAPX/AAADAAgAAAAbAPb/AAADAAkAAAAbAPf/AAADAAoAAAAcAPT/AAAEAAcAAAAcAPX/AAAEAAgAAAAcAPb/AAAEAAkAAAAcAPf/AAAEAAoAAAAdAPT/AAABAAcAAAAdAPX/AAABAAgAAAAdAPb/AAABAAkAAAAdAPf/AAABAAoAAAAeAPT/AAACAAcAAAAeAPX/AAACAAgAAAAeAPb/AAACAAkAAAAeAPf/AAACAAoAAAAfAPT/AAADAAcAAAAfAPX/AAADAAgAAAAfAPb/AAADAAkAAAAfAPf/AAADAAoAAAAgAPT/AAAEAAcAAAAgAPX/AAAEAAgAAAAgAPb/AAAEAAkAAAAgAPf/AAAEAAoAAAAdAPL/AAADAAcAAAAdAPP/AAADAAgAAAAcAPL/AAACAAcAAAAcAPP/AAACAAgAAAAZAP//AAABAAoAAAAZAP7/AAABAAkAAAAZAP3/AAABAAgAAAAYAPz/AAAEAAcAAAAYAPv/AAAEAAoAAAAYAPr/AAAEAAkAAAAYAPn/AAAEAAgAAAAYAPj/AAAEAAcAAAAYAPf/AAAEAAoAAAAYAPb/AAAEAAkAAAAYAPX/AAAEAAgAAAAYAPT/AAAEAAcAAAAYAP3/AAAEAAgAAAAYAP7/AAAEAAkAAAAYAP//AAAEAAoAAAAZAAAAAAACAAcAAAAaAAAAAAADAAcAAAATAPT/AAADAAcAAAATAPX/AAADAAgAAAATAPb/AAADAAkAAAATAPf/AAADAAoAAAATAPj/AAADAAcAAAATAPn/AAADAAgAAAATAPr/AAADAAkAAAATAPv/AAADAAoAAAATAPz/AAADAAcAAAATAP3/AAADAAgAAAATAP7/AAADAAkAAAATAP//AAADAAoAAAASAPz/AAACAAcAAAASAPv/AAACAAoAAAASAPr/AAACAAkAAAASAPn/AAACAAgAAAASAPj/AAACAAcAAAASAPf/AAACAAoAAAASAPb/AAACAAkAAAASAPX/AAACAAgAAAASAPT/AAACAAcAAAASAP3/AAACAAgAAAASAP7/AAACAAkAAAASAP//AAACAAoAAAARAPT/AAABAAcAAAARAPX/AAABAAgAAAARAPb/AAABAAkAAAARAPf/AAABAAoAAAARAPj/AAABAAcAAAARAPn/AAABAAgAAAARAPr/AAABAAkAAAARAPv/AAABAAoAAAARAPz/AAABAAcAAAARAP3/AAABAAgAAAARAP7/AAABAAkAAAARAP//AAABAAoAAAAQAP//AAAEAAoAAAAQAP7/AAAEAAkAAAAQAP3/AAAEAAgAAAAQAPz/AAAEAAcAAAAQAPv/AAAEAAoAAAAQAPr/AAAEAAkAAAAQAPn/AAAEAAgAAAAQAPj/AAAEAAcAAAAQAPf/AAAEAAoAAAAQAPb/AAAEAAkAAAAQAPX/AAAEAAgAAAAQAPT/AAAEAAcAAAA=")
+[node name="Floor" type="TileMapLayer" parent="FrontRoom"]
+tile_map_data = PackedByteArray("AAAUAPz/AAAEAAcAAAAUAP3/AAAEAAgAAAAUAP7/AAAEAAkAAAAUAP//AAAEAAoAAAAVAPz/AAABAAcAAAAVAP3/AAABAAgAAAAVAP7/AAABAAkAAAAVAP//AAABAAoAAAAWAPz/AAACAAcAAAAWAP3/AAACAAgAAAAWAP7/AAACAAkAAAAWAP//AAACAAoAAAAXAPz/AAADAAcAAAAXAP3/AAADAAgAAAAXAP7/AAADAAkAAAAXAP//AAADAAoAAAAVAPj/AAABAAcAAAAVAPn/AAABAAgAAAAVAPr/AAABAAkAAAAVAPv/AAABAAoAAAAWAPj/AAACAAcAAAAWAPn/AAACAAgAAAAWAPr/AAACAAkAAAAWAPv/AAACAAoAAAAXAPj/AAADAAcAAAAXAPn/AAADAAgAAAAXAPr/AAADAAkAAAAXAPv/AAADAAoAAAAUAPj/AAAEAAcAAAAUAPn/AAAEAAgAAAAUAPr/AAAEAAkAAAAUAPv/AAAEAAoAAAAUAPT/AAAEAAcAAAAUAPX/AAAEAAgAAAAUAPb/AAAEAAkAAAAUAPf/AAAEAAoAAAAVAPT/AAABAAcAAAAVAPX/AAABAAgAAAAVAPb/AAABAAkAAAAVAPf/AAABAAoAAAAWAPT/AAACAAcAAAAWAPX/AAACAAgAAAAWAPb/AAACAAkAAAAWAPf/AAACAAoAAAAXAPT/AAADAAcAAAAXAPX/AAADAAgAAAAXAPb/AAADAAkAAAAXAPf/AAADAAoAAAAZAPz/AAABAAcAAAAaAPz/AAACAAcAAAAaAP3/AAACAAgAAAAaAP7/AAACAAkAAAAaAP//AAACAAoAAAAbAPz/AAADAAcAAAAbAP3/AAADAAgAAAAbAP7/AAADAAkAAAAbAP//AAADAAoAAAAcAPz/AAAEAAcAAAAcAP3/AAAEAAgAAAAcAP7/AAAEAAkAAAAcAP//AAAEAAoAAAAdAPz/AAABAAcAAAAdAP3/AAABAAgAAAAdAP7/AAABAAkAAAAdAP//AAABAAoAAAAeAPz/AAACAAcAAAAeAP3/AAACAAgAAAAeAP7/AAACAAkAAAAeAP//AAACAAoAAAAfAPz/AAADAAcAAAAfAP3/AAADAAgAAAAfAP7/AAADAAkAAAAfAP//AAADAAoAAAAgAPz/AAAEAAcAAAAgAP3/AAAEAAgAAAAgAP7/AAAEAAkAAAAgAP//AAAEAAoAAAAdAPj/AAABAAcAAAAdAPn/AAABAAgAAAAdAPr/AAABAAkAAAAdAPv/AAABAAoAAAAeAPj/AAACAAcAAAAeAPn/AAACAAgAAAAeAPr/AAACAAkAAAAeAPv/AAACAAoAAAAfAPj/AAADAAcAAAAfAPn/AAADAAgAAAAfAPr/AAADAAkAAAAfAPv/AAADAAoAAAAgAPj/AAAEAAcAAAAgAPn/AAAEAAgAAAAgAPr/AAAEAAkAAAAgAPv/AAAEAAoAAAAZAPj/AAABAAcAAAAZAPn/AAABAAgAAAAZAPr/AAABAAkAAAAZAPv/AAABAAoAAAAaAPj/AAACAAcAAAAaAPn/AAACAAgAAAAaAPr/AAACAAkAAAAaAPv/AAACAAoAAAAbAPj/AAADAAcAAAAbAPn/AAADAAgAAAAbAPr/AAADAAkAAAAbAPv/AAADAAoAAAAcAPj/AAAEAAcAAAAcAPn/AAAEAAgAAAAcAPr/AAAEAAkAAAAcAPv/AAAEAAoAAAAZAPT/AAABAAcAAAAZAPX/AAABAAgAAAAZAPb/AAABAAkAAAAZAPf/AAABAAoAAAAaAPT/AAACAAcAAAAaAPX/AAACAAgAAAAaAPb/AAACAAkAAAAaAPf/AAACAAoAAAAbAPT/AAADAAcAAAAbAPX/AAADAAgAAAAbAPb/AAADAAkAAAAbAPf/AAADAAoAAAAcAPT/AAAEAAcAAAAcAPX/AAAEAAgAAAAcAPb/AAAEAAkAAAAcAPf/AAAEAAoAAAAdAPT/AAABAAcAAAAdAPX/AAABAAgAAAAdAPb/AAABAAkAAAAdAPf/AAABAAoAAAAeAPT/AAACAAcAAAAeAPX/AAACAAgAAAAeAPb/AAACAAkAAAAeAPf/AAACAAoAAAAfAPT/AAADAAcAAAAfAPX/AAADAAgAAAAfAPb/AAADAAkAAAAfAPf/AAADAAoAAAAgAPT/AAAEAAcAAAAgAPX/AAAEAAgAAAAgAPb/AAAEAAkAAAAgAPf/AAAEAAoAAAAZAP//AAABAAoAAAAZAP7/AAABAAkAAAAZAP3/AAABAAgAAAAYAPz/AAAEAAcAAAAYAPv/AAAEAAoAAAAYAPr/AAAEAAkAAAAYAPn/AAAEAAgAAAAYAPj/AAAEAAcAAAAYAPf/AAAEAAoAAAAYAPb/AAAEAAkAAAAYAPX/AAAEAAgAAAAYAPT/AAAEAAcAAAAYAP3/AAAEAAgAAAAYAP7/AAAEAAkAAAAYAP//AAAEAAoAAAATAPT/AAADAAcAAAATAPX/AAADAAgAAAATAPb/AAADAAkAAAATAPf/AAADAAoAAAATAPj/AAADAAcAAAATAPn/AAADAAgAAAATAPr/AAADAAkAAAATAPv/AAADAAoAAAATAPz/AAADAAcAAAATAP3/AAADAAgAAAATAP7/AAADAAkAAAATAP//AAADAAoAAAASAPz/AAACAAcAAAASAPv/AAACAAoAAAASAPr/AAACAAkAAAASAPn/AAACAAgAAAASAPj/AAACAAcAAAASAPf/AAACAAoAAAASAPb/AAACAAkAAAASAPX/AAACAAgAAAASAPT/AAACAAcAAAASAP3/AAACAAgAAAASAP7/AAACAAkAAAASAP//AAACAAoAAAARAPT/AAABAAcAAAARAPX/AAABAAgAAAARAPb/AAABAAkAAAARAPf/AAABAAoAAAARAPj/AAABAAcAAAARAPn/AAABAAgAAAARAPr/AAABAAkAAAARAPv/AAABAAoAAAARAPz/AAABAAcAAAARAP3/AAABAAgAAAARAP7/AAABAAkAAAARAP//AAABAAoAAAAQAP//AAAEAAoAAAAQAP7/AAAEAAkAAAAQAP3/AAAEAAgAAAAQAPz/AAAEAAcAAAAQAPv/AAAEAAoAAAAQAPr/AAAEAAkAAAAQAPn/AAAEAAgAAAAQAPj/AAAEAAcAAAAQAPf/AAAEAAoAAAAQAPb/AAAEAAkAAAAQAPX/AAAEAAgAAAAQAPT/AAAEAAcAAAA=")
 tile_set = SubResource("TileSet_8eiuf")
 
-[node name="Counters" type="TileMapLayer" parent="FrontRoom/AstarTilemap"]
+[node name="Counters" type="TileMapLayer" parent="FrontRoom"]
 tile_map_data = PackedByteArray("AAAeAPf/AQAGAAIAAAAbAPf/AQAGAAYAAAAcAPf/AQABAAEAAAAdAPf/AQABAAEAAAAbAPb/AQAGAAMAAAAeAPb/AQAFAAAAAAA=")
 tile_set = SubResource("TileSet_bg63s")
-
-[node name="Spawn" type="Marker2D" parent="FrontRoom/AstarTilemap"]
-position = Vector2(421, 5)
-
-[node name="Checkout" type="Marker2D" parent="FrontRoom/AstarTilemap"]
-position = Vector2(448, -122)
 
 [node name="Back" type="Panel" parent="FrontRoom"]
 offset_left = 448.0
@@ -598,48 +803,17 @@ offset_bottom = 26.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_4xnb3")
 
 [node name="Walls" type="TileMapLayer" parent="FrontRoom"]
-tile_map_data = PackedByteArray("AAAaAAAAAAAMABAAAAAbAAAAAAANABAAAAAcAAAAAAAJAAUAAAAdAAAAAAAGAAUAAAAeAAAAAAAHAAUAAAAfAAAAAAAIAAUAAAAgAAAAAAAJAAUAAAAhAPT/AAAGAAcAAAAhAPX/AAAGAAgAAAAhAPb/AAAGAAkAAAAhAPf/AAAGAAcAAAAhAPj/AAAGAAgAAAAhAPn/AAAGAAkAAAAhAPr/AAAGAAcAAAAhAPv/AAAGAAgAAAAhAPz/AAAGAAkAAAAhAP3/AAAGAAcAAAAhAP7/AAAGAAgAAAAhAP//AAAGAAkAAAAhAAAAAAAMAA0AAAAQAPL/AAAEAAQAAAAQAPP/AAAEAAUAAAAVAPL/AAABAAQAAAAVAPP/AAABAAUAAAAWAPL/AAACAAQAAAAWAPP/AAACAAUAAAAXAPL/AAADAAQAAAAXAPP/AAADAAUAAAAYAPL/AAAEAAQAAAAYAPP/AAAEAAUAAAAZAPL/AAABAAQAAAAZAPP/AAABAAUAAAAaAPL/AAACAAQAAAAaAPP/AAACAAUAAAAbAPL/AAAEAAQAAAAbAPP/AAAEAAUAAAAgAPL/AAAEAAQAAAAgAPP/AAAEAAUAAAAhAPL/AAAGAAcAAAAhAPP/AAAGAAgAAAAQAPD/AAAJAAEAAAARAPD/AAAGAAEAAAASAPD/AAAHAAEAAAATAPD/AAAGAAEAAAAUAPD/AAAHAAEAAAAVAPD/AAAGAAEAAAAVAPH/AAAGAAIAAAAWAPD/AAAHAAEAAAAWAPH/AAAHAAIAAAAXAPD/AAAIAAEAAAAXAPH/AAAIAAIAAAAYAPD/AAAJAAEAAAAYAPH/AAAJAAIAAAAZAPD/AAAGAAEAAAAZAPH/AAAGAAIAAAAaAPD/AAAHAAEAAAAaAPH/AAAHAAIAAAAbAPD/AAAIAAEAAAAbAPH/AAAGAAIAAAAcAPD/AAAJAAEAAAAdAPD/AAAGAAEAAAAeAPD/AAAHAAEAAAAfAPD/AAAGAAEAAAAgAPD/AAAJAAEAAAAgAPH/AAAJAAIAAAAhAPD/AAAGAAYAAAAhAPH/AAAGAAcAAAAcAPH/AAAHAAIAAAAcAPL/AAALAA4AAAAcAPP/AAALAA8AAAAdAPH/AAAIAAIAAAAdAPL/AAAKAA4AAAAdAPP/AAAKAA8AAAAeAPH/AAAJAAIAAAAeAPL/AAAEAAQAAAAeAPP/AAAEAAUAAAAfAPL/AAAEAAQAAAAfAPP/AAAEAAUAAAAfAPH/AAAGAAIAAAARAPL/AAAGAAIAAAARAPP/AAABAAUAAAASAPL/AAAHAAIAAAASAPP/AAACAAUAAAATAPL/AAAGAAIAAAATAPP/AAADAAUAAAAUAPL/AAAHAAIAAAAUAPP/AAAEAAUAAAARAPH/AAAGAAIAAAASAPH/AAAHAAIAAAATAPH/AAAGAAIAAAAUAPH/AAAHAAIAAAAXAAAAAAAIAAUAAAAYAAAAAAAMAA8AAAAZAAAAAAANAA8AAAAVAAAAAAANABAAAAAWAAAAAAAHAAUAAAAQAPH/AAAJAAIAAAAPAPD/AAAHAAYAAAAPAPH/AAAHAAcAAAAPAPL/AAAHAAgAAAAPAPP/AAAHAAkAAAAPAPT/AAAHAAcAAAAPAPX/AAAHAAgAAAAPAPb/AAAHAAkAAAAPAPf/AAAHAAcAAAAPAPj/AAAHAAgAAAAPAPn/AAAHAAcAAAAPAPr/AAAHAAgAAAAPAPv/AAAHAAkAAAAPAPz/AAAHAAcAAAAPAP3/AAAHAAcAAAAPAP7/AAAHAAgAAAAPAP//AAAHAAkAAAARAAAAAAAIAA0AAAASAAAAAAAHAAUAAAATAAAAAAAIAAUAAAAUAAAAAAAJAAUAAAAPAAAAAAAGAA0AAAAQAAAAAAAHAA0AAAA=")
+tile_map_data = PackedByteArray("AAAbAAAAAAANABAAAAAcAAAAAAAJAAUAAAAdAAAAAAAGAAUAAAAeAAAAAAAHAAUAAAAfAAAAAAAIAAUAAAAgAAAAAAAJAAUAAAAhAPT/AAAGAAcAAAAhAPX/AAAGAAgAAAAhAPb/AAAGAAkAAAAhAPf/AAAGAAcAAAAhAPj/AAAGAAgAAAAhAPn/AAAGAAkAAAAhAPr/AAAGAAcAAAAhAPv/AAAGAAgAAAAhAPz/AAAGAAkAAAAhAP3/AAAGAAcAAAAhAP7/AAAGAAgAAAAhAP//AAAGAAkAAAAhAAAAAAAMAA0AAAAQAPL/AAAEAAQAAAAQAPP/AAAEAAUAAAAVAPL/AAABAAQAAAAVAPP/AAABAAUAAAAWAPL/AAACAAQAAAAWAPP/AAACAAUAAAAXAPL/AAADAAQAAAAXAPP/AAADAAUAAAAYAPL/AAAEAAQAAAAYAPP/AAAEAAUAAAAZAPL/AAABAAQAAAAZAPP/AAABAAUAAAAaAPL/AAACAAQAAAAaAPP/AAACAAUAAAAbAPL/AAAEAAQAAAAbAPP/AAAEAAUAAAAgAPL/AAAEAAQAAAAgAPP/AAAEAAUAAAAhAPL/AAAGAAcAAAAhAPP/AAAGAAgAAAAQAPD/AAAJAAEAAAARAPD/AAAGAAEAAAASAPD/AAAHAAEAAAATAPD/AAAGAAEAAAAUAPD/AAAHAAEAAAAVAPD/AAAGAAEAAAAVAPH/AAAGAAIAAAAWAPD/AAAHAAEAAAAWAPH/AAAHAAIAAAAXAPD/AAAIAAEAAAAXAPH/AAAIAAIAAAAYAPD/AAAJAAEAAAAYAPH/AAAJAAIAAAAZAPD/AAAGAAEAAAAZAPH/AAAGAAIAAAAaAPD/AAAHAAEAAAAaAPH/AAAHAAIAAAAbAPD/AAAIAAEAAAAbAPH/AAAGAAIAAAAcAPD/AAAJAAEAAAAdAPD/AAAGAAEAAAAeAPD/AAAHAAEAAAAfAPD/AAAGAAEAAAAgAPD/AAAJAAEAAAAgAPH/AAAJAAIAAAAhAPD/AAAGAAYAAAAhAPH/AAAGAAcAAAAcAPH/AAAHAAIAAAAcAPL/AAALAA4AAAAcAPP/AAALAA8AAAAdAPH/AAAIAAIAAAAdAPL/AAAKAA4AAAAeAPH/AAAJAAIAAAAeAPL/AAAEAAQAAAAeAPP/AAAEAAUAAAAfAPL/AAAEAAQAAAAfAPP/AAAEAAUAAAAfAPH/AAAGAAIAAAARAPL/AAAGAAIAAAARAPP/AAABAAUAAAASAPL/AAAHAAIAAAASAPP/AAACAAUAAAATAPL/AAAGAAIAAAATAPP/AAADAAUAAAAUAPL/AAAHAAIAAAAUAPP/AAAEAAUAAAARAPH/AAAGAAIAAAASAPH/AAAHAAIAAAATAPH/AAAGAAIAAAAUAPH/AAAHAAIAAAAXAAAAAAAIAAUAAAAYAAAAAAAMAA8AAAAZAAAAAAANAA8AAAAVAAAAAAANABAAAAAWAAAAAAAHAAUAAAAQAPH/AAAJAAIAAAAPAPD/AAAHAAYAAAAPAPH/AAAHAAcAAAAPAPL/AAAHAAgAAAAPAPP/AAAHAAkAAAAPAPT/AAAHAAcAAAAPAPX/AAAHAAgAAAAPAPb/AAAHAAkAAAAPAPf/AAAHAAcAAAAPAPj/AAAHAAgAAAAPAPn/AAAHAAcAAAAPAPr/AAAHAAgAAAAPAPv/AAAHAAkAAAAPAPz/AAAHAAcAAAAPAP3/AAAHAAcAAAAPAP7/AAAHAAgAAAAPAP//AAAHAAkAAAARAAAAAAAIAA0AAAASAAAAAAAHAAUAAAATAAAAAAAIAAUAAAAUAAAAAAAJAAUAAAAPAAAAAAAGAA0AAAAQAAAAAAAHAA0AAAAdAPP/AAAKAA8AAAAaAAAAAAAMABAAAAA=")
 tile_set = SubResource("TileSet_s7qt3")
-
-[node name="MoveTownDetection" type="Area2D" parent="FrontRoom"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FrontRoom/MoveTownDetection"]
-position = Vector2(416, 15)
-shape = SubResource("RectangleShape2D_s7qt3")
-
-[node name="MoveStorageRoomDetection" type="Area2D" parent="FrontRoom"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FrontRoom/MoveStorageRoomDetection"]
-position = Vector2(464, -212)
-shape = SubResource("RectangleShape2D_6w02k")
-
-[node name="frontroom_backdoor_dest_marker" type="Marker2D" parent="FrontRoom"]
-position = Vector2(464, -193)
-
-[node name="FrontRoomEdges" type="Node2D" parent="FrontRoom"]
-
-[node name="TopLeft" type="Marker2D" parent="FrontRoom/FrontRoomEdges"]
-position = Vector2(251, -246)
-
-[node name="BottomRight" type="Marker2D" parent="FrontRoom/FrontRoomEdges"]
-position = Vector2(533, 17)
-
-[node name="BottomCollision" type="Area2D" parent="FrontRoom/FrontRoomEdges"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FrontRoom/FrontRoomEdges/BottomCollision"]
-position = Vector2(394, -3)
-shape = SubResource("RectangleShape2D_g03oc")
 
 [node name="BackRoom" type="Node2D" parent="."]
 
-[node name="MoveFrontRoomDetection" type="Area2D" parent="BackRoom"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BackRoom/MoveFrontRoomDetection"]
-position = Vector2(464, -289)
-shape = SubResource("RectangleShape2D_6w02k")
+[node name="BackCam" type="Camera2D" parent="BackRoom"]
+position = Vector2(395, -395)
+zoom = Vector2(5, 5)
 
 [node name="BackroomFloors" type="TileMapLayer" parent="BackRoom"]
-tile_map_data = PackedByteArray("AAAQAOT/AAAEAAcAAAAQAOX/AAAEAAgAAAAQAOb/AAAEAAkAAAAQAOf/AAAEAAkAAAAQAOj/AAAEAAoAAAAQAOn/AAAEAAcAAAAQAOr/AAAEAAgAAAAQAOv/AAAEAAkAAAAQAOz/AAAEAAoAAAARAOT/AAABAAcAAAARAOX/AAABAAgAAAARAOb/AAABAAkAAAARAOf/AAABAAkAAAARAOj/AAABAAoAAAARAOn/AAABAAcAAAARAOr/AAABAAgAAAARAOv/AAABAAkAAAARAOz/AAABAAoAAAASAOT/AAACAAcAAAASAOX/AAACAAgAAAASAOb/AAACAAkAAAASAOf/AAACAAkAAAASAOj/AAACAAoAAAASAOn/AAACAAcAAAASAOr/AAACAAgAAAASAOv/AAACAAkAAAASAOz/AAACAAoAAAATAOT/AAADAAcAAAATAOX/AAADAAgAAAATAOb/AAADAAkAAAATAOf/AAADAAkAAAATAOj/AAADAAoAAAATAOn/AAADAAcAAAATAOr/AAADAAgAAAATAOv/AAADAAkAAAATAOz/AAADAAoAAAAUAOT/AAAEAAcAAAAUAOX/AAAEAAgAAAAUAOb/AAAEAAkAAAAUAOf/AAAEAAkAAAAUAOj/AAAEAAoAAAAUAOn/AAAEAAcAAAAUAOr/AAAEAAgAAAAUAOv/AAAEAAkAAAAUAOz/AAAEAAoAAAAVAOT/AAABAAcAAAAVAOX/AAABAAgAAAAVAOb/AAABAAkAAAAVAOf/AAABAAkAAAAVAOj/AAABAAoAAAAVAOn/AAABAAcAAAAVAOr/AAABAAgAAAAVAOv/AAABAAkAAAAVAOz/AAABAAoAAAAWAOT/AAACAAcAAAAWAOX/AAACAAgAAAAWAOb/AAACAAkAAAAWAOf/AAACAAkAAAAWAOj/AAACAAoAAAAWAOn/AAACAAcAAAAWAOr/AAACAAgAAAAWAOv/AAACAAkAAAAWAOz/AAACAAoAAAAXAOT/AAADAAcAAAAXAOX/AAADAAgAAAAXAOb/AAADAAkAAAAXAOf/AAADAAkAAAAXAOj/AAADAAoAAAAXAOn/AAADAAcAAAAXAOr/AAADAAgAAAAXAOv/AAADAAkAAAAXAOz/AAADAAoAAAAYAOT/AAAEAAcAAAAYAOX/AAAEAAgAAAAYAOb/AAAEAAkAAAAYAOf/AAAEAAkAAAAYAOj/AAAEAAoAAAAYAOn/AAAEAAcAAAAYAOr/AAAEAAgAAAAYAOv/AAAEAAkAAAAYAOz/AAAEAAoAAAAZAOT/AAABAAcAAAAZAOX/AAABAAgAAAAZAOb/AAABAAkAAAAZAOf/AAABAAkAAAAZAOj/AAABAAoAAAAZAOn/AAABAAcAAAAZAOr/AAABAAgAAAAZAOv/AAABAAkAAAAZAOz/AAABAAoAAAAaAOT/AAACAAcAAAAaAOX/AAACAAgAAAAaAOb/AAACAAkAAAAaAOf/AAACAAkAAAAaAOj/AAACAAoAAAAaAOn/AAACAAcAAAAaAOr/AAACAAgAAAAaAOv/AAACAAkAAAAaAOz/AAACAAoAAAAbAOT/AAADAAcAAAAbAOX/AAADAAgAAAAbAOb/AAADAAkAAAAbAOf/AAADAAkAAAAbAOj/AAADAAoAAAAbAOn/AAADAAcAAAAbAOr/AAADAAgAAAAbAOv/AAADAAkAAAAbAOz/AAADAAoAAAAcAOT/AAAEAAcAAAAcAOX/AAAEAAgAAAAcAOb/AAAEAAkAAAAcAOf/AAAEAAkAAAAcAOj/AAAEAAoAAAAcAOn/AAAEAAcAAAAcAOr/AAAEAAgAAAAcAOv/AAAEAAkAAAAcAOz/AAAEAAoAAAAcAO3/AAACAAcAAAAdAOT/AAABAAcAAAAdAOX/AAABAAgAAAAdAOb/AAABAAkAAAAdAOf/AAABAAkAAAAdAOj/AAABAAoAAAAdAOn/AAABAAcAAAAdAOr/AAABAAgAAAAdAOv/AAABAAkAAAAdAOz/AAABAAoAAAAdAO3/AAADAAcAAAAeAOT/AAACAAcAAAAeAOX/AAACAAgAAAAeAOb/AAACAAkAAAAeAOf/AAACAAkAAAAeAOj/AAACAAoAAAAeAOn/AAACAAcAAAAeAOr/AAACAAgAAAAeAOv/AAACAAkAAAAeAOz/AAACAAoAAAAfAOT/AAADAAcAAAAfAOX/AAADAAgAAAAfAOb/AAADAAkAAAAfAOf/AAADAAkAAAAfAOj/AAADAAoAAAAfAOn/AAADAAcAAAAfAOr/AAADAAgAAAAfAOv/AAADAAkAAAAfAOz/AAADAAoAAAAgAOT/AAAEAAcAAAAgAOX/AAAEAAgAAAAgAOb/AAAEAAkAAAAgAOf/AAAEAAkAAAAgAOj/AAAEAAoAAAAgAOn/AAAEAAcAAAAgAOr/AAAEAAgAAAAgAOv/AAAEAAkAAAAgAOz/AAAEAAoAAAA=")
+tile_map_data = PackedByteArray("AAAQAOT/AAABAAcAAAAQAOX/AAABAAgAAAAQAOb/AAABAAkAAAAQAOf/AAABAAoAAAAQAOj/AAABAAcAAAAQAOn/AAABAAgAAAAQAOr/AAABAAkAAAAQAOv/AAABAAoAAAAQAOz/AAABAAcAAAARAOT/AAACAAcAAAARAOX/AAACAAgAAAARAOb/AAACAAkAAAARAOf/AAACAAoAAAARAOj/AAACAAcAAAARAOn/AAACAAgAAAARAOr/AAACAAkAAAARAOv/AAACAAoAAAARAOz/AAACAAcAAAASAOT/AAADAAcAAAASAOX/AAADAAgAAAASAOb/AAADAAkAAAASAOf/AAADAAoAAAASAOj/AAADAAcAAAASAOn/AAADAAgAAAASAOr/AAADAAkAAAASAOv/AAADAAoAAAASAOz/AAADAAcAAAATAOT/AAAEAAcAAAATAOX/AAAEAAgAAAATAOb/AAAEAAkAAAATAOf/AAAEAAoAAAATAOj/AAAEAAcAAAATAOn/AAAEAAgAAAATAOr/AAAEAAkAAAATAOv/AAAEAAoAAAATAOz/AAAEAAcAAAAUAOT/AAABAAcAAAAUAOX/AAABAAgAAAAUAOb/AAABAAkAAAAUAOf/AAABAAoAAAAUAOj/AAABAAcAAAAUAOn/AAABAAgAAAAUAOr/AAABAAkAAAAUAOv/AAABAAoAAAAUAOz/AAABAAcAAAAVAOT/AAACAAcAAAAVAOX/AAACAAgAAAAVAOb/AAACAAkAAAAVAOf/AAACAAoAAAAVAOj/AAACAAcAAAAVAOn/AAACAAgAAAAVAOr/AAACAAkAAAAVAOv/AAACAAoAAAAVAOz/AAACAAcAAAAWAOT/AAADAAcAAAAWAOX/AAADAAgAAAAWAOb/AAADAAkAAAAWAOf/AAADAAoAAAAWAOj/AAADAAcAAAAWAOn/AAADAAgAAAAWAOr/AAADAAkAAAAWAOv/AAADAAoAAAAWAOz/AAADAAcAAAAXAOT/AAAEAAcAAAAXAOX/AAAEAAgAAAAXAOb/AAAEAAkAAAAXAOf/AAAEAAoAAAAXAOj/AAAEAAcAAAAXAOn/AAAEAAgAAAAXAOr/AAAEAAkAAAAXAOv/AAAEAAoAAAAXAOz/AAAEAAcAAAAYAOT/AAABAAcAAAAYAOX/AAABAAgAAAAYAOb/AAABAAkAAAAYAOf/AAABAAoAAAAYAOj/AAABAAcAAAAYAOn/AAABAAgAAAAYAOr/AAABAAkAAAAYAOv/AAABAAoAAAAYAOz/AAABAAcAAAAZAOT/AAACAAcAAAAZAOX/AAACAAgAAAAZAOb/AAACAAkAAAAZAOf/AAACAAoAAAAZAOj/AAACAAcAAAAZAOn/AAACAAgAAAAZAOr/AAACAAkAAAAZAOv/AAACAAoAAAAZAOz/AAACAAcAAAAaAOT/AAADAAcAAAAaAOX/AAADAAgAAAAaAOb/AAADAAkAAAAaAOf/AAADAAoAAAAaAOj/AAADAAcAAAAaAOn/AAADAAgAAAAaAOr/AAADAAkAAAAaAOv/AAADAAoAAAAaAOz/AAADAAcAAAAbAOT/AAAEAAcAAAAbAOX/AAAEAAgAAAAbAOb/AAAEAAkAAAAbAOf/AAAEAAoAAAAbAOj/AAAEAAcAAAAbAOn/AAAEAAgAAAAbAOr/AAAEAAkAAAAbAOv/AAAEAAoAAAAbAOz/AAAEAAcAAAAcAOT/AAABAAcAAAAcAOX/AAABAAgAAAAcAOb/AAABAAkAAAAcAOf/AAABAAoAAAAcAOj/AAABAAcAAAAcAOn/AAABAAgAAAAcAOr/AAABAAkAAAAcAOv/AAABAAoAAAAcAOz/AAABAAcAAAAdAOT/AAACAAcAAAAdAOX/AAACAAgAAAAdAOb/AAACAAkAAAAdAOf/AAACAAoAAAAdAOj/AAACAAcAAAAdAOn/AAACAAgAAAAdAOr/AAACAAkAAAAdAOv/AAACAAoAAAAdAOz/AAACAAcAAAAeAOT/AAADAAcAAAAeAOX/AAADAAgAAAAeAOb/AAADAAkAAAAeAOf/AAADAAoAAAAeAOj/AAADAAcAAAAeAOn/AAADAAgAAAAeAOr/AAADAAkAAAAeAOv/AAADAAoAAAAeAOz/AAADAAcAAAAfAOT/AAAEAAcAAAAfAOX/AAAEAAgAAAAfAOb/AAAEAAkAAAAfAOf/AAAEAAoAAAAfAOj/AAAEAAcAAAAfAOn/AAAEAAgAAAAfAOr/AAAEAAkAAAAfAOv/AAAEAAoAAAAfAOz/AAAEAAcAAAAgAOT/AAABAAcAAAAgAOX/AAABAAgAAAAgAOb/AAABAAkAAAAgAOf/AAABAAoAAAAgAOj/AAABAAcAAAAgAOn/AAABAAgAAAAgAOr/AAABAAkAAAAgAOv/AAABAAoAAAAgAOz/AAABAAcAAAA=")
 tile_set = SubResource("TileSet_8eiuf")
 
 [node name="MainDoorShadow" type="Panel" parent="BackRoom"]
@@ -653,86 +827,29 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_4xnb3")
 tile_map_data = PackedByteArray("AAAPAOD/AAAHAAYAAAAPAOH/AAAHAAcAAAAPAOL/AAAHAAgAAAAPAOP/AAAHAAkAAAAPAOT/AAAHAAcAAAAPAOX/AAAHAAgAAAAPAOb/AAAHAAkAAAAPAOf/AAAHAAgAAAAPAOj/AAAHAAkAAAAPAOn/AAAHAAcAAAAPAOr/AAAHAAcAAAAPAOv/AAAHAAgAAAAPAOz/AAAHAAkAAAAPAO3/AAAGAA0AAAAQAOD/AAAJAAEAAAAQAOH/AAAJAAIAAAAQAOL/AAAEAAQAAAAQAOP/AAAEAAUAAAAQAO3/AAAHAA0AAAARAOD/AAAGAAEAAAARAOH/AAAGAAIAAAARAOL/AAAGAAIAAAARAOP/AAABAAUAAAARAO3/AAAIAA0AAAASAOD/AAAHAAEAAAASAOH/AAAHAAIAAAASAOL/AAAHAAIAAAASAOP/AAACAAUAAAASAO3/AAAHAAUAAAATAOD/AAAGAAEAAAATAOH/AAAGAAIAAAATAOL/AAAGAAIAAAATAOP/AAADAAUAAAATAO3/AAAIAAUAAAAUAOD/AAAHAAEAAAAUAOH/AAAHAAIAAAAUAOL/AAAHAAIAAAAUAOP/AAAEAAUAAAAUAO3/AAAJAAUAAAAVAOD/AAAGAAEAAAAVAOH/AAAGAAIAAAAVAOL/AAABAAQAAAAVAOP/AAABAAUAAAAVAO3/AAANABAAAAAWAOD/AAAHAAEAAAAWAOH/AAAHAAIAAAAWAOL/AAACAAQAAAAWAOP/AAACAAUAAAAWAO3/AAAHAAUAAAAXAOD/AAAIAAEAAAAXAOH/AAAIAAIAAAAXAOL/AAADAAQAAAAXAOP/AAADAAUAAAAXAO3/AAAIAAUAAAAYAOD/AAAJAAEAAAAYAOH/AAAJAAIAAAAYAOL/AAAEAAQAAAAYAOP/AAAEAAUAAAAYAO3/AAAHAAUAAAAZAOD/AAAGAAEAAAAZAOH/AAAGAAIAAAAZAOL/AAABAAQAAAAZAOP/AAABAAUAAAAZAO3/AAAIAAUAAAAaAOD/AAAHAAEAAAAaAOH/AAAHAAIAAAAaAOL/AAACAAQAAAAaAOP/AAACAAUAAAAaAO3/AAAHAAUAAAAbAOD/AAAIAAEAAAAbAOH/AAAGAAIAAAAbAOL/AAADAAQAAAAbAOP/AAADAAUAAAAbAO3/AAAIAAUAAAAcAOD/AAAJAAEAAAAcAOH/AAAHAAIAAAAcAOL/AAAEAAQAAAAcAOP/AAAEAAUAAAAcAO3/AAANAA8AAAAdAOD/AAAGAAEAAAAdAOH/AAAIAAIAAAAdAOL/AAADAAQAAAAdAOP/AAADAAUAAAAdAO3/AAAMABAAAAAeAOD/AAAHAAEAAAAeAOH/AAAJAAIAAAAeAOL/AAAEAAQAAAAeAOP/AAAEAAUAAAAeAO3/AAANABAAAAAfAOD/AAAGAAEAAAAfAOH/AAAGAAIAAAAfAOL/AAAEAAQAAAAfAOP/AAAEAAUAAAAfAO3/AAAIAAUAAAAgAOD/AAAJAAEAAAAgAOH/AAAJAAIAAAAgAOL/AAAEAAQAAAAgAOP/AAAEAAUAAAAgAO3/AAAJAAUAAAAhAOD/AAAGAAYAAAAhAOH/AAAGAAcAAAAhAOL/AAAGAAcAAAAhAOP/AAAGAAgAAAAhAOT/AAAGAAcAAAAhAOX/AAAGAAgAAAAhAOb/AAAGAAkAAAAhAOf/AAAGAAcAAAAhAOj/AAAGAAgAAAAhAOn/AAAGAAkAAAAhAOr/AAAGAAcAAAAhAOv/AAAGAAgAAAAhAOz/AAAGAAkAAAAhAO3/AAAMAA0AAAA=")
 tile_set = SubResource("TileSet_s7qt3")
 
-[node name="backdoor_frontroom_dest_marker" type="Marker2D" parent="BackRoom"]
-position = Vector2(464, -313)
+[node name="EntityLayer" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAAbAPj/AAAAAAAABgAcAPj/AAAAAAAABgAcAPb/AAAAAAAABgAdAPb/AAAAAAAABgAcAPT/AAAAAAAABgAcAPX/AAAAAAAABgAdAPX/AAAAAAAABgAdAPT/AAAAAAAABgAaAPj/AAAAAAAABgAdAPj/AAAAAAAABgAaAPn/AAAAAAAABgAdAPn/AAAAAAAABgAbAPn/AAAAAAAABgAcAPn/AAAAAAAABgAQAP//AAAAAAAABgARAP//AAAAAAAABgASAP//AAAAAAAABgATAP//AAAAAAAABgAUAP//AAAAAAAABgAVAP//AAAAAAAABgAWAP//AAAAAAAABgAXAP//AAAAAAAABgAYAP//AAAAAAAABgAZAP//AAAAAAAABgAaAP//AAAAAAAABgAbAP//AAAAAAAABgAcAP//AAAAAAAABgAdAP//AAAAAAAABgAeAP//AAAAAAAABgAfAP//AAAAAAAABgAgAP//AAAAAAAABgAQAOz/AAAAAAAABgARAOz/AAAAAAAABgASAOz/AAAAAAAABgATAOz/AAAAAAAABgAUAOz/AAAAAAAABgAVAOz/AAAAAAAABgAWAOz/AAAAAAAABgAXAOz/AAAAAAAABgAYAOz/AAAAAAAABgAZAOz/AAAAAAAABgAaAOz/AAAAAAAABgAbAOz/AAAAAAAABgAcAOz/AAAAAAAABgAdAOz/AAAAAAAABgAeAOz/AAAAAAAABgAfAOz/AAAAAAAABgAgAOz/AAAAAAAABgA=")
+tile_set = SubResource("TileSet_epjix")
 
-[node name="BackRoomEdges" type="Node2D" parent="BackRoom"]
-
-[node name="TopLeft" type="Marker2D" parent="BackRoom/BackRoomEdges"]
-position = Vector2(251, -502)
-
-[node name="BottomRight" type="Marker2D" parent="BackRoom/BackRoomEdges"]
-position = Vector2(533, -288)
-
-[node name="BottomCollision" type="Area2D" parent="BackRoom/BackRoomEdges"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BackRoom/BackRoomEdges/BottomCollision"]
-position = Vector2(394, -289)
-shape = SubResource("RectangleShape2D_g03oc")
+[node name="Player" parent="." instance=ExtResource("11_pgdk6")]
+position = Vector2(907, -242)
 
 [node name="EntityManager" type="Node2D" parent="."]
 y_sort_enabled = true
-script = ExtResource("5_41gid")
+script = ExtResource("12_vmht1")
 
-[node name="Bed" parent="EntityManager" instance=ExtResource("16_0rphg")]
-position = Vector2(520, -432)
-
-[node name="shelf" parent="EntityManager" instance=ExtResource("7_ylhot")]
-position = Vector2(264, -184)
-
-[node name="shelf2" parent="EntityManager" instance=ExtResource("7_ylhot")]
-position = Vector2(360, -184)
-
-[node name="shelf3" parent="EntityManager" instance=ExtResource("7_ylhot")]
-position = Vector2(264, -88)
-
-[node name="Barrel" parent="EntityManager" instance=ExtResource("6_85e8s")]
-position = Vector2(360, -424)
-
-[node name="Barrel2" parent="EntityManager" instance=ExtResource("6_85e8s")]
-position = Vector2(376, -424)
-
-[node name="Barrel3" parent="EntityManager" instance=ExtResource("6_85e8s")]
-position = Vector2(408, -408)
-
-[node name="Barrel4" parent="EntityManager" instance=ExtResource("6_85e8s")]
-position = Vector2(424, -392)
-
-[node name="Cauldron" parent="EntityManager" instance=ExtResource("7_47hg3")]
-y_sort_enabled = true
-position = Vector2(376, -344)
-
-[node name="Crate" parent="EntityManager" instance=ExtResource("8_b6yhm")]
-position = Vector2(328, -392)
-
-[node name="Crate2" parent="EntityManager" instance=ExtResource("8_b6yhm")]
-position = Vector2(328, -360)
-
-[node name="Player" parent="EntityManager" node_paths=PackedStringArray("inv_ui") instance=ExtResource("6_b6yhm")]
-position = Vector2(410, -37)
-inv_ui = NodePath("../../Static_UI/Inv_UI")
-
-[node name="Camera2D" type="Camera2D" parent="EntityManager/Player"]
-position = Vector2(-1, 1)
-zoom = Vector2(7, 7)
-limit_left = 249
-limit_top = -247
-limit_right = 531
-limit_bottom = 16
-limit_smoothed = true
-position_smoothing_enabled = true
-position_smoothing_speed = 3.0
-
-[node name="CashRegister" parent="EntityManager" instance=ExtResource("14_ylhot")]
+[node name="CashRegister" parent="EntityManager" instance=ExtResource("13_fpmwk")]
 position = Vector2(448, -145)
 
-[node name="NpcSpawner" parent="EntityManager" instance=ExtResource("12_47hg3")]
+[node name="NpcSpawner" parent="EntityManager" instance=ExtResource("14_wxjbm")]
 
-[connection signal="body_entered" from="FrontRoom/MoveTownDetection" to="." method="_on_move_town_detection_body_entered"]
-[connection signal="body_entered" from="FrontRoom/MoveStorageRoomDetection" to="." method="_on_move_storage_room_detection_body_entered"]
-[connection signal="body_entered" from="FrontRoom/FrontRoomEdges/BottomCollision" to="." method="_on_bottom_collision_body_entered_frontroom"]
-[connection signal="body_exited" from="FrontRoom/FrontRoomEdges/BottomCollision" to="." method="_on_bottom_collision_body_exited_frontroom"]
-[connection signal="body_entered" from="BackRoom/MoveFrontRoomDetection" to="." method="_on_move_front_room_detection_body_entered"]
-[connection signal="body_entered" from="BackRoom/BackRoomEdges/BottomCollision" to="." method="_on_bottom_collision_body_entered_backroom"]
-[connection signal="body_exited" from="BackRoom/BackRoomEdges/BottomCollision" to="." method="_on_bottom_collision_body_exited_backroom"]
-[connection signal="npc_spawned" from="EntityManager/NpcSpawner" to="." method="_on_npc_spawner_npc_spawned"]
+[node name="PreviewLayer" type="TileMapLayer" parent="."]
+tile_set = SubResource("TileSet_epjix")
+
+[node name="Debug" type="Camera2D" parent="."]
+position = Vector2(402, -243)
+zoom = Vector2(2, 2)
+
+[node name="DirectionalHoldController" type="Node" parent="."]
+script = ExtResource("16_wxjbm")
+metadata/_custom_type_script = "uid://348byftoo3e7"

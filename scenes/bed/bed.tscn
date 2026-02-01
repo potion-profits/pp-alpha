@@ -16,6 +16,7 @@ region = Rect2(48, 0, 16, 32)
 size = Vector2(16, 32)
 
 [node name="Bed" type="StaticBody2D"]
+position = Vector2(0, -8)
 script = ExtResource("1_w6piv")
 metadata/_custom_type_script = "uid://b1odcrnx3mby"
 
