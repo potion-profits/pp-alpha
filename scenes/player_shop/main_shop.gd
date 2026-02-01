@@ -46,6 +46,10 @@ func _ready()->void:
 	viewport_size = get_viewport_rect().size
 	_on_viewport_size_changed() # initalize inv UI position
 
+func _physics_process(_delta: float) -> void:
+	if OS.is_debug_build() and Input.is_key_pressed(KEY_HOME):
+		floor_map._debug_astar_grid()
+
 func _on_move_town_detection_body_entered(body: Node2D) -> void:
 	if body is Player:
 		SceneManager.change_to("res://scenes/town_menu/town_menu.tscn")
