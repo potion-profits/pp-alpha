@@ -80,3 +80,8 @@ func rebind_action_key(event: InputEvent) -> void:
 	set_process_unhandled_key_input(false)
 	set_text_for_key()
 	set_action_name()
+
+
+# TODO: Logic check to ensure you dont have 
+
+# TODO: Reset to default
