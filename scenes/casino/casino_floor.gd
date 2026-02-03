@@ -1,9 +1,9 @@
 extends Node2D
 
 @onready var player: Player = $Player
-@onready var exchange_bttn: Button = $Player/Camera2D/ExchangeBttn
-@onready var exchange_container: VBoxContainer = $Player/Camera2D/ExchangeContainer
-@onready var num_coins_to_exchange: Label = $Player/Camera2D/ExchangeContainer/HBoxContainer/NumCoinsToExchange
+@onready var exchange_bttn: Button = $CanvasLayer/ExchangeBttn
+@onready var exchange_container: VBoxContainer = $CanvasLayer/ExchangeContainer
+@onready var num_coins_to_exchange: Label = $CanvasLayer/ExchangeContainer/HBoxContainer/NumCoinsToExchange
 var exchange_amt : int = 0
 
 func _ready() -> void:

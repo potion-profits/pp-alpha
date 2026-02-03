@@ -1,5 +1,8 @@
 class_name Npc extends CharacterBody2D
 
+## Base class for an NPC. Each NPC is randomly assigned a class and a corresponding animated sprite.
+## [ShopNpc] inherets to handle potion buying and dynamic movement around the player shop.
+
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 ## Idle/Walk directions in row order of sprite sheets
