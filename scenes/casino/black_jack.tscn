@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://hse5bruyxk2r"]
+[gd_scene load_steps=6 format=3 uid="uid://hse5bruyxk2r"]
 
 [ext_resource type="Script" uid="uid://jnbffpyw7u5j" path="res://scenes/casino/blackjack.gd" id="1_qp4h2"]
+[ext_resource type="PackedScene" uid="uid://dp7r8vke6s7c5" path="res://scenes/coin_ui/player_chip.tscn" id="2_7be6b"]
 [ext_resource type="Texture2D" uid="uid://qfdg62auv4vh" path="res://assets/casino/temp/blackjack_temp.jpg" id="2_dad4q"]
 [ext_resource type="PackedScene" uid="uid://bk0h32dk6ry1n" path="res://scenes/casino/deck.tscn" id="3_c0bro"]
 [ext_resource type="PackedScene" uid="uid://b0flhrlw7t57t" path="res://scenes/player/player.tscn" id="4_gwo6v"]
@@ -12,6 +13,15 @@ script = ExtResource("1_qp4h2")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = -1
+
+[node name="PlayerChips" parent="CanvasLayer" node_paths=PackedStringArray("player") instance=ExtResource("2_7be6b")]
+z_index = 1
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 8.0
+offset_bottom = 8.0
+scale = Vector2(2.5, 2.5)
+player = NodePath("../../Player")
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
 anchors_preset = 15
