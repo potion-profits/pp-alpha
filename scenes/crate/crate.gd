@@ -1,4 +1,4 @@
-extends Entity	#will help store placement and inventory information for persistence
+class_name Crate extends Entity	#will help store placement and inventory information for persistence
 
 ## Crates are interactable entities that dispense empty bottles.[br][br]
 ## 
