@@ -1,18 +1,27 @@
 extends Node2D
 
 @onready var player: Player = $Player
-@onready var exchange_bttn: Button = $CanvasLayer/ExchangeBttn
 @onready var exchange_container: VBoxContainer = $CanvasLayer/ExchangeContainer
 @onready var num_coins_to_exchange: Label = $CanvasLayer/ExchangeContainer/HBoxContainer/NumCoinsToExchange
+@onready var cashier_npc: CharacterBody2D = $CashierNpc
 var exchange_amt : int = 0
+signal end_exchange
 
 func _ready() -> void:
 	exchange_container.visible = false
-	exchange_bttn.visible = true
-
-func _on_exchange_bttn_pressed() -> void:
+	cashier_npc.interactable.interact = process_exchange
+"""
+func _process(_delta : float) -> void:
+	if exchange_container.visible and (
+		Input.is_action_pressed("interact") or Input.is_key_pressed(KEY_ESCAPE)):
+			end_exchange.emit()
+"""
+func process_exchange() -> void:
+	player.set_physics_process(false)
 	exchange_container.visible = true
-	exchange_bttn.visible = false
+	await end_exchange
+	exchange_container.visible = false
+	player.set_physics_process(true)
 
 func _on_confirm_exchange_pressed() -> void:
 	player.set_coins(-exchange_amt)
@@ -21,8 +30,7 @@ func _on_confirm_exchange_pressed() -> void:
 	update_exchange_label(exchange_amt)
 
 func _on_cancel_exchange_pressed() -> void:
-	exchange_container.visible = false
-	exchange_bttn.visible = true
+	end_exchange.emit()
 
 func _on_less_coins_pressed() -> void:
 	if Input.is_action_pressed("sprint"):
@@ -50,3 +58,8 @@ func update_exchange_label(new_amt : int) -> void:
 func _on_move_town_area_body_entered(body: Node2D) -> void:
 	if body is Player:
 		SceneManager.change_to("res://scenes/town_menu/town_menu.tscn")
+
+
+func _on_redeem_pressed() -> void:
+	# create sub menu for various prizes (buy a barrel, cauldron, other upgrade)
+	pass

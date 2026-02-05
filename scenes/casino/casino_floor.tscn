@@ -1,10 +1,12 @@
-[gd_scene load_steps=12 format=4 uid="uid://cydb0qypcgibl"]
+[gd_scene load_steps=16 format=4 uid="uid://cydb0qypcgibl"]
 
 [ext_resource type="Texture2D" uid="uid://b7jx6m1vn82gh" path="res://assets/interior/casino/casino_tilemap.png" id="1_0k5tk"]
 [ext_resource type="Script" uid="uid://bgfajl2miu8ge" path="res://scenes/casino/casino_floor.gd" id="1_dnyyd"]
+[ext_resource type="Texture2D" uid="uid://cq4mo6l3w2oka" path="res://assets/interior/shop/background.png" id="2_a4x82"]
 [ext_resource type="PackedScene" uid="uid://b0flhrlw7t57t" path="res://scenes/player/player.tscn" id="2_dfl8t"]
 [ext_resource type="PackedScene" uid="uid://m6dvdqtwgruy" path="res://scenes/casino/blackjack_table.tscn" id="3_dfl8t"]
 [ext_resource type="PackedScene" uid="uid://dp7r8vke6s7c5" path="res://scenes/coin_ui/player_chip.tscn" id="4_ka76d"]
+[ext_resource type="PackedScene" uid="uid://sb6usiw8cw7v" path="res://scenes/npc_alt/cashier_npc.tscn" id="5_a4x82"]
 [ext_resource type="PackedScene" uid="uid://ckd2slmjdifxy" path="res://scenes/coin_ui/player_coin.tscn" id="5_y1lbc"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_dfl8t"]
@@ -148,17 +150,79 @@ texture = ExtResource("1_0k5tk")
 5:7/0 = 0
 5:8/0 = 0
 5:9/0 = 0
+6:2/0 = 0
+7:2/0 = 0
+7:1/0 = 0
+6:1/0 = 0
+7:0/0 = 0
+6:0/0 = 0
+9:0/0 = 0
+8:0/0 = 0
+10:0/0 = 0
+11:0/0 = 0
+12:0/0 = 0
+13:0/0 = 0
+9:1/0 = 0
+9:2/0 = 0
+10:2/0 = 0
+10:1/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_lxdsy"]
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_dnyyd")
 pattern_0 = SubResource("TileMapPattern_0k5tk")
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ka76d"]
+texture = ExtResource("1_0k5tk")
+6:0/0 = 0
+6:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+7:0/0 = 0
+7:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+7:1/0 = 0
+7:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+6:1/0 = 0
+6:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+6:2/0 = 0
+6:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+7:2/0 = 0
+7:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+8:0/0 = 0
+9:0/0 = 0
+9:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+10:0/0 = 0
+10:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+11:0/0 = 0
+11:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+12:0/0 = 0
+12:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+13:0/0 = 0
+13:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+9:1/0 = 0
+9:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+10:1/0 = 0
+10:2/0 = 0
+9:2/0 = 0
+9:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+14:0/0 = 0
+14:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="TileSet" id="TileSet_y1lbc"]
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_ka76d")
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ka76d"]
 size = Vector2(68, 18)
 
 [node name="CasinoFloor" type="Node2D"]
 script = ExtResource("1_dnyyd")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+z_index = -2
+offset_left = 334.0
+offset_top = 341.0
+offset_right = 1409.0
+offset_bottom = 1416.0
+texture = ExtResource("2_a4x82")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -175,29 +239,19 @@ offset_bottom = 89.0
 scale = Vector2(2, 2)
 player = NodePath("../../Player")
 
-[node name="ExchangeBttn" type="Button" parent="CanvasLayer"]
-offset_left = 1656.0001
-offset_top = 1002.0
-offset_right = 1812.0001
-offset_bottom = 1033.0
-scale = Vector2(1.5, 1.5)
-text = "Currency Exchange"
-
 [node name="ExchangeContainer" type="VBoxContainer" parent="CanvasLayer"]
-visible = false
-anchors_preset = 6
-anchor_left = 1.0
+anchors_preset = 8
+anchor_left = 0.5
 anchor_top = 0.5
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -263.0
-offset_top = 357.00006
-offset_right = -108.0
-offset_bottom = 458.00012
-grow_horizontal = 0
+offset_left = 66.0
+offset_top = -302.0
+offset_right = 221.0
+offset_bottom = -166.0
+grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.5, 1.5)
-metadata/_edit_use_anchors_ = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/ExchangeContainer"]
 layout_mode = 2
@@ -220,6 +274,10 @@ text = "+"
 layout_mode = 2
 text = "Exchange for Chips"
 
+[node name="Redeem" type="Button" parent="CanvasLayer/ExchangeContainer"]
+layout_mode = 2
+text = "Redeem Prizes"
+
 [node name="CancelExchange" type="Button" parent="CanvasLayer/ExchangeContainer"]
 layout_mode = 2
 text = "Cancel
@@ -230,8 +288,17 @@ tile_map_data = PackedByteArray("AAAyADYAAAAFAAcAAAAzADYAAAABAAkAAFA2ADUAAAACAAc
 tile_set = SubResource("TileSet_lxdsy")
 
 [node name="Walls" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AABAACkAAAAGAAcAAABAACoAAAAGAAcAAABAACsAAAAGAAcAAABAACwAAAAGAAcAAABAACgAAAAGAAcAAABAAC0AAAAGAAcAAABAAC4AAAAGAAcAAABAAC8AAAAGAAcAAABAADAAAAAGAAcAAABAADEAAAAGAAcAAABAADIAAAAGAAcAAABAADMAAAAGAAcAAABAADQAAAAGAAcAAABAADUAAAAGAAcAAABAADYAAAAGAAcAAABAADcAAAAGAAcAAABAADgAAAAGAAcAAABAADkAAAAGAAcAAABAADoAAAAGAAcAAABAADsAAAAGAAcAAABAADwAAAAGAAcAAABAAD0AAAAGAAcAAABAAD4AAAAGAAcAAABAAD8AAAAGAAcAAABAAEAAAAAGAAcAAABAAEEAAAAGAAcAAABAAEIAAAAGAAcAAABAAEQAAAAHAAYAADBAAEMAAAAGAAcAAAA/AEQAAAAEAAUAAAA+AEQAAAAEAAUAAAA9AEQAAAAEAAUAAAA8AEQAAAAEAAUAAAA7AEQAAAAEAAUAAAA6AEQAAAAEAAUAAAA5AEQAAAAEAAUAAAA4AEQAAAAEAAUAAAA3AEQAAAAEAAUAAAA2AEQAAAAEAAUAAAAxAEQAAAADAAUAAAAwAEQAAAADAAUAAAAvAEQAAAADAAUAAAAuAEQAAAADAAUAAAAtAEQAAAADAAUAAAAsAEQAAAADAAUAAAArAEQAAAADAAUAAAAqAEQAAAADAAUAAAApAEQAAAADAAUAAAAoAEQAAAADAAUAAAAnAEQAAAAGAAYAADAoACUAAAABAAsAAAAoACYAAAACAAwAAAApACUAAAABAAsAAAApACYAAAACAAwAAAAqACUAAAABAAsAAAAqACYAAAACAAwAAAArACUAAAABAAsAAAArACYAAAABAAwAAAAsACUAAAABAAsAAAAsACYAAAADAAwAAAAtACUAAAABAAsAAAAtACYAAAADAAwAAAAuACUAAAABAAsAAAAuACYAAAADAAwAAAAvACUAAAABAAsAAAAvACYAAAABAAwAAAAwACUAAAABAAsAAAAwACYAAAAEAAwAAAAxACUAAAABAAsAAAAxACYAAAAEAAwAAAAyACUAAAABAAsAAAAyACYAAAAEAAwAAAAzACUAAAABAAsAAAAzACYAAAABAAwAAAA0ACUAAAABAAsAAAA0ACYAAAACAAwAAAA1ACUAAAABAAsAAAA1ACYAAAACAAwAAAA2ACUAAAABAAsAAAA2ACYAAAADAAwAAAA3ACUAAAABAAsAAAA3ACYAAAADAAwAAAA4ACUAAAABAAsAAAA4ACYAAAAEAAwAAAA5ACUAAAABAAsAAAA5ACYAAAAEAAwAAAA6ACUAAAABAAsAAAA6ACYAAAABAAwAAAA7ACUAAAABAAsAAAA7ACYAAAAEAAwAAAA8ACUAAAABAAsAAAA8ACYAAAACAAwAAAA9ACUAAAABAAsAAAA9ACYAAAADAAwAAAA+ACUAAAABAAsAAAA+ACYAAAACAAwAAAA/ACUAAAABAAsAAAA/ACYAAAABAAwAAABAACUAAAAGAAYAAABAACYAAAAHAAcAADAoACcAAAACAA0AAAApACcAAAACAA0AAAAqACcAAAACAA0AAAArACcAAAABAA0AAAAsACcAAAADAA0AAAAtACcAAAADAA0AAAAuACcAAAADAA0AAAAvACcAAAABAA0AAAAwACcAAAAEAA0AAAAxACcAAAAEAA0AAAAyACcAAAAEAA0AAAAzACcAAAABAA0AAAA0ACcAAAACAA0AAAA1ACcAAAACAA0AAAA2ACcAAAADAA0AAAA3ACcAAAADAA0AAAA4ACcAAAAEAA0AAAA5ACcAAAAEAA0AAAA6ACcAAAABAA0AAAA7ACcAAAAEAA0AAAA8ACcAAAACAA0AAAA9ACcAAAADAA0AAAA+ACcAAAACAA0AAAA/ACcAAAABAA0AAABAACcAAAAHAAcAADAnACUAAAAHAAYAAAAnACYAAAAHAAcAAAAnACcAAAAHAAcAAAAnACgAAAAHAAgAAAAnACkAAAAHAAgAAAAnACoAAAAHAAgAAAAnACsAAAAHAAgAAAAnACwAAAAHAAgAAAAnAC0AAAAHAAgAAAAnAC4AAAAHAAgAAAAnAC8AAAAHAAgAAAAnADAAAAAHAAgAAAAnADEAAAAHAAgAAAAnADIAAAAHAAgAAAAnADMAAAAHAAgAAAAnADQAAAAHAAgAAAAnADUAAAAHAAgAAAAnADYAAAAHAAgAAAAnADcAAAAHAAgAAAAnADgAAAAHAAgAAAAnADkAAAAHAAgAAAAnADoAAAAHAAgAAAAnADsAAAAHAAgAAAAnADwAAAAHAAgAAAAnAD0AAAAHAAgAAAAnAD4AAAAHAAgAAAAnAD8AAAAHAAgAAAAnAEAAAAAHAAgAAAAnAEEAAAAHAAgAAAAnAEIAAAAHAAgAAAAnAEMAAAAHAAgAAAA=")
+z_index = -1
+tile_map_data = PackedByteArray("AABAACkAAAAGAAcAAABAACoAAAAGAAcAAABAACsAAAAGAAcAAABAACwAAAAGAAcAAABAACgAAAAGAAcAAABAAC0AAAAGAAcAAABAAC4AAAAGAAcAAABAAC8AAAAGAAcAAABAADAAAAAGAAcAAABAADEAAAAGAAcAAABAADIAAAAGAAcAAABAADMAAAAGAAcAAABAADQAAAAGAAcAAABAADUAAAAGAAcAAABAADYAAAAGAAcAAABAADcAAAAGAAcAAABAADgAAAAGAAcAAABAADkAAAAGAAcAAABAADoAAAAGAAcAAABAADsAAAAGAAcAAABAADwAAAAGAAcAAABAAD0AAAAGAAcAAABAAD4AAAAGAAcAAABAAD8AAAAGAAcAAABAAEAAAAAGAAcAAABAAEEAAAAGAAcAAABAAEIAAAAGAAcAAABAAEQAAAAHAAYAADBAAEMAAAAGAAcAAAA/AEQAAAAEAAUAAAA+AEQAAAAEAAUAAAA9AEQAAAAEAAUAAAA8AEQAAAAEAAUAAAA7AEQAAAAEAAUAAAA6AEQAAAAEAAUAAAA5AEQAAAAEAAUAAAA4AEQAAAAEAAUAAAA3AEQAAAAEAAUAAAA2AEQAAAAEAAUAAAAxAEQAAAADAAUAAAAwAEQAAAADAAUAAAAvAEQAAAADAAUAAAAuAEQAAAADAAUAAAAtAEQAAAADAAUAAAAsAEQAAAADAAUAAAArAEQAAAADAAUAAAAqAEQAAAADAAUAAAApAEQAAAADAAUAAAAoAEQAAAADAAUAAAAnAEQAAAAGAAYAADAoACUAAAABAAsAAAAoACYAAAACAAwAAAApACUAAAABAAsAAAApACYAAAACAAwAAAAqACUAAAABAAsAAAAqACYAAAACAAwAAAArACUAAAABAAsAAAArACYAAAABAAwAAAAsACUAAAABAAsAAAAsACYAAAADAAwAAAAtACUAAAABAAsAAAAtACYAAAADAAwAAAAuACUAAAABAAsAAAAuACYAAAADAAwAAAAvACUAAAABAAsAAAAvACYAAAABAAwAAAAwACUAAAABAAsAAAAwACYAAAABAAEAAAAxACUAAAABAAsAAAAxACYAAAABAAEAAAAyACUAAAABAAsAAAAyACYAAAABAAEAAAAzACUAAAABAAsAAAAzACYAAAABAAwAAAA0ACUAAAABAAsAAAA0ACYAAAABAAEAAAA1ACUAAAABAAsAAAA1ACYAAAABAAEAAAA2ACUAAAABAAsAAAA2ACYAAAABAAEAAAA3ACUAAAABAAsAAAA3ACYAAAABAAEAAAA4ACUAAAABAAsAAAA4ACYAAAAEAAwAAAA5ACUAAAABAAsAAAA5ACYAAAAEAAwAAAA6ACUAAAABAAsAAAA6ACYAAAABAAwAAAA7ACUAAAABAAsAAAA7ACYAAAAEAAwAAAA8ACUAAAABAAsAAAA8ACYAAAACAAwAAAA9ACUAAAABAAsAAAA9ACYAAAADAAwAAAA+ACUAAAABAAsAAAA+ACYAAAACAAwAAAA/ACUAAAABAAsAAAA/ACYAAAABAAwAAABAACUAAAAGAAYAAABAACYAAAAHAAcAADAoACcAAAACAA0AAAApACcAAAACAA0AAAAqACcAAAACAA0AAAArACcAAAABAA0AAAAsACcAAAADAA0AAAAtACcAAAADAA0AAAAuACcAAAADAA0AAAAvACcAAAABAA0AAAAwACcAAAABAAIAAAAxACcAAAABAAIAAAAyACcAAAABAAIAAAAzACcAAAABAA0AAAA0ACcAAAABAAIAAAA1ACcAAAABAAIAAAA2ACcAAAABAAIAAAA3ACcAAAABAAIAAAA4ACcAAAAEAA0AAAA5ACcAAAAEAA0AAAA6ACcAAAABAA0AAAA7ACcAAAAEAA0AAAA8ACcAAAACAA0AAAA9ACcAAAADAA0AAAA+ACcAAAACAA0AAAA/ACcAAAABAA0AAABAACcAAAAHAAcAADAnACUAAAAHAAYAAAAnACYAAAAHAAcAAAAnACcAAAAHAAcAAAAnACgAAAAHAAgAAAAnACkAAAAHAAgAAAAnACoAAAAHAAgAAAAnACsAAAAHAAgAAAAnACwAAAAHAAgAAAAnAC0AAAAHAAgAAAAnAC4AAAAHAAgAAAAnAC8AAAAHAAgAAAAnADAAAAAHAAgAAAAnADEAAAAHAAgAAAAnADIAAAAHAAgAAAAnADMAAAAHAAgAAAAnADQAAAAHAAgAAAAnADUAAAAHAAgAAAAnADYAAAAHAAgAAAAnADcAAAAHAAgAAAAnADgAAAAHAAgAAAAnADkAAAAHAAgAAAAnADoAAAAHAAgAAAAnADsAAAAHAAgAAAAnADwAAAAHAAgAAAAnAD0AAAAHAAgAAAAnAD4AAAAHAAgAAAAnAD8AAAAHAAgAAAAnAEAAAAAHAAgAAAAnAEEAAAAHAAgAAAAnAEIAAAAHAAgAAAAnAEMAAAAHAAgAAAA=")
 tile_set = SubResource("TileSet_lxdsy")
+
+[node name="Cashier" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAAwACUAAAAGAAAAAAAwACYAAAAGAAEAAAAwACcAAAAGAAIAAAAyACYAAAAHAAEAABAyACcAAAAHAAIAABAzACYAAAAHAAEAAAAzACcAAAAHAAIAAAAxACYAAAAHAAEAAAAxACcAAAAHAAIAAAA3ACYAAAAGAAEAABA3ACcAAAAGAAIAABA2ACYAAAAHAAEAABA2ACcAAAAHAAIAABAzACUAAAALAAAAAAA0ACUAAAAMAAAAAAA1ACUAAAANAAAAAAAxACUAAAAJAAAAAAAyACUAAAAKAAAAAAA2ACUAAAAOAAAAAAA3ACUAAAAGAAAAABA0ACYAAAAHAAEAABA0ACcAAAAHAAIAABA1ACYAAAAHAAEAAAA1ACcAAAAHAAIAAAA=")
+tile_set = SubResource("TileSet_y1lbc")
+
+[node name="CashierNpc" parent="." instance=ExtResource("5_a4x82")]
+z_index = -1
+position = Vector2(800, 626)
 
 [node name="Player" parent="." instance=ExtResource("2_dfl8t")]
 position = Vector2(824, 1063)
@@ -260,9 +327,9 @@ position = Vector2(704, 960)
 position = Vector2(832, 1101)
 shape = SubResource("RectangleShape2D_ka76d")
 
-[connection signal="pressed" from="CanvasLayer/ExchangeBttn" to="." method="_on_exchange_bttn_pressed"]
 [connection signal="pressed" from="CanvasLayer/ExchangeContainer/HBoxContainer/LessCoins" to="." method="_on_less_coins_pressed"]
 [connection signal="pressed" from="CanvasLayer/ExchangeContainer/HBoxContainer/MoreCoins" to="." method="_on_more_coins_pressed"]
 [connection signal="pressed" from="CanvasLayer/ExchangeContainer/ConfirmExchange" to="." method="_on_confirm_exchange_pressed"]
+[connection signal="pressed" from="CanvasLayer/ExchangeContainer/Redeem" to="." method="_on_redeem_pressed"]
 [connection signal="pressed" from="CanvasLayer/ExchangeContainer/CancelExchange" to="." method="_on_cancel_exchange_pressed"]
 [connection signal="body_entered" from="MoveTownArea" to="." method="_on_move_town_area_body_entered"]
