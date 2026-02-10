@@ -1,4 +1,4 @@
-extends Entity
+class_name Barrel extends Entity
 
 ## Barrels are interactable entities.[br][br]
 ## 

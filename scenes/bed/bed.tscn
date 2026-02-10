@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://g1ngeh7fhfwq"]
+[gd_scene load_steps=8 format=3 uid="uid://g1ngeh7fhfwq"]
 
 [ext_resource type="Script" uid="uid://ch40k6nmpi5u8" path="res://scenes/bed/bed.gd" id="1_w6piv"]
 [ext_resource type="PackedScene" uid="uid://fi1qxearbah2" path="res://scenes/interactions/interactable.tscn" id="2_ayy0y"]
 [ext_resource type="Texture2D" uid="uid://b3qcq0pejevjn" path="res://assets/interior/shop/bed01.png" id="3_0jv5b"]
+[ext_resource type="AudioStream" uid="uid://bwt0o7r4immwv" path="res://assets/audio/sfx/bed_save.ogg" id="4_ayy0y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_opn68"]
 size = Vector2(20, 36)
@@ -30,3 +31,8 @@ texture = SubResource("AtlasTexture_3r7ej")
 
 [node name="BedCollision" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_nt7g8")
+
+[node name="BedSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_ayy0y")
+max_distance = 342.0
+bus = &"SFX"

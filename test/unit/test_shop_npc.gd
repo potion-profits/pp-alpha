@@ -2,7 +2,7 @@ extends GutTest
 
 var shop_scene : Resource = load("res://scenes/player_shop/main_shop.tscn")
 var shop : Node = null
-var npc_scene : Resource = load("res://scenes/npc_alt/basic_npc.tscn")
+var npc_scene : Resource = load("res://scenes/npc_alt/shop_npc.tscn")
 var npc : Npc = null
 
 # setup shop and npc before each test runs
@@ -22,6 +22,8 @@ func after_each() -> void:
 
 func test_npc_has_prefered_item() -> void:
 	assert_not_null(npc.prefered_item)
+	var item_from_map : String = npc.prefered_item_map[npc.npc_class]
+	assert_eq(npc.prefered_item, item_from_map, "NPC class should determine correct prefered item")
 
 func test_npc_path_to_shelf() -> void:
 	assert_not_null(npc.target, "NPC should have a target to move towards")

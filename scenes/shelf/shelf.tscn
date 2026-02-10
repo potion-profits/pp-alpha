@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://m4k8qbbqo7ha"]
+[gd_scene load_steps=12 format=3 uid="uid://m4k8qbbqo7ha"]
 
 [ext_resource type="Texture2D" uid="uid://cna3dlftjloo6" path="res://assets/interior/shop/shelfandpotion01.png" id="1_05ovt"]
 [ext_resource type="Script" uid="uid://divf1xvlxvcpf" path="res://scenes/shelf/shelf.gd" id="1_ctj1q"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cv0g8wldyrq82" path="res://assets/interior/shop/shelf_fill.png" id="3_e2dnf"]
 [ext_resource type="PackedScene" uid="uid://ctxfqbqvqddom" path="res://scenes/shelf/shelf_inv_ui.tscn" id="3_y5jy8"]
 [ext_resource type="Texture2D" uid="uid://q1nnefaro4eq" path="res://assets/interior/shop/shelf_potion_single.png" id="4_e2dnf"]
+[ext_resource type="AudioStream" uid="uid://c7ktkobpxklhs" path="res://assets/audio/sfx/interact generic.ogg" id="7_rm86u"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tj075"]
 atlas = ExtResource("1_05ovt")
@@ -245,6 +246,11 @@ offset_right = 960.0
 
 [node name="NpcTarget" type="Marker2D" parent="."]
 position = Vector2(0, 11)
+
+[node name="ShelfSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_rm86u")
+volume_db = -11.345
+bus = &"SFX"
 
 [connection signal="body_entered" from="Interactable" to="." method="_on_interactable_body_entered"]
 [connection signal="body_exited" from="Interactable" to="." method="_on_interactable_body_exited"]

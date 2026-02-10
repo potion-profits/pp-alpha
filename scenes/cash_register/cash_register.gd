@@ -13,6 +13,7 @@ var bob_speed: float = 2.5	## The speed at which the icon should bob
 var bob_height: float = 2.0	## How much the icon should bob
 
 @onready var cust_waiting_icon: Sprite2D = $CustWaitingIcon	## Ready to checkout icon
+@onready var sale_sfx : AudioStreamPlayer2D = $SaleSFX ## Reference to audio stream for sound effects
 
 func _ready() -> void:
 	cust_waiting_icon.visible = false
@@ -30,6 +31,9 @@ func _input(event: InputEvent) -> void:
 		curr_npc.is_checked_out = true
 		curr_npc.checkout_timer.timeout.emit()
 		player.set_coins(50)
+		
+		# play sound effect on interact
+		sale_sfx.play()
 		
 		if (len(queue) == 0):
 			cust_waiting_icon.visible = false
