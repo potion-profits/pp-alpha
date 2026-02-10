@@ -12,15 +12,6 @@ extends Node2D
 @onready var cost: Label = $Static_UI/HBoxContainer/Cost
 @onready var hold_controller: DirectionalHoldController = $DirectionalHoldController
 
-
-const MOVE_ACTIONS : Dictionary = {
-	"move_left": hold_controller.Direction.LEFT,
-	"move_right": hold_controller.Direction.RIGHT,
-	"move_up": hold_controller.Direction.UP,
-	"move_down": hold_controller.Direction.DOWN,
-}
-
-
 var current_tile: Vector2i = Vector2i.ZERO
 var current_layer:TileMapLayer = front_floor
 
@@ -46,7 +37,7 @@ const BLOCK_ID: int = 6
 const ENTITIES : Dictionary = {
 	"barrel": {
 		"tile_id": 1,
-		"price": 10,
+		"price": 30,
 		"blocks_above": false,
 	},
 	"bed":{
@@ -61,12 +52,12 @@ const ENTITIES : Dictionary = {
 	},
 	"cauldron": {
 		"tile_id": 4,
-		"price": 10,
+		"price": 60,
 		"blocks_above": false,
 	},
 	"shelf": {
 		"tile_id": 5,
-		"price": 10,
+		"price": 40,
 		"blocks_above": true,
 	},
 }
@@ -137,51 +128,24 @@ func move_cursor(dir_delta : Vector2i) -> void:
 	current_tile = next
 
 func _on_step(dir: DirectionalHoldController.Direction)->void:
-	match dir:
-		hold_controller.Direction.LEFT:
-			move_cursor(Vector2i.LEFT)
-		hold_controller.Direction.RIGHT:
-			move_cursor(Vector2i.RIGHT)
-		hold_controller.Direction.UP:
-			move_cursor(Vector2i.UP)
-		hold_controller.Direction.DOWN:
-			move_cursor(Vector2i.DOWN)
+	move_cursor(hold_controller.get_vector(dir))
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("inventory"):
-		hold_controller.stop_hold()
 		_switch_cam()
 	
 	if event.is_action_pressed("interact"):
-		hold_controller.stop_hold()
 		_place()
 	
 	if event.is_action_pressed("ui_accept"):
-		hold_controller.stop_hold()
 		_cycle()
 		
 	if event.is_action_pressed("ui_cancel"):
 		_menu()
 		get_viewport().set_input_as_handled()
 		
-	handle_movement_input(event)
-		
+	hold_controller.handle_movement_input(event)
 
-func handle_movement_input(event: InputEvent) -> void:
-	for action : StringName in MOVE_ACTIONS:
-		var dir : DirectionalHoldController.Direction = MOVE_ACTIONS[action]
-		if event.is_action_pressed(action):
-			hold_controller.start_hold(dir)
-		if event.is_action_released(action):
-			if hold_controller.holding_dir == dir:
-				_continue_or_stop_movement()
-
-func _continue_or_stop_movement()->void:
-	for action: StringName in MOVE_ACTIONS:
-		if Input.is_action_pressed(action):
-			hold_controller.start_hold(MOVE_ACTIONS[action])
-			return
-	hold_controller.stop_hold()
 
 func _place() -> void:
 	if not done_loading:

@@ -20,6 +20,22 @@ enum Direction{
 	DOWN	# not used yet but will likely be useful when on grid
 }
 
+
+const MOVE_ACTIONS : Dictionary = {
+	"move_left": Direction.LEFT,
+	"move_right": Direction.RIGHT,
+	"move_up": Direction.UP,
+	"move_down": Direction.DOWN,
+}
+
+const DIR_VECTORS := {
+	Direction.LEFT:  Vector2i.LEFT,
+	Direction.RIGHT: Vector2i.RIGHT,
+	Direction.UP:    Vector2i.UP,
+	Direction.DOWN:  Vector2i.DOWN,
+}
+
+
 signal stepped(dir:Direction)
 
 ## Turns on the holding mechanism for smoother selection
@@ -32,6 +48,25 @@ func start_hold(dir: Direction) -> void:
 ## Turns off the holding mechanism for smoother selection
 func stop_hold()->void:
 	holding_dir = Direction.NONE
+	
+func handle_movement_input(event: InputEvent) -> void:
+	for action : StringName in MOVE_ACTIONS:
+		var dir : Direction = MOVE_ACTIONS[action]
+		if event.is_action_pressed(action):
+			start_hold(dir)
+		if event.is_action_released(action):
+			if holding_dir == dir:
+				_continue_or_stop_movement()
+
+func _continue_or_stop_movement()->void:
+	for action: StringName in MOVE_ACTIONS:
+		if Input.is_action_pressed(action):
+			start_hold(MOVE_ACTIONS[action])
+			return
+	stop_hold()
+
+func get_vector(dir: Direction) -> Vector2i:
+	return DIR_VECTORS.get(dir, Vector2i.ZERO)
 
 func process(delta:float)->void:
 	if holding_dir == Direction.NONE:

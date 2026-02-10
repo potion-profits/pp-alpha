@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=4 uid="uid://boosny1gly5cp"]
+[gd_scene load_steps=21 format=4 uid="uid://boosny1gly5cp"]
 
 [ext_resource type="Script" uid="uid://bscltagfnjtrv" path="res://scenes/refill_scene/backroom.gd" id="1_e5qh1"]
 [ext_resource type="Texture2D" uid="uid://cq4mo6l3w2oka" path="res://assets/interior/shop/background.png" id="2_idwnr"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://b0flhrlw7t57t" path="res://scenes/player/player.tscn" id="11_egyl4"]
 [ext_resource type="PackedScene" uid="uid://g1ngeh7fhfwq" path="res://scenes/bed/bed.tscn" id="12_5xger"]
 [ext_resource type="PackedScene" uid="uid://ydlnke6gesg1" path="res://scenes/cash_register/cash_register.tscn" id="12_evep0"]
+[ext_resource type="Script" uid="uid://348byftoo3e7" path="res://globals/direction_hold_controller.gd" id="13_idwnr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6w02k"]
 texture = ExtResource("5_poyl6")
@@ -540,15 +541,12 @@ position = Vector2(353, -433)
 
 [node name="Barrel2" parent="EntityManager" instance=ExtResource("8_ccx10")]
 position = Vector2(378, -425)
-barrel_type = "empty_barrel"
 
 [node name="Barrel3" parent="EntityManager" instance=ExtResource("8_ccx10")]
 position = Vector2(399, -415)
-barrel_type = "empty_barrel"
 
 [node name="Barrel4" parent="EntityManager" instance=ExtResource("8_ccx10")]
 position = Vector2(422, -406)
-barrel_type = "empty_barrel"
 
 [node name="Cauldron" parent="EntityManager" instance=ExtResource("9_ph7cv")]
 y_sort_enabled = true
@@ -572,3 +570,7 @@ position = Vector2(448, -145)
 visible = false
 tile_map_data = PackedByteArray("AAAUAOf/AAAAAAAAAwAUAOn/AAAAAAAAAwAXAOr/AAAAAAAABAAWAOX/AAAAAAAAAQAXAOX/AAAAAAAAAQAZAOb/AAAAAAAAAQAaAOf/AAAAAAAAAQAgAOX/AAAAAAAAAgAQAPr/AAAAAAAABQAQAPT/AAAAAAAABQAWAPT/AAAAAAAABQA=")
 tile_set = SubResource("TileSet_fkrch")
+
+[node name="DirectionalHoldController" type="Node" parent="."]
+script = ExtResource("13_idwnr")
+metadata/_custom_type_script = "uid://348byftoo3e7"
