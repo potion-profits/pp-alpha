@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://dule5eggsxyvo"]
+[gd_scene load_steps=4 format=3 uid="uid://dule5eggsxyvo"]
 
 [ext_resource type="Script" uid="uid://con3stiif7a6" path="res://scenes/ui/volume_menu.gd" id="1_ghd78"]
 [ext_resource type="Texture2D" uid="uid://db0iojmrs813b" path="res://assets/ui/temp_menu_background.jpg" id="2_nay2i"]
-[ext_resource type="Texture2D" uid="uid://bntl7fv41g75j" path="res://assets/ui/menu_button.tres" id="5_k14j1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5qqp5"]
 bg_color = Color(0.80784315, 0.7529412, 0.45882353, 1)
@@ -19,9 +18,6 @@ expand_margin_left = 5.0
 expand_margin_top = 5.0
 expand_margin_right = 5.0
 expand_margin_bottom = 22.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ny1bo"]
-texture = ExtResource("5_k14j1")
 
 [node name="VolumeMenu" type="Control"]
 layout_mode = 3
@@ -108,12 +104,6 @@ max_value = 1.0
 step = 0.001
 value = 0.75
 
-[node name="Options" type="Button" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_styles/normal = SubResource("StyleBoxTexture_ny1bo")
-
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/VolumeBG/VolumeContainer/Master" to="." method="_on_master_value_changed"]
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/VolumeBG/VolumeContainer/Music" to="." method="_on_music_value_changed"]
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/VolumeBG/VolumeContainer/SFX" to="." method="_on_sfx_value_changed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Options" to="." method="_on_options_pressed"]

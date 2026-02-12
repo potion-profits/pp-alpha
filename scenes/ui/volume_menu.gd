@@ -11,9 +11,6 @@ extends "res://scenes/ui/base_menu.gd"
 
 func _ready()->void:
 	init_sliders()
-	button_map = {
-		"MarginContainer/VBoxContainer/Options": "res://assets/ui/options_button.tres"
-	}
 	super._ready()
 
 ## Initializes slider values to represent current bus layout[br][br]
@@ -26,12 +23,15 @@ func init_sliders() -> void:
 
 # Slider value changed signals for each respective slider
 func _on_master_value_changed(value: float) -> void:
+	SettingManager.emit_on_master_vol_set(value)
 	AudioServer.set_bus_volume_db(MASTER_BUS_IDX, linear_to_db(value))
 
 func _on_music_value_changed(value: float) -> void:
+	SettingManager.emit_on_music_vol_set(value)
 	AudioServer.set_bus_volume_db(MUSIC_BUS_IDX, linear_to_db(value))
 
 func _on_sfx_value_changed(value: float) -> void:
+	SettingManager.emit_on_sfx_vol_set(value)
 	AudioServer.set_bus_volume_db(SFX_BUS_IDX, linear_to_db(value))
 
 func _on_options_pressed() -> void:

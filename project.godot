@@ -24,6 +24,9 @@ GameManager="*res://globals/game_manager.gd"
 ItemRegistry="*res://globals/item_registry.gd"
 SceneManager="*res://globals/scene_manager.gd"
 MusicManager="*res://globals/music_manager.tscn"
+SettingManager="*res://globals/setting_manager.gd"
+SettingDataContainer="*res://globals/setting_data_container.gd"
+SaveManager="*res://globals/save_manager.gd"
 
 [debug]
 
