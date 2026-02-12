@@ -56,7 +56,6 @@ func refill()->void:
 	var coins : int = player.get_coins()
 	
 	if coins < price:
-		print("ran out of money")
 		cost.modulate = Color("Red")
 		await get_tree().create_timer(0.3).timeout
 		cost.modulate = Color("White")
@@ -139,7 +138,6 @@ func _unhighlight_current()->void:
 	current_entity.un_highlight()
 
 func _highlight_current()->void:
-	print("highlighting noww")
 	current_entity.highlight()
 
  # Handles input catagorized into pressing a direction, releasing a direction, 
@@ -157,6 +155,9 @@ func _input(event: InputEvent) -> void:
 		_cycle()
 	
 	hold_controller.handle_movement_input(event)
+
+func _process(delta: float) -> void:
+	hold_controller.process(delta)
 
 ## Changes the scene to the town menu.[br][br]
 ## Currently does not do anything other than change the scene through 
