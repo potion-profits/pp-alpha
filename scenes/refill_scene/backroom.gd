@@ -101,30 +101,12 @@ func find_next_selectable(from: Vector2, dir: Vector2) -> Vector2i:
 			best_pos = pos
 	
 	if best_pos != from:
-		for child in em.get_children():
-			if child is Entity and child.entity_code in SELECTABLE:
+		for child in selectables:
 				if current_layer.local_to_map(child.position) == Vector2i(best_pos):
 					next_entity = child as Entity
 					break
 	
 	return best_pos
-
-func is_inside_grid(pos: Vector2i) -> bool:
-	if pos.x < topleft.x or pos.x > botright.x:
-		return false
-	if pos.y < topleft.y or pos.y > botright.y:
-		return false
-	
-	return true
-	
-func is_selectable(pos: Vector2i) -> bool:
-	if em:
-		for child in em.get_children():
-			if child is Entity and child.entity_code in SELECTABLE:
-				if current_layer.local_to_map(child.position) == pos:
-					next_entity = child as Entity
-					return true
-	return false
 
 func _on_step(dir: DirectionalHoldController.Direction)->void:
 	var delta : Vector2i = DirectionalHoldController.DIR_VECTORS.get(dir)
