@@ -7,11 +7,17 @@ const WINDOW_MODE_ARRAY: Array[String] = [
 	"Windowed",
 	"Fullscreen",
 	"Borderless Windowed",
-	"Borderless Fullscreen"
+	#"Borderless Fullscreen"
 ]
 
 func _ready() -> void:
 	add_window_mode_items()
+	load_data()
+
+func load_data() -> void:
+	_on_option_button_item_selected(SettingDataContainer.window_mode_index)
+	# Ensure selection index visual matches loaded index
+	option_button.select(SettingDataContainer.window_mode_index)
 
 func add_window_mode_items() -> void:
 	for mode in WINDOW_MODE_ARRAY:
@@ -31,6 +37,6 @@ func _on_option_button_item_selected(index: int) -> void:
 		2: #Borderless Windowed
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, true)
-		4: #Borderless Fullscreen (This acts weird and I can't figure it out)
-			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, true)
+		#4: #Borderless Fullscreen (This acts weird and I can't figure it out)
+			#DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+			#DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, true)

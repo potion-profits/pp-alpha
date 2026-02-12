@@ -9,13 +9,18 @@ signal on_master_vol_set(value: float)
 signal on_music_vol_set(value: float)
 signal on_sfx_vol_set(value: float)
 
+# Save/Loading settings data related signals
 signal set_settings_dict(seting_dict: Dictionary)
-
-func emit_on_tooltip_enabled(enabled: bool) -> void:
-	on_tooltip_enabled.emit(enabled)
+signal load_settings_data(setting_dict: Dictionary)
 
 func emit_set_settings_dict(setting_dict: Dictionary) -> void:
 	set_settings_dict.emit(setting_dict)
+
+func emit_load_settings_data(setting_dict: Dictionary) -> void:
+	load_settings_data.emit(setting_dict)
+
+func emit_on_tooltip_enabled(enabled: bool) -> void:
+	on_tooltip_enabled.emit(enabled)
 
 func emit_on_window_selected(index: int) -> void:
 	on_window_selected.emit(index)

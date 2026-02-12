@@ -14,6 +14,12 @@ const RESULTION_OPTIONS: Dictionary = {
 
 func _ready() -> void:
 	add_resolution_items()
+	load_data()
+
+func load_data() -> void:
+	_on_option_button_item_selected(SettingDataContainer.resolution_mode_index)
+	# Ensure selection index visual matches loaded index
+	option_button.select(SettingDataContainer.resolution_mode_index)
 
 func add_resolution_items() -> void:
 	for res_text: String in RESULTION_OPTIONS:

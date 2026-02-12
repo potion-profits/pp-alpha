@@ -1,8 +1,4 @@
-extends "res://scenes/ui/base_menu.gd"
-
-func _ready() -> void:
-	super._ready()
-
+extends Control
 
 func _on_exit_pressed() -> void:
 	# Save settings on exit

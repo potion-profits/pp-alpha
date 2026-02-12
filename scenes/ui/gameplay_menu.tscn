@@ -21,3 +21,5 @@ vertical_alignment = 1
 [node name="OptionButton" type="CheckBox" parent="HBoxContainer"]
 custom_minimum_size = Vector2(256, 64)
 layout_mode = 2
+button_pressed = true
+button_mask = 0
