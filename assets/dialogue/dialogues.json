@@ -1,0 +1,116 @@
+{
+  "tutorial": [
+	{
+	  "id": "welcome",
+	  "marker": "WelcomeMarker",
+	  "text": "Welcome to the shop! This is where you'll run your business.",
+	  "wait_for": "player_moved"
+	},
+	{
+	  "id": "movement",
+	  "marker": "MovementMarker", 
+	  "text": "Use WASD to move around and explore.",
+	  "wait_for": "player_moved"
+	},
+	{
+	  "id": "go_backroom",
+	  "marker": "BackroomMarker",
+	  "text": "Head to the back room to check out your crafting area! I'll meet you there!",
+	  "wait_for": "entered_backroom"
+	},
+	{
+	  "id": "in_backroom",
+	  "marker": "BackroomMarker",
+	  "text": "Great! Now let's craft your first potion.",
+	  "wait_for": "player_moved"
+	},
+	{
+	  "id": "grab_bottle",
+	  "marker": "CrateMarker",
+	  "text": "Press E on the crate to grab an empty bottle.",
+	  "wait_for": "bottle_grabbed"
+	},
+	{
+	  "id": "get_ingredients",
+	  "marker": "BarrelMarker",
+	  "text": "With the bottle selected, grab ingredients from the mix barrel.",
+	  "wait_for": "ingredients_grabbed"
+	},
+	{
+	  "id": "mix_potion",
+	  "marker": "CauldronMarker",
+	  "text": "Mix your unmixed potion in the cauldron by pressing E.",
+	  "wait_for": "potion_mixed"
+	},
+	{
+	  "id": "wait_brewing",
+	  "marker": "CauldronMarker",
+	  "text": "Now wait for the potion to finish brewing...",
+	  "wait_for": "potion_ready"
+	},
+	{
+	  "id": "grab_potion",
+	  "marker": "CauldronMarker",
+	  "text": "The potion is ready! Press E to grab it from the cauldron.",
+	  "wait_for": "potion_grabbed"
+	},
+	{
+	  "id": "go_frontroom",
+	  "marker": "WelcomeMarker",
+	  "text": "Great! Now head back to the front room to stock your shelf. See you there!",
+	  "wait_for": "entered_frontroom"
+	},
+	{
+	  "id": "go_to_shelf",
+	  "marker": "ShelfMarker",
+	  "text": "Press E on a shelf to open it.",
+	  "wait_for": "shelf_opened"
+	},
+	{
+	  "id": "stock_shelf",
+	  "marker": "ShelfMarker",
+	  "text": "Now Shift+Click or Click+Drag your potion to stock it on the shelf!",
+	  "wait_for": "item_stocked"
+	},
+	{
+	  "id": "close_shelf",
+	  "marker": "ShelfMarker",
+	  "text": "Great! Now press ESC to close the shelf menu.",
+	  "wait_for": "shelf_closed"
+	},
+	{
+	  "id": "complete",
+	  "marker": "WelcomeMarker",
+	  "text": "Perfect! You're ready to run your shop!",
+	  "wait_for": "player_moved"
+	},
+		{
+	  "id": "save_reminder",
+	  "marker": "WelcomeMarker",
+	  "text": "If you need to save, your bed in back is always there for you!",
+	  "wait_for": "player_moved"
+	},
+	{
+	  "id": "town_reminder",
+	  "marker": "WelcomeMarker",
+	  "text": "If you need to refill bottles, ingredients, or supplies, head to the town!",
+	  "wait_for": "player_moved"
+	},
+	{
+	  "id": "warning",
+	  "marker": "WelcomeMarker",
+	  "text": "One more thing... when you see the $ icon above the register, don't wait to check them out! Or else...",
+	  "wait_for": "player_moved"
+	}
+	  ],
+  "dialogues": {
+	"shopkeeper_greeting": {
+	  "speaker": "Shopkeeper",
+	  "text": "Back again? What can I get you?",
+	  "choices": [
+		{"text": "Show me your wares", "action": "open_shop"},
+		{"text": "Just browsing", "action": "close"}
+	  ]
+	}
+  }
+}

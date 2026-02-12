@@ -10,9 +10,9 @@ var pause_menu: Control	## The instance of the pause menu (likely will change)
 var runtime_entities:Dictionary = {} ## Holds all the entities in every scene. See [Entity].
 var player_data:Dictionary = {}	## Holds the player's data. See [Player].
 
-## Town position persistence
-var town_position: Vector2 = Vector2.ZERO
-var has_town_position: bool = false
+var last_known_positions: Dictionary =  {}
+
+var tutorial_completed: bool = false
 
 # PLEASE UPDATE THIS IF THE DEFAULT STATE NEEDS TO BE UPDATED
 # format is MM.DD.YR/Version

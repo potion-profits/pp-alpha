@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=4 uid="uid://c0wgfjbxk58k0"]
+[gd_scene load_steps=30 format=4 uid="uid://c0wgfjbxk58k0"]
 
 [ext_resource type="Script" uid="uid://cyi5m0rhrv7o2" path="res://scenes/player_shop/main_shop.gd" id="1_47hg3"]
 [ext_resource type="Texture2D" uid="uid://cq4mo6l3w2oka" path="res://assets/interior/shop/background.png" id="2_ixtpo"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://ckd2slmjdifxy" path="res://scenes/coin_ui/player_coin.tscn" id="4_g03oc"]
 [ext_resource type="Script" uid="uid://v2b04jaxuakv" path="res://globals/entity_manager.gd" id="5_41gid"]
 [ext_resource type="Texture2D" uid="uid://b6sxxon0bv8sh" path="res://assets/interior/shop/counter_all01.png" id="5_47hg3"]
+[ext_resource type="Texture2D" uid="uid://cx2xrogaqcboo" path="res://assets/interior/shop/register_cat.png" id="5_epjix"]
 [ext_resource type="PackedScene" uid="uid://nfogt8087sfy" path="res://scenes/barrel/barrel.tscn" id="6_85e8s"]
 [ext_resource type="PackedScene" uid="uid://b0flhrlw7t57t" path="res://scenes/player/player.tscn" id="6_b6yhm"]
 [ext_resource type="PackedScene" uid="uid://c0nam2jyacktb" path="res://scenes/cauldron/cauldron.tscn" id="7_47hg3"]
@@ -16,6 +17,19 @@
 [ext_resource type="PackedScene" uid="uid://bk1hol15q64bh" path="res://scenes/inventory/inv_ui.tscn" id="14_paag6"]
 [ext_resource type="PackedScene" uid="uid://ydlnke6gesg1" path="res://scenes/cash_register/cash_register.tscn" id="14_ylhot"]
 [ext_resource type="PackedScene" uid="uid://g1ngeh7fhfwq" path="res://scenes/bed/bed.tscn" id="16_0rphg"]
+[ext_resource type="PackedScene" uid="uid://20651jic501l" path="res://scenes/cat/cat.tscn" id="18_lmcqa"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lmcqa"]
+bg_color = Color(0.9307845, 0.83566743, 0.71181226, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.57, 0.39140004, 0.0342, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6w02k"]
 texture = ExtResource("4_85e8s")
@@ -542,6 +556,76 @@ offset_right = 955.0
 offset_bottom = 150.0
 texture = ExtResource("2_ixtpo")
 
+[node name="Tutorial_UI" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="DialogueContainer" type="Control" parent="Tutorial_UI"]
+layout_mode = 3
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -116.0
+offset_top = -10.0
+offset_right = -1186.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="DialoguePanel" type="Panel" parent="Tutorial_UI/DialogueContainer"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -255.0
+offset_top = -289.0
+offset_right = 345.0
+offset_bottom = -39.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_lmcqa")
+
+[node name="MarginContainer" type="MarginContainer" parent="Tutorial_UI/DialogueContainer/DialoguePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="DialogueLabel" type="Label" parent="Tutorial_UI/DialogueContainer/DialoguePanel/MarginContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 40
+autowrap_mode = 2
+
+[node name="TutorialCatPortrait" type="TextureRect" parent="Tutorial_UI/DialogueContainer"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 166.0
+offset_top = -409.0
+offset_right = 198.0
+offset_bottom = -377.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(8, 8)
+texture = ExtResource("5_epjix")
+stretch_mode = 5
+
 [node name="Static_UI" type="CanvasLayer" parent="."]
 
 [node name="Inv_UI" parent="Static_UI" instance=ExtResource("14_paag6")]
@@ -563,6 +647,23 @@ offset_right = -4.0
 offset_bottom = -3.0
 scale = Vector2(1.5, 1.5)
 player = NodePath("../../EntityManager/Player")
+
+[node name="TutorialMarkers" type="Node" parent="."]
+
+[node name="WelcomeMarker" type="Marker2D" parent="TutorialMarkers"]
+position = Vector2(483, -139)
+
+[node name="BackroomMarker" type="Marker2D" parent="TutorialMarkers"]
+position = Vector2(432, -377)
+
+[node name="CrateMarker" type="Marker2D" parent="TutorialMarkers"]
+position = Vector2(298, -390)
+
+[node name="BarrelMarker" type="Marker2D" parent="TutorialMarkers"]
+position = Vector2(330, -429)
+
+[node name="CauldronMarker" type="Marker2D" parent="TutorialMarkers"]
+position = Vector2(408, -349)
 
 [node name="FrontRoom" type="Node2D" parent="."]
 
@@ -692,6 +793,7 @@ position = Vector2(367, -199)
 position = Vector2(275, -103)
 
 [node name="Barrel" parent="EntityManager" instance=ExtResource("6_85e8s")]
+visible = false
 position = Vector2(353, -433)
 
 [node name="Barrel2" parent="EntityManager" instance=ExtResource("6_85e8s")]
@@ -699,10 +801,12 @@ position = Vector2(378, -425)
 barrel_type = "empty_barrel"
 
 [node name="Barrel3" parent="EntityManager" instance=ExtResource("6_85e8s")]
+visible = false
 position = Vector2(399, -415)
 barrel_type = "empty_barrel"
 
 [node name="Barrel4" parent="EntityManager" instance=ExtResource("6_85e8s")]
+visible = false
 position = Vector2(422, -406)
 barrel_type = "empty_barrel"
 
@@ -715,6 +819,7 @@ position = Vector2(325, -397)
 scale = Vector2(1.2, 1.2)
 
 [node name="Crate2" parent="EntityManager" instance=ExtResource("8_b6yhm")]
+visible = false
 position = Vector2(325, -369.00003)
 scale = Vector2(1.2, 1.2)
 
@@ -737,6 +842,9 @@ position_smoothing_speed = 3.0
 position = Vector2(448, -145)
 
 [node name="NpcSpawner" parent="EntityManager" instance=ExtResource("12_47hg3")]
+
+[node name="TutorialCat" parent="EntityManager" instance=ExtResource("18_lmcqa")]
+position = Vector2(483, -140)
 
 [connection signal="body_entered" from="FrontRoom/MoveTownDetection" to="." method="_on_move_town_detection_body_entered"]
 [connection signal="body_entered" from="FrontRoom/MoveStorageRoomDetection" to="." method="_on_move_storage_room_detection_body_entered"]

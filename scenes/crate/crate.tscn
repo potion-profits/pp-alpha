@@ -69,7 +69,7 @@ animations = [{
 "speed": 12.0
 }]
 
-[node name="Crate" type="StaticBody2D"]
+[node name="Crate" type="StaticBody2D" groups=["tutorial_crate"]]
 script = ExtResource("1_3v208")
 
 [node name="full_crate" type="Sprite2D" parent="."]

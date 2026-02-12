@@ -255,7 +255,7 @@ animations = [{
 radius = 20.0
 height = 40.0
 
-[node name="Cauldron" type="StaticBody2D"]
+[node name="Cauldron" type="StaticBody2D" groups=["tutorial_cauldron"]]
 script = ExtResource("1_to7hx")
 
 [node name="ProgressBar" parent="." instance=ExtResource("2_8t87t")]
