@@ -25,7 +25,7 @@ var next_entity : Entity
 var topleft  : Vector2i
 var botright : Vector2i
 
-var locations : Array
+var selectables : Array[Entity]
 
 const SELECTABLE_PRICES : Dictionary = {
 	"empty_barrel":INF,
@@ -55,7 +55,7 @@ func _find_init_target() -> void:
 				if not current_entity:
 					current_entity = child as Entity
 					current_tile = current_layer.local_to_map(current_entity.position)
-				locations.append(current_layer.local_to_map(child.position))
+				selectables.append(child)
 
 
 func _update_bounds() -> void:
@@ -79,29 +79,35 @@ func refill()->void:
 		await get_tree().process_frame
 		menu()
 
-func find_next_selectable(from: Vector2i, dir: Vector2i) -> Vector2i:
-	
-#	What I want here is:
-		#Look for all entities to the dir from from 
-		#calculate the closest with vectors, select that one
-	#var min_dist : float = 1_000_000
-	#for pos: Vector2i in locations:
-		#if pos*dir < from*dir:
-			#var dist: float = from.distance_to(pos)
-			#if  dist < min_dist:
-				#min_dist = dist
+func find_next_selectable(from: Vector2, dir: Vector2) -> Vector2i:
+	var best_pos: Vector2 = from
+	var min_dist : float = INF
+	for entity : Entity in selectables:
+		var pos : Vector2 = current_layer.local_to_map(entity.position)
+		var to_possible : Vector2 = pos - from
+		if to_possible == Vector2.ZERO:
+			continue
+		if to_possible.dot(dir) <= 0:
+			continue
 		
-	
-	var pos :Vector2i = from
-	
-	while true:
-		pos += dir
-		if not is_inside_grid(pos):
-			return from
+		if dir.x != 0 and abs(to_possible.y) > abs(to_possible.x):
+			continue
+		if dir.y != 0 and abs(to_possible.x) > abs(to_possible.y):
+			continue
 		
-		if is_selectable(pos):
-			return pos
-	return Vector2i.ZERO
+		var dist := to_possible.length()
+		if dist < min_dist:
+			min_dist = dist
+			best_pos = pos
+	
+	if best_pos != from:
+		for child in em.get_children():
+			if child is Entity and child.entity_code in SELECTABLE:
+				if current_layer.local_to_map(child.position) == Vector2i(best_pos):
+					next_entity = child as Entity
+					break
+	
+	return best_pos
 
 func is_inside_grid(pos: Vector2i) -> bool:
 	if pos.x < topleft.x or pos.x > botright.x:
