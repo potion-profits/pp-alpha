@@ -14,10 +14,15 @@ var bob_height: float = 2.0	## How much the icon should bob
 
 @onready var cust_waiting_icon: Sprite2D = $CustWaitingIcon	## Ready to checkout icon
 @onready var sale_sfx : AudioStreamPlayer2D = $SaleSFX ## Reference to audio stream for sound effects
+@onready var interactable : Area2D = $Interactable ## Reference to component used for interaction
+
+const REGISTER_TOOLTIP : String = "Press E to Checkout"
 
 func _ready() -> void:
 	cust_waiting_icon.visible = false
 	base_icon_y = cust_waiting_icon.position.y
+	
+	interactable.tooltip = REGISTER_TOOLTIP
 
 func _process(delta: float) -> void:
 	if cust_waiting_icon.visible:

@@ -3,9 +3,12 @@ extends Entity
 @onready var interactable : Area2D = $Interactable
 @onready var table_sprite: Sprite2D = $TableSprite
 
+const BLACKJACK_TOOLTIP: String = "Press E to Play Blackjack"
+
 func _ready() -> void:	
 	# Links interactable template to barrel specific method
 	interactable.interact = _on_interact
+	interactable.tooltip = BLACKJACK_TOOLTIP
 	
 	# Sets up entity info
 	super._ready()

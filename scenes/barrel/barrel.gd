@@ -30,14 +30,16 @@ const barrel_bottle_map = {
 	"dark_barrel": "item_dark_potion"
 }
 
-
 const MAX_ML :int = 1_000 ## Amount to refill to, may change with different sized barrels
+const BARREL_TOOLTIP: String = "Press E to Fill Bottle" ## Tooltip for interactable
 var ml :int = 1_000	## Amount the current barrel has
 @export var barrel_type : String = "red_barrel"	## Dictates the sprite and item given out
 
 func _ready() -> void:	
 	# Links interactable template to barrel specific method
 	interactable.interact = _on_interact
+	interactable.tooltip = BARREL_TOOLTIP
+	
 	
 	# Sets up entity info
 	super._ready()

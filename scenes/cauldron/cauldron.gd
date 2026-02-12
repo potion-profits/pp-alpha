@@ -17,10 +17,12 @@ extends Entity	#will help store placement and inventory information for persiste
 
 var mixing: bool = false	## Keeps track of the cauldron's state
 const MIX_DURATION : float = 3.0
+const CAULDRON_TOOLTIP : String = "Press E to Brew Potion"
 
 func _ready()-> void:
 	#links interactable template to cauldron specific method (needed for all interactables)
 	interactable.interact = _on_interact
+	interactable.tooltip = CAULDRON_TOOLTIP
 	#sets up entity info 
 	super._ready()
 	#used to find out what actual scene to place in entity manager

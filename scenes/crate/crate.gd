@@ -15,11 +15,13 @@ extends Entity	#will help store placement and inventory information for persiste
 
 # default vars
 const MAX_AMT: int = 8	## Max amount crates can hold
+const CRATE_TOOLTIP: String = "Press E for Bottle" ## Tooltip for interactable
 var crate_inv_amt : int = 8	## Current amount this crate has
 
 func _ready()-> void:
 	#links interactable template to cauldron specific method (needed for all interactables)
 	interactable.interact = _on_interact
+	interactable.tooltip = CRATE_TOOLTIP
 	#sets up entity info 
 	super._ready()
 	#used to find out what actual scene to place in entity manager

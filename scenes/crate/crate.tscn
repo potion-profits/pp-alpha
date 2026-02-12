@@ -91,6 +91,7 @@ scale = Vector2(0.9999997, 0.9999997)
 shape = SubResource("RectangleShape2D_3v208")
 
 [node name="Interactable" parent="." instance=ExtResource("5_rym3a")]
+tooltip = "Press E for Bottle"
 
 [node name="InteractableShape" type="CollisionShape2D" parent="Interactable"]
 shape = SubResource("CapsuleShape2D_ssudb")
