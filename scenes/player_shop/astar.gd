@@ -23,7 +23,7 @@ var shelf_targets : Array[Vector2i] = []
 ## Tile on floor for checkout
 var checkout : Vector2i
 ## [AStarGrid2D] for NPC pathing
-var astar : Object
+var astar : AStarGrid2D
 
 # create new astar grid
 # get position of markers for points of interest in tilemap
@@ -50,7 +50,7 @@ func prep_astar() -> void:
 ## See [AStarGrid2D] for [method AStarGrid2D.update]. Sets all counter and shelf tiles to solid 
 ## (unwalkable)
 func setup_grid() -> void:
-	astar.size =  tilemap.get_used_rect().size
+	astar.region =  tilemap.get_used_rect()
 	astar.offset = tilemap.get_used_rect().position
 	astar.cell_size = tilemap.tile_set.tile_size
 	astar.default_estimate_heuristic = AStarGrid2D.HEURISTIC_OCTILE

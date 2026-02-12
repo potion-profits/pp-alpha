@@ -11,6 +11,7 @@ extends Node2D
 @onready var player: Player = $EntityManager/Player	## Reference to player
 @onready var static_ui: CanvasLayer = $Static_UI	## reference to static ui
 @onready var hold_controller: DirectionalHoldController = $DirectionalHoldController
+@onready var current_layer: TileMapLayer = $BackRoom/BackroomFloors
 
 # expected payload variables
 var target: String 	## Entity currently highlighted as a string.
@@ -19,6 +20,12 @@ var type: String 	## Specifies additional information about what is being refill
 
 var current_tile : Vector2i
 var current_entity : Entity
+var next_entity : Entity
+
+var topleft  : Vector2i
+var botright : Vector2i
+
+var locations : Array
 
 const SELECTABLE_PRICES : Dictionary = {
 	"empty_barrel":INF,
@@ -29,11 +36,14 @@ const SELECTABLE_PRICES : Dictionary = {
 	"crate": 80
 }
 
+const SELECTABLE : Array = ["crate", "barrel"]
+
 func _ready()->void:
 	player.set_physics_process(false) # need gold but dont want to move character
 	hold_controller.stepped.connect(_on_step)
 	_load_payload()
 	await get_tree().process_frame
+	_update_bounds()
 	_find_init_target()
 	_highlight_current()
 	
@@ -41,10 +51,21 @@ func _ready()->void:
 func _find_init_target() -> void:
 	if em:
 		for child in em.get_children():
-			if child is Entity and child.entity_code in SELECTABLE_PRICES.keys():
-				print("found ", child)
-				current_entity = child as Entity
-				return
+			if child is Entity and child.entity_code in SELECTABLE:
+				if not current_entity:
+					current_entity = child as Entity
+					current_tile = current_layer.local_to_map(current_entity.position)
+				locations.append(current_layer.local_to_map(child.position))
+
+
+func _update_bounds() -> void:
+	var tiles : Array = current_layer.get_used_cells()
+	topleft = tiles[0]
+	botright = tiles[0]
+	
+	for tile:Vector2i in tiles:
+		topleft = Vector2i(min(topleft.x, tile.x), min(topleft.y, tile.y))
+		botright = Vector2i(max(botright.x, tile.x), max(botright.y, tile.y))
 
 ## Calls the refill function on the selected target and reduces player coins by cost.
 ## Expects the target to have refill function
@@ -59,6 +80,18 @@ func refill()->void:
 		menu()
 
 func find_next_selectable(from: Vector2i, dir: Vector2i) -> Vector2i:
+	
+#	What I want here is:
+		#Look for all entities to the dir from from 
+		#calculate the closest with vectors, select that one
+	#var min_dist : float = 1_000_000
+	#for pos: Vector2i in locations:
+		#if pos*dir < from*dir:
+			#var dist: float = from.distance_to(pos)
+			#if  dist < min_dist:
+				#min_dist = dist
+		
+	
 	var pos :Vector2i = from
 	
 	while true:
@@ -70,11 +103,22 @@ func find_next_selectable(from: Vector2i, dir: Vector2i) -> Vector2i:
 			return pos
 	return Vector2i.ZERO
 
-func is_inside_grid(pos):
-	pass
+func is_inside_grid(pos: Vector2i) -> bool:
+	if pos.x < topleft.x or pos.x > botright.x:
+		return false
+	if pos.y < topleft.y or pos.y > botright.y:
+		return false
 	
-func is_selectable(pos):
-	pass
+	return true
+	
+func is_selectable(pos: Vector2i) -> bool:
+	if em:
+		for child in em.get_children():
+			if child is Entity and child.entity_code in SELECTABLE:
+				if current_layer.local_to_map(child.position) == pos:
+					next_entity = child as Entity
+					return true
+	return false
 
 func _on_step(dir: DirectionalHoldController.Direction)->void:
 	var delta : Vector2i = DirectionalHoldController.DIR_VECTORS.get(dir)
@@ -87,6 +131,7 @@ func _on_step(dir: DirectionalHoldController.Direction)->void:
 	
 	_unhighlight_current()
 	current_tile = next_tile
+	current_entity = next_entity
 	_highlight_current()
 	
 func _unhighlight_current()->void:
