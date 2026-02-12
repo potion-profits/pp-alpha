@@ -55,6 +55,12 @@ func _ready() -> void:
 ##
 ## Takes [param barrel_id] as the type that this barrel will become. See [constant barrel_color_map].
 func change_barrel_color(barrel_id : String) -> void:
+	
+	barrel_type = barrel_id
+	barrel_sprite.texture = get_barrel_texture(barrel_id) 
+
+
+func get_barrel_texture(barrel_id : String) -> Texture2D:
 	var atlas_texture : AtlasTexture = AtlasTexture.new()
 	atlas_texture.atlas = preload(SHEET_PATH)
 	atlas_texture.region = Rect2(
@@ -62,8 +68,7 @@ func change_barrel_color(barrel_id : String) -> void:
 						0,
 						SPRITE_SIZE,
 						SPRITE_SIZE)
-	barrel_type = barrel_id
-	barrel_sprite.texture = atlas_texture
+	return atlas_texture
 
 ## Handles interaction with this barrel.
 func _on_interact() -> void:

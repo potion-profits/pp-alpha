@@ -85,10 +85,8 @@ func un_highlight()->void:
 
 ## Changes crate attributes to simulate a refilled crate.[br][br]
 ##
-## Sets the item to a bottle, sets the amount to refilled amount, and updates the sprite.[br][br]
-##
-## Takes [param _type] to ensure compatabiltity with refill script but is unused.
-func refill(_type: String)->void:
+## Sets the item to a bottle, sets the amount to refilled amount, and updates the sprite.
+func refill()->void:
 	var bottle: InvItem = ItemRegistry.new_item("item_empty_bottle")
 	inv.slots[0].item = bottle
 	inv.slots[0].amount = MAX_AMT
