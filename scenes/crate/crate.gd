@@ -7,15 +7,12 @@ extends Entity	#will help store placement and inventory information for persiste
 
 #interactable entities will need an interactble scene as a child node 
 @onready var interactable: Area2D = $Interactable	## Reference to interactable component
-@onready var full_crate: Sprite2D = $full_crate	## Sprite reference
-@onready var empty_crate: Sprite2D = $empty_crate	## Sprite reference
+#@onready var full_crate: Sprite2D = $full_crate	## Sprite reference
+#@onready var empty_crate: Sprite2D = $empty_crate	## Sprite reference
 @onready var select_sprite: AnimatedSprite2D = $SelectionAnimation	## Sprite Reference
-@onready var capacity_popup: Sprite2D = $capacity_popup	## Sprite reference
+@onready var bottle_sprites: Node2D = $bottles
 @export var animation_name: String = "default"	## Name of animation to play
 
-# Capacity Popup vars
-const Y_POS : int = 0
-const SPRITE_SIZE : int = 16
 # default vars
 const MAX_AMT: int = 8	## Max amount crates can hold
 var crate_inv_amt : int = 8	## Current amount this crate has
@@ -35,9 +32,6 @@ func _ready()-> void:
 	inv.slots[0].amount = crate_inv_amt # initial amt for crate
 	update_crate()
 	
-	# This allows the sprite region to be modified and updated
-	capacity_popup.region_enabled = true
-	update_popup()
 	
 
 #Handles player interaction with crate when appropriate
@@ -51,17 +45,23 @@ func _on_interact()->void:
 				inv.slots[0].amount-=1	#the player collected, so remove item from crate
 				if inv.slots[0].amount <= 0:
 					inv.slots[0].item = null # make item null if no more items to be picked up
-					update_crate()
-	update_popup()
+					#update_crate()
+	update_crate()
 
 ## Updates this crate's sprite to reflect emptiness
-func update_crate()->void:
-	if inv.slots[0].item and inv.slots[0].amount > 0:
-		full_crate.visible = true
-		empty_crate.visible = false
+##
+## Currently one visual bottle = 2 inventory bottles
+func update_crate(is_refill: bool = false)->void:
+	var bottles: Array[Node] = bottle_sprites.get_children() # Individual bottle sprites
+	
+	if (is_refill):
+		for b: Sprite2D in bottles:
+			b.show()	# Show sprites on refill
 	else:
-		full_crate.visible = false
-		empty_crate.visible = true
+		@warning_ignore("integer_division")
+		var amnt: int = (1 + inv.slots[0].amount) / 2	# Maps inv # (0-8) to sprite # (0-4)
+		for b: Sprite2D in bottles.slice(amnt):
+			b.hide()
 
 ## Creates and returns a dictionary representation of this crate. See also [method from_dict].
 func to_dict()-> Dictionary:
@@ -100,33 +100,4 @@ func refill(_type: String)->void:
 	var bottle: InvItem = ItemRegistry.new_item("item_empty_bottle")
 	inv.slots[0].item = bottle
 	inv.slots[0].amount = MAX_AMT
-	update_crate()
-
-## Calculates and updates the crate's current capacity popup
-func update_popup()->void:
-	# Popup sprite is layed our horizontally, only change x position
-	var new_x : int = 16 * (inv.slots[0].amount)
-	
-	var new_region : Rect2 = Rect2(
-		new_x,
-		Y_POS,
-		SPRITE_SIZE,
-		SPRITE_SIZE
-	)
-	
-	# Sets new region
-	capacity_popup.region_rect = new_region
-	
-	
-## Popup only when the player is within the crate's interactable body
-## NOTE: This only considers the player's hitbox, not it's interacting
-##		 component.
-func _on_interactable_body_entered(body: Node2D) -> void:
-	if body is Player:
-		capacity_popup.show()
-		update_popup()
-
-func _on_interactable_body_exited(body: Node2D) -> void:
-	if body is Player:
-		capacity_popup.hide()
-		update_popup()
+	update_crate(true)
