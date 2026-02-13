@@ -20,7 +20,7 @@ enum Direction{
 	DOWN	# not used yet but will likely be useful when on grid
 }
 
-
+## Maps the strings to enum directions
 const MOVE_ACTIONS : Dictionary = {
 	"move_left": Direction.LEFT,
 	"move_right": Direction.RIGHT,
@@ -28,6 +28,7 @@ const MOVE_ACTIONS : Dictionary = {
 	"move_down": Direction.DOWN,
 }
 
+## Maps the enum directions to direction vectors 
 const DIR_VECTORS := {
 	Direction.LEFT:  Vector2i.LEFT,
 	Direction.RIGHT: Vector2i.RIGHT,
@@ -35,7 +36,7 @@ const DIR_VECTORS := {
 	Direction.DOWN:  Vector2i.DOWN,
 }
 
-
+## Signal emitted when movement has been triggered
 signal stepped(dir:Direction)
 
 ## Turns on the holding mechanism for smoother selection
@@ -49,6 +50,8 @@ func start_hold(dir: Direction) -> void:
 func stop_hold()->void:
 	holding_dir = Direction.NONE
 	
+## Handles the input by starting the hold in a direction, 
+## continuing the hold, or stopping
 func handle_movement_input(event: InputEvent) -> void:
 	for action : StringName in MOVE_ACTIONS:
 		var dir : Direction = MOVE_ACTIONS[action]
@@ -58,6 +61,8 @@ func handle_movement_input(event: InputEvent) -> void:
 			if holding_dir == dir:
 				_continue_or_stop_movement()
 
+## Depending on the action being pressed, it continues moving in the 
+## same direction or stops moving 
 func _continue_or_stop_movement()->void:
 	for action: StringName in MOVE_ACTIONS:
 		if Input.is_action_pressed(action):
@@ -65,9 +70,11 @@ func _continue_or_stop_movement()->void:
 			return
 	stop_hold()
 
+## Gets the direction vector given the enum direction
 func get_vector(dir: Direction) -> Vector2i:
 	return DIR_VECTORS.get(dir, Vector2i.ZERO)
 
+## Calculates the repeating behavior from the given delta time
 func process(delta:float)->void:
 	if holding_dir == Direction.NONE:
 		return
