@@ -2,6 +2,8 @@ extends Node
 
 class_name DirectionalHoldController
 
+## Handles the smooth directional movement based on holding behavior
+
 # delays for moving through selections
 var first_delay: float = 0.3	## Threshold to start moving after initially holding.
 var repeat_delay: float = 0.1	## Threshold to continue moving while holding.

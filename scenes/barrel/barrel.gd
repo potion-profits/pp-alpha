@@ -59,7 +59,7 @@ func change_barrel_color(barrel_id : String) -> void:
 	barrel_type = barrel_id
 	barrel_sprite.texture = get_barrel_texture(barrel_id) 
 
-
+## Returns the sprite associated with the given barrel_id
 func get_barrel_texture(barrel_id : String) -> Texture2D:
 	var atlas_texture : AtlasTexture = AtlasTexture.new()
 	atlas_texture.atlas = preload(SHEET_PATH)
