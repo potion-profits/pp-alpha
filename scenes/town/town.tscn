@@ -6,11 +6,11 @@
 [ext_resource type="Texture2D" uid="uid://b2r2yjdlvysn4" path="res://assets/exterior/town_scene_nature/mountain_01.png" id="3_v00pm"]
 [ext_resource type="Texture2D" uid="uid://boy7r65rfllsa" path="res://assets/exterior/town_scene_nature/grass_trees_01.png" id="4_6g2qn"]
 [ext_resource type="Texture2D" uid="uid://cdayuk0mpceyk" path="res://assets/exterior/town_scene_nature/oak_tree_strip.png" id="5_5vpkg"]
-[ext_resource type="Script" uid="uid://v2b04jaxuakv" path="res://globals/entity_manager.gd" id="5_vb1k2"]
 [ext_resource type="PackedScene" uid="uid://b0flhrlw7t57t" path="res://scenes/player/player.tscn" id="6_v00pm"]
 [ext_resource type="Script" uid="uid://cyoxqjs33x401" path="res://scenes/town/camera_2d.gd" id="8_5vpkg"]
 [ext_resource type="PackedScene" uid="uid://d2kxeyk45gfcd" path="res://scenes/casino/casino_exterior.tscn" id="8_jil70"]
 [ext_resource type="PackedScene" uid="uid://mdmvxwcxxsjx" path="res://scenes/player_shop/shop_exterior.tscn" id="9_jil70"]
+[ext_resource type="Texture2D" uid="uid://dvv0n3rj35hie" path="res://assets/exterior/buildings/player_shop_sprite.png" id="10_w25xm"]
 [ext_resource type="PackedScene" uid="uid://kbqmmwealf21" path="res://scenes/other_shops/misc_shop_exterior.tscn" id="11_g3yvl"]
 [ext_resource type="Texture2D" uid="uid://cx6xf4hpuaq4i" path="res://assets/interior/shop/crates01.png" id="11_yr8sw"]
 [ext_resource type="Texture2D" uid="uid://b3u4cu4v6tv2w" path="res://assets/exterior/town_scene_nature/stone_fence.png" id="12_svnup"]
@@ -402,114 +402,129 @@ offset_bottom = 793.0754
 rotation = 1.5707964
 texture = SubResource("GradientTexture2D_svnup")
 
-[node name="EntityManagerTown" type="Node" parent="."]
-script = ExtResource("5_vb1k2")
-metadata/_custom_type_script = "uid://v2b04jaxuakv"
+[node name="BuildingsBoundaries" type="Node2D" parent="."]
+y_sort_enabled = true
 
-[node name="Player" parent="EntityManagerTown" instance=ExtResource("6_v00pm")]
-z_index = 205
-position = Vector2(210, 220)
+[node name="Player" parent="BuildingsBoundaries" instance=ExtResource("6_v00pm")]
+z_index = 201
+position = Vector2(209, 219)
 
-[node name="Casino" parent="EntityManagerTown" instance=ExtResource("8_jil70")]
+[node name="Casino" parent="BuildingsBoundaries" instance=ExtResource("8_jil70")]
 z_index = 201
 position = Vector2(849, 19)
 
-[node name="PlayerShop" parent="EntityManagerTown" instance=ExtResource("9_jil70")]
+[node name="PlayerShop" parent="BuildingsBoundaries" instance=ExtResource("9_jil70")]
 z_index = 201
-position = Vector2(193, 187)
+position = Vector2(194, 211)
 
-[node name="MiscShopExterior" parent="EntityManagerTown" instance=ExtResource("11_g3yvl")]
+[node name="RoofOverlay" type="Sprite2D" parent="BuildingsBoundaries/PlayerShop"]
+z_index = 100
+position = Vector2(0, -49)
+texture = ExtResource("10_w25xm")
+region_enabled = true
+region_rect = Rect2(4, 391, 104, 68)
+
+[node name="MiscShopExterior" parent="BuildingsBoundaries" instance=ExtResource("11_g3yvl")]
 z_index = 201
-position = Vector2(1399, 183)
+position = Vector2(1400, 207)
 
-[node name="CrateDeco" type="Sprite2D" parent="EntityManagerTown/MiscShopExterior"]
-position = Vector2(63, 45)
+[node name="CrateDeco" type="Sprite2D" parent="BuildingsBoundaries/MiscShopExterior"]
+position = Vector2(61, 17)
 texture = ExtResource("11_yr8sw")
 region_enabled = true
 region_rect = Rect2(49, 16, 14, 16)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="EntityManagerTown/MiscShopExterior/CrateDeco"]
+[node name="StaticBody2D" type="StaticBody2D" parent="BuildingsBoundaries/MiscShopExterior/CrateDeco"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EntityManagerTown/MiscShopExterior/CrateDeco/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BuildingsBoundaries/MiscShopExterior/CrateDeco/StaticBody2D"]
 position = Vector2(0, 4)
 rotation = -1.5568436
 shape = SubResource("CapsuleShape2D_w25xm")
 
-[node name="CrateDeco2" type="Sprite2D" parent="EntityManagerTown/MiscShopExterior"]
-position = Vector2(64, 33)
+[node name="CrateDeco2" type="Sprite2D" parent="BuildingsBoundaries/MiscShopExterior"]
+position = Vector2(62, 5)
 texture = ExtResource("11_yr8sw")
 region_enabled = true
 region_rect = Rect2(34, 18, 12, 14)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="EntityManagerTown/MiscShopExterior/CrateDeco2"]
+[node name="StaticBody2D" type="StaticBody2D" parent="BuildingsBoundaries/MiscShopExterior/CrateDeco2"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EntityManagerTown/MiscShopExterior/CrateDeco2/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BuildingsBoundaries/MiscShopExterior/CrateDeco2/StaticBody2D"]
 position = Vector2(0, 3)
 rotation = -1.5568436
 shape = SubResource("CapsuleShape2D_w25xm")
 
-[node name="TopBottomBoundaries" type="Parallax2D" parent="EntityManagerTown"]
+[node name="RoofOverlay" type="Sprite2D" parent="BuildingsBoundaries/MiscShopExterior"]
+modulate = Color(1, 0.49411765, 1, 1)
+z_index = 205
+position = Vector2(1, -62)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("10_w25xm")
+region_enabled = true
+region_rect = Rect2(4, 391, 104, 68)
+
+[node name="TopBottomBoundaries" type="Parallax2D" parent="BuildingsBoundaries"]
 physics_interpolation_mode = 1
 repeat_size = Vector2(640, 0)
 repeat_times = 40
 ignore_camera_scroll = true
 
-[node name="TreesBackground" type="TileMapLayer" parent="EntityManagerTown/TopBottomBoundaries"]
+[node name="TreesBackground" type="TileMapLayer" parent="BuildingsBoundaries/TopBottomBoundaries"]
 z_index = 200
 tile_map_data = PackedByteArray("AAAAAAcAAAAAAAAAAAAAAAgAAAAAAAEAAAAAAAkAAAAAAAIAAAAAAAoAAAAAAAMAAAABAAcAAAABAAAAAAABAAgAAAABAAEAAAABAAkAAAABAAIAAAABAAoAAAABAAMAAAACAAcAAAACAAAAAAACAAgAAAACAAEAAAACAAkAAAACAAIAAAACAAoAAAACAAMAAAADAAcAAAADAAAAAAADAAgAAAADAAEAAAADAAkAAAADAAIAAAADAAoAAAADAAMAAAAEAAcAAAAEAAAAAAAEAAgAAAAEAAEAAAAEAAkAAAAEAAIAAAAEAAoAAAAEAAMAAAAFAAgAAAAFAAEAAAAFAAkAAAAFAAIAAAAFAAoAAAAFAAMAAAAGAAgAAAAGAAEAAAAGAAkAAAAGAAIAAAAGAAoAAAAGAAMAAAAHAAgAAAAHAAEAAAAHAAkAAAAHAAIAAAAHAAoAAAAHAAMAAAAIAAgAAAAIAAEAAAAIAAkAAAAIAAIAAAAIAAoAAAAIAAMAAAAJAAcAAAAJAAAAAAAJAAgAAAAJAAEAAAAJAAkAAAAJAAIAAAAJAAoAAAAJAAMAAAAKAAcAAAAAAAAAAAAKAAgAAAAAAAEAAAAKAAkAAAAAAAIAAAAKAAoAAAAAAAMAAAALAAcAAAABAAAAAAALAAgAAAABAAEAAAALAAkAAAABAAIAAAALAAoAAAABAAMAAAAMAAcAAAACAAAAAAAMAAgAAAACAAEAAAAMAAkAAAACAAIAAAAMAAoAAAACAAMAAAANAAcAAAADAAAAAAANAAgAAAADAAEAAAANAAkAAAADAAIAAAANAAoAAAADAAMAAAAOAAcAAAAEAAAAAAAOAAgAAAAEAAEAAAAOAAkAAAAEAAIAAAAOAAoAAAAEAAMAAAAPAAgAAAAFAAEAAAAPAAkAAAAFAAIAAAAPAAoAAAAFAAMAAAAQAAgAAAAGAAEAAAAQAAkAAAAGAAIAAAAQAAoAAAAGAAMAAAARAAgAAAAHAAEAAAARAAkAAAAHAAIAAAARAAoAAAAHAAMAAAASAAgAAAAIAAEAAAASAAkAAAAIAAIAAAASAAoAAAAIAAMAAAATAAcAAAAJAAAAAAATAAgAAAAJAAEAAAATAAkAAAAJAAIAAAATAAoAAAAJAAMAAAAUAAcAAAAAAAAAAAAUAAgAAAAAAAEAAAAUAAkAAAAAAAIAAAAUAAoAAAAAAAMAAAAVAAcAAAABAAAAAAAVAAgAAAABAAEAAAAVAAkAAAABAAIAAAAVAAoAAAABAAMAAAAWAAcAAAACAAAAAAAWAAgAAAACAAEAAAAWAAkAAAACAAIAAAAWAAoAAAACAAMAAAAXAAcAAAADAAAAAAAXAAgAAAADAAEAAAAXAAkAAAADAAIAAAAXAAoAAAADAAMAAAAYAAcAAAAEAAAAAAAYAAgAAAAEAAEAAAAYAAkAAAAEAAIAAAAYAAoAAAAEAAMAAAAZAAgAAAAFAAEAAAAZAAkAAAAFAAIAAAAZAAoAAAAFAAMAAAAaAAgAAAAGAAEAAAAaAAkAAAAGAAIAAAAaAAoAAAAGAAMAAAAbAAgAAAAHAAEAAAAbAAkAAAAHAAIAAAAbAAoAAAAHAAMAAAAcAAgAAAAIAAEAAAAcAAkAAAAIAAIAAAAcAAoAAAAIAAMAAAAdAAcAAAAJAAAAAAAdAAgAAAAJAAEAAAAdAAkAAAAJAAIAAAAdAAoAAAAJAAMAAAAeAAcAAAAAAAAAAAAeAAgAAAAAAAEAAAAeAAkAAAAAAAIAAAAeAAoAAAAAAAMAAAAfAAcAAAABAAAAAAAfAAgAAAABAAEAAAAfAAkAAAABAAIAAAAfAAoAAAABAAMAAAAgAAcAAAACAAAAAAAgAAgAAAACAAEAAAAgAAkAAAACAAIAAAAgAAoAAAACAAMAAAAhAAcAAAADAAAAAAAhAAgAAAADAAEAAAAhAAkAAAADAAIAAAAhAAoAAAADAAMAAAAiAAcAAAAEAAAAAAAiAAgAAAAEAAEAAAAiAAkAAAAEAAIAAAAiAAoAAAAEAAMAAAAjAAgAAAAFAAEAAAAjAAkAAAAFAAIAAAAjAAoAAAAFAAMAAAAkAAgAAAAGAAEAAAAkAAkAAAAGAAIAAAAkAAoAAAAGAAMAAAAlAAgAAAAHAAEAAAAlAAkAAAAHAAIAAAAlAAoAAAAHAAMAAAAmAAgAAAAIAAEAAAAmAAkAAAAIAAIAAAAmAAoAAAAIAAMAAAAnAAcAAAAJAAAAAAAnAAgAAAAJAAEAAAAnAAkAAAAJAAIAAAAnAAoAAAAJAAMAAAAAAAsAAAAAAAQAAAABAAsAAAABAAQAAAACAAsAAAACAAQAAAADAAsAAAADAAQAAAAEAAsAAAAEAAQAAAAFAAsAAAAFAAQAAAAGAAsAAAAGAAQAAAAHAAsAAAAHAAQAAAAIAAsAAAAIAAQAAAAJAAsAAAAJAAQAAAAKAAsAAAAAAAQAAAALAAsAAAABAAQAAAAMAAsAAAACAAQAAAANAAsAAAADAAQAAAAOAAsAAAAEAAQAAAAPAAsAAAAFAAQAAAAQAAsAAAAGAAQAAAARAAsAAAAHAAQAAAASAAsAAAAIAAQAAAATAAsAAAAJAAQAAAAUAAsAAAAAAAQAAAAVAAsAAAABAAQAAAAWAAsAAAACAAQAAAAXAAsAAAADAAQAAAAYAAsAAAAEAAQAAAAZAAsAAAAFAAQAAAAaAAsAAAAGAAQAAAAbAAsAAAAHAAQAAAAcAAsAAAAIAAQAAAAdAAsAAAAJAAQAAAAeAAsAAAAAAAQAAAAfAAsAAAABAAQAAAAgAAsAAAACAAQAAAAhAAsAAAADAAQAAAAiAAsAAAAEAAQAAAAjAAsAAAAFAAQAAAAkAAsAAAAGAAQAAAAlAAsAAAAHAAQAAAAmAAsAAAAIAAQAAAAnAAsAAAAJAAQAAAA=")
 tile_set = SubResource("TileSet_my0xt")
 
-[node name="TreesForeground" type="TileMapLayer" parent="EntityManagerTown/TopBottomBoundaries"]
+[node name="TreesForeground" type="TileMapLayer" parent="BuildingsBoundaries/TopBottomBoundaries"]
 modulate = Color(0.69965345, 0.69965345, 0.69965345, 1)
 z_index = 205
 scale = Vector2(2, 2)
 tile_map_data = PackedByteArray("AAAAAAgAAAAAAAAAAAAAAAkAAAAAAAEAAAAAAAoAAAAAAAIAAAAAAAsAAAAAAAMAAAAAAAwAAAAAAAQAAAABAAgAAAABAAAAAAABAAkAAAABAAEAAAABAAoAAAABAAIAAAABAAsAAAABAAMAAAABAAwAAAABAAQAAAACAAgAAAACAAAAAAACAAkAAAACAAEAAAACAAoAAAACAAIAAAACAAsAAAACAAMAAAACAAwAAAACAAQAAAADAAgAAAADAAAAAAADAAkAAAADAAEAAAADAAoAAAADAAIAAAADAAsAAAADAAMAAAADAAwAAAADAAQAAAAEAAgAAAAEAAAAAAAEAAkAAAAEAAEAAAAEAAoAAAAEAAIAAAAEAAsAAAAEAAMAAAAEAAwAAAAEAAQAAAAFAAkAAAAFAAEAAAAFAAoAAAAFAAIAAAAFAAsAAAAFAAMAAAAFAAwAAAAFAAQAAAAGAAkAAAAGAAEAAAAGAAoAAAAGAAIAAAAGAAsAAAAGAAMAAAAGAAwAAAAGAAQAAAAHAAkAAAAHAAEAAAAHAAoAAAAHAAIAAAAHAAsAAAAHAAMAAAAHAAwAAAAHAAQAAAAIAAkAAAAIAAEAAAAIAAoAAAAIAAIAAAAIAAsAAAAIAAMAAAAIAAwAAAAIAAQAAAAJAAgAAAAJAAAAAAAJAAkAAAAJAAEAAAAJAAoAAAAJAAIAAAAJAAsAAAAJAAMAAAAJAAwAAAAJAAQAAAAKAAgAAAAAAAAAAAAKAAkAAAAAAAEAAAAKAAoAAAAAAAIAAAAKAAsAAAAAAAMAAAAKAAwAAAAAAAQAAAALAAgAAAABAAAAAAALAAkAAAABAAEAAAALAAoAAAABAAIAAAALAAsAAAABAAMAAAALAAwAAAABAAQAAAAMAAgAAAACAAAAAAAMAAkAAAACAAEAAAAMAAoAAAACAAIAAAAMAAsAAAACAAMAAAAMAAwAAAACAAQAAAANAAgAAAADAAAAAAANAAkAAAADAAEAAAANAAoAAAADAAIAAAANAAsAAAADAAMAAAANAAwAAAADAAQAAAAOAAgAAAAEAAAAAAAOAAkAAAAEAAEAAAAOAAoAAAAEAAIAAAAOAAsAAAAEAAMAAAAOAAwAAAAEAAQAAAAPAAkAAAAFAAEAAAAPAAoAAAAFAAIAAAAPAAsAAAAFAAMAAAAPAAwAAAAFAAQAAAAQAAkAAAAGAAEAAAAQAAoAAAAGAAIAAAAQAAsAAAAGAAMAAAAQAAwAAAAGAAQAAAARAAkAAAAHAAEAAAARAAoAAAAHAAIAAAARAAsAAAAHAAMAAAARAAwAAAAHAAQAAAASAAkAAAAIAAEAAAASAAoAAAAIAAIAAAASAAsAAAAIAAMAAAASAAwAAAAIAAQAAAATAAgAAAAJAAAAAAATAAkAAAAJAAEAAAATAAoAAAAJAAIAAAATAAsAAAAJAAMAAAATAAwAAAAJAAQAAAAUAAgAAAAAAAAAAAAUAAkAAAAAAAEAAAAUAAoAAAAAAAIAAAAUAAsAAAAAAAMAAAAUAAwAAAAAAAQAAAAVAAgAAAABAAAAAAAVAAkAAAABAAEAAAAVAAoAAAABAAIAAAAVAAsAAAABAAMAAAAVAAwAAAABAAQAAAAWAAgAAAACAAAAAAAWAAkAAAACAAEAAAAWAAoAAAACAAIAAAAWAAsAAAACAAMAAAAWAAwAAAACAAQAAAAXAAgAAAADAAAAAAAXAAkAAAADAAEAAAAXAAoAAAADAAIAAAAXAAsAAAADAAMAAAAXAAwAAAADAAQAAAAYAAgAAAAEAAAAAAAYAAkAAAAEAAEAAAAYAAoAAAAEAAIAAAAYAAsAAAAEAAMAAAAYAAwAAAAEAAQAAAAZAAkAAAAFAAEAAAAZAAoAAAAFAAIAAAAZAAsAAAAFAAMAAAAZAAwAAAAFAAQAAAAaAAkAAAAGAAEAAAAaAAoAAAAGAAIAAAAaAAsAAAAGAAMAAAAaAAwAAAAGAAQAAAAbAAkAAAAHAAEAAAAbAAoAAAAHAAIAAAAbAAsAAAAHAAMAAAAbAAwAAAAHAAQAAAAcAAkAAAAIAAEAAAAcAAoAAAAIAAIAAAAcAAsAAAAIAAMAAAAcAAwAAAAIAAQAAAAdAAgAAAAJAAAAAAAdAAkAAAAJAAEAAAAdAAoAAAAJAAIAAAAdAAsAAAAJAAMAAAAdAAwAAAAJAAQAAAAeAAgAAAAAAAAAAAAeAAkAAAAAAAEAAAAeAAoAAAAAAAIAAAAeAAsAAAAAAAMAAAAeAAwAAAAAAAQAAAAfAAgAAAABAAAAAAAfAAkAAAABAAEAAAAfAAoAAAABAAIAAAAfAAsAAAABAAMAAAAfAAwAAAABAAQAAAAgAAgAAAACAAAAAAAgAAkAAAACAAEAAAAgAAoAAAACAAIAAAAgAAsAAAACAAMAAAAgAAwAAAACAAQAAAAhAAgAAAADAAAAAAAhAAkAAAADAAEAAAAhAAoAAAADAAIAAAAhAAsAAAADAAMAAAAhAAwAAAADAAQAAAAiAAgAAAAEAAAAAAAiAAkAAAAEAAEAAAAiAAoAAAAEAAIAAAAiAAsAAAAEAAMAAAAiAAwAAAAEAAQAAAAjAAkAAAAFAAEAAAAjAAoAAAAFAAIAAAAjAAsAAAAFAAMAAAAjAAwAAAAFAAQAAAAkAAkAAAAGAAEAAAAkAAoAAAAGAAIAAAAkAAsAAAAGAAMAAAAkAAwAAAAGAAQAAAAlAAkAAAAHAAEAAAAlAAoAAAAHAAIAAAAlAAsAAAAHAAMAAAAlAAwAAAAHAAQAAAAmAAkAAAAIAAEAAAAmAAoAAAAIAAIAAAAmAAsAAAAIAAMAAAAmAAwAAAAIAAQAAAAnAAgAAAAJAAAAAAAnAAkAAAAJAAEAAAAnAAoAAAAJAAIAAAAnAAsAAAAJAAMAAAAnAAwAAAAJAAQAAAA=")
 tile_set = SubResource("TileSet_my0xt")
 
-[node name="FenceBoundaries" type="Parallax2D" parent="EntityManagerTown"]
+[node name="FenceBoundaries" type="Parallax2D" parent="BuildingsBoundaries"]
 physics_interpolation_mode = 1
 repeat_size = Vector2(32, 0)
 repeat_times = 150
 ignore_camera_scroll = true
 
-[node name="StoneFence" type="Sprite2D" parent="EntityManagerTown/FenceBoundaries"]
+[node name="StoneFence" type="Sprite2D" parent="BuildingsBoundaries/FenceBoundaries"]
 z_index = 200
 position = Vector2(16, 184)
 texture = ExtResource("12_svnup")
 region_enabled = true
 region_rect = Rect2(0, 1, 32, 15)
 
-[node name="UpperBoundary" type="StaticBody2D" parent="EntityManagerTown"]
+[node name="UpperBoundary" type="StaticBody2D" parent="BuildingsBoundaries"]
 position = Vector2(0, 200)
 rotation = -1.5707964
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EntityManagerTown/UpperBoundary"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BuildingsBoundaries/UpperBoundary"]
 position = Vector2(10, 4.371139e-07)
 shape = SubResource("SegmentShape2D_yr8sw")
 
-[node name="LowerBoundary" type="StaticBody2D" parent="EntityManagerTown"]
+[node name="LowerBoundary" type="StaticBody2D" parent="BuildingsBoundaries"]
 position = Vector2(-1, 320)
 rotation = -1.5707964
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EntityManagerTown/LowerBoundary"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BuildingsBoundaries/LowerBoundary"]
 position = Vector2(10, 4.371139e-07)
 shape = SubResource("SegmentShape2D_yr8sw")
 
-[node name="LeftBoundary" type="StaticBody2D" parent="EntityManagerTown"]
+[node name="LeftBoundary" type="StaticBody2D" parent="BuildingsBoundaries"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EntityManagerTown/LeftBoundary"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BuildingsBoundaries/LeftBoundary"]
 shape = SubResource("SegmentShape2D_5ya6w")
 
-[node name="RightBoundary" type="StaticBody2D" parent="EntityManagerTown"]
+[node name="RightBoundary" type="StaticBody2D" parent="BuildingsBoundaries"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EntityManagerTown/RightBoundary"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BuildingsBoundaries/RightBoundary"]
 position = Vector2(1600, 0)
 shape = SubResource("SegmentShape2D_5ya6w")
 
-[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
+[node name="Camera2D" type="Camera2D" parent="BuildingsBoundaries" node_paths=PackedStringArray("target")]
 zoom = Vector2(6.5, 6.5)
 limit_left = 0
 limit_top = 0
 limit_bottom = 350
 script = ExtResource("8_5vpkg")
-target = NodePath("../EntityManagerTown/Player")
+target = NodePath("../Player")

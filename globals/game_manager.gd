@@ -9,10 +9,7 @@ extends Node
 var pause_menu: Control	## The instance of the pause menu (likely will change)
 var runtime_entities:Dictionary = {} ## Holds all the entities in every scene. See [Entity].
 var player_data:Dictionary = {}	## Holds the player's data. See [Player].
-
-var last_known_positions: Dictionary =  {}
-
-var tutorial_completed: bool = false
+var tutorial_completed: bool = false ## Tutorial bool so only runs on first instance
 
 # PLEASE UPDATE THIS IF THE DEFAULT STATE NEEDS TO BE UPDATED
 # format is MM.DD.YR/Version
@@ -130,6 +127,8 @@ func load_scene_runtime_state()->void:
 	var player_node: Node = cs.find_child("Player", true, false)
 	if player_node and player_data:
 		player_node.from_dict(player_data)
+
+	SceneManager.load_player_position()
 
 	var em:EntityManager = null
 	var scene_name:String = cs.name

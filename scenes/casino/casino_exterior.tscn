@@ -159,6 +159,8 @@ autoplay = "default"
 frame_progress = 0.10549588
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(1, 0)
+scale = Vector2(1.0154748, 0.9999999)
 polygon = PackedVector2Array(-207, 202, -161, 217, -97, 190, -80, 190, -80, 208, 80, 208, 80, 189, 96, 189, 159, 217, 207, 202, 208, -64, -208, -64)
 
 [node name="Interactable" parent="." instance=ExtResource("3_ppgwg")]
