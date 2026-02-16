@@ -712,11 +712,9 @@ position = Vector2(383, -353)
 
 [node name="Crate" parent="EntityManager" instance=ExtResource("8_b6yhm")]
 position = Vector2(325, -397)
-scale = Vector2(1.2, 1.2)
 
 [node name="Crate2" parent="EntityManager" instance=ExtResource("8_b6yhm")]
-position = Vector2(325, -369.00003)
-scale = Vector2(1.2, 1.2)
+position = Vector2(343, -397)
 
 [node name="Player" parent="EntityManager" node_paths=PackedStringArray("inv_ui") instance=ExtResource("6_b6yhm")]
 position = Vector2(410, -37)
@@ -724,7 +722,7 @@ inv_ui = NodePath("../../Static_UI/Inv_UI")
 
 [node name="Camera2D" type="Camera2D" parent="EntityManager/Player"]
 position = Vector2(-1, 1)
-zoom = Vector2(7, 7)
+zoom = Vector2(10.5, 10.5)
 limit_left = 249
 limit_top = -247
 limit_right = 531
