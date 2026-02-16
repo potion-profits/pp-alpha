@@ -10,7 +10,11 @@ extends Entity	#will help store placement and inventory information for persiste
 #@onready var full_crate: Sprite2D = $full_crate	## Sprite reference
 #@onready var empty_crate: Sprite2D = $empty_crate	## Sprite reference
 @onready var select_sprite: AnimatedSprite2D = $SelectionAnimation	## Sprite Reference
+<<<<<<< 96-crates-barrel-capacity-indication
 @onready var bottle_sprites: Node2D = $bottles
+=======
+@onready var crate_sfx: AudioStreamPlayer2D = $CrateSFX ## Reference to audio stream for sound effects
+>>>>>>> main
 @export var animation_name: String = "default"	## Name of animation to play
 
 # default vars
@@ -43,6 +47,7 @@ func _on_interact()->void:
 			var temp_item : InvItem = inv.slots[0].item._duplicate()
 			if player.collect(temp_item):
 				inv.slots[0].amount-=1	#the player collected, so remove item from crate
+				crate_sfx.play() # play sound effect on player collection
 				if inv.slots[0].amount <= 0:
 					inv.slots[0].item = null # make item null if no more items to be picked up
 					#update_crate()

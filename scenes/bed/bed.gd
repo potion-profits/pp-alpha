@@ -3,7 +3,7 @@ extends Entity
 ## The bed is an interactable entity that saves the game.
 
 @onready var interactable : Area2D = $Interactable ## Reference to component used for interactions
-
+@onready var bed_sfx : AudioStreamPlayer2D = $BedSFX ## Reference to audio stream 
 const SAVE_PROMPT = "Press E to save the game"
 const SAVE_OK = "Game saved successfully"
 
@@ -25,6 +25,7 @@ func _on_interact() -> void:
 	GameManager.save_scene_runtime_state()
 	GameManager.commit_to_storage()
 	_save_timeout()
+	bed_sfx.play()
 
 func _save_timeout() -> void:
 	interactable.tooltip = SAVE_OK

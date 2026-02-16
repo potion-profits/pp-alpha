@@ -12,6 +12,7 @@ extends Entity	#will help store placement and inventory information for persiste
 @onready var cauldron_anim: AnimatedSprite2D = $CauldronAnim ## Animated Sprite Reference
 @onready var mix_timer: Timer = $MixTimer	## Reference to mixing timer
 @onready var progress_bar: TextureProgressBar = $ProgressBar	## Reference to progress bar
+@onready var mix_sfx: AudioStreamPlayer2D = $MixSFX ## Reference to audio stream for sound effects
 @export var animation_name: String = "default"	## Cauldron animation name
 
 var mixing: bool = false	## Keeps track of the cauldron's state
@@ -55,7 +56,7 @@ func animation_stop() -> void:
 		push_error("AnimatedSprite2D or animation '" + animation_name + "' not found!")
 	
 ## Handles switching the state of the cauldron to mixing, 
-## including playing the animation and displaying the progress bar.
+## including playing the animation, displaying the progress bar, and playing mixing SFX.
 func start_mixing()->void:
 	if inv.slots[0].item:
 		mixing = true
@@ -64,6 +65,10 @@ func start_mixing()->void:
 			mix_timer.start()
 			progress_bar.visible = true
 		animation_play()
+		# Loop sfx while mixing
+		if mix_sfx:
+			mix_sfx.stream_paused = false
+			mix_sfx.play()
 
 ## Checks if the cauldron can take in the given item and starts mixing 
 ## if successful. See [method start_mixing].[br][br]
@@ -87,6 +92,9 @@ func _on_mix_timer_timeout() -> void:
 	progress_bar.visible = false
 	progress_bar.value = 100
 	mix_timer.stop()
+	# stop looping sfx once timer runs out
+	if mix_sfx:
+		mix_sfx.stop()
 	
 func _process(_delta: float) -> void:
 	if mixing:

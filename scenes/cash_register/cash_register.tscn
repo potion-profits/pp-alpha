@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://ydlnke6gesg1"]
+[gd_scene load_steps=7 format=3 uid="uid://ydlnke6gesg1"]
 
 [ext_resource type="Script" uid="uid://db2sqxsikj0qr" path="res://scenes/cash_register/cash_register.gd" id="1_otidk"]
 [ext_resource type="PackedScene" uid="uid://fi1qxearbah2" path="res://scenes/interactions/interactable.tscn" id="2_4n5aq"]
 [ext_resource type="Texture2D" uid="uid://cx2xrogaqcboo" path="res://assets/interior/shop/register_cat.png" id="3_7ha27"]
 [ext_resource type="Texture2D" uid="uid://umufb6838i6d" path="res://assets/interior/shop/cust_waiting_icon.png" id="4_7ha27"]
+[ext_resource type="AudioStream" uid="uid://dsasqoxf26an0" path="res://assets/audio/sfx/sale.ogg" id="5_q42lh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4n5aq"]
 size = Vector2(20, 47)
@@ -26,6 +27,11 @@ texture = ExtResource("3_7ha27")
 position = Vector2(-2, -11.999999)
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("4_7ha27")
+
+[node name="SaleSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_q42lh")
+volume_db = -8.824
+bus = &"SFX"
 
 [connection signal="body_entered" from="Interactable" to="." method="_on_interactable_body_entered"]
 [connection signal="body_exited" from="Interactable" to="." method="_on_interactable_body_exited"]

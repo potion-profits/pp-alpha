@@ -1,8 +1,10 @@
-[gd_scene load_steps=47 format=3 uid="uid://b0flhrlw7t57t"]
+[gd_scene load_steps=49 format=3 uid="uid://b0flhrlw7t57t"]
 
 [ext_resource type="Script" uid="uid://c2lajecmvs0ct" path="res://scenes/player/player.gd" id="1_onrkg"]
 [ext_resource type="Texture2D" uid="uid://mgupfasihl7i" path="res://assets/char_sprites/Chay Walk Cycle-Sheet.png" id="4_qlg0r"]
 [ext_resource type="Texture2D" uid="uid://bl24jrao46dmm" path="res://assets/char_sprites/Chay Idle-Sheet.png" id="4_tuyoq"]
+[ext_resource type="AudioStream" uid="uid://cy0kahkhalhi2" path="res://assets/audio/sfx/dash.ogg" id="5_75vfm"]
+[ext_resource type="AudioStream" uid="uid://c5qe1oqg1noom" path="res://assets/audio/sfx/footstep.ogg" id="6_0owmy"]
 [ext_resource type="PackedScene" uid="uid://b54ms70wtbbo1" path="res://scenes/interactions/interacting_component.tscn" id="6_75vfm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y4r1p"]
@@ -360,5 +362,18 @@ wait_time = 2.0
 
 [node name="InteractingComponent" parent="." instance=ExtResource("6_75vfm")]
 
+[node name="DashSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_75vfm")
+volume_db = -9.348
+pitch_scale = 1.13
+bus = &"SFX"
+
+[node name="WalkingSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_0owmy")
+volume_db = 3.155
+pitch_scale = 1.24
+bus = &"SFX"
+
+[connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]
 [connection signal="timeout" from="DashCooldown" to="." method="_on_dash_cooldown_timeout"]
 [connection signal="timeout" from="DashDuration" to="." method="_on_dash_duration_timeout"]

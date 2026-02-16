@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://oecv8cuk1rju" path="res://scenes/crate/crate.gd" id="1_3v208"]
 [ext_resource type="Texture2D" uid="uid://cx6xf4hpuaq4i" path="res://assets/interior/shop/crates01.png" id="2_3v208"]
 [ext_resource type="Texture2D" uid="uid://bhcvc4h6d2okx" path="res://assets/interior/shop/all_bottles01.png" id="5_37q77"]
+[ext_resource type="AudioStream" uid="uid://c7ktkobpxklhs" path="res://assets/audio/sfx/interact generic.ogg" id="4_ssudb"]
 [ext_resource type="PackedScene" uid="uid://fi1qxearbah2" path="res://scenes/interactions/interactable.tscn" id="5_rym3a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3v208"]
@@ -136,3 +137,8 @@ visible = false
 position = Vector2(0, 1)
 sprite_frames = SubResource("SpriteFrames_lddwh")
 frame_progress = 0.5434958
+
+[node name="CrateSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_ssudb")
+volume_db = -11.345
+pitch_scale = 1.4
