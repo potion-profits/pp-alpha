@@ -22,9 +22,9 @@ func init_sliders() -> void:
 	music_slider.value = db_to_linear(SettingDataContainer.music_volume)
 	sfx_slider.value = db_to_linear(SettingDataContainer.sfx_volume)
 	# load actual volume values
-	AudioServer.set_bus_volume_db(MASTER_BUS_IDX, linear_to_db(SettingDataContainer.master_volume))
-	AudioServer.set_bus_volume_db(MUSIC_BUS_IDX, linear_to_db(SettingDataContainer.music_volume))
-	AudioServer.set_bus_volume_db(SFX_BUS_IDX, linear_to_db(SettingDataContainer.sfx_volume))
+	AudioServer.set_bus_volume_db(MASTER_BUS_IDX, SettingDataContainer.master_volume)
+	AudioServer.set_bus_volume_db(MUSIC_BUS_IDX, SettingDataContainer.music_volume)
+	AudioServer.set_bus_volume_db(SFX_BUS_IDX, SettingDataContainer.sfx_volume)
 
 # Slider value changed signals for each respective slider
 # Sliders provide linear values (0 - 1) 
