@@ -70,8 +70,8 @@ func _ready() -> void:
 		inv_ui.allow_hotkeys = true #allows 1-5 use for hotbar-like inv
 	coins = GameManager.player_data["coins"] if GameManager.player_data else 0
 	chips = GameManager.player_data["chips"] if GameManager.player_data else 0
-
 	#_debug_set_player_inv()
+
 #handles toggled and held inventory
 #esc when toggled will close ui not pause
 #esc when held will close and pause
@@ -258,7 +258,7 @@ func to_dict()->Dictionary:
 	return{
 		"inventory": inv.to_dict(),
 		"coins": coins,
-		"chips": chips 
+		"chips": chips
 	}
 
 ## Translates save state data into player inventory, coins, and chips
@@ -266,7 +266,7 @@ func from_dict(data:Dictionary)->void:
 	inv.from_dict(data["inventory"])
 	coins = data["coins"]
 	chips = data["chips"]
-
+	
 
 func _debug_set_player_inv()->void:
 	var bottle:InvItem = ItemRegistry.new_item("item_empty_bottle");
