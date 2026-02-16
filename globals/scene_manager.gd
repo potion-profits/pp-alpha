@@ -44,9 +44,10 @@ func current_scene() -> Node:
 ## Adds player's last position when loading out of scene
 func save_player_position() -> void:
 	var player : Player = get_tree().get_first_node_in_group("player")
+	var pos_offset : Vector2 = Vector2(0, 5)
 	if player:
 		var scene_name: StringName = get_tree().current_scene.name
-		last_known_positions[scene_name] = player.global_position - Vector2(0, 5)
+		last_known_positions[scene_name] = player.global_position - pos_offset
 
 ## Loads player's last known position (if applicable) of scene they are loading into
 func load_player_position() -> void:
@@ -55,3 +56,6 @@ func load_player_position() -> void:
 		var scene_name: StringName = get_tree().current_scene.name
 		if last_known_positions.has(scene_name):
 			player.global_position = last_known_positions[scene_name]
+		if scene_name != "Town":
+				player.last_dir = "up"
+				player.animated_sprite.play("idle_up")

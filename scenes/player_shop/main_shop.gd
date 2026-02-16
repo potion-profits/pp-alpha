@@ -43,8 +43,11 @@ func _ready()->void:
 	GameManager.set_pause_menu(menu_instance.get_node("PauseMenuControl"))
 	get_viewport().size_changed.connect(_on_viewport_size_changed)
 	await get_tree().process_frame
+	shifted_to_top = SceneManager.last_known_positions.has("Shop")
 	viewport_size = get_viewport_rect().size
 	_on_viewport_size_changed() # initalize inv UI position
+	if SceneManager.last_known_positions.has("MainShop"):
+		shift_ui(true)
 
 func _on_move_town_detection_body_entered(body: Node2D) -> void:
 	if body is Player:
@@ -90,7 +93,6 @@ func _on_viewport_size_changed() -> void:
 		(viewport_size.x - scaled_size.x) /2 ,
 		viewport_size.y - scaled_size.y - inv_ui.size.y
 	)
-	
 	inv_ui.position = get_target_pos()
 
 ## Calculates ideal inventory UI position based on window screen
