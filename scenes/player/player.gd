@@ -64,8 +64,6 @@ func _ready() -> void:
 	add_to_group("player")
 	if !inv:
 		inv = Inv.new(5)
-	if GameManager.player_data:
-		from_dict(GameManager.player_data)
 	if inv_ui:
 		inv.selected_index = GameManager.player_data["inventory"]["selected_index"] if GameManager.player_data else 0
 		inv_ui.inv = inv #links player inventory and respective ui
@@ -74,7 +72,6 @@ func _ready() -> void:
 	chips = GameManager.player_data["chips"] if GameManager.player_data else 0
 
 	#_debug_set_player_inv()
-
 #handles toggled and held inventory
 #esc when toggled will close ui not pause
 #esc when held will close and pause
@@ -261,7 +258,7 @@ func to_dict()->Dictionary:
 	return{
 		"inventory": inv.to_dict(),
 		"coins": coins,
-		"chips": chips, 
+		"chips": chips 
 	}
 
 ## Translates save state data into player inventory, coins, and chips
@@ -269,6 +266,7 @@ func from_dict(data:Dictionary)->void:
 	inv.from_dict(data["inventory"])
 	coins = data["coins"]
 	chips = data["chips"]
+
 
 func _debug_set_player_inv()->void:
 	var bottle:InvItem = ItemRegistry.new_item("item_empty_bottle");
