@@ -126,6 +126,8 @@ func load_scene_runtime_state()->void:
 	var player_node: Node = cs.find_child("Player", true, false)
 	if player_node and player_data:
 		player_node.from_dict(player_data)
+	
+	SceneManager.load_player_position()
 
 	var em:EntityManager = null
 	var scene_name:String = cs.name

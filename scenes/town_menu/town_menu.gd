@@ -61,14 +61,6 @@ func _on_crate_refill_pressed() -> void:
 		# change scene to refill selection
 		SceneManager.change_to("res://scenes/refill_scene/backroom.tscn", payload)
 
-# go to player shop
-func _on_player_shop_pressed() -> void:
-	SceneManager.change_to("res://scenes/player_shop/main_shop.tscn")
-
-# go to casino
-func _on_casino_pressed() -> void:
-	SceneManager.change_to("res://scenes/casino/casino_floor.tscn")
-
-# go to crate & barrel
-func _on_crate_barrel_pressed() -> void:
-	SceneManager.change_to("res://scenes/grid_placement/grid_placement.tscn")
+# go back to town
+func _on_town_pressed() -> void:
+	SceneManager.change_to("res://scenes/town/town.tscn")
