@@ -21,26 +21,9 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 45
 current_tab = 0
 
-[node name="Travel" type="VBoxContainer" parent="TabContainer"]
+[node name="Barrels" type="VBoxContainer" parent="TabContainer"]
 layout_mode = 2
 metadata/_tab_index = 0
-
-[node name="PlayerShop" type="Button" parent="TabContainer/Travel"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_font_sizes/font_size = 50
-text = "Go To Player Shop"
-
-[node name="Casino" type="Button" parent="TabContainer/Travel"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_font_sizes/font_size = 50
-text = "Go To Casino"
-
-[node name="Barrels" type="VBoxContainer" parent="TabContainer"]
-visible = false
-layout_mode = 2
-metadata/_tab_index = 1
 
 [node name="RedRefill" type="Button" parent="TabContainer/Barrels"]
 layout_mode = 2
@@ -69,7 +52,7 @@ text = "Refill with Dark    (500 Gold)"
 [node name="Crates" type="VBoxContainer" parent="TabContainer"]
 visible = false
 layout_mode = 2
-metadata/_tab_index = 2
+metadata/_tab_index = 1
 
 [node name="CrateRefill" type="Button" parent="TabContainer/Crates"]
 layout_mode = 2
@@ -77,6 +60,16 @@ size_flags_vertical = 3
 theme_override_font_sizes/font_size = 50
 text = "Refill crates    (100 Gold)"
 
-[connection signal="pressed" from="TabContainer/Travel/PlayerShop" to="." method="_on_player_shop_pressed"]
-[connection signal="pressed" from="TabContainer/Travel/Casino" to="." method="_on_casino_pressed"]
+[node name="Exit Shop" type="VBoxContainer" parent="TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="Town" type="Button" parent="TabContainer/Exit Shop"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 50
+text = "Go to Town"
+
 [connection signal="pressed" from="TabContainer/Crates/CrateRefill" to="." method="_on_crate_refill_pressed"]
+[connection signal="pressed" from="TabContainer/Exit Shop/Town" to="." method="_on_town_pressed"]
