@@ -10,9 +10,6 @@ var pause_menu: Control	## The instance of the pause menu (likely will change)
 var runtime_entities:Dictionary = {} ## Holds all the entities in every scene. See [Entity].
 var player_data:Dictionary = {}	## Holds the player's data. See [Player].
 
-## Scene position persistence
-var last_known_positions: Dictionary = {}
-
 # PLEASE UPDATE THIS IF THE DEFAULT STATE NEEDS TO BE UPDATED
 # format is MM.DD.YR/Version
 const default_state_version: String = "1.12.26/1" 
