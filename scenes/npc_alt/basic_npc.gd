@@ -9,6 +9,7 @@ class_name Npc extends CharacterBody2D
 @onready var checkout_timer: Timer = $CheckoutTimer
 ## Determines how long an NPC waits before moving to their next target
 @onready var wait_timer: Timer = $WaitTimer
+
 ## References the floor tilemap of the main shop scene
 var floor_map : Node2D
 ## [b]NOT USED IN CURRENT BUILD[/b][br]To be added in future releases for mutliple-potion carts,

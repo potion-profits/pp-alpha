@@ -77,8 +77,11 @@ func _ready()->void:
 
 	
 	await get_tree().process_frame
+	shifted_to_top = SceneManager.last_known_positions.has("Shop")
 	viewport_size = get_viewport_rect().size
 	_on_viewport_size_changed() # initalize inv UI position
+	if SceneManager.last_known_positions.has("MainShop"):
+		shift_ui(true)
 
 func _process(_delta: float) -> void:
 	if not GameManager.tutorial_completed:
@@ -167,7 +170,6 @@ func _on_viewport_size_changed() -> void:
 		(viewport_size.x - scaled_size.x) /2 ,
 		viewport_size.y - scaled_size.y - inv_ui.size.y
 	)
-	
 	inv_ui.position = get_target_pos()
 
 ## Calculates ideal inventory UI position based on window screen
