@@ -1,5 +1,6 @@
-[gd_scene load_steps=31 format=4 uid="uid://bc7xnfuae1kt7"]
+[gd_scene load_steps=35 format=4 uid="uid://bc7xnfuae1kt7"]
 
+[ext_resource type="Script" uid="uid://dmcbeilcgcd2y" path="res://scenes/town/town.gd" id="1_yr8sw"]
 [ext_resource type="Texture2D" uid="uid://4ib6u5f80hwq" path="res://assets/exterior/town_scene_nature/sky_clouds.png" id="2_06row"]
 [ext_resource type="Texture2D" uid="uid://ce23et5q4rtxr" path="res://assets/exterior/town_scene_nature/mountain_02.png" id="2_v00pm"]
 [ext_resource type="Texture2D" uid="uid://b2r2yjdlvysn4" path="res://assets/exterior/town_scene_nature/mountain_01.png" id="3_v00pm"]
@@ -10,8 +11,9 @@
 [ext_resource type="Script" uid="uid://cyoxqjs33x401" path="res://scenes/town/camera_2d.gd" id="8_5vpkg"]
 [ext_resource type="PackedScene" uid="uid://d2kxeyk45gfcd" path="res://scenes/casino/casino_exterior.tscn" id="8_jil70"]
 [ext_resource type="PackedScene" uid="uid://mdmvxwcxxsjx" path="res://scenes/player_shop/shop_exterior.tscn" id="9_jil70"]
-[ext_resource type="PackedScene" uid="uid://c13ewv50qvs46" path="res://scenes/crate/crate.tscn" id="11_5ya6w"]
 [ext_resource type="PackedScene" uid="uid://kbqmmwealf21" path="res://scenes/other_shops/misc_shop_exterior.tscn" id="11_g3yvl"]
+[ext_resource type="Texture2D" uid="uid://cx6xf4hpuaq4i" path="res://assets/interior/shop/crates01.png" id="11_yr8sw"]
+[ext_resource type="Texture2D" uid="uid://b3u4cu4v6tv2w" path="res://assets/exterior/town_scene_nature/stone_fence.png" id="12_svnup"]
 
 [sub_resource type="Gradient" id="Gradient_6g2qn"]
 offsets = PackedFloat32Array(0, 0.9927273)
@@ -213,6 +215,10 @@ colors = PackedColorArray(0, 0, 0, 1, 0.30588236, 0.50980395, 0.1882353, 1, 0.34
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_svnup"]
 gradient = SubResource("Gradient_5ya6w")
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_w25xm"]
+radius = 4.013565
+height = 13.998779
+
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_06row"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dmgee"]
@@ -299,10 +305,14 @@ physics_layer_0/collision_layer = 1
 physics_layer_0/physics_material = SubResource("PhysicsMaterial_06row")
 sources/0 = SubResource("TileSetAtlasSource_dmgee")
 
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_yr8sw"]
+b = Vector2(-7.6293945e-05, 1637)
+
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_5ya6w"]
 b = Vector2(0, 420)
 
 [node name="Town" type="Node2D"]
+script = ExtResource("1_yr8sw")
 
 [node name="Background" type="Node2D" parent="."]
 
@@ -398,33 +408,50 @@ metadata/_custom_type_script = "uid://v2b04jaxuakv"
 
 [node name="Player" parent="EntityManagerTown" instance=ExtResource("6_v00pm")]
 z_index = 205
-position = Vector2(212, 206)
+position = Vector2(210, 220)
 
 [node name="Casino" parent="EntityManagerTown" instance=ExtResource("8_jil70")]
 z_index = 201
-position = Vector2(849, -4)
+position = Vector2(849, 19)
 
 [node name="PlayerShop" parent="EntityManagerTown" instance=ExtResource("9_jil70")]
 z_index = 201
-position = Vector2(194, 163)
+position = Vector2(193, 187)
 
 [node name="MiscShopExterior" parent="EntityManagerTown" instance=ExtResource("11_g3yvl")]
 z_index = 201
-position = Vector2(1399, 170)
+position = Vector2(1399, 183)
 
-[node name="Crate" parent="EntityManagerTown/MiscShopExterior" instance=ExtResource("11_5ya6w")]
-z_index = 202
-position = Vector2(62, 47)
-script = null
+[node name="CrateDeco" type="Sprite2D" parent="EntityManagerTown/MiscShopExterior"]
+position = Vector2(63, 45)
+texture = ExtResource("11_yr8sw")
+region_enabled = true
+region_rect = Rect2(49, 16, 14, 16)
 
-[node name="Crate2" parent="EntityManagerTown/MiscShopExterior" instance=ExtResource("11_5ya6w")]
-z_index = 202
-position = Vector2(61, 36)
-script = null
+[node name="StaticBody2D" type="StaticBody2D" parent="EntityManagerTown/MiscShopExterior/CrateDeco"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EntityManagerTown/MiscShopExterior/CrateDeco/StaticBody2D"]
+position = Vector2(0, 4)
+rotation = -1.5568436
+shape = SubResource("CapsuleShape2D_w25xm")
+
+[node name="CrateDeco2" type="Sprite2D" parent="EntityManagerTown/MiscShopExterior"]
+position = Vector2(64, 33)
+texture = ExtResource("11_yr8sw")
+region_enabled = true
+region_rect = Rect2(34, 18, 12, 14)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="EntityManagerTown/MiscShopExterior/CrateDeco2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EntityManagerTown/MiscShopExterior/CrateDeco2/StaticBody2D"]
+position = Vector2(0, 3)
+rotation = -1.5568436
+shape = SubResource("CapsuleShape2D_w25xm")
 
 [node name="TopBottomBoundaries" type="Parallax2D" parent="EntityManagerTown"]
+physics_interpolation_mode = 1
 repeat_size = Vector2(640, 0)
-repeat_times = 10
+repeat_times = 40
 ignore_camera_scroll = true
 
 [node name="TreesBackground" type="TileMapLayer" parent="EntityManagerTown/TopBottomBoundaries"]
@@ -439,8 +466,36 @@ scale = Vector2(2, 2)
 tile_map_data = PackedByteArray("AAAAAAgAAAAAAAAAAAAAAAkAAAAAAAEAAAAAAAoAAAAAAAIAAAAAAAsAAAAAAAMAAAAAAAwAAAAAAAQAAAABAAgAAAABAAAAAAABAAkAAAABAAEAAAABAAoAAAABAAIAAAABAAsAAAABAAMAAAABAAwAAAABAAQAAAACAAgAAAACAAAAAAACAAkAAAACAAEAAAACAAoAAAACAAIAAAACAAsAAAACAAMAAAACAAwAAAACAAQAAAADAAgAAAADAAAAAAADAAkAAAADAAEAAAADAAoAAAADAAIAAAADAAsAAAADAAMAAAADAAwAAAADAAQAAAAEAAgAAAAEAAAAAAAEAAkAAAAEAAEAAAAEAAoAAAAEAAIAAAAEAAsAAAAEAAMAAAAEAAwAAAAEAAQAAAAFAAkAAAAFAAEAAAAFAAoAAAAFAAIAAAAFAAsAAAAFAAMAAAAFAAwAAAAFAAQAAAAGAAkAAAAGAAEAAAAGAAoAAAAGAAIAAAAGAAsAAAAGAAMAAAAGAAwAAAAGAAQAAAAHAAkAAAAHAAEAAAAHAAoAAAAHAAIAAAAHAAsAAAAHAAMAAAAHAAwAAAAHAAQAAAAIAAkAAAAIAAEAAAAIAAoAAAAIAAIAAAAIAAsAAAAIAAMAAAAIAAwAAAAIAAQAAAAJAAgAAAAJAAAAAAAJAAkAAAAJAAEAAAAJAAoAAAAJAAIAAAAJAAsAAAAJAAMAAAAJAAwAAAAJAAQAAAAKAAgAAAAAAAAAAAAKAAkAAAAAAAEAAAAKAAoAAAAAAAIAAAAKAAsAAAAAAAMAAAAKAAwAAAAAAAQAAAALAAgAAAABAAAAAAALAAkAAAABAAEAAAALAAoAAAABAAIAAAALAAsAAAABAAMAAAALAAwAAAABAAQAAAAMAAgAAAACAAAAAAAMAAkAAAACAAEAAAAMAAoAAAACAAIAAAAMAAsAAAACAAMAAAAMAAwAAAACAAQAAAANAAgAAAADAAAAAAANAAkAAAADAAEAAAANAAoAAAADAAIAAAANAAsAAAADAAMAAAANAAwAAAADAAQAAAAOAAgAAAAEAAAAAAAOAAkAAAAEAAEAAAAOAAoAAAAEAAIAAAAOAAsAAAAEAAMAAAAOAAwAAAAEAAQAAAAPAAkAAAAFAAEAAAAPAAoAAAAFAAIAAAAPAAsAAAAFAAMAAAAPAAwAAAAFAAQAAAAQAAkAAAAGAAEAAAAQAAoAAAAGAAIAAAAQAAsAAAAGAAMAAAAQAAwAAAAGAAQAAAARAAkAAAAHAAEAAAARAAoAAAAHAAIAAAARAAsAAAAHAAMAAAARAAwAAAAHAAQAAAASAAkAAAAIAAEAAAASAAoAAAAIAAIAAAASAAsAAAAIAAMAAAASAAwAAAAIAAQAAAATAAgAAAAJAAAAAAATAAkAAAAJAAEAAAATAAoAAAAJAAIAAAATAAsAAAAJAAMAAAATAAwAAAAJAAQAAAAUAAgAAAAAAAAAAAAUAAkAAAAAAAEAAAAUAAoAAAAAAAIAAAAUAAsAAAAAAAMAAAAUAAwAAAAAAAQAAAAVAAgAAAABAAAAAAAVAAkAAAABAAEAAAAVAAoAAAABAAIAAAAVAAsAAAABAAMAAAAVAAwAAAABAAQAAAAWAAgAAAACAAAAAAAWAAkAAAACAAEAAAAWAAoAAAACAAIAAAAWAAsAAAACAAMAAAAWAAwAAAACAAQAAAAXAAgAAAADAAAAAAAXAAkAAAADAAEAAAAXAAoAAAADAAIAAAAXAAsAAAADAAMAAAAXAAwAAAADAAQAAAAYAAgAAAAEAAAAAAAYAAkAAAAEAAEAAAAYAAoAAAAEAAIAAAAYAAsAAAAEAAMAAAAYAAwAAAAEAAQAAAAZAAkAAAAFAAEAAAAZAAoAAAAFAAIAAAAZAAsAAAAFAAMAAAAZAAwAAAAFAAQAAAAaAAkAAAAGAAEAAAAaAAoAAAAGAAIAAAAaAAsAAAAGAAMAAAAaAAwAAAAGAAQAAAAbAAkAAAAHAAEAAAAbAAoAAAAHAAIAAAAbAAsAAAAHAAMAAAAbAAwAAAAHAAQAAAAcAAkAAAAIAAEAAAAcAAoAAAAIAAIAAAAcAAsAAAAIAAMAAAAcAAwAAAAIAAQAAAAdAAgAAAAJAAAAAAAdAAkAAAAJAAEAAAAdAAoAAAAJAAIAAAAdAAsAAAAJAAMAAAAdAAwAAAAJAAQAAAAeAAgAAAAAAAAAAAAeAAkAAAAAAAEAAAAeAAoAAAAAAAIAAAAeAAsAAAAAAAMAAAAeAAwAAAAAAAQAAAAfAAgAAAABAAAAAAAfAAkAAAABAAEAAAAfAAoAAAABAAIAAAAfAAsAAAABAAMAAAAfAAwAAAABAAQAAAAgAAgAAAACAAAAAAAgAAkAAAACAAEAAAAgAAoAAAACAAIAAAAgAAsAAAACAAMAAAAgAAwAAAACAAQAAAAhAAgAAAADAAAAAAAhAAkAAAADAAEAAAAhAAoAAAADAAIAAAAhAAsAAAADAAMAAAAhAAwAAAADAAQAAAAiAAgAAAAEAAAAAAAiAAkAAAAEAAEAAAAiAAoAAAAEAAIAAAAiAAsAAAAEAAMAAAAiAAwAAAAEAAQAAAAjAAkAAAAFAAEAAAAjAAoAAAAFAAIAAAAjAAsAAAAFAAMAAAAjAAwAAAAFAAQAAAAkAAkAAAAGAAEAAAAkAAoAAAAGAAIAAAAkAAsAAAAGAAMAAAAkAAwAAAAGAAQAAAAlAAkAAAAHAAEAAAAlAAoAAAAHAAIAAAAlAAsAAAAHAAMAAAAlAAwAAAAHAAQAAAAmAAkAAAAIAAEAAAAmAAoAAAAIAAIAAAAmAAsAAAAIAAMAAAAmAAwAAAAIAAQAAAAnAAgAAAAJAAAAAAAnAAkAAAAJAAEAAAAnAAoAAAAJAAIAAAAnAAsAAAAJAAMAAAAnAAwAAAAJAAQAAAA=")
 tile_set = SubResource("TileSet_my0xt")
 
+[node name="FenceBoundaries" type="Parallax2D" parent="EntityManagerTown"]
+physics_interpolation_mode = 1
+repeat_size = Vector2(32, 0)
+repeat_times = 150
+ignore_camera_scroll = true
+
+[node name="StoneFence" type="Sprite2D" parent="EntityManagerTown/FenceBoundaries"]
+z_index = 200
+position = Vector2(16, 184)
+texture = ExtResource("12_svnup")
+region_enabled = true
+region_rect = Rect2(0, 1, 32, 15)
+
+[node name="UpperBoundary" type="StaticBody2D" parent="EntityManagerTown"]
+position = Vector2(0, 200)
+rotation = -1.5707964
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EntityManagerTown/UpperBoundary"]
+position = Vector2(10, 4.371139e-07)
+shape = SubResource("SegmentShape2D_yr8sw")
+
+[node name="LowerBoundary" type="StaticBody2D" parent="EntityManagerTown"]
+position = Vector2(-1, 320)
+rotation = -1.5707964
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EntityManagerTown/LowerBoundary"]
+position = Vector2(10, 4.371139e-07)
+shape = SubResource("SegmentShape2D_yr8sw")
+
 [node name="LeftBoundary" type="StaticBody2D" parent="EntityManagerTown"]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EntityManagerTown/LeftBoundary"]
 shape = SubResource("SegmentShape2D_5ya6w")
