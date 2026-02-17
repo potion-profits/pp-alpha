@@ -1,5 +1,7 @@
 extends Node
 
+# Acts as a signal bus from the option tab scenes to the settings data container
+
 # On index from dropdown menu
 # Signals emitted from each respective option scene
 signal on_tooltip_enabled(enabled: bool)

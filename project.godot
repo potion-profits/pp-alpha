@@ -27,6 +27,7 @@ MusicManager="*res://globals/music_manager.tscn"
 SettingManager="*res://globals/setting_manager.gd"
 SettingDataContainer="*res://globals/setting_data_container.gd"
 SaveManager="*res://globals/save_manager.gd"
+NewOptions="*res://scenes/ui/new_options.tscn"
 
 [debug]
 

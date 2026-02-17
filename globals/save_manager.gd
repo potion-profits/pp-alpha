@@ -7,7 +7,7 @@ var loaded_settings_dict: Dictionary = {}
 func _ready() -> void:
 	# connect signal
 	SettingManager.set_settings_dict.connect(on_settings_save)
-	# load data
+	# load data from file
 	load_settings_data()
 
 # Saves to config file

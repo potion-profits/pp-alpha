@@ -17,7 +17,8 @@ const default_state_version: String = "1.12.26/1"
 func _ready()->void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	load_from_storage()
-
+	# Load settings data from storage to apply all settings on game boot
+	SaveManager.load_settings_data()
 
 ## Sets the pause menu to the given Control Node. [br][br]
 ##

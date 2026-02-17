@@ -31,8 +31,6 @@ func create_storage_dict() -> Dictionary:
 		"master_volume": master_volume,
 		"music_volume": music_volume,
 		"sfx_volume": sfx_volume,
-		"move_left": InputMap.action_get_events("move_left"),
-		"move_right": InputMap.action_get_events("move_right"),
 		"keybinds": create_keybind_dict()
 	}
 	return setting_dict
