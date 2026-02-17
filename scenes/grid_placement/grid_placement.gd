@@ -23,6 +23,8 @@ extends Node2D
 ## Reference to the smooth movement handler
 @onready var hold_controller: DirectionalHoldController = $DirectionalHoldController
 
+var original_pos : Vector2
+
 ## Holds the position of the currently hovered tile
 var current_tile: Vector2i = Vector2i.ZERO
 ## Holds the floor of the current room accessed
@@ -93,7 +95,6 @@ const VALID_COLOR : Color = Color("White")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	player.set_physics_process(false) # need gold but dont want to move charactser
 	# Connects the movement signal from controller to on step
 	hold_controller.stepped.connect(_on_step)
 	
@@ -109,6 +110,11 @@ func _ready() -> void:
 	# wait a frame so the entities load properly
 	await get_tree().process_frame
 	# places the entities on the proper tile
+	
+	player.set_physics_process(false) # need gold but dont want to move charactser
+	original_pos = player.global_position
+	player.global_position = Vector2.ZERO
+	
 	_restore_entities_to_tilemap()
 
 # Switches to and from back and front room
@@ -291,6 +297,7 @@ func can_place_entity(tile : Vector2i) -> bool:
 
 # returns to menu, should change to shop when merged
 func _menu()->void:
+	player.global_position = original_pos
 	SceneManager.change_to("res://scenes/town_menu/town_menu.tscn")
 	
 ## Returns the info of the current entity from ENTITIES

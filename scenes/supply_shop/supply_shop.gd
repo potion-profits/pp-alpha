@@ -19,11 +19,12 @@ func _ready() -> void:
 
 func open_purchase_scene() -> void:
 	# link to Ozcar's code here
+	SceneManager.change_to("res://scenes/town_menu/town_menu.tscn")
 	pass
 
 func _on_move_town_detection_body_entered(body: Node2D) -> void:
 	if body is Player:
-		SceneManager.change_to("res://scenes/town_menu/town_menu.tscn")
+		SceneManager.change_to("res://scenes/town/town.tscn")
 
 func update_sprite(node : Entity) -> void:
 	if node is Barrel:

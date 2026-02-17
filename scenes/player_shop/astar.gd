@@ -50,7 +50,7 @@ func prep_astar() -> void:
 ## See [AStarGrid2D] for [method AStarGrid2D.update]. Sets all counter and shelf tiles to solid 
 ## (unwalkable)
 func setup_grid() -> void:
-	astar.region =  tilemap.get_used_rect()
+	astar.size =  tilemap.get_used_rect().size
 	astar.offset = tilemap.get_used_rect().position
 	astar.cell_size = tilemap.tile_set.tile_size
 	astar.default_estimate_heuristic = AStarGrid2D.HEURISTIC_OCTILE
