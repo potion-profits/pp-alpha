@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://oecv8cuk1rju" path="res://scenes/crate/crate.gd" id="1_3v208"]
 [ext_resource type="Texture2D" uid="uid://cx6xf4hpuaq4i" path="res://assets/interior/shop/crates01.png" id="2_3v208"]
+[ext_resource type="Texture2D" uid="uid://bhcvc4h6d2okx" path="res://assets/interior/shop/all_bottles01.png" id="5_37q77"]
 [ext_resource type="AudioStream" uid="uid://c7ktkobpxklhs" path="res://assets/audio/sfx/interact generic.ogg" id="4_ssudb"]
 [ext_resource type="PackedScene" uid="uid://fi1qxearbah2" path="res://scenes/interactions/interactable.tscn" id="5_rym3a"]
 
@@ -10,7 +11,7 @@ size = Vector2(9, 16)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ssudb"]
 radius = 8.0
-height = 18.0
+height = 22.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3v208"]
 atlas = ExtResource("2_3v208")
@@ -72,27 +73,63 @@ animations = [{
 [node name="Crate" type="StaticBody2D"]
 script = ExtResource("1_3v208")
 
-[node name="full_crate" type="Sprite2D" parent="."]
-position = Vector2(0, 4.7683716e-07)
-scale = Vector2(0.9999998, 0.9999998)
+[node name="crate_back" type="Sprite2D" parent="."]
 texture = ExtResource("2_3v208")
 region_enabled = true
-region_rect = Rect2(32, 16, 16, 16)
+region_rect = Rect2(16, 80, 16, 16)
 
-[node name="empty_crate" type="Sprite2D" parent="."]
+[node name="bottles" type="Node2D" parent="."]
+position = Vector2(5, 6)
+
+[node name="bottle1" type="Sprite2D" parent="bottles"]
+modulate = Color(0.79453367, 0.79453367, 0.79453367, 1)
+position = Vector2(-6.7999997, -9.8)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("5_37q77")
+region_enabled = true
+region_rect = Rect2(32, 48, 16, 16)
+
+[node name="bottle2" type="Sprite2D" parent="bottles"]
+modulate = Color(0.79453367, 0.79453367, 0.79453367, 1)
+position = Vector2(-2.7999997, -9.8)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("5_37q77")
+region_enabled = true
+region_rect = Rect2(32, 48, 16, 16)
+
+[node name="bottle3" type="Sprite2D" parent="bottles"]
+position = Vector2(-7.7999997, -8.8)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("5_37q77")
+region_enabled = true
+region_rect = Rect2(32, 48, 16, 16)
+
+[node name="bottle4" type="Sprite2D" parent="bottles"]
+position = Vector2(-3.8, -8.8)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("5_37q77")
+region_enabled = true
+region_rect = Rect2(32, 48, 16, 16)
+
+[node name="crate_face" type="Sprite2D" parent="."]
 texture = ExtResource("2_3v208")
 region_enabled = true
-region_rect = Rect2(0, 16, 16, 16)
+region_rect = Rect2(32, 80, 16, 16)
 
 [node name="Collision" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(-1.5298981e-07, 3.4999986)
 rotation = 1.5707964
 scale = Vector2(0.9999997, 0.9999997)
 shape = SubResource("RectangleShape2D_3v208")
 
 [node name="Interactable" parent="." instance=ExtResource("5_rym3a")]
+visible = false
+collision_mask = 1
 
 [node name="InteractableShape" type="CollisionShape2D" parent="Interactable"]
+position = Vector2(0, 1)
+rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_ssudb")
 
 [node name="SelectionAnimation" type="AnimatedSprite2D" parent="."]

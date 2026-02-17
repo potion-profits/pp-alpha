@@ -7,10 +7,14 @@ class_name Crate extends Entity	#will help store placement and inventory informa
 
 #interactable entities will need an interactble scene as a child node 
 @onready var interactable: Area2D = $Interactable	## Reference to interactable component
-@onready var full_crate: Sprite2D = $full_crate	## Sprite reference
-@onready var empty_crate: Sprite2D = $empty_crate	## Sprite reference
+#@onready var full_crate: Sprite2D = $full_crate	## Sprite reference
+#@onready var empty_crate: Sprite2D = $empty_crate	## Sprite reference
 @onready var select_sprite: AnimatedSprite2D = $SelectionAnimation	## Sprite Reference
+<<<<<<< 96-crates-barrel-capacity-indication
+@onready var bottle_sprites: Node2D = $bottles
+=======
 @onready var crate_sfx: AudioStreamPlayer2D = $CrateSFX ## Reference to audio stream for sound effects
+>>>>>>> main
 @export var animation_name: String = "default"	## Name of animation to play
 
 # default vars
@@ -31,6 +35,8 @@ func _ready()-> void:
 	inv.slots[0].item = bottle
 	inv.slots[0].amount = crate_inv_amt # initial amt for crate
 	update_crate()
+	
+	
 
 #Handles player interaction with crate when appropriate
 func _on_interact()->void:
@@ -44,16 +50,23 @@ func _on_interact()->void:
 				crate_sfx.play() # play sound effect on player collection
 				if inv.slots[0].amount <= 0:
 					inv.slots[0].item = null # make item null if no more items to be picked up
-					update_crate()
+					#update_crate()
+	update_crate()
 
 ## Updates this crate's sprite to reflect emptiness
-func update_crate()->void:
-	if inv.slots[0].item and inv.slots[0].amount > 0:
-		full_crate.visible = true
-		empty_crate.visible = false
+##
+## Currently one visual bottle = 2 inventory bottles
+func update_crate(is_refill: bool = false)->void:
+	var bottles: Array[Node] = bottle_sprites.get_children() # Individual bottle sprites
+	
+	if (is_refill):
+		for b: Sprite2D in bottles:
+			b.show()	# Show sprites on refill
 	else:
-		full_crate.visible = false
-		empty_crate.visible = true
+		@warning_ignore("integer_division")
+		var amnt: int = (1 + inv.slots[0].amount) / 2	# Maps inv # (0-8) to sprite # (0-4)
+		for b: Sprite2D in bottles.slice(amnt):
+			b.hide()
 
 ## Creates and returns a dictionary representation of this crate. See also [method from_dict].
 func to_dict()-> Dictionary:
@@ -90,4 +103,4 @@ func refill()->void:
 	var bottle: InvItem = ItemRegistry.new_item("item_empty_bottle")
 	inv.slots[0].item = bottle
 	inv.slots[0].amount = MAX_AMT
-	update_crate()
+	update_crate(true)
