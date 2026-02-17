@@ -29,6 +29,11 @@ func _ready() -> void:
 	set_process_unhandled_key_input(false)
 	set_action_name()
 	set_text_for_key()
+	load_keybind()
+
+# From loaded file, assign each action a key
+func load_keybind() -> void:
+	rebind_action_key(SettingDataContainer.get_keybind(action_name))
 
 func set_action_name() -> void:
 	label.text = "Unassigned"
@@ -69,12 +74,15 @@ func _unhandled_key_input(event: InputEvent) -> void:
 	# Untoggles button once new key assigned
 	rebind_action_key(event)
 	button.button_pressed = false
-	
+
 func rebind_action_key(event: InputEvent) -> void:
 	# Erase current event
 	InputMap.action_erase_events(action_name)
 	# Rebind the pressed key to new action
 	InputMap.action_add_event(action_name, event)
+	
+	# Signal data container for saving data
+	SettingDataContainer.set_keybind(action_name, event)
 	
 	# Can now listen to all inputs
 	set_process_unhandled_key_input(false)
@@ -82,6 +90,6 @@ func rebind_action_key(event: InputEvent) -> void:
 	set_action_name()
 
 
-# TODO: Logic check to ensure you dont have 
+# TODO: Logic check to ensure you dont have conflicting keys
 
 # TODO: Reset to default

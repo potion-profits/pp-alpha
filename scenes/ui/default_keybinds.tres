@@ -1,0 +1,72 @@
+[gd_resource type="Resource" script_class="KeybindContainer" load_steps=13 format=3 uid="uid://gc4rdhhhfqrl"]
+
+[ext_resource type="Script" uid="uid://bi2j0a5ewelke" path="res://scenes/ui/keybind_container.gd" id="1_0ob0h"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_50lrp"]
+device = -1
+physical_keycode = 4194325
+
+[sub_resource type="InputEventKey" id="InputEventKey_pfgcj"]
+device = -1
+physical_keycode = 69
+unicode = 101
+
+[sub_resource type="InputEventKey" id="InputEventKey_b7cua"]
+device = -1
+physical_keycode = 83
+unicode = 115
+
+[sub_resource type="InputEventKey" id="InputEventKey_3cma4"]
+device = -1
+physical_keycode = 65
+unicode = 97
+
+[sub_resource type="InputEventKey" id="InputEventKey_7o4pt"]
+device = -1
+physical_keycode = 68
+unicode = 100
+
+[sub_resource type="InputEventKey" id="InputEventKey_ht45b"]
+device = -1
+physical_keycode = 87
+unicode = 119
+
+[sub_resource type="InputEventKey" id="InputEventKey_ebm8d"]
+device = -1
+physical_keycode = 49
+unicode = 49
+
+[sub_resource type="InputEventKey" id="InputEventKey_mjx7g"]
+device = -1
+physical_keycode = 50
+unicode = 50
+
+[sub_resource type="InputEventKey" id="InputEventKey_f3x6q"]
+device = -1
+physical_keycode = 51
+unicode = 51
+
+[sub_resource type="InputEventKey" id="InputEventKey_26tag"]
+device = -1
+physical_keycode = 52
+unicode = 52
+
+[sub_resource type="InputEventKey" id="InputEventKey_wk1bw"]
+device = -1
+physical_keycode = 53
+unicode = 53
+
+[resource]
+script = ExtResource("1_0ob0h")
+DEFAULT_MOVE_LEFT_KEY = SubResource("InputEventKey_3cma4")
+DEFAULT_MOVE_RIGHT_KEY = SubResource("InputEventKey_7o4pt")
+DEFAULT_MOVE_UP_KEY = SubResource("InputEventKey_ht45b")
+DEFAULT_MOVE_DOWN_KEY = SubResource("InputEventKey_b7cua")
+DEFAULT_INTERACT_KEY = SubResource("InputEventKey_pfgcj")
+DEFAULT_DASH_KEY = SubResource("InputEventKey_50lrp")
+DEFAULT_SLOT_1_KEY = SubResource("InputEventKey_ebm8d")
+DEFAULT_SLOT_2_KEY = SubResource("InputEventKey_mjx7g")
+DEFAULT_SLOT_3_KEY = SubResource("InputEventKey_f3x6q")
+DEFAULT_SLOT_4_KEY = SubResource("InputEventKey_26tag")
+DEFAULT_SLOT_5_KEY = SubResource("InputEventKey_wk1bw")
+metadata/_custom_type_script = "uid://bi2j0a5ewelke"
