@@ -1,10 +1,10 @@
 extends Node2D
 
-@onready var entity_manager: EntityManager = $EntityManager
-@onready var cashier_npc: CharacterBody2D = $EntityManager/CashierNpc
+@onready var entities: Node2D = $Entities
+@onready var cashier_npc: CharacterBody2D = $Entities/CashierNpc
 
 func _ready() -> void:
-	for child in entity_manager.get_children():
+	for child in entities.get_children():
 		if child is Npc or child is Player:
 			continue
 		# only runs in debug mode according to Godot
@@ -34,7 +34,7 @@ func update_sprite(node : Entity) -> void:
 	elif node is Crate:
 		# select full crate from sprite atlas coords
 		node.inv.slots[0].amount = node.MAX_AMT # initial amt for crate
-		node.update_crate()
+		node.update_crate(true)
 	else:
 		# don't need to replace shelf or cauldron sprites
 		# unless we want to swap lit cauldron sprite for unlit sprite

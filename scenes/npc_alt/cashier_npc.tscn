@@ -343,7 +343,7 @@ radius = 4.0
 height = 8.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bf6og"]
-size = Vector2(14, 33)
+size = Vector2(14, 38)
 
 [node name="CashierNpc" type="CharacterBody2D"]
 script = ExtResource("1_pn7fr")
@@ -360,5 +360,5 @@ shape = SubResource("CapsuleShape2D_3rlc5")
 [node name="Interactable" parent="." instance=ExtResource("3_81xb5")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable"]
-position = Vector2(0, 8.5)
+position = Vector2(0, 11)
 shape = SubResource("RectangleShape2D_bf6og")
