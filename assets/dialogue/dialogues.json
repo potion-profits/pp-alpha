@@ -5,13 +5,13 @@
 	  "marker": "WelcomeMarker",
 	  "text": "Welcome to the shop! This is where you'll run your business.",
 	  "wait_for": "player_moved",
-	  "cooldown": 10.5
+	  "cooldown": 2.5
 	},
 	{
 	  "id": "movement",
 	  "text": "Use WASD to move around and explore.",
 	  "wait_for": "player_moved",
-	  "cooldown": 1.5
+	  "cooldown": 2.5
 	},
 	{
 	  "id": "go_backroom",

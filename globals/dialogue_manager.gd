@@ -47,36 +47,29 @@ func show_current_step() -> void:
 
 func advance_tutorial(trigger: String = "") -> void:
 	if not can_advance:
-		return  # Ignore if on cooldown
-	
-	print(">>> advance_tutorial called with trigger:", trigger)
+		return
+
 	var current_step: Dictionary = tutorial_steps[current_step_index]
-	print(">>> Current step wait_for:", current_step.get("wait_for", "none"))
-	
-	# Only add timer if applicable
-	if current_step.has("cooldown"):
-		cooldown_time = current_step["cooldown"] 
+
+	# Enforce cooldown before anything
+	var cd: float = current_step.get("cooldown", 0.0)
+	if cd > 0.0:
 		can_advance = false
-		await get_tree().create_timer(cooldown_time).timeout
-	else:
-		cooldown_time = 0.0
-		
-	# Check if we need to wait for something
+		await get_tree().create_timer(cd).timeout
+		# Re-fetch in case something changed during await
+		current_step = tutorial_steps[current_step_index]
+
+	# Now check trigger
 	if current_step.has("wait_for"):
-		if trigger == current_step["wait_for"]:
-			print(">>> Trigger matches! Advancing...")
-			current_step_index += 1
-			show_current_step()
-		else:
-			print(">>> Trigger doesn't match, not advancing")
-	else:
-		# Auto-advance
-		print(">>> No wait_for, auto-advancing")
-		can_advance = false  # start cooldown
-		current_step_index += 1
-		show_current_step()
-		await get_tree().create_timer(cooldown_time).timeout
-		can_advance = true  # end cooldown
+		if trigger != current_step["wait_for"]:
+			can_advance = true
+			return
+
+	# Lock and advance
+	can_advance = false
+	current_step_index += 1
+	show_current_step()
+	can_advance = true
 
 func show_dialogue(dialogue_id: String) -> Dictionary:
 	var dialogue: Dictionary = dialogue_data["dialogues"].get(dialogue_id, {})
