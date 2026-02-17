@@ -142,8 +142,8 @@ func get_movement_input(_delta : float) -> void:
 		
 		last_dir = anim_dir
 
-		var sprint := Input.is_action_just_pressed("sprint")
-		if sprint and dash_cooldown.is_stopped():
+		var dash := Input.is_action_just_pressed("dash")
+		if dash and dash_cooldown.is_stopped():
 			dash_duration.start(DASH_DURATION)
 			velocity *= DASH_MULT
 			dash_sfx.play()

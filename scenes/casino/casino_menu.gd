@@ -50,7 +50,7 @@ func _on_cancel_exchange_pressed() -> void:
 # handles increasing the coins to be exchanged
 func _on_more_coins_pressed() -> void:
 	var current : int = player.get_coins()
-	if Input.is_action_pressed("sprint"):
+	if Input.is_action_pressed("dash"):
 		exchange_amount += 100
 	else:
 		exchange_amount += 10
@@ -65,7 +65,7 @@ func update_exchange_label(new_amt : int) -> void:
 
 # handles decreasing the coins to be exchanged
 func _on_less_coins_pressed() -> void:
-	if Input.is_action_pressed("sprint"):
+	if Input.is_action_pressed("dash"):
 		exchange_amount -= 100
 	else:
 		exchange_amount -= 10

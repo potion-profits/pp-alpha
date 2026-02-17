@@ -15,7 +15,7 @@ var action_to_display: Dictionary = {
 	"move_up": "MOVE UP",
 	"move_down": "MOVE DOWN",
 	"interact": "INTERACT",
-	"sprint": "DASH",
+	"dash": "DASH",
 	"slot_1": "SLOT 1",
 	"slot_2": "SLOT 2",
 	"slot_3": "SLOT 3",

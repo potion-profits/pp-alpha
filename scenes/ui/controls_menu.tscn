@@ -100,7 +100,7 @@ action_name = "interact"
 
 [node name="Dash" parent="MarginContainer/VBoxContainer/Panel/ScrollContainer/VBoxContainer" instance=ExtResource("3_4ps47")]
 layout_mode = 2
-action_name = "sprint"
+action_name = "dash"
 
 [node name="Slot1" parent="MarginContainer/VBoxContainer/Panel/ScrollContainer/VBoxContainer" instance=ExtResource("3_4ps47")]
 layout_mode = 2
