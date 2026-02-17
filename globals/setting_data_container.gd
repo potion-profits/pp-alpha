@@ -162,7 +162,7 @@ func on_keybinds_loaded(data: Dictionary) -> void:
 		#InputMap.action_add_event(action_name, event)
 
 ## Getter functions
-func get_keybind(action: String):
+func get_keybind(action: String) -> InputEventKey:
 	if !(loaded_data.has("keybinds")):
 		# If not in save file, load in default data
 		match action:
@@ -188,6 +188,8 @@ func get_keybind(action: String):
 				return keybind_resource.DEFAULT_SLOT_4_KEY
 			keybind_resource.SLOT_5:
 				return keybind_resource.DEFAULT_SLOT_5_KEY
+			_ :
+				return
 	else:
 		# If exists, set from file
 		match action:
@@ -213,6 +215,8 @@ func get_keybind(action: String):
 				return keybind_resource.slot_4_key
 			keybind_resource.SLOT_5:
 				return keybind_resource.slot_5_key
+			_ :
+				return
 
 ## connect all signals from SettingManager (will refactor to lambda)
 func handle_signals() -> void:

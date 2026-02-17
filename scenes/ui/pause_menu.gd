@@ -14,6 +14,8 @@ func _ready()->void:
 
 func _on_menu_pressed()->void:
 	#save and return to menu!! for now just menu
+	#unpause tree when returning to menu (so menu processes are not paused)
+	get_tree().paused = false
 	SceneManager.change_to("res://scenes/ui/start_menu.tscn")
 
 
