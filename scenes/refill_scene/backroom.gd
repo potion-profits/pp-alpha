@@ -10,153 +10,204 @@ extends Node2D
 @onready var em: EntityManager = $EntityManager	## Reference to entity manager
 @onready var player: Player = $EntityManager/Player	## Reference to player
 @onready var static_ui: CanvasLayer = $Static_UI	## reference to static ui
+## Reference to smooth movement handler
+@onready var hold_controller: DirectionalHoldController = $DirectionalHoldController 
+## Reference to the tile map layer that 
+@onready var current_layer: TileMapLayer = $BackRoom/BackroomFloors
+## Reference to the price indicator on the UI
+@onready var cost: Label = $Static_UI/HBoxContainer/Cost
+## Reference to the texture preview on the UI
+@onready var blank_texture: TextureRect = $Static_UI/HBoxContainer/BlankTexture
 
-# expected payload variables
-var target: String 	## Entity currently highlighted as a string.
-var cost: int		## The cost to refill target.
-var type: String 	## Specifies additional information about what is being refilled (barrel color).
-var holding_dir : Direction = Direction.NONE ## Tells what direction is being held.
 
-## All possible directions the selection can move & none for when it should not move.
-enum Direction{
-	NONE,
-	LEFT,
-	RIGHT,
-	UP,		# not used yet but will likely be useful when on grid
-	DOWN	# not used yet but will likely be useful when on grid
+var current_entity : Entity ## The entity that is currently selected
+var selectables : Array[Entity] ## Holds all the selectable entities in the scene
+
+## Holds the unique entity codes for all the selectables
+const SELECTABLE : Array = ["crate", "barrel"]
+## Default price for saftey
+const FALLBACK_PRICE : int = 500
+## Has the prices for each type of refill
+const SELECTABLE_PRICES : Dictionary = {
+	"red_barrel":160,
+	"blue_barrel": 250,
+	"green_barrel": 340,
+	"dark_barrel": 420,
+	"crate": 80
 }
+## Maintains a consistent order of barrel types to cycle through
+const BARREL_ORDER: Array = ["red_barrel", "blue_barrel", "green_barrel", "dark_barrel"]
 
-# array and index of entities to select (barrels or crates for now)
-var selectables: Array = [] ## Holds all the possible targets.
-var idx: int = 0 ## The index for the currently selected target. 
-
-# delays for moving through selections
-var first_delay: float = 0.3	## Threshold to start moving after initially holding.
-var repeat_delay: float = 0.1	## Threshold to continue moving while holding.
-var hold_time: float = 0.0	## Time [member holding_dir] has been held since last move.
-
-# switch for repeat delay toggle
-var repeat : bool = false ## Flag for handling moving while holding
+## Holds the index of the currently cycled through barrel refill type; default to red
+var current_barrel_idx : int = 0
 
 func _ready()->void:
 	player.set_physics_process(false) # need gold but dont want to move character
 	
-	# should likely go in scene manager
-	var pause_scene : Resource = preload("res://scenes/ui/pause_menu.tscn") 
-	var menu_instance : Node = pause_scene.instantiate()
-	add_child(menu_instance)
-	GameManager.set_pause_menu(menu_instance.get_node("PauseMenuControl"))
+	## Connects the on step function to the movement handler
+	hold_controller.stepped.connect(_on_step)
+	
+	## Needs to first load all the entities to be able to highlight them, 
+	## so we wait a frame
 	await get_tree().process_frame
 	
-	# gets the payload and unpacks it
-	var payload : Dictionary = SceneManager.get_payload()
-	target = payload.get("target", "barrel")
-	cost = payload.get("cost", null)
-	type = payload.get("type", "red_barrel")
+	## get the initial entity (just the first one to be found)
+	_find_init_target()
+	## highlight the initial entity
+	_highlight_current()
+	## make UI reflect the selected highlight's refill
+	update_ui()
 	
-	# gets all the entities that are being targetted (barrels or crates)
+# gets all the entities that are being targetted (barrels or crates) and 
+# picks the first valid one to be the current target
+func _find_init_target() -> void:
 	if em:
 		for child in em.get_children():
-			if child is Entity and child.entity_code == target:
+			if child is Entity and child.entity_code in SELECTABLE:
+				# only set current_entity if one hasnt been set
+				if not current_entity:
+					current_entity = child as Entity
+				# always append to selectables list
 				selectables.append(child)
-	
-	# if there are selecatable targets, highlight the first one
-	if not selectables.is_empty():
-		selectables[idx].highlight()
 
 ## Calls the refill function on the selected target and reduces player coins by cost.
 ## Expects the target to have refill function
 func refill()->void:
-	if player.get_coins() >= cost:
-		player.set_coins(-cost)
-		selectables[idx].refill(type)
-	# currently, just boots you back to the menu, should be handled differently later
-	if player.get_coins() < cost:
-		print("ran out of money")
-		await get_tree().process_frame
-		menu()
-
-#
-# Move functions to select different targets but I havent implemented down or up because 2d array
-#
-
-## Selects the target to the right of the current target
-func move_right()->void:
-	selectables[idx].un_highlight()
-	idx = (idx+1)%selectables.size()
-	selectables[idx].highlight()
-
-## Selects the target to the left of the current target
-func move_left()->void:
-	selectables[idx].un_highlight()
-	idx = (idx-1)%selectables.size()
-	selectables[idx].highlight()
-
-## Turns on the holding mechanism for smoother selection
-func _start_hold(dir: Direction) -> void:
-	holding_dir = dir
-	hold_time = 0.0
-	repeat = false
-	_step()
+	var price : int =  _get_cost()
+	var coins : int = player.get_coins()
 	
-## Turns off the holding mechanism for smoother selection
-func _stop_hold()->void:
-	holding_dir = Direction.NONE
+	# When cant afford, text goes red for 0.3s and then white again
+	if coins < price:
+		cost.modulate = Color("Red")
+		await get_tree().create_timer(0.3).timeout
+		cost.modulate = Color("White")
+		return
 	
-## Changes selected target to the target in the corresponding held direction
-func _step() -> void:
-	match holding_dir:
-		Direction.LEFT:
-			move_left()
-		Direction.RIGHT:
-			move_right()
-		Direction.UP:
-			pass
-		Direction.DOWN:
-			pass
+	# When can afford, deduce price and refill target
+	player.set_coins(-price)
+
+	if current_entity.entity_code == "barrel":
+		current_entity.refill(BARREL_ORDER[current_barrel_idx])
+	else:
+		current_entity.refill()
+
+# changes the barrel selection index
+func _cycle() -> void:
+	# only cycle if currently on a barrel
+	if current_entity.entity_code == "barrel":
+		current_barrel_idx = (current_barrel_idx + 1) % len(BARREL_ORDER)
+		update_ui() # updates ui accordingly
+
+# returns the cost of the current entity
+func _get_cost() -> int:
+	var e_type: String = current_entity.entity_code
+	if e_type == "crate":
+		return SELECTABLE_PRICES.get(e_type, FALLBACK_PRICE)
+	return SELECTABLE_PRICES.get(BARREL_ORDER[current_barrel_idx], FALLBACK_PRICE)
+
+## Updates UI to reflect the current entity
+func update_ui()->void:
+	cost.text = str(-_get_cost()) # change the cost label
+	
+	# change the icon
+	if current_entity.entity_code == "barrel":
+		blank_texture.texture = current_entity.get_barrel_texture(BARREL_ORDER[current_barrel_idx])
+	else:
+		var atlas : AtlasTexture = AtlasTexture.new()
+		atlas.atlas = current_entity.empty_crate.texture
+		atlas.region = current_entity.empty_crate.region_rect
+		blank_texture.texture = atlas
+
+# Finds the closest selectable in the given direction and sets it to current
+func find_next_selectable(dir: Vector2) -> Entity:
+	var best_entity: Entity = current_entity
+	var min_dist : float = INF
+	var from : Vector2 = best_entity.position
+	
+	# calculates distance to each selectables
+	for entity : Entity in selectables:
+		var pos : Vector2 = entity.position
+		var to_candidate : Vector2 = pos - from
+		
+		# if its the current, dont check
+		if to_candidate == Vector2.ZERO:
+			continue
+		
+		# check that its in the correct direction
+		if dir.x > 0 and to_candidate.x <= 0:
+			continue
+		if dir.x < 0 and to_candidate.x >= 0:
+			continue
+		if dir.y > 0 and to_candidate.y <= 0:
+			continue
+		if dir.y < 0 and to_candidate.y >= 0:
+			continue
+		
+		# prioritizes entities that are more on the x or y based on the given direction
+		if dir.x != 0 and abs(to_candidate.y) > abs(to_candidate.x):
+			continue
+		if dir.y != 0 and abs(to_candidate.x) > abs(to_candidate.y):
+			continue
+		
+		# gets the minimum of previous and current
+		var dist := to_candidate.length()
+		if dist < min_dist:
+			min_dist = dist
+			best_entity = entity
+	
+	return best_entity
+
+# When direction signals a step, handle the step by moving the highlight in the
+# given directions.
+func _on_step(dir: DirectionalHoldController.Direction)->void:
+	# Get the held direction
+	var delta : Vector2i = DirectionalHoldController.DIR_VECTORS.get(dir)
+	
+	# if no direction, don't do anything
+	if delta == null:
+		return
+	
+	# get the next entity in the given direction
+	var next_entity : Entity = find_next_selectable(delta)
+	
+	# if the closest is the current, dont change
+	if next_entity == current_entity:
+		return
+	
+	# change the highlight
+	_unhighlight_current()
+	current_entity = next_entity
+	_highlight_current()
+	# update ui to new entity
+	update_ui()
+	
+# removes the highlight from the current entity
+func _unhighlight_current()->void:
+	current_entity.un_highlight()
+
+# highlights the current entity
+func _highlight_current()->void:
+	current_entity.highlight()
 
  # Handles input catagorized into pressing a direction, releasing a direction, 
  # or interacting to refil the target
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("move_left"):
-		_start_hold(Direction.LEFT)
-		
-	if event.is_action_pressed("move_right"):
-		_start_hold(Direction.RIGHT)
-	
-	if event.is_action_released("move_left") and holding_dir == Direction.LEFT:
-		_stop_hold()
-	
-	if event.is_action_released("move_right") and holding_dir == Direction.RIGHT:
-		_stop_hold()
 	
 	if event.is_action_pressed("interact"):
-		_stop_hold()
 		refill()
 	
 	if event.is_action_pressed("ui_cancel"):
 		menu()
 		get_viewport().set_input_as_handled()
+		
+	if event.is_action_pressed("inventory"):
+		_cycle()
+	
+	hold_controller.handle_movement_input(event)
 
-# Handles holding a direction
+# on every frame, process the hold_controller
 func _process(delta: float) -> void:
-	if holding_dir == Direction.NONE:	# basecase, dont move
-		return
-	
-	hold_time += delta	# how long since direction was pressed
-	
-	# if repeated movements has not been toggled
-	if not repeat:
-		# if the direction has been held long enough to move to the next one 
-		if hold_time >= first_delay:
-			repeat = true	# enable repeated movements in the same direction
-			hold_time = 0.0 # reset the hold timer
-	
-	# if movements should be repeated (ie. the direction is being held)
-	else:
-		if hold_time >= repeat_delay:	# if direction is held enough to move again
-			hold_time = 0.0 # reset the hold timer
-			_step()	# move to the corresponding target
+	hold_controller.process(delta)
 
 ## Changes the scene to the town menu.[br][br]
 ## Currently does not do anything other than change the scene through 

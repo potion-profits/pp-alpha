@@ -229,6 +229,7 @@ shape = SubResource("RectangleShape2D_y5jy8")
 collision_mask = 1
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Interactable"]
+position = Vector2(0, 3)
 polygon = PackedVector2Array(0, 0, 8, 0, 8, 15, -8, 15, -8, 0)
 
 [node name="Inv_UI_Layer" type="CanvasLayer" parent="."]

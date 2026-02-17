@@ -49,6 +49,10 @@ func _ready()->void:
 	if SceneManager.last_known_positions.has("MainShop"):
 		shift_ui(true)
 
+func _physics_process(_delta: float) -> void:
+	if OS.is_debug_build() and Input.is_key_pressed(KEY_HOME):
+		floor_map._debug_astar_grid()
+
 func _on_move_town_detection_body_entered(body: Node2D) -> void:
 	if body is Player:
 		SceneManager.change_to("res://scenes/town/town.tscn")

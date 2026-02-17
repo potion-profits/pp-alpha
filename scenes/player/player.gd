@@ -17,6 +17,15 @@ const MAX_COINS = int(pow(2, 62))
 var coins : int
 ## Represents amount of casino chips owned by the player
 var chips : int
+## The amount of free placements available
+var in_store_credit : Dictionary = {
+	"barrel": 0,
+	"crate" : 0,
+	"shelf": 0,
+	"cauldron" : 0
+}
+
+
 ## Tracks whether the player is currently dashing or not
 var is_dashing : bool = false
 var can_move : bool = true	## False when player is in an unmoveable state (UI open)
@@ -65,11 +74,11 @@ func _ready() -> void:
 	if !inv:
 		inv = Inv.new(5)
 	if inv_ui:
-		inv.selected_index = GameManager.player_data["inventory"]["selected_index"] if GameManager.player_data else 0
+		inv.selected_index = GameManager.player_data["inventory"]["selected_index"]
 		inv_ui.inv = inv #links player inventory and respective ui
 		inv_ui.allow_hotkeys = true #allows 1-5 use for hotbar-like inv
-	coins = GameManager.player_data["coins"] if GameManager.player_data else 0
-	chips = GameManager.player_data["chips"] if GameManager.player_data else 0
+	coins = GameManager.player_data["coins"]
+	chips = GameManager.player_data["chips"]
 	#_debug_set_player_inv()
 
 #handles toggled and held inventory
