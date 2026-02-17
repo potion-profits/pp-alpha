@@ -669,43 +669,6 @@ shape = SubResource("RectangleShape2D_g03oc")
 y_sort_enabled = true
 script = ExtResource("5_41gid")
 
-[node name="Bed" parent="EntityManager" instance=ExtResource("16_0rphg")]
-position = Vector2(520, -429)
-
-[node name="shelf" parent="EntityManager" instance=ExtResource("7_ylhot")]
-position = Vector2(275, -199)
-
-[node name="shelf2" parent="EntityManager" instance=ExtResource("7_ylhot")]
-position = Vector2(367, -199)
-
-[node name="shelf3" parent="EntityManager" instance=ExtResource("7_ylhot")]
-position = Vector2(275, -103)
-
-[node name="Barrel" parent="EntityManager" instance=ExtResource("6_85e8s")]
-position = Vector2(353, -433)
-
-[node name="Barrel2" parent="EntityManager" instance=ExtResource("6_85e8s")]
-position = Vector2(378, -425)
-barrel_type = "empty_barrel"
-
-[node name="Barrel3" parent="EntityManager" instance=ExtResource("6_85e8s")]
-position = Vector2(399, -415)
-barrel_type = "empty_barrel"
-
-[node name="Barrel4" parent="EntityManager" instance=ExtResource("6_85e8s")]
-position = Vector2(422, -406)
-barrel_type = "empty_barrel"
-
-[node name="Cauldron" parent="EntityManager" instance=ExtResource("7_47hg3")]
-y_sort_enabled = true
-position = Vector2(383, -353)
-
-[node name="Crate" parent="EntityManager" instance=ExtResource("8_b6yhm")]
-position = Vector2(325, -397)
-
-[node name="Crate2" parent="EntityManager" instance=ExtResource("8_b6yhm")]
-position = Vector2(343, -397)
-
 [node name="Player" parent="EntityManager" node_paths=PackedStringArray("inv_ui") instance=ExtResource("6_b6yhm")]
 position = Vector2(410, -37)
 inv_ui = NodePath("../../Static_UI/Inv_UI")

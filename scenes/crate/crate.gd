@@ -8,14 +8,13 @@ class_name Crate extends Entity	#will help store placement and inventory informa
 #interactable entities will need an interactble scene as a child node 
 @onready var interactable: Area2D = $Interactable	## Reference to interactable component
 #@onready var full_crate: Sprite2D = $full_crate	## Sprite reference
-#@onready var empty_crate: Sprite2D = $empty_crate	## Sprite reference
+@onready var empty_crate: Sprite2D = $empty_crate	## Sprite reference
 @onready var select_sprite: AnimatedSprite2D = $SelectionAnimation	## Sprite Reference
-<<<<<<< 96-crates-barrel-capacity-indication
 @onready var bottle_sprites: Node2D = $bottles
-=======
 @onready var crate_sfx: AudioStreamPlayer2D = $CrateSFX ## Reference to audio stream for sound effects
->>>>>>> main
 @export var animation_name: String = "default"	## Name of animation to play
+@onready var crate_back: Sprite2D = $crate_back
+@onready var crate_face: Sprite2D = $crate_face
 
 # default vars
 const MAX_AMT: int = 8	## Max amount crates can hold

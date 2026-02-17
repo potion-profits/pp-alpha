@@ -62,13 +62,12 @@ func _ready() -> void:
 ## Changes this barrel's type to the given type and updates the sprite.[br][br]
 ##
 ## Takes [param barrel_id] as the type that this barrel will become. See [constant barrel_color_map].
-func change_barrel_color(barrel_id : String) -> void:
-	
+func change_barrel_color(barrel_id : String, level: String = "full") -> void:
 	barrel_type = barrel_id
-	barrel_sprite.texture = get_barrel_texture(barrel_id) 
+	barrel_sprite.texture = get_barrel_texture(barrel_id, level) 
 
 ## Returns the sprite associated with the given barrel_id
-func get_barrel_texture(barrel_id : String) -> Texture2D:
+func get_barrel_texture(barrel_id : String, level: String = "full") -> Texture2D:
 	var atlas_texture : AtlasTexture = AtlasTexture.new()
 	atlas_texture.atlas = preload(SHEET_PATH)
 	atlas_texture.region = Rect2(

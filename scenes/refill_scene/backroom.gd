@@ -114,8 +114,8 @@ func update_ui()->void:
 		blank_texture.texture = current_entity.get_barrel_texture(BARREL_ORDER[current_barrel_idx])
 	else:
 		var atlas : AtlasTexture = AtlasTexture.new()
-		atlas.atlas = current_entity.full_crate.texture
-		atlas.region = current_entity.full_crate.region_rect
+		atlas.atlas = current_entity.empty_crate.texture
+		atlas.region = current_entity.empty_crate.region_rect
 		blank_texture.texture = atlas
 
 # Finds the closest selectable in the given direction and sets it to current
