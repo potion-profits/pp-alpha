@@ -87,12 +87,12 @@ func _process(_delta: float) -> void:
 	if not GameManager.tutorial_completed:
 		var current_step: Dictionary = DialogueManager.tutorial_steps[DialogueManager.current_step_index]
 		
-		# Check if a NEW potion was stocked
+		# Check if a new potion was stocked
 		if current_step["id"] == "stock_shelf":
 			var current_count: int = 0
 			for shelf: Node2D in get_tree().get_nodes_in_group("tutorial_shelf"):
 				if "inv" in shelf and shelf.inv:
-					for slot in shelf.inv.slots:
+					for slot : InvSlot in shelf.inv.slots:
 						if slot.item and slot.item.sellable:
 							current_count += 1
 			
@@ -271,7 +271,7 @@ func check_tutorial_item_interaction() -> void:
 			
 			# Accept either empty bottle OR newly filled potion (mixable but not sellable)
 			if selected_slot and selected_slot.item:
-				var item = selected_slot.item
+				var item : InvItem = selected_slot.item
 				if item.texture_code == "item_empty_bottle" or (item.mixable and not item.sellable):
 					DialogueManager.advance_tutorial("ingredients_grabbed")
 					return
@@ -324,7 +324,7 @@ func check_tutorial_item_interaction() -> void:
 				shelf_item_count_before = 0
 				for shelf_node: Node2D in get_tree().get_nodes_in_group("tutorial_shelf"):
 					if "inv" in shelf_node and shelf_node.inv:
-						for slot in shelf_node.inv.slots:
+						for slot : InvSlot in shelf_node.inv.slots:
 							if slot.item and slot.item.sellable:
 								shelf_item_count_before += 1
 				

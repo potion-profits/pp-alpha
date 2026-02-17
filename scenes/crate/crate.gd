@@ -10,11 +10,8 @@ extends Entity	#will help store placement and inventory information for persiste
 #@onready var full_crate: Sprite2D = $full_crate	## Sprite reference
 #@onready var empty_crate: Sprite2D = $empty_crate	## Sprite reference
 @onready var select_sprite: AnimatedSprite2D = $SelectionAnimation	## Sprite Reference
-<<<<<<< 96-crates-barrel-capacity-indication
 @onready var bottle_sprites: Node2D = $bottles
-=======
 @onready var crate_sfx: AudioStreamPlayer2D = $CrateSFX ## Reference to audio stream for sound effects
->>>>>>> main
 @export var animation_name: String = "default"	## Name of animation to play
 
 # default vars

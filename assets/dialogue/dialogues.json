@@ -4,13 +4,14 @@
 	  "id": "welcome",
 	  "marker": "WelcomeMarker",
 	  "text": "Welcome to the shop! This is where you'll run your business.",
-	  "wait_for": "player_moved"
+	  "wait_for": "player_moved",
+	  "cooldown": 10.5
 	},
 	{
 	  "id": "movement",
-	  "marker": "MovementMarker", 
 	  "text": "Use WASD to move around and explore.",
-	  "wait_for": "player_moved"
+	  "wait_for": "player_moved",
+	  "cooldown": 1.5
 	},
 	{
 	  "id": "go_backroom",
@@ -22,7 +23,8 @@
 	  "id": "in_backroom",
 	  "marker": "BackroomMarker",
 	  "text": "Great! Now let's craft your first potion.",
-	  "wait_for": "player_moved"
+	  "wait_for": "player_moved",
+	  "cooldown": 1.5
 	},
 	{
 	  "id": "grab_bottle",
@@ -69,38 +71,43 @@
 	{
 	  "id": "stock_shelf",
 	  "marker": "ShelfMarker",
-	  "text": "Now Shift+Click or Click+Drag your potion to stock it on the shelf!",
+	  "text": "Shift+Click or Click+Drag your potion to stock it on the shelf!",
 	  "wait_for": "item_stocked"
 	},
 	{
 	  "id": "close_shelf",
 	  "marker": "ShelfMarker",
 	  "text": "Great! Now press ESC to close the shelf menu.",
-	  "wait_for": "shelf_closed"
+	  "wait_for": "shelf_closed",
+	  "cooldown": 3.0
 	},
 	{
 	  "id": "complete",
 	  "marker": "WelcomeMarker",
 	  "text": "Perfect! You're ready to run your shop!",
-	  "wait_for": "player_moved"
+	  "wait_for": "player_moved",
+	  "cooldown": 5.0
 	},
 		{
 	  "id": "save_reminder",
 	  "marker": "WelcomeMarker",
 	  "text": "If you need to save, your bed in back is always there for you!",
-	  "wait_for": "player_moved"
+	  "wait_for": "player_moved",
+	  "cooldown": 5.0
 	},
 	{
 	  "id": "town_reminder",
 	  "marker": "WelcomeMarker",
 	  "text": "If you need to refill bottles, ingredients, or supplies, head to the town!",
-	  "wait_for": "player_moved"
+	  "wait_for": "player_moved",
+	  "cooldown": 5.0
 	},
 	{
 	  "id": "warning",
 	  "marker": "WelcomeMarker",
 	  "text": "One more thing... when you see the $ icon above the register, don't wait to check them out! Or else...",
-	  "wait_for": "player_moved"
+	  "wait_for": "player_moved",
+	  "cooldown": 5.0
 	}
 	  ],
   "dialogues": {
