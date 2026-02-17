@@ -11,4 +11,4 @@ func _ready() -> void:
 
 ## Transitions to the town menu scene on interaction.
 func _on_interact() -> void:
-	SceneManager.change_to("res://scenes/town_menu/town_menu.tscn")
+	SceneManager.change_to("res://scenes/supply_shop/supply_shop.tscn")

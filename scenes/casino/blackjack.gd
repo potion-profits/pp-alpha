@@ -13,31 +13,31 @@ extends Control
 ## Marker to indicate position for spawned dealer cards
 @onready var dealer_pos : = $DealerPos
 ## Button to perform a hit during the player's turn
-@onready var hit : = $Hit
+@onready var hit : = $CanvasLayer/Hit
 ## Button to perform a stand during the player's turn
-@onready var stand : = $Stand
+@onready var stand : = $CanvasLayer/Stand
 ## Reference to the Player to update chips after each round
 @onready var player : = $Player
 ## UI container for handling player bets
-@onready var bet_menu : = $BetMenu
+@onready var bet_menu : = $CanvasLayer/BetMenu
 ## Label to display the amount of chips being bet
-@onready var chip_amount : = $BetMenu/Bet/ChipAmount
+@onready var chip_amount : = $CanvasLayer/BetMenu/Bet/ChipAmount
 ## Label to display dealer score
-@onready var dealer_score_lbl: Label = $DealerScore
+@onready var dealer_score_lbl: Label = $CanvasLayer/DealerScore
 ## Label to display player score
-@onready var player_score_lbl: Label = $PlayerScore
+@onready var player_score_lbl: Label = $CanvasLayer/PlayerScore
 ## UI container to display messages after each round
-@onready var game_over_cont: Control = $GameOver
+@onready var game_over_cont: Control = $CanvasLayer/GameOver
 ## Label to display outcome of each round
-@onready var condition_lbl: Label = $GameOver/Condition
+@onready var condition_lbl: Label = $CanvasLayer/GameOver/Condition
 ## Label to display resulting win or loss from each round
-@onready var subtext_lbl: Label = $GameOver/Subtext
+@onready var subtext_lbl: Label = $CanvasLayer/GameOver/Subtext
 ## Button to allow player to play again
-@onready var play_again: Button = $GameOver/PlayAgain
+@onready var play_again: Button = $CanvasLayer/GameOver/PlayAgain
 ## Button to exit blackjack
-@onready var exit: Button = $GameOver/Exit
+@onready var exit: Button = $CanvasLayer/GameOver/Exit
 ## Button added to make Ozcar happy since betting with zero is not intuitive
-@onready var exit_bet: Button = $BetMenu/ExitBet
+@onready var exit_bet: Button = $CanvasLayer/BetMenu/ExitBet
 ## Represents bet amount
 var bet : int = 0
 ## Represents number of player cards for dynamic positioning

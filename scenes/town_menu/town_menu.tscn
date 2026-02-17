@@ -21,55 +21,33 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 45
 current_tab = 0
 
-[node name="Barrels" type="VBoxContainer" parent="TabContainer"]
+[node name="Options" type="VBoxContainer" parent="TabContainer"]
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="RedRefill" type="Button" parent="TabContainer/Barrels"]
+[node name="Refill" type="Button" parent="TabContainer/Options"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 50
-text = "Refill with Red      (50 Gold)"
+text = "Refill"
 
-[node name="GreenRefill" type="Button" parent="TabContainer/Barrels"]
+[node name="Placement" type="Button" parent="TabContainer/Options"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 50
-text = "Refill with Green  (75 Gold)"
-
-[node name="BlueRefill" type="Button" parent="TabContainer/Barrels"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_font_sizes/font_size = 50
-text = "Refill with Blue	   (100 Gold)"
-
-[node name="DarkRefill" type="Button" parent="TabContainer/Barrels"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_font_sizes/font_size = 50
-text = "Refill with Dark    (500 Gold)"
-
-[node name="Crates" type="VBoxContainer" parent="TabContainer"]
-visible = false
-layout_mode = 2
-metadata/_tab_index = 1
-
-[node name="CrateRefill" type="Button" parent="TabContainer/Crates"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_font_sizes/font_size = 50
-text = "Refill crates    (100 Gold)"
+text = "Placement"
 
 [node name="Exit Shop" type="VBoxContainer" parent="TabContainer"]
 visible = false
 layout_mode = 2
-metadata/_tab_index = 2
+metadata/_tab_index = 1
 
 [node name="Town" type="Button" parent="TabContainer/Exit Shop"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 50
-text = "Go to Town"
+text = "Return to Crate & Barrel"
 
-[connection signal="pressed" from="TabContainer/Crates/CrateRefill" to="." method="_on_crate_refill_pressed"]
+[connection signal="pressed" from="TabContainer/Options/Refill" to="." method="_on_refill_pressed"]
+[connection signal="pressed" from="TabContainer/Options/Placement" to="." method="_on_placement_pressed"]
 [connection signal="pressed" from="TabContainer/Exit Shop/Town" to="." method="_on_town_pressed"]

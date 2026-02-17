@@ -1,4 +1,4 @@
-extends Entity
+class_name Barrel extends Entity
 
 ## Barrels are interactable entities.[br][br]
 ## 
@@ -38,10 +38,9 @@ const barrel_bottle_map = {
 	"dark_barrel": "item_dark_potion"
 }
 
-
 const MAX_ML :int = 1_000 ## Amount to refill to, may change with different sized barrels
 var ml :int = 1_000	## Amount the current barrel has
-@export var barrel_type : String = "red_barrel"	## Dictates the sprite and item given out
+@export var barrel_type : String = "empty_barrel"	## Dictates the sprite and item given out
 
 func _ready() -> void:	
 	# Links interactable template to barrel specific method
@@ -62,10 +61,13 @@ func _ready() -> void:
 
 ## Changes this barrel's type to the given type and updates the sprite.[br][br]
 ##
-## Takes [param barrel_id] as the type that this barrel will become. See [constant barrel_color_map].[br]
-##
-## Optionally takes [param level] as the level for the capacity of the barrel. See [constant barrel_capacity_map].
-func change_barrel_color(barrel_id : String, level : String = "full") -> void:
+## Takes [param barrel_id] as the type that this barrel will become. See [constant barrel_color_map].
+func change_barrel_color(barrel_id : String, level: String = "full") -> void:
+	barrel_type = barrel_id
+	barrel_sprite.texture = get_barrel_texture(barrel_id, level) 
+
+## Returns the sprite associated with the given barrel_id
+func get_barrel_texture(barrel_id : String, level: String = "full") -> Texture2D:
 	var atlas_texture : AtlasTexture = AtlasTexture.new()
 	atlas_texture.atlas = preload(SHEET_PATH)
 	atlas_texture.region = Rect2(
@@ -73,8 +75,7 @@ func change_barrel_color(barrel_id : String, level : String = "full") -> void:
 						barrel_capacity_map[level] * 16,
 						SPRITE_SIZE,
 						SPRITE_SIZE)
-	barrel_type = barrel_id
-	barrel_sprite.texture = atlas_texture
+	return atlas_texture
 
 ## Handles interaction with this barrel.
 func _on_interact() -> void:

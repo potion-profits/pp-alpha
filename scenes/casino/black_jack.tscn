@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://hse5bruyxk2r"]
+[gd_scene load_steps=6 format=3 uid="uid://hse5bruyxk2r"]
 
 [ext_resource type="Script" uid="uid://jnbffpyw7u5j" path="res://scenes/casino/blackjack.gd" id="1_qp4h2"]
+[ext_resource type="PackedScene" uid="uid://dp7r8vke6s7c5" path="res://scenes/coin_ui/player_chip.tscn" id="2_7be6b"]
 [ext_resource type="Texture2D" uid="uid://qfdg62auv4vh" path="res://assets/casino/temp/blackjack_temp.jpg" id="2_dad4q"]
 [ext_resource type="PackedScene" uid="uid://bk0h32dk6ry1n" path="res://scenes/casino/deck.tscn" id="3_c0bro"]
 [ext_resource type="PackedScene" uid="uid://b0flhrlw7t57t" path="res://scenes/player/player.tscn" id="4_gwo6v"]
@@ -10,11 +11,181 @@ layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_qp4h2")
 
-[node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 0
-offset_right = 1920.0
-offset_bottom = 1080.0
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="PlayerChips" parent="CanvasLayer" node_paths=PackedStringArray("player") instance=ExtResource("2_7be6b")]
+z_index = 1
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 8.0
+offset_bottom = 8.0
+scale = Vector2(2.5, 2.5)
+player = NodePath("../../Player")
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("2_dad4q")
+
+[node name="BetMenu" type="VBoxContainer" parent="CanvasLayer"]
+visible = false
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -320.0
+offset_top = -311.99994
+offset_right = -224.0
+offset_bottom = -210.99994
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(2.5, 2.5)
+size_flags_horizontal = 4
+metadata/_edit_use_anchors_ = true
+
+[node name="Bet" type="HBoxContainer" parent="CanvasLayer/BetMenu"]
+layout_mode = 2
+
+[node name="MinusChips" type="Button" parent="CanvasLayer/BetMenu/Bet"]
+layout_mode = 2
+text = "-"
+
+[node name="ChipAmount" type="Label" parent="CanvasLayer/BetMenu/Bet"]
+layout_mode = 2
+text = "0 Chips"
+
+[node name="PlusChips" type="Button" parent="CanvasLayer/BetMenu/Bet"]
+layout_mode = 2
+text = "+"
+
+[node name="Confirm" type="Button" parent="CanvasLayer/BetMenu"]
+layout_mode = 2
+text = "Confirm"
+
+[node name="ExitBet" type="Button" parent="CanvasLayer/BetMenu"]
+layout_mode = 2
+text = "Exit"
+
+[node name="Hit" type="Button" parent="CanvasLayer"]
+visible = false
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 63.999992
+offset_top = 228.0
+offset_right = 134.58823
+offset_bottom = 260.35303
+grow_vertical = 2
+scale = Vector2(2.72, 2.72)
+text = "Hit"
+
+[node name="Stand" type="Button" parent="CanvasLayer"]
+visible = false
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 64.0
+offset_top = -184.00006
+offset_right = 132.57141
+offset_bottom = -153.00006
+grow_vertical = 0
+scale = Vector2(2.8, 2.8)
+text = "Stand
+"
+
+[node name="DealerScore" type="Label" parent="CanvasLayer"]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -384.0
+offset_top = -1016.0
+offset_right = 17.0
+offset_bottom = -947.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 50
+text = "Dealer Score: 0"
+
+[node name="PlayerScore" type="Label" parent="CanvasLayer"]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -384.0
+offset_top = 640.0
+offset_right = 17.0
+offset_bottom = 709.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 50
+text = "Player Score: 0"
+
+[node name="GameOver" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -448.0
+offset_top = -156.0
+offset_right = -408.0
+offset_bottom = -116.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Condition" type="Label" parent="CanvasLayer/GameOver"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = -64.0
+offset_right = 544.0
+offset_bottom = 73.0
+theme_override_font_sizes/font_size = 100
+text = "YOU WIN"
+horizontal_alignment = 1
+
+[node name="Subtext" type="Label" parent="CanvasLayer/GameOver"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_top = 48.0
+offset_right = 504.0
+offset_bottom = 93.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 32
+text = "You won 1,000 chips!"
+horizontal_alignment = 1
+
+[node name="PlayAgain" type="Button" parent="CanvasLayer/GameOver"]
+layout_mode = 0
+offset_left = -32.0
+offset_top = 152.0
+offset_right = 224.0
+offset_bottom = 248.0
+theme_override_font_sizes/font_size = 32
+text = "Play Again"
+
+[node name="Exit" type="Button" parent="CanvasLayer/GameOver"]
+layout_mode = 0
+offset_left = 352.0
+offset_top = 152.0
+offset_right = 608.0
+offset_bottom = 248.0
+theme_override_font_sizes/font_size = 32
+text = "Exit BlackJack
+"
 
 [node name="Deck" parent="." instance=ExtResource("3_c0bro")]
 position = Vector2(1627, 232.00002)
@@ -32,149 +203,14 @@ scale = Vector2(0.9999999, 0.9999999)
 position = Vector2(3.0517578e-05, 6.1035156e-05)
 scale = Vector2(0.9999999, 0.9999999)
 
-[node name="Hit" type="Button" parent="."]
-visible = false
-layout_mode = 0
-offset_left = 64.0
-offset_top = 952.0
-offset_right = 134.58823
-offset_bottom = 984.3529
-scale = Vector2(2.72, 2.72)
-text = "Hit"
-
-[node name="Stand" type="Button" parent="."]
-visible = false
-layout_mode = 0
-offset_left = 320.0
-offset_top = 952.0
-offset_right = 388.5714
-offset_bottom = 983.0
-scale = Vector2(2.8, 2.8)
-text = "Stand
-"
-
 [node name="Player" parent="." instance=ExtResource("4_gwo6v")]
 position = Vector2(-20, -17)
 
-[node name="BetMenu" type="VBoxContainer" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 1608.0001
-offset_top = 712.0
-offset_right = 1704.0001
-offset_bottom = 778.0
-grow_horizontal = 0
-grow_vertical = 0
-scale = Vector2(2.5, 2.5)
-size_flags_horizontal = 4
-metadata/_edit_use_anchors_ = true
-
-[node name="Bet" type="HBoxContainer" parent="BetMenu"]
-layout_mode = 2
-
-[node name="MinusChips" type="Button" parent="BetMenu/Bet"]
-layout_mode = 2
-text = "-"
-
-[node name="ChipAmount" type="Label" parent="BetMenu/Bet"]
-layout_mode = 2
-text = "0 Chips"
-
-[node name="PlusChips" type="Button" parent="BetMenu/Bet"]
-layout_mode = 2
-text = "+"
-
-[node name="Confirm" type="Button" parent="BetMenu"]
-layout_mode = 2
-text = "Confirm"
-
-[node name="ExitBet" type="Button" parent="BetMenu"]
-layout_mode = 2
-text = "Exit"
-
-[node name="DealerScore" type="Label" parent="."]
-visible = false
-layout_mode = 0
-offset_left = 608.0
-offset_top = 88.0
-offset_right = 1009.0
-offset_bottom = 157.0
-theme_override_font_sizes/font_size = 50
-text = "Dealer Score: 0"
-
-[node name="PlayerScore" type="Label" parent="."]
-visible = false
-layout_mode = 0
-offset_left = 608.0
-offset_top = 928.0
-offset_right = 1009.0
-offset_bottom = 997.0
-theme_override_font_sizes/font_size = 50
-text = "Player Score: 0"
-
-[node name="GameOver" type="Control" parent="."]
-visible = false
-anchors_preset = 0
-offset_left = 544.0
-offset_top = 504.0
-offset_right = 584.0
-offset_bottom = 544.0
-
-[node name="Condition" type="Label" parent="GameOver"]
-layout_mode = 0
-offset_left = 32.0
-offset_top = -64.0
-offset_right = 544.0
-offset_bottom = 73.0
-theme_override_font_sizes/font_size = 100
-text = "YOU WIN"
-horizontal_alignment = 1
-
-[node name="Subtext" type="Label" parent="GameOver"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 32.0
-offset_top = 48.0
-offset_right = 504.0
-offset_bottom = 93.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_font_sizes/font_size = 32
-text = "You won 1,000 chips!"
-horizontal_alignment = 1
-
-[node name="PlayAgain" type="Button" parent="GameOver"]
-layout_mode = 0
-offset_left = -32.0
-offset_top = 152.0
-offset_right = 224.0
-offset_bottom = 248.0
-theme_override_font_sizes/font_size = 32
-text = "Play Again"
-
-[node name="Exit" type="Button" parent="GameOver"]
-layout_mode = 0
-offset_left = 352.0
-offset_top = 152.0
-offset_right = 608.0
-offset_bottom = 248.0
-theme_override_font_sizes/font_size = 32
-text = "Exit BlackJack
-"
-
-[connection signal="pressed" from="Hit" to="." method="_on_hit_pressed"]
-[connection signal="pressed" from="Stand" to="." method="_on_stand_pressed"]
-[connection signal="pressed" from="BetMenu/Bet/MinusChips" to="." method="_on_minus_chips_pressed"]
-[connection signal="pressed" from="BetMenu/Bet/PlusChips" to="." method="_on_plus_chips_pressed"]
-[connection signal="pressed" from="BetMenu/Confirm" to="." method="_on_confirm_pressed"]
-[connection signal="pressed" from="BetMenu/ExitBet" to="." method="_on_exit_bet_pressed"]
-[connection signal="pressed" from="GameOver/PlayAgain" to="." method="_on_play_again_pressed"]
-[connection signal="pressed" from="GameOver/Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="CanvasLayer/BetMenu/Bet/MinusChips" to="." method="_on_minus_chips_pressed"]
+[connection signal="pressed" from="CanvasLayer/BetMenu/Bet/PlusChips" to="." method="_on_plus_chips_pressed"]
+[connection signal="pressed" from="CanvasLayer/BetMenu/Confirm" to="." method="_on_confirm_pressed"]
+[connection signal="pressed" from="CanvasLayer/BetMenu/ExitBet" to="." method="_on_exit_bet_pressed"]
+[connection signal="pressed" from="CanvasLayer/Hit" to="." method="_on_hit_pressed"]
+[connection signal="pressed" from="CanvasLayer/Stand" to="." method="_on_stand_pressed"]
+[connection signal="pressed" from="CanvasLayer/GameOver/PlayAgain" to="." method="_on_play_again_pressed"]
+[connection signal="pressed" from="CanvasLayer/GameOver/Exit" to="." method="_on_exit_pressed"]

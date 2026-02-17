@@ -1,10 +1,8 @@
-class_name Npc extends CharacterBody2D
+class_name ShopNpc extends Npc
 
 ## This class represents the shop NPCs and includes methods for pathing, a state machine to manage
 ## actions, and a system to find and checkout a prefered item(s)
 
-## See [AnimatedSprite2D]
-@onready var sprite : = $AnimatedSprite2D
 ## Determines how long an NPC waits at checkout
 @onready var checkout_timer: Timer = $CheckoutTimer
 ## Determines how long an NPC waits before moving to their next target
@@ -46,6 +44,18 @@ var prefered_item : String = "item_red_potion"
 var item_found : bool = false
 ## Tracks if the NPC has been checked out
 var is_checked_out : bool = false
+
+## Used to map the shop NPC's class to its prefered item
+var prefered_item_map : Dictionary = {
+	"fighter": "item_red_potion",
+	"druid": "item_green_potion",
+	"mage": "item_blue_potion",
+	"rogue": "item_dark_potion"
+}
+
+func _ready() -> void:
+	super._ready()
+	prefered_item = prefered_item_map[npc_class]
 
 func _physics_process(_delta : float) -> void:
 	velocity = Vector2.ZERO
