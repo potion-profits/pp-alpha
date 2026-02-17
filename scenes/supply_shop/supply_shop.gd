@@ -11,13 +11,9 @@ func _ready() -> void:
 	GameManager.set_pause_menu(menu_instance.get_node("PauseMenuControl"))
 	# ----------------------------------------------
 	
-	var min_val = 0.1
-	var max_val = 0.5
-	
 	for child in entities.get_children():
 		if child is Npc or child is Player:
 			continue
-		
 		
 		# only runs in debug mode according to Godot
 		# ensures that non entities besides player and cashier are children of entity manager
