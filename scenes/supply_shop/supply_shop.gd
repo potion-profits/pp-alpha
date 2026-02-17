@@ -4,6 +4,9 @@ extends Node2D
 @onready var cashier_npc: CharacterBody2D = $EntityManager/CashierNpc
 
 func _ready() -> void:
+	call_deferred("update_entities")
+	
+func update_entities() -> void:
 	for child in entity_manager.get_children():
 		if child is Npc or child is Player:
 			continue
