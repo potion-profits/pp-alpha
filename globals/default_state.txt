@@ -3,7 +3,7 @@
 		"chips": 0,
 		"coins": 0,
 		"inventory": {
-			"selected_index": -1,
+			"selected_index": 0,
 			"slots": [
 				{
 					"amount": 0,
