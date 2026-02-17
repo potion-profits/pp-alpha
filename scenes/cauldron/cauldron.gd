@@ -18,7 +18,7 @@ class_name Cauldron extends Entity	#will help store placement and inventory info
 
 var mixing: bool = false	## Keeps track of the cauldron's state
 const MIX_DURATION : float = 3.0
-var animation_offset : float = 0.0
+const NUM_FLAME_FRAMES : int = 15
 
 func _ready()-> void:
 	#links interactable template to cauldron specific method (needed for all interactables)
@@ -29,7 +29,7 @@ func _ready()-> void:
 	entity_code = "cauldron"
 	
 	#Selects random frame to start flame animation
-	flame_animation.frame = randi() % 15
+	flame_animation.frame = randi() % NUM_FLAME_FRAMES
 	
 	if !inv:
 		inv = Inv.new(1)
