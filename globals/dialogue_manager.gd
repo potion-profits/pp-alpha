@@ -1,78 +1,59 @@
 # DialogueManager.gd (autoload)
 extends Node
 
-# Holds JSON
 var dialogue_data: Dictionary = {}
-# Indicates which step of tutorial player is on
-var current_step_index: int = 0
-# Array of all tutorial steps
-var tutorial_steps: Array = []
-# Checks if all conditions to reach next tutorial step is cleared
-var can_advance: bool = true
-# Default cooldown time for automatic advancement of certain steps
-var cooldown_time: float = 1.5
 
-signal dialogue_shown(text: String)
-signal tutorial_complete
+signal dialogue_shown(text: String, speaker: String)
 
 func _ready() -> void:
-	load_dialogue_data()
+	load_all_dialogues()
 
-#
-func load_dialogue_data() -> void:
-	var file: FileAccess = FileAccess.open("res://assets/dialogue/dialogues.json", FileAccess.READ)
-	if file:
-		var json_string: String = file.get_as_text()
-		dialogue_data = JSON.parse_string(json_string)
-		tutorial_steps = dialogue_data.get("tutorial", [])
-		print(">>> Loaded tutorial_steps, count:", tutorial_steps.size())
-	else:
-		print(">>> ERROR: Could not open dialogues.json")
-
-func start_tutorial() -> void:
-	print(">>> DialogueManager.start_tutorial() called")
-	current_step_index = 0
-	show_current_step()
-
-func show_current_step() -> void:
-	if current_step_index >= tutorial_steps.size():
-		tutorial_complete.emit()
-		GameManager.tutorial_completed = true
+## Loads all JSON files from the dialogues folder into dialogue_data keyed by filename
+func load_all_dialogues() -> void:
+	var path: String = "res://assets/dialogue/dialogues/"
+	var dir: DirAccess = DirAccess.open(path)
+	if not dir:
+		print(">>> ERROR: Could not open dialogues directory")
 		return
 	
-	var step: Dictionary = tutorial_steps[current_step_index]
-	print(">>> About to emit dialogue_shown with text:", step.get("text", "NO TEXT FOUND"))
-	dialogue_shown.emit(step["text"])
-	print(">>> Signal emitted")
+	dir.list_dir_begin()
+	var file_name: String = dir.get_next()
+	while file_name != "":
+		if file_name.ends_with(".json"):
+			var key: String = file_name.get_basename()
+			var file: FileAccess = FileAccess.open(path + file_name, FileAccess.READ)
+			if file:
+				var parsed: Variant = JSON.parse_string(file.get_as_text())
+				if parsed is Dictionary:
+					dialogue_data[key] = parsed
+					print(">>> Loaded dialogue file: ", key)
+		file_name = dir.get_next()
+	dir.list_dir_end()
 
-func advance_tutorial(trigger: String = "") -> void:
-	if not can_advance:
-		return
+## Returns a full dialogue set by file key (e.g. "tutorial", "npcs", "cutscenes")
+func get_data(key: String) -> Dictionary:
+	return dialogue_data.get(key, {})
 
-	var current_step: Dictionary = tutorial_steps[current_step_index]
+## Returns a specific array from a dialogue file (e.g. get_array("tutorial", "tutorial") for tutorial steps)
+func get_array(file_key: String, array_key: String) -> Array:
+	var data: Dictionary = get_data(file_key)
+	return data.get(array_key, [])
 
-	# Enforce cooldown before anything
-	var cd: float = current_step.get("cooldown", 0.0)
-	if cd > 0.0:
-		can_advance = false
-		await get_tree().create_timer(cd).timeout
-		# Re-fetch in case something changed during await
-		current_step = tutorial_steps[current_step_index]
+## Returns a specific dialogue entry by file key and dialogue id
+func get_dialogue(file_key: String, dialogue_id: String) -> Dictionary:
+	var data: Dictionary = get_data(file_key)
+	var dialogues: Dictionary = data.get("dialogues", {})
+	return dialogues.get(dialogue_id, {})
 
-	# Now check trigger
-	if current_step.has("wait_for"):
-		if trigger != current_step["wait_for"]:
-			can_advance = true
-			return
-
-	# Lock and advance
-	can_advance = false
-	current_step_index += 1
-	show_current_step()
-	can_advance = true
-
-func show_dialogue(dialogue_id: String) -> Dictionary:
-	var dialogue: Dictionary = dialogue_data["dialogues"].get(dialogue_id, {})
+## Shows a dialogue by file key and dialogue id, emits signal
+func show_dialogue(file_key: String, dialogue_id: String) -> Dictionary:
+	var dialogue: Dictionary = get_dialogue(file_key, dialogue_id)
 	if dialogue:
-		dialogue_shown.emit(dialogue["text"])
+		var speaker: String = dialogue.get("speaker", "")
+		var text: String = dialogue.get("text", "")
+		dialogue_shown.emit(text, speaker)
 	return dialogue
+
+## Convenience for emitting dialogue text directly
+func show_text(text: String, speaker: String = "") -> void:
+	dialogue_shown.emit(text, speaker)
