@@ -1,12 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://c6avp17g1kgas"]
+[gd_scene load_steps=8 format=3 uid="uid://c6avp17g1kgas"]
 
 [ext_resource type="Script" uid="uid://072o1pqfsudo" path="res://scenes/ui/pause_menu.gd" id="1_ca42k"]
 [ext_resource type="Texture2D" uid="uid://uhdybuaqdi46" path="res://assets/ui/play_button.tres" id="2_o7t8k"]
+[ext_resource type="Texture2D" uid="uid://brnutn3s0x71a" path="res://assets/ui/options_button.tres" id="3_8uki6"]
 [ext_resource type="Texture2D" uid="uid://bntl7fv41g75j" path="res://assets/ui/menu_button.tres" id="3_y0nb3"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5d2l8"]
 texture = ExtResource("2_o7t8k")
 region_rect = Rect2(0, 0, 46.708675, 15)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0bnpd"]
+texture = ExtResource("3_8uki6")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7l7mv"]
 texture = ExtResource("3_y0nb3")
@@ -30,9 +34,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -208.0
-offset_top = -154.0
+offset_top = -227.25
 offset_right = 208.0
-offset_bottom = 154.0
+offset_bottom = 227.25
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -46,10 +50,16 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/normal = SubResource("StyleBoxTexture_5d2l8")
 
+[node name="Options" type="Button" parent="PauseMenuControl/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/normal = SubResource("StyleBoxTexture_0bnpd")
+
 [node name="Menu" type="Button" parent="PauseMenuControl/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/normal = SubResource("StyleBoxTexture_7l7mv")
 
 [connection signal="pressed" from="PauseMenuControl/MarginContainer/VBoxContainer/Resume" to="PauseMenuControl" method="_on_resume_pressed"]
+[connection signal="pressed" from="PauseMenuControl/MarginContainer/VBoxContainer/Options" to="PauseMenuControl" method="_on_options_pressed"]
 [connection signal="pressed" from="PauseMenuControl/MarginContainer/VBoxContainer/Menu" to="PauseMenuControl" method="_on_menu_pressed"]

@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://5qkv4cahpybf"]
+[gd_scene load_steps=2 format=3 uid="uid://5qkv4cahpybf"]
+
+[ext_resource type="FontFile" uid="uid://cw8oj1vo0thiu" path="res://assets/vhs-vcr-osd.ttf" id="1_kal0s"]
 
 [node name="DisplayButton" type="Control"]
 layout_mode = 3
@@ -17,6 +19,7 @@ theme_override_constants/separation = 140
 [node name="Label" type="Label" parent="HBoxContainer"]
 custom_minimum_size = Vector2(264, 0)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("1_kal0s")
 theme_override_font_sizes/font_size = 32
 text = "BASE_LABEL"
 vertical_alignment = 1
@@ -27,3 +30,4 @@ layout_mode = 2
 [node name="OptionButton" type="OptionButton" parent="HBoxContainer"]
 custom_minimum_size = Vector2(256, 64)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("1_kal0s")

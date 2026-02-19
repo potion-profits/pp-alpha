@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dule5eggsxyvo"]
+[gd_scene load_steps=3 format=3 uid="uid://dule5eggsxyvo"]
 
 [ext_resource type="Script" uid="uid://con3stiif7a6" path="res://scenes/ui/volume_menu.gd" id="1_ghd78"]
+[ext_resource type="FontFile" uid="uid://cw8oj1vo0thiu" path="res://assets/vhs-vcr-osd.ttf" id="2_lamhx"]
 
 [node name="VolumeMenu" type="Control"]
 layout_mode = 3
@@ -20,16 +21,17 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
-custom_minimum_size = Vector2(600, 700)
+custom_minimum_size = Vector2(600, 300)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_constants/separation = 45
+theme_override_constants/separation = 6
 alignment = 1
 
 [node name="MasterLabel" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_lamhx")
 theme_override_font_sizes/font_size = 35
 text = "Master"
 
@@ -42,6 +44,7 @@ value = 0.75
 [node name="MusicLabel" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_lamhx")
 theme_override_font_sizes/font_size = 35
 text = "Music"
 
@@ -54,6 +57,7 @@ value = 0.75
 [node name="SFXLabel" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_lamhx")
 theme_override_font_sizes/font_size = 35
 text = "SFX"
 

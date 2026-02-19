@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://dpruocjd4c4eq"]
+[gd_scene load_steps=4 format=3 uid="uid://dpruocjd4c4eq"]
 
 [ext_resource type="Script" uid="uid://dp5hh3qhh4s3o" path="res://scenes/ui/hotkey_rebind_button.gd" id="1_3tgem"]
+[ext_resource type="FontFile" uid="uid://cw8oj1vo0thiu" path="res://assets/vhs-vcr-osd.ttf" id="2_ks5bk"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3tgem"]
 bg_color = Color(0.80784315, 0.7529412, 0.45882353, 1)
@@ -32,13 +33,15 @@ offset_top = -20.0
 offset_right = 40.0
 offset_bottom = 20.0
 grow_vertical = 2
+theme_override_constants/separation = 5
 alignment = 1
 
 [node name="Label" type="Label" parent="HBoxContainer"]
 custom_minimum_size = Vector2(400, 30)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 35
+theme_override_fonts/font = ExtResource("2_ks5bk")
+theme_override_font_sizes/font_size = 30
 text = "Action"
 vertical_alignment = 1
 uppercase = true
@@ -52,7 +55,8 @@ theme_override_constants/separation = 300
 custom_minimum_size = Vector2(165, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.83889705, 0.83889705, 0.838897, 1)
-theme_override_font_sizes/font_size = 35
+theme_override_fonts/font = ExtResource("2_ks5bk")
+theme_override_font_sizes/font_size = 30
 toggle_mode = true
 text = "ACTION_KEY"
 
@@ -84,7 +88,8 @@ offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_fonts/font = ExtResource("2_ks5bk")
+theme_override_font_sizes/font_size = 15
 text = "Press Any Key..."
 
 [connection signal="toggled" from="HBoxContainer/Button" to="." method="_on_button_toggled"]

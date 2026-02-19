@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://clsk13udxbku7"]
+[gd_scene load_steps=2 format=3 uid="uid://clsk13udxbku7"]
+
+[ext_resource type="FontFile" uid="uid://cw8oj1vo0thiu" path="res://assets/vhs-vcr-osd.ttf" id="1_gw64q"]
 
 [node name="GameplayMenu" type="VBoxContainer"]
 anchors_preset = 15
@@ -14,6 +16,7 @@ theme_override_constants/separation = 140
 [node name="Label" type="Label" parent="HBoxContainer"]
 custom_minimum_size = Vector2(264, 0)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("1_gw64q")
 theme_override_font_sizes/font_size = 32
 text = "TOOLTIPS"
 vertical_alignment = 1

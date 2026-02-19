@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://cmw478b4fbd1o"]
+[gd_scene load_steps=9 format=3 uid="uid://cmw478b4fbd1o"]
 
 [ext_resource type="PackedScene" uid="uid://dule5eggsxyvo" path="res://scenes/ui/volume_menu.tscn" id="1_0sy41"]
 [ext_resource type="PackedScene" uid="uid://clsk13udxbku7" path="res://scenes/ui/gameplay_menu.tscn" id="1_8mvbp"]
+[ext_resource type="FontFile" uid="uid://cw8oj1vo0thiu" path="res://assets/vhs-vcr-osd.ttf" id="1_56t7g"]
 [ext_resource type="PackedScene" uid="uid://cc5gmm2qf8rot" path="res://scenes/ui/window_button.tscn" id="1_mhfsl"]
 [ext_resource type="PackedScene" uid="uid://du5ap843ikfbg" path="res://scenes/ui/controls_menu.tscn" id="2_3hsv1"]
 [ext_resource type="PackedScene" uid="uid://bd3fqatqau8j1" path="res://scenes/ui/resolution_button.tscn" id="2_x1aak"]
@@ -38,10 +39,10 @@ current_tab = 0
 
 [node name="Game" type="TabBar" parent="TabContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("1_56t7g")
 metadata/_tab_index = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="TabContainer/Game"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -63,6 +64,7 @@ layout_mode = 2
 visible = false
 layout_mode = 2
 theme = SubResource("Theme_4i7af")
+theme_override_fonts/font = ExtResource("1_56t7g")
 metadata/_tab_index = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="TabContainer/Graphics"]
@@ -94,6 +96,7 @@ layout_mode = 2
 visible = false
 layout_mode = 2
 theme = SubResource("Theme_4i7af")
+theme_override_fonts/font = ExtResource("1_56t7g")
 metadata/_tab_index = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="TabContainer/Sound"]
