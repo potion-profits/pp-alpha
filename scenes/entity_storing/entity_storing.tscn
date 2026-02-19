@@ -1,25 +1,25 @@
-[gd_scene load_steps=29 format=4 uid="uid://ct477pxb22qoi"]
+[gd_scene load_steps=29 format=4 uid="uid://dn6rvgl3wwaa8"]
 
-[ext_resource type="Script" uid="uid://hhi25ocanfc8" path="res://scenes/grid_placement/grid_placement.gd" id="1_fq01t"]
-[ext_resource type="Texture2D" uid="uid://cq4mo6l3w2oka" path="res://assets/interior/shop/background.png" id="2_ym71g"]
-[ext_resource type="PackedScene" uid="uid://ckd2slmjdifxy" path="res://scenes/coin_ui/player_coin.tscn" id="3_u04ik"]
-[ext_resource type="PackedScene" uid="uid://80151ujktixb" path="res://scenes/credit_overlay/credit_overlay.tscn" id="4_tu3xx"]
-[ext_resource type="Texture2D" uid="uid://4c4v2xp0o710" path="res://assets/interior/shop/inshop01.png" id="4_vmht1"]
-[ext_resource type="Texture2D" uid="uid://b6sxxon0bv8sh" path="res://assets/interior/shop/counter_all01.png" id="5_fpmwk"]
-[ext_resource type="PackedScene" uid="uid://nfogt8087sfy" path="res://scenes/barrel/barrel.tscn" id="6_wxjbm"]
-[ext_resource type="PackedScene" uid="uid://g1ngeh7fhfwq" path="res://scenes/bed/bed.tscn" id="7_tu3xx"]
-[ext_resource type="PackedScene" uid="uid://c13ewv50qvs46" path="res://scenes/crate/crate.tscn" id="8_qajh6"]
-[ext_resource type="PackedScene" uid="uid://c0nam2jyacktb" path="res://scenes/cauldron/cauldron.tscn" id="9_y8302"]
-[ext_resource type="PackedScene" uid="uid://m4k8qbbqo7ha" path="res://scenes/shelf/shelf.tscn" id="10_w7g5k"]
-[ext_resource type="PackedScene" uid="uid://cysl4wlh1iw8n" path="res://scenes/grid_placement/invalid_block.tscn" id="11_fpmwk"]
-[ext_resource type="PackedScene" uid="uid://b0flhrlw7t57t" path="res://scenes/player/player.tscn" id="11_pgdk6"]
-[ext_resource type="Script" uid="uid://v2b04jaxuakv" path="res://globals/entity_manager.gd" id="12_vmht1"]
-[ext_resource type="PackedScene" uid="uid://ydlnke6gesg1" path="res://scenes/cash_register/cash_register.tscn" id="13_fpmwk"]
-[ext_resource type="PackedScene" uid="uid://dk76x6o356j3i" path="res://scenes/player_shop/npc_spawner.tscn" id="14_wxjbm"]
-[ext_resource type="Script" uid="uid://348byftoo3e7" path="res://globals/direction_hold_controller.gd" id="16_wxjbm"]
+[ext_resource type="Script" uid="uid://uccfj6k4tobk" path="res://scenes/entity_storing/entity_storing.gd" id="1_a2w30"]
+[ext_resource type="Texture2D" uid="uid://cq4mo6l3w2oka" path="res://assets/interior/shop/background.png" id="2_wxsnm"]
+[ext_resource type="PackedScene" uid="uid://ckd2slmjdifxy" path="res://scenes/coin_ui/player_coin.tscn" id="3_8woua"]
+[ext_resource type="PackedScene" uid="uid://80151ujktixb" path="res://scenes/credit_overlay/credit_overlay.tscn" id="4_7a1li"]
+[ext_resource type="Texture2D" uid="uid://4c4v2xp0o710" path="res://assets/interior/shop/inshop01.png" id="4_na6ab"]
+[ext_resource type="Texture2D" uid="uid://b6sxxon0bv8sh" path="res://assets/interior/shop/counter_all01.png" id="5_y83pt"]
+[ext_resource type="PackedScene" uid="uid://nfogt8087sfy" path="res://scenes/barrel/barrel.tscn" id="6_y1ale"]
+[ext_resource type="PackedScene" uid="uid://g1ngeh7fhfwq" path="res://scenes/bed/bed.tscn" id="7_hprxo"]
+[ext_resource type="PackedScene" uid="uid://c13ewv50qvs46" path="res://scenes/crate/crate.tscn" id="8_am64c"]
+[ext_resource type="PackedScene" uid="uid://c0nam2jyacktb" path="res://scenes/cauldron/cauldron.tscn" id="9_4pnlc"]
+[ext_resource type="PackedScene" uid="uid://m4k8qbbqo7ha" path="res://scenes/shelf/shelf.tscn" id="10_6hydb"]
+[ext_resource type="PackedScene" uid="uid://cysl4wlh1iw8n" path="res://scenes/grid_placement/invalid_block.tscn" id="11_1njff"]
+[ext_resource type="PackedScene" uid="uid://b0flhrlw7t57t" path="res://scenes/player/player.tscn" id="12_3ljkl"]
+[ext_resource type="Script" uid="uid://v2b04jaxuakv" path="res://globals/entity_manager.gd" id="13_4iqv4"]
+[ext_resource type="PackedScene" uid="uid://ydlnke6gesg1" path="res://scenes/cash_register/cash_register.tscn" id="14_oytw1"]
+[ext_resource type="PackedScene" uid="uid://dk76x6o356j3i" path="res://scenes/player_shop/npc_spawner.tscn" id="15_7ddkh"]
+[ext_resource type="Script" uid="uid://348byftoo3e7" path="res://globals/direction_hold_controller.gd" id="16_w4frw"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fq01t"]
-texture = ExtResource("4_vmht1")
+texture = ExtResource("4_na6ab")
 6:0/0 = 0
 7:0/0 = 0
 8:0/0 = 0
@@ -207,7 +207,7 @@ texture = ExtResource("4_vmht1")
 sources/0 = SubResource("TileSetAtlasSource_fq01t")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6w02k"]
-texture = ExtResource("4_vmht1")
+texture = ExtResource("4_na6ab")
 6:0/0 = 0
 7:0/0 = 0
 8:0/0 = 0
@@ -384,7 +384,7 @@ texture = ExtResource("4_vmht1")
 sources/0 = SubResource("TileSetAtlasSource_6w02k")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8eiuf"]
-texture = ExtResource("5_fpmwk")
+texture = ExtResource("5_y83pt")
 1:0/0 = 0
 2:0/0 = 0
 3:0/0 = 0
@@ -438,7 +438,7 @@ sources/1 = SubResource("TileSetAtlasSource_8eiuf")
 bg_color = Color(0, 0, 0, 0.54901963)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4xnb3"]
-texture = ExtResource("4_vmht1")
+texture = ExtResource("4_na6ab")
 6:0/0 = 0
 7:0/0 = 0
 8:0/0 = 0
@@ -713,12 +713,12 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_4xnb3")
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_kpwuw"]
-scenes/1/scene = ExtResource("6_wxjbm")
-scenes/2/scene = ExtResource("7_tu3xx")
-scenes/3/scene = ExtResource("8_qajh6")
-scenes/4/scene = ExtResource("9_y8302")
-scenes/5/scene = ExtResource("10_w7g5k")
-scenes/6/scene = ExtResource("11_fpmwk")
+scenes/1/scene = ExtResource("6_y1ale")
+scenes/2/scene = ExtResource("7_hprxo")
+scenes/3/scene = ExtResource("8_am64c")
+scenes/4/scene = ExtResource("9_4pnlc")
+scenes/5/scene = ExtResource("10_6hydb")
+scenes/6/scene = ExtResource("11_1njff")
 
 [sub_resource type="TileSet" id="TileSet_epjix"]
 custom_data_layer_0/name = "shelf_footprint"
@@ -726,18 +726,18 @@ custom_data_layer_0/type = 28
 sources/0 = SubResource("TileSetScenesCollectionSource_kpwuw")
 
 [node name="MainShop" type="Node2D"]
-script = ExtResource("1_fq01t")
+script = ExtResource("1_a2w30")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 offset_left = -120.0
 offset_top = -925.0
 offset_right = 955.0
 offset_bottom = 150.0
-texture = ExtResource("2_ym71g")
+texture = ExtResource("2_wxsnm")
 
 [node name="Static_UI" type="CanvasLayer" parent="."]
 
-[node name="Coin" parent="Static_UI" node_paths=PackedStringArray("player") instance=ExtResource("3_u04ik")]
+[node name="Coin" parent="Static_UI" node_paths=PackedStringArray("player") instance=ExtResource("3_8woua")]
 offset_left = -4.0
 offset_top = -3.0
 offset_right = -4.0
@@ -745,36 +745,9 @@ offset_bottom = -3.0
 scale = Vector2(1.5, 1.5)
 player = NodePath("../../Player")
 
-[node name="CostContainer" type="HBoxContainer" parent="Static_UI"]
-layout_direction = 2
-offset_top = 48.0
-offset_right = 83.0
-offset_bottom = 85.0
-scale = Vector2(2.25, 2.25)
-theme_override_constants/separation = 2
-
-[node name="BlankTexture" type="TextureRect" parent="Static_UI/CostContainer"]
-custom_minimum_size = Vector2(24, 0)
-layout_mode = 2
-size_flags_horizontal = 0
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Cost" type="Label" parent="Static_UI/CostContainer"]
-custom_minimum_size = Vector2(0, 23)
-layout_direction = 2
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 5
-text = "0"
-
-[node name="StoreCredits" parent="Static_UI" node_paths=PackedStringArray("player") instance=ExtResource("4_tu3xx")]
-offset_left = 8.0
-offset_top = 73.0
-offset_right = 8.0
-offset_bottom = 73.0
+[node name="StoreCredits" parent="Static_UI" node_paths=PackedStringArray("player") instance=ExtResource("4_7a1li")]
+offset_top = 32.0
+offset_bottom = 32.0
 player = NodePath("../../Player")
 
 [node name="ConnectingLayer" type="TileMapLayer" parent="."]
@@ -838,17 +811,17 @@ tile_set = SubResource("TileSet_s7qt3")
 tile_map_data = PackedByteArray("AAAbAPj/AAAAAAAABgAcAPj/AAAAAAAABgAcAPb/AAAAAAAABgAdAPb/AAAAAAAABgAcAPT/AAAAAAAABgAcAPX/AAAAAAAABgAdAPX/AAAAAAAABgAdAPT/AAAAAAAABgAaAPj/AAAAAAAABgAdAPj/AAAAAAAABgAaAPn/AAAAAAAABgAdAPn/AAAAAAAABgAbAPn/AAAAAAAABgAcAPn/AAAAAAAABgAQAP//AAAAAAAABgARAP//AAAAAAAABgASAP//AAAAAAAABgATAP//AAAAAAAABgAUAP//AAAAAAAABgAVAP//AAAAAAAABgAWAP//AAAAAAAABgAXAP//AAAAAAAABgAYAP//AAAAAAAABgAZAP//AAAAAAAABgAaAP//AAAAAAAABgAbAP//AAAAAAAABgAcAP//AAAAAAAABgAdAP//AAAAAAAABgAeAP//AAAAAAAABgAfAP//AAAAAAAABgAgAP//AAAAAAAABgAQAOz/AAAAAAAABgARAOz/AAAAAAAABgASAOz/AAAAAAAABgATAOz/AAAAAAAABgAUAOz/AAAAAAAABgAVAOz/AAAAAAAABgAWAOz/AAAAAAAABgAXAOz/AAAAAAAABgAYAOz/AAAAAAAABgAZAOz/AAAAAAAABgAaAOz/AAAAAAAABgAbAOz/AAAAAAAABgAcAOz/AAAAAAAABgAdAOz/AAAAAAAABgAeAOz/AAAAAAAABgAfAOz/AAAAAAAABgAgAOz/AAAAAAAABgA=")
 tile_set = SubResource("TileSet_epjix")
 
-[node name="Player" parent="." instance=ExtResource("11_pgdk6")]
+[node name="Player" parent="." instance=ExtResource("12_3ljkl")]
 position = Vector2(907, -242)
 
 [node name="EntityManager" type="Node2D" parent="."]
 y_sort_enabled = true
-script = ExtResource("12_vmht1")
+script = ExtResource("13_4iqv4")
 
-[node name="CashRegister" parent="EntityManager" instance=ExtResource("13_fpmwk")]
+[node name="CashRegister" parent="EntityManager" instance=ExtResource("14_oytw1")]
 position = Vector2(448, -145)
 
-[node name="NpcSpawner" parent="EntityManager" instance=ExtResource("14_wxjbm")]
+[node name="NpcSpawner" parent="EntityManager" instance=ExtResource("15_7ddkh")]
 
 [node name="PreviewLayer" type="TileMapLayer" parent="."]
 tile_set = SubResource("TileSet_epjix")
@@ -858,5 +831,5 @@ position = Vector2(402, -243)
 zoom = Vector2(2, 2)
 
 [node name="DirectionalHoldController" type="Node" parent="."]
-script = ExtResource("16_wxjbm")
+script = ExtResource("16_w4frw")
 metadata/_custom_type_script = "uid://348byftoo3e7"

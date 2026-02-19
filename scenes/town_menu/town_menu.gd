@@ -17,3 +17,7 @@ func _on_refill_pressed() -> void:
 
 func _on_placement_pressed() -> void:
 	SceneManager.change_to("res://scenes/grid_placement/grid_placement.tscn")
+
+
+func _on_storage_pressed() -> void:
+	SceneManager.change_to("res://scenes/entity_storing/entity_storing.tscn")
