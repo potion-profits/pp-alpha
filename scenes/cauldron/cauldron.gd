@@ -1,4 +1,4 @@
-extends Entity	#will help store placement and inventory information for persistence
+class_name Cauldron extends Entity	#will help store placement and inventory information for persistence
 
 ## Handles cauldron functionality and visual representation.
 ##
@@ -14,9 +14,11 @@ extends Entity	#will help store placement and inventory information for persiste
 @onready var progress_bar: TextureProgressBar = $ProgressBar	## Reference to progress bar
 @onready var mix_sfx: AudioStreamPlayer2D = $MixSFX ## Reference to audio stream for sound effects
 @export var animation_name: String = "default"	## Cauldron animation name
+@onready var flame_animation: AnimatedSprite2D = $FlameAnim
 
 var mixing: bool = false	## Keeps track of the cauldron's state
 const MIX_DURATION : float = 3.0
+const NUM_FLAME_FRAMES : int = 15
 
 func _ready()-> void:
 	#links interactable template to cauldron specific method (needed for all interactables)
@@ -25,6 +27,10 @@ func _ready()-> void:
 	super._ready()
 	#used to find out what actual scene to place in entity manager
 	entity_code = "cauldron"
+	
+	#Selects random frame to start flame animation
+	flame_animation.frame = randi() % NUM_FLAME_FRAMES
+	
 	if !inv:
 		inv = Inv.new(1)
 
