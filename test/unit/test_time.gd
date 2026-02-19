@@ -23,4 +23,6 @@ func test_get_time_from_str() -> void:
 	assert_eq(res, 86400, "'00:00' is equivalent to 54,000 s in-game")
 	res = TimeManager.get_time_from_string('17:00')
 	assert_eq(res, 36000, "'17:00' is equivalent to 36000 s in-game")
+	res = TimeManager.get_time_from_string('08:00')
+	assert_eq(res, 3600, "'08:00' is equivalent to 3600 s in-game")
 	

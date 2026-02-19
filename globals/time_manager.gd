@@ -14,6 +14,9 @@ extends Node
 const TIME_FACTOR = 60	# each real-world minute is an in-game hour
 #const TIME_FACTOR = 3600 # for testing make it 60 times faster
 
+const HOUR = 3600
+const MIN = 60
+
 ## Represents in-game time in seconds
 var time : float = 0.0
 ## Represents days since the game started
@@ -26,7 +29,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	time += delta * TIME_FACTOR
-	if time >= 3600 * 30:
+	if time >= HOUR * 30:
 		# If player doesn't sleep, trigger the pass out feature
 		#GameManager.pass_out_player()
 		time = 0
@@ -40,21 +43,21 @@ func get_string_from_time() -> String:
 	var hours : int
 	var mins : int
 	# if more than 10 hours have passed -> time is twice as slow to allow gambling
-	if time_as_int >= 3600 * 10:
-		time_as_int -= 3600 * 10
-		hours = time_as_int / 7200
-		time_as_int -= 7200 * hours
-		mins = time_as_int / 120
+	if time_as_int >= HOUR * 10:
+		time_as_int -= HOUR * 10
+		hours = time_as_int / (HOUR * 2)
+		time_as_int -= (HOUR * 2) * hours
+		mins = time_as_int / (MIN * 2)
 		# slow time starts at 17:00 every evening
 		# mod to keep 2400 hour clock time
 		hours = (hours + 17) % 24
 	else:
 		# calc hours
-		hours = time_as_int / 3600
+		hours = time_as_int / HOUR
 		# subtract hours to get mins
-		time_as_int -= 3600 * hours
+		time_as_int -= HOUR * hours
 		# calc mins
-		mins = time_as_int / 60
+		mins = time_as_int / MIN
 		# time starts at 07:00 every morning
 		hours += 7
 	# create time_str (day starts at 7am, add 7 to hours)
@@ -72,13 +75,14 @@ func get_time_from_string(s : String) -> int:
 	if hours < 7 or hours >= 17:
 		if hours < 7:
 			hours += 24
-		ret += 3600 * 10
+		ret += HOUR * 10
 		hours -= 17
-		ret += hours * 7200
-		ret += mins * 120
+		ret += hours * (HOUR * 2)
+		ret += mins * (MIN * 2)
 	else:
-		ret += hours * 3600
-		ret += mins * 60
+		hours -= 7
+		ret += hours * HOUR
+		ret += mins * MIN
 	return ret
 
 ## Handles when a player sleeps in the bed
