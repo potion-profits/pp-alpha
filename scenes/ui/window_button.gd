@@ -1,13 +1,13 @@
 extends Control
 
 @onready var option_button: OptionButton = $HBoxContainer/OptionButton
+@onready var resolution_button: Control = $"../ResolutionButton"
 
 # Available supported modes
 const WINDOW_MODE_ARRAY: Array[String] = [
 	"Windowed",
 	"Fullscreen",
-	"Borderless Windowed",
-	#"Borderless Fullscreen"
+	"Borderless Windowed"
 ]
 
 func _ready() -> void:
@@ -24,8 +24,10 @@ func add_window_mode_items() -> void:
 		option_button.add_item(mode)
 
 func _on_option_button_item_selected(index: int) -> void:
-	# Connect signal for save data
+	# Emit signal for save data
 	SettingManager.emit_on_window_selected(index)
+	# Emit signal for resolution button
+	resolution_button.check_disable_resolution(index)
 	# Map option value index to WINDOW_MODE_ARRAY
 	match index:
 		0: #Windowed
@@ -37,6 +39,3 @@ func _on_option_button_item_selected(index: int) -> void:
 		2: #Borderless Windowed
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, true)
-		#4: #Borderless Fullscreen (This acts weird and I can't figure it out)
-			#DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-			#DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, true)

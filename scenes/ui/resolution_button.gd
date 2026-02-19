@@ -20,6 +20,8 @@ func load_data() -> void:
 	_on_option_button_item_selected(SettingDataContainer.resolution_mode_index)
 	# Ensure selection index visual matches loaded index
 	option_button.select(SettingDataContainer.resolution_mode_index)
+	# Disable resolution options based on loaded window mode
+	check_disable_resolution(SettingDataContainer.window_mode_index)
 
 func add_resolution_items() -> void:
 	for res_text: String in RESULTION_OPTIONS:
@@ -30,3 +32,12 @@ func _on_option_button_item_selected(index: int) -> void:
 	if resolution:
 		SettingManager.emit_on_resultion_selected(index)
 		DisplayServer.window_set_size(resolution)
+
+func check_disable_resolution(idx: int) -> void:
+	# 1 is fullscreen mode
+	if !option_button:
+		return
+	if idx == 1:
+		option_button.disabled = true
+	else:
+		option_button.disabled = false
