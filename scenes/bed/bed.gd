@@ -24,6 +24,7 @@ func _on_interact() -> void:
 		return
 	GameManager.save_scene_runtime_state()
 	GameManager.commit_to_storage()
+	TimeManager.player_sleep()
 	_save_timeout()
 	bed_sfx.play()
 

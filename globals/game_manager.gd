@@ -42,6 +42,7 @@ func unpause()->void:
 		get_tree().paused = false
 		pause_menu.hide()
 		pause_menu.visible = false
+		TimeManager.set_process(true)
 
 ## Commits everything in [member runtime_entities] and [member player_data] to disk.[br][br]
 ##
