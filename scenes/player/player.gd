@@ -7,7 +7,7 @@ class_name Player
 ## See Inv
 var inv: Inv
 
-var SPEED = 100
+var SPEED : float = 100
 const DASH_MULT = 2.2
 const DASH_DURATION = 0.17
 const DASH_COOLDOWN = 0.5

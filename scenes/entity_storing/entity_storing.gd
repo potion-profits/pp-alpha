@@ -155,16 +155,51 @@ func _on_step(dir: DirectionalHoldController.Direction)->void:
 	
 	update_preview()
 
-func find_next_selectable(_delta : Vector2i) -> Entity:
-	if current_layer == front_floor:
-		if f_selectables:
-			f_idx = (f_idx + 1) % len(f_selectables)
-			return f_selectables[f_idx]
-	else:
-		if b_selectables:
-			b_idx = (b_idx + 1) % len(b_selectables)
-			return b_selectables[b_idx]
-	return null
+func find_next_selectable(dir: Vector2) -> Entity:
+	var selectables : Array = f_selectables if current_layer == front_floor else b_selectables
+
+	if not current_entity:
+		if selectables:
+			current_entity = selectables[0]
+		else:
+			return null
+	var best_entity: Entity = current_entity
+	var min_dist : float = INF
+	var from : Vector2 = best_entity.position
+	
+	
+	# calculates distance to each selectables
+	for entity : Entity in selectables:
+		var pos : Vector2 = entity.position
+		var to_candidate : Vector2 = pos - from
+		
+		# if its the current, dont check
+		if to_candidate == Vector2.ZERO:
+			continue
+		
+		# check that its in the correct direction
+		if dir.x > 0 and to_candidate.x <= 0:
+			continue
+		if dir.x < 0 and to_candidate.x >= 0:
+			continue
+		if dir.y > 0 and to_candidate.y <= 0:
+			continue
+		if dir.y < 0 and to_candidate.y >= 0:
+			continue
+		
+		# prioritizes entities that are more on the x or y based on the given direction
+		if dir.x != 0 and abs(to_candidate.y) > abs(to_candidate.x):
+			continue
+		if dir.y != 0 and abs(to_candidate.x) > abs(to_candidate.y):
+			continue
+		
+		# gets the minimum of previous and current
+		var dist := to_candidate.length()
+		if dist < min_dist:
+			min_dist = dist
+			best_entity = entity
+	
+	return best_entity
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("inventory"):
