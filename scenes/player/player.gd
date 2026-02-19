@@ -7,7 +7,7 @@ class_name Player
 ## See Inv
 var inv: Inv
 
-const SPEED = 100
+var SPEED = 100
 const DASH_MULT = 2.2
 const DASH_DURATION = 0.17
 const DASH_COOLDOWN = 0.5
@@ -18,13 +18,12 @@ var coins : int
 ## Represents amount of casino chips owned by the player
 var chips : int
 ## The amount of free placements available
-var in_store_credit : Dictionary = {
+var credits : Dictionary = {
 	"barrel": 0,
 	"crate" : 0,
 	"shelf": 0,
 	"cauldron" : 0
 }
-
 
 ## Tracks whether the player is currently dashing or not
 var is_dashing : bool = false
@@ -79,6 +78,8 @@ func _ready() -> void:
 		inv_ui.allow_hotkeys = true #allows 1-5 use for hotbar-like inv
 	coins = GameManager.player_data["coins"]
 	chips = GameManager.player_data["chips"]
+	if OS.is_debug_build():
+		SPEED = SPEED * 3.5
 	#_debug_set_player_inv()
 
 #handles toggled and held inventory
@@ -210,6 +211,12 @@ func set_chips(chips_delta : int) -> int:
 	update_chips.emit()
 	return new_chips
 
+func set_credit(e_code : String, credit_delta : int) -> int:
+	var new_credit : int = credits[e_code] + credit_delta
+	if new_credit < 0 :
+		return credits[e_code]
+	credits[e_code] = new_credit
+	return new_credit
 
 ## Return's the player's entire inventory
 func get_inventory() -> Inv:
@@ -267,7 +274,8 @@ func to_dict()->Dictionary:
 	return{
 		"inventory": inv.to_dict(),
 		"coins": coins,
-		"chips": chips
+		"chips": chips,
+		"credits": credits
 	}
 
 ## Translates save state data into player inventory, coins, and chips
@@ -275,6 +283,7 @@ func from_dict(data:Dictionary)->void:
 	inv.from_dict(data["inventory"])
 	coins = data["coins"]
 	chips = data["chips"]
+	credits = data["credits"]
 	
 
 func _debug_set_player_inv()->void:

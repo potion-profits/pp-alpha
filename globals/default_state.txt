@@ -2,6 +2,12 @@
 	"player": {
 		"chips": 0,
 		"coins": 0,
+		"credits": {
+			"barrel": 0,
+			"crate" : 0,
+			"shelf": 0,
+			"cauldron" : 0
+		},
 		"inventory": {
 			"selected_index": 0,
 			"slots": [
