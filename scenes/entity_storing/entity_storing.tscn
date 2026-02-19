@@ -1,8 +1,9 @@
-[gd_scene load_steps=28 format=4 uid="uid://dn6rvgl3wwaa8"]
+[gd_scene load_steps=29 format=4 uid="uid://dn6rvgl3wwaa8"]
 
 [ext_resource type="Script" uid="uid://uccfj6k4tobk" path="res://scenes/entity_storing/entity_storing.gd" id="1_a2w30"]
 [ext_resource type="Texture2D" uid="uid://cq4mo6l3w2oka" path="res://assets/interior/shop/background.png" id="2_wxsnm"]
 [ext_resource type="PackedScene" uid="uid://ckd2slmjdifxy" path="res://scenes/coin_ui/player_coin.tscn" id="3_8woua"]
+[ext_resource type="PackedScene" uid="uid://80151ujktixb" path="res://scenes/credit_overlay/credit_overlay.tscn" id="4_7a1li"]
 [ext_resource type="Texture2D" uid="uid://4c4v2xp0o710" path="res://assets/interior/shop/inshop01.png" id="4_na6ab"]
 [ext_resource type="Texture2D" uid="uid://b6sxxon0bv8sh" path="res://assets/interior/shop/counter_all01.png" id="5_y83pt"]
 [ext_resource type="PackedScene" uid="uid://nfogt8087sfy" path="res://scenes/barrel/barrel.tscn" id="6_y1ale"]
@@ -744,31 +745,10 @@ offset_bottom = -3.0
 scale = Vector2(1.5, 1.5)
 player = NodePath("../../Player")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Static_UI"]
-layout_direction = 2
-offset_left = -4.0
-offset_top = 47.0
-offset_right = 79.0
-offset_bottom = 84.0
-scale = Vector2(2.25, 2.25)
-theme_override_constants/separation = 2
-
-[node name="BlankTexture" type="TextureRect" parent="Static_UI/HBoxContainer"]
-custom_minimum_size = Vector2(24, 0)
-layout_mode = 2
-size_flags_horizontal = 0
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Stored" type="Label" parent="Static_UI/HBoxContainer"]
-custom_minimum_size = Vector2(0, 23)
-layout_direction = 2
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 5
-text = "-10"
+[node name="StoreCredits" parent="Static_UI" node_paths=PackedStringArray("player") instance=ExtResource("4_7a1li")]
+offset_top = 32.0
+offset_bottom = 32.0
+player = NodePath("../../Player")
 
 [node name="ConnectingLayer" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray("AAAcAPP/AAACAAoAAAAdAPP/AAADAAoAAAAcAPL/AAACAAkAAAAdAPL/AAADAAkAAAAZAAAAAAACAAkAAAAaAAAAAAADAAkAAAAcAO3/AAACAAkAAAAdAO3/AAADAAkAAAA=")

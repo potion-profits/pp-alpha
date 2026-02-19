@@ -16,8 +16,6 @@ extends Node2D
 @onready var front_floor: TileMapLayer = $FrontRoom/Floor
 ## Reference to the entity manager 
 @onready var em: EntityManager = $EntityManager
-## Reference to the price label
-@onready var stored: Label = $Static_UI/HBoxContainer/Stored
 ## Reference to the smooth movement handler
 @onready var hold_controller: DirectionalHoldController = $DirectionalHoldController
 
@@ -79,7 +77,6 @@ func _ready() -> void:
 	_restore_entities_to_tilemap()
 	
 	_find_init_target()
-	update_stored()
 
 # Finds all targets and makes the first one the current
 func _find_init_target() -> void:
@@ -98,6 +95,10 @@ func _find_init_target() -> void:
 		if not b_selectables:
 			return
 		current_entity = b_selectables[0]
+		_switch_cam()
+	
+	if current_entity:
+		current_tile = current_layer.local_to_map(current_entity.position)
 
 func _at_front(entity : Entity) -> bool:
 	return front_floor.local_to_map(entity.position) in front_floor.get_used_cells()
@@ -120,7 +121,7 @@ func switch_to_back() -> void:
 	current_layer = back_floor
 	if b_selectables:
 		current_entity = b_selectables[0]
-	update_stored()
+		current_tile = current_layer.local_to_map(current_entity.position)
 
 ## Switch to the front room
 func switch_to_front() -> void:
@@ -128,7 +129,7 @@ func switch_to_front() -> void:
 	current_layer = front_floor
 	if f_selectables:
 		current_entity = f_selectables[0]
-	update_stored()
+		current_tile = current_layer.local_to_map(current_entity.position)
 
 # When a movement signal is sent, move the cursor
 func _on_step(dir: DirectionalHoldController.Direction)->void:
@@ -148,10 +149,11 @@ func _on_step(dir: DirectionalHoldController.Direction)->void:
 		
 	current_entity.modulate = VALID_COLOR
 	current_entity = next_entity
-	current_tile = current_layer.local_to_map(current_entity.position)
+	
+	if current_entity:
+		current_tile = current_layer.local_to_map(current_entity.position)
 	
 	update_preview()
-	update_stored()
 
 func find_next_selectable(_delta : Vector2i) -> Entity:
 	if current_layer == front_floor:
@@ -183,8 +185,6 @@ func _delete() -> void:
 		return
 	if not current_entity:
 		return
-	#if not can_delete_entity(current_tile):
-		#return
 	var stored_code : String = current_entity.entity_code
 	delete_entity(current_tile)
 	player.set_credit(stored_code, +1)
@@ -201,10 +201,6 @@ func delete_entity(tile: Vector2i) -> void:
 	if current_entity:
 		current_tile = current_layer.local_to_map(current_entity.position)
 
-# change the price label to reflect the current entity's price
-func update_stored()->void:
-	stored.text = str(player.credits)
-
 # every frame, try to update the preview and process any movement
 func _process(delta: float) -> void:
 	update_preview()
@@ -212,13 +208,8 @@ func _process(delta: float) -> void:
 
 ## Updates the preview layer to show on correct tile and color based on validity
 func update_preview()->void:
-	# check if tile is free to place
-	#var valid : bool = can_delete_entity(current_tile)
 	if current_entity and current_entity.modulate != INVALID_COLOR:
 		current_entity.modulate = INVALID_COLOR
-	# ensure nothing else is on the preview
-	#preview_layer.clear()
-	#draw_preview_tile(current_tile, valid) # draw the tile
 
 
 ## Draw the current entity on the current tile of the preview layer
@@ -228,7 +219,6 @@ func draw_preview_tile(tile: Vector2i, valid: bool) -> void:
 
 ## Commits the preview layer entity into the entity manager at the current location
 func _save_deletion() -> void:
-	#var local_coords: Vector2 = preview_layer.map_to_local(current_tile)
 	current_entity.free()
 
 # Returns true if the given tile on the given layer is empty
@@ -250,10 +240,6 @@ func _restore_tile(entity_code:String, tile: Vector2i)->void:
 func can_delete_entity(tile : Vector2i) -> bool:
 	if _empty_cell(entity_layer, tile):
 		return false
-	
-	#if entity_info().price > player.get_coins():
-		#return false
-	
 	return true
 
 # returns to menu, should change to shop when merged

@@ -46,7 +46,7 @@ var step_frames: Array = [1, 3]
 
 signal update_coins	## Triggers the coin UI to update on any change to coin amount
 signal update_chips ## Triggers the chip UI to update on any change to chip amount
-
+signal update_credits ## Triggers the credit UI to update on any change to credtis
 ## Utilized in the state machine for player movement
 enum movement_state {
 	IDLE,
@@ -216,6 +216,7 @@ func set_credit(e_code : String, credit_delta : int) -> int:
 	if new_credit < 0 :
 		return credits[e_code]
 	credits[e_code] = new_credit
+	update_credits.emit()
 	return new_credit
 
 ## Return's the player's entire inventory
