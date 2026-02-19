@@ -35,9 +35,9 @@ grow_vertical = 2
 alignment = 1
 
 [node name="Label" type="Label" parent="HBoxContainer"]
-custom_minimum_size = Vector2(300, 30)
+custom_minimum_size = Vector2(400, 30)
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 35
 text = "Action"
 vertical_alignment = 1
@@ -46,7 +46,7 @@ uppercase = true
 [node name="VSeparator" type="VSeparator" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = 200
+theme_override_constants/separation = 300
 
 [node name="Button" type="Button" parent="HBoxContainer"]
 custom_minimum_size = Vector2(165, 0)

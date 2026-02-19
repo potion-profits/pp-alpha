@@ -134,10 +134,5 @@ theme_override_constants/margin_top = 24
 theme_override_constants/margin_right = 24
 theme_override_constants/margin_bottom = 24
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Controls/MarginContainer"]
-layout_mode = 2
-theme_override_constants/separation = 64
-alignment = 1
-
-[node name="ControlsMenu" parent="TabContainer/Controls/MarginContainer/VBoxContainer" instance=ExtResource("2_3hsv1")]
+[node name="ControlsMenu" parent="TabContainer/Controls/MarginContainer" instance=ExtResource("2_3hsv1")]
 layout_mode = 2

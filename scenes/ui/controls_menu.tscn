@@ -1,123 +1,72 @@
-[gd_scene load_steps=5 format=3 uid="uid://du5ap843ikfbg"]
+[gd_scene load_steps=3 format=3 uid="uid://du5ap843ikfbg"]
 
-[ext_resource type="Script" uid="uid://4121d2x72jyi" path="res://scenes/ui/controls_menu.gd" id="1_k30qf"]
-[ext_resource type="Texture2D" uid="uid://db0iojmrs813b" path="res://assets/ui/temp_menu_background.jpg" id="2_6cbtt"]
 [ext_resource type="PackedScene" uid="uid://dpruocjd4c4eq" path="res://scenes/ui/hotkey_rebind_button.tscn" id="3_4ps47"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3l6r3"]
-bg_color = Color(0.80784315, 0.7529412, 0.45882353, 1)
-border_width_left = 7
-border_width_top = 7
-border_width_right = 7
-border_width_bottom = 7
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-expand_margin_left = 20.0
-expand_margin_top = 20.0
-expand_margin_right = 20.0
-expand_margin_bottom = 20.0
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k30qf"]
 
-[node name="ControlsMenu" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("1_k30qf")
-
-[node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_6cbtt")
-expand_mode = 3
-
-[node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -381.0
-offset_top = -240.0
-offset_right = 381.0
-offset_bottom = 240.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_constants/separation = 90
-
-[node name="Panel" type="Panel" parent="MarginContainer/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer"]
 custom_minimum_size = Vector2(762, 400)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_3l6r3")
-
-[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/Panel"]
-custom_minimum_size = Vector2(762, 400)
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Panel/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
 theme_override_constants/separation = 80
 
-[node name="MoveLeft" parent="MarginContainer/VBoxContainer/Panel/ScrollContainer/VBoxContainer" instance=ExtResource("3_4ps47")]
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 1
+theme_override_styles/separator = SubResource("StyleBoxEmpty_k30qf")
+
+[node name="MoveLeft" parent="VBoxContainer" instance=ExtResource("3_4ps47")]
 layout_mode = 2
 action_name = "move_left"
 
-[node name="MoveRight" parent="MarginContainer/VBoxContainer/Panel/ScrollContainer/VBoxContainer" instance=ExtResource("3_4ps47")]
+[node name="MoveRight" parent="VBoxContainer" instance=ExtResource("3_4ps47")]
 layout_mode = 2
 action_name = "move_right"
 
-[node name="MoveUp" parent="MarginContainer/VBoxContainer/Panel/ScrollContainer/VBoxContainer" instance=ExtResource("3_4ps47")]
+[node name="MoveUp" parent="VBoxContainer" instance=ExtResource("3_4ps47")]
 layout_mode = 2
 action_name = "move_up"
 
-[node name="MoveDown" parent="MarginContainer/VBoxContainer/Panel/ScrollContainer/VBoxContainer" instance=ExtResource("3_4ps47")]
+[node name="MoveDown" parent="VBoxContainer" instance=ExtResource("3_4ps47")]
 layout_mode = 2
 action_name = "move_down"
 
-[node name="Interact" parent="MarginContainer/VBoxContainer/Panel/ScrollContainer/VBoxContainer" instance=ExtResource("3_4ps47")]
+[node name="Interact" parent="VBoxContainer" instance=ExtResource("3_4ps47")]
 layout_mode = 2
 action_name = "interact"
 
-[node name="Dash" parent="MarginContainer/VBoxContainer/Panel/ScrollContainer/VBoxContainer" instance=ExtResource("3_4ps47")]
+[node name="Dash" parent="VBoxContainer" instance=ExtResource("3_4ps47")]
 layout_mode = 2
 action_name = "dash"
 
-[node name="Slot1" parent="MarginContainer/VBoxContainer/Panel/ScrollContainer/VBoxContainer" instance=ExtResource("3_4ps47")]
+[node name="Slot1" parent="VBoxContainer" instance=ExtResource("3_4ps47")]
 layout_mode = 2
 action_name = "slot_1"
 
-[node name="Slot2" parent="MarginContainer/VBoxContainer/Panel/ScrollContainer/VBoxContainer" instance=ExtResource("3_4ps47")]
+[node name="Slot2" parent="VBoxContainer" instance=ExtResource("3_4ps47")]
 layout_mode = 2
 action_name = "slot_2"
 
-[node name="Slot3" parent="MarginContainer/VBoxContainer/Panel/ScrollContainer/VBoxContainer" instance=ExtResource("3_4ps47")]
+[node name="Slot3" parent="VBoxContainer" instance=ExtResource("3_4ps47")]
 layout_mode = 2
 action_name = "slot_3"
 
-[node name="Slot4" parent="MarginContainer/VBoxContainer/Panel/ScrollContainer/VBoxContainer" instance=ExtResource("3_4ps47")]
+[node name="Slot4" parent="VBoxContainer" instance=ExtResource("3_4ps47")]
 layout_mode = 2
 action_name = "slot_4"
 
-[node name="Slot5" parent="MarginContainer/VBoxContainer/Panel/ScrollContainer/VBoxContainer" instance=ExtResource("3_4ps47")]
+[node name="Slot5" parent="VBoxContainer" instance=ExtResource("3_4ps47")]
 layout_mode = 2
 action_name = "slot_5"
+
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_k30qf")
