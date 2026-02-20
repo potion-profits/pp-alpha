@@ -1,10 +1,11 @@
-[gd_scene load_steps=22 format=4 uid="uid://c0wgfjbxk58k0"]
+[gd_scene load_steps=23 format=4 uid="uid://c0wgfjbxk58k0"]
 
 [ext_resource type="Script" uid="uid://cyi5m0rhrv7o2" path="res://scenes/player_shop/main_shop.gd" id="1_47hg3"]
 [ext_resource type="Texture2D" uid="uid://cq4mo6l3w2oka" path="res://assets/interior/shop/background.png" id="2_ixtpo"]
 [ext_resource type="Script" uid="uid://dfnny774vqx3t" path="res://scenes/player_shop/astar.gd" id="3_85e8s"]
 [ext_resource type="Texture2D" uid="uid://4c4v2xp0o710" path="res://assets/interior/shop/inshop01.png" id="4_85e8s"]
 [ext_resource type="PackedScene" uid="uid://ckd2slmjdifxy" path="res://scenes/coin_ui/player_coin.tscn" id="4_g03oc"]
+[ext_resource type="PackedScene" uid="uid://ctf43uq3ex4w7" path="res://scenes/clock/clock.tscn" id="5_1jnhp"]
 [ext_resource type="Script" uid="uid://v2b04jaxuakv" path="res://globals/entity_manager.gd" id="5_41gid"]
 [ext_resource type="Texture2D" uid="uid://b6sxxon0bv8sh" path="res://assets/interior/shop/counter_all01.png" id="5_47hg3"]
 [ext_resource type="PackedScene" uid="uid://b0flhrlw7t57t" path="res://scenes/player/player.tscn" id="6_b6yhm"]
@@ -530,6 +531,15 @@ size = Vector2(106, 36)
 [node name="MainShop" type="Node2D"]
 script = ExtResource("1_47hg3")
 
+[node name="SleepFade" type="TextureRect" parent="."]
+visible = false
+z_index = 1
+offset_left = -97.0
+offset_top = -1024.0
+offset_right = 978.0
+offset_bottom = 51.0
+texture = ExtResource("2_ixtpo")
+
 [node name="TextureRect" type="TextureRect" parent="."]
 offset_left = -120.0
 offset_top = -925.0
@@ -558,6 +568,8 @@ offset_right = -4.0
 offset_bottom = -3.0
 scale = Vector2(1.5, 1.5)
 player = NodePath("../../EntityManager/Player")
+
+[node name="Clock" parent="Static_UI" instance=ExtResource("5_1jnhp")]
 
 [node name="FrontRoom" type="Node2D" parent="."]
 

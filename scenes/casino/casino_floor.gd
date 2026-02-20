@@ -4,7 +4,7 @@ class_name Casino extends Node2D
 ## The player may exchange coins for chips and chips for prizes / upgrades from the cashier stand.
 
 ## See [Player]
-@onready var player: Player = $Player
+@onready var player: Player = $YSort/Player
 ## UI container for the exchange menu, opens on interact with cashier
 @onready var exchange_container: VBoxContainer = $CanvasLayer/ExchangeContainer
 ## Label for displaying the current pending exchange amount
