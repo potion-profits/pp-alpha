@@ -8,28 +8,45 @@
 
 [node name="BlackJack" type="Control"]
 layout_mode = 3
-anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1920.0
+offset_bottom = -1080.0
 script = ExtResource("1_qp4h2")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
 layer = -1
 
-[node name="PlayerChips" parent="CanvasLayer" node_paths=PackedStringArray("player") instance=ExtResource("2_7be6b")]
-z_index = 1
-offset_left = 8.0
-offset_top = 8.0
-offset_right = 8.0
-offset_bottom = 8.0
-scale = Vector2(2.5, 2.5)
-player = NodePath("../../Player")
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer2"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_dad4q")
+
+[node name="Deck" parent="." instance=ExtResource("3_c0bro")]
+position = Vector2(1627, 232.00002)
+
+[node name="PlayerPos" type="Marker2D" parent="."]
+position = Vector2(768, 832)
+
+[node name="PlayerCardContainer" type="Node2D" parent="."]
+
+[node name="DealerPos" type="Marker2D" parent="."]
+position = Vector2(768, 256)
+scale = Vector2(0.9999999, 0.9999999)
+
+[node name="DealerCardContainer" type="Node2D" parent="."]
+position = Vector2(3.0517578e-05, 6.1035156e-05)
+scale = Vector2(0.9999999, 0.9999999)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PlayerChips" parent="CanvasLayer" node_paths=PackedStringArray("player") instance=ExtResource("2_7be6b")]
+z_index = 1
+scale = Vector2(2.5, 2.5)
+player = NodePath("../../Player")
 
 [node name="BetMenu" type="VBoxContainer" parent="CanvasLayer"]
 visible = false
@@ -100,15 +117,14 @@ text = "Stand
 
 [node name="DealerScore" type="Label" parent="CanvasLayer"]
 visible = false
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -384.0
-offset_top = -1016.0
-offset_right = 17.0
-offset_bottom = -947.0
+anchors_preset = -1
+anchor_left = 0.3
+anchor_top = 0.059000004
+anchor_right = 0.3
+anchor_bottom = 0.059000004
+offset_top = 0.27999496
+offset_right = 401.0
+offset_bottom = 69.28
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_font_sizes/font_size = 50
@@ -116,13 +132,14 @@ text = "Dealer Score: 0"
 
 [node name="PlayerScore" type="Label" parent="CanvasLayer"]
 visible = false
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -384.0
-offset_top = 640.0
-offset_right = 17.0
-offset_bottom = 709.0
+anchors_preset = -1
+anchor_left = 0.3
+anchor_top = 0.59300005
+anchor_right = 0.3
+anchor_bottom = 0.59300005
+offset_top = -0.44006348
+offset_right = 401.0
+offset_bottom = 68.55994
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 50
 text = "Player Score: 0"
@@ -130,15 +147,14 @@ text = "Player Score: 0"
 [node name="GameOver" type="Control" parent="CanvasLayer"]
 visible = false
 layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -448.0
-offset_top = -156.0
-offset_right = -408.0
-offset_bottom = -116.0
+anchor_left = 0.277
+anchor_top = 0.374
+anchor_right = 0.277
+anchor_bottom = 0.374
+offset_left = -19.840027
+offset_top = -19.920013
+offset_right = 20.159973
+offset_bottom = 20.079987
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -186,22 +202,6 @@ offset_bottom = 248.0
 theme_override_font_sizes/font_size = 32
 text = "Exit BlackJack
 "
-
-[node name="Deck" parent="." instance=ExtResource("3_c0bro")]
-position = Vector2(1627, 232.00002)
-
-[node name="PlayerPos" type="Marker2D" parent="."]
-position = Vector2(768, 832)
-
-[node name="PlayerCardContainer" type="Node2D" parent="."]
-
-[node name="DealerPos" type="Marker2D" parent="."]
-position = Vector2(768, 256)
-scale = Vector2(0.9999999, 0.9999999)
-
-[node name="DealerCardContainer" type="Node2D" parent="."]
-position = Vector2(3.0517578e-05, 6.1035156e-05)
-scale = Vector2(0.9999999, 0.9999999)
 
 [node name="Player" parent="." instance=ExtResource("4_gwo6v")]
 position = Vector2(-20, -17)

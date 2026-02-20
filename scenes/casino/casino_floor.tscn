@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://cydb0qypcgibl"]
+[gd_scene load_steps=17 format=4 uid="uid://cydb0qypcgibl"]
 
 [ext_resource type="Texture2D" uid="uid://b7jx6m1vn82gh" path="res://assets/interior/casino/casino_tilemap.png" id="1_0k5tk"]
 [ext_resource type="Script" uid="uid://bgfajl2miu8ge" path="res://scenes/casino/casino_floor.gd" id="1_dnyyd"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dp7r8vke6s7c5" path="res://scenes/coin_ui/player_chip.tscn" id="4_ka76d"]
 [ext_resource type="PackedScene" uid="uid://sb6usiw8cw7v" path="res://scenes/npc_alt/cashier_npc.tscn" id="5_a4x82"]
 [ext_resource type="PackedScene" uid="uid://ckd2slmjdifxy" path="res://scenes/coin_ui/player_coin.tscn" id="5_y1lbc"]
+[ext_resource type="Script" uid="uid://v2b04jaxuakv" path="res://globals/entity_manager.gd" id="7_o5pd2"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_dfl8t"]
 outline_size = 5
@@ -229,7 +230,7 @@ texture = ExtResource("2_a4x82")
 [node name="PlayerCoins" parent="CanvasLayer" node_paths=PackedStringArray("player") instance=ExtResource("5_y1lbc")]
 z_index = 10
 scale = Vector2(2, 2)
-player = NodePath("../../Player")
+player = NodePath("../../YSort/Player")
 
 [node name="PlayerChips" parent="CanvasLayer" node_paths=PackedStringArray("player") instance=ExtResource("4_ka76d")]
 offset_left = 12.0
@@ -237,7 +238,7 @@ offset_top = 89.0
 offset_right = 12.0
 offset_bottom = 89.0
 scale = Vector2(2, 2)
-player = NodePath("../../Player")
+player = NodePath("../../YSort/Player")
 
 [node name="ExchangeContainer" type="VBoxContainer" parent="CanvasLayer"]
 anchors_preset = 8
@@ -300,32 +301,39 @@ tile_set = SubResource("TileSet_y1lbc")
 z_index = -1
 position = Vector2(800, 626)
 
-[node name="Player" parent="." instance=ExtResource("2_dfl8t")]
+[node name="YSort" type="Node2D" parent="."]
+y_sort_enabled = true
 position = Vector2(824, 1063)
 
-[node name="Camera2D" type="Camera2D" parent="Player"]
+[node name="Player" parent="YSort" instance=ExtResource("2_dfl8t")]
+
+[node name="Camera2D" type="Camera2D" parent="YSort/Player"]
 zoom = Vector2(10, 10)
 
-[node name="BlackjackTable" parent="." instance=ExtResource("3_dfl8t")]
-position = Vector2(704, 704)
+[node name="BlackjackTable" parent="YSort" instance=ExtResource("3_dfl8t")]
+position = Vector2(-120, -359)
 
-[node name="BlackjackTable2" parent="." instance=ExtResource("3_dfl8t")]
-position = Vector2(704, 768)
+[node name="BlackjackTable2" parent="YSort" instance=ExtResource("3_dfl8t")]
+position = Vector2(-120, -295)
 
-[node name="BlackjackTable3" parent="." instance=ExtResource("3_dfl8t")]
-position = Vector2(704, 832)
+[node name="BlackjackTable3" parent="YSort" instance=ExtResource("3_dfl8t")]
+position = Vector2(-120, -231)
 
-[node name="BlackjackTable4" parent="." instance=ExtResource("3_dfl8t")]
-position = Vector2(704, 896)
+[node name="BlackjackTable4" parent="YSort" instance=ExtResource("3_dfl8t")]
+position = Vector2(-120, -167)
 
-[node name="BlackjackTable5" parent="." instance=ExtResource("3_dfl8t")]
-position = Vector2(704, 960)
+[node name="BlackjackTable5" parent="YSort" instance=ExtResource("3_dfl8t")]
+position = Vector2(-120, -103)
 
 [node name="MoveTownArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MoveTownArea"]
 position = Vector2(832, 1101)
 shape = SubResource("RectangleShape2D_ka76d")
+
+[node name="EntityManager" type="Node" parent="."]
+script = ExtResource("7_o5pd2")
+metadata/_custom_type_script = "uid://v2b04jaxuakv"
 
 [connection signal="pressed" from="CanvasLayer/ExchangeContainer/HBoxContainer/LessCoins" to="." method="_on_less_coins_pressed"]
 [connection signal="pressed" from="CanvasLayer/ExchangeContainer/HBoxContainer/MoreCoins" to="." method="_on_more_coins_pressed"]

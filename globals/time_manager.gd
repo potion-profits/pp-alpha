@@ -11,7 +11,7 @@ extends Node
 ## At any time the player may sleep in the shop bed to advance the in-game day to the next day. [br]
 ## Each real-world second is multiplied by [constant TIME_FACTOR] to obtain the in-game time.
 
-const TIME_FACTOR = 60	# each real-world minute is an in-game hour
+const TIME_FACTOR = 120	# each real-world minute is an in-game hour
 #const TIME_FACTOR = 3600 # for testing make it 60 times faster
 
 const HOUR = 3600
@@ -105,3 +105,5 @@ func player_sleep() -> void:
 		print("Sleep fade texture rect not found!")
 		time = 0
 		day += 1
+	var spawner : Node = cs.get_node("EntityManager/NpcSpawner")
+	spawner._ready()

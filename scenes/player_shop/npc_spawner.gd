@@ -13,11 +13,13 @@ var max_t : float
 var eight : int
 var eleven : int
 var fourteen : int
+var seventeen : int
 
 func _ready() -> void:
 	eight = TimeManager.get_time_from_string('08:00')
 	eleven = TimeManager.get_time_from_string('11:00')
 	fourteen = TimeManager.get_time_from_string('14:00')
+	seventeen = TimeManager.get_time_from_string('17:00')
 	var times : Array = get_respawn_range()
 	rand_time = randf_range(times[0], times[1])
 	npc_respawn_timer.start(rand_time)
@@ -33,15 +35,18 @@ func _on_npc_respawn_timer_timeout() -> void:
 func get_respawn_range() -> Array:
 	var t : Array = [0,0]
 	if TimeManager.time <= eight:
-		t[0] = 60
-		t[1] = 80
+		t[0] = 30
+		t[1] = 35
 	elif TimeManager.time <= eleven:
-		t[0] = 10
-		t[1] = 30
+		t[0] = 5
+		t[1] = 10
 	elif TimeManager.time <= fourteen:
-		t[0] = 7
-		t[1] = 15
+		t[0] = 3
+		t[1] = 5
+	elif TimeManager.time <= seventeen:
+		t[0] = 4
+		t[1] = 10
 	else:
-		t[0] = 7
+		t[0] = 15
 		t[1] = 30
 	return t
