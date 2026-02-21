@@ -47,6 +47,7 @@ func _ready()-> void:
 	#set up in world potion visuals
 	init_visuals()
 	update_visuals()
+	#_debug_set_shelf_inv()
 
 func init_visuals()->void:
 	potion_visuals.resize(inv_size)
@@ -156,12 +157,16 @@ func remove_item(index:int, quantity: int)->void:
 
 # debug function to make 5 green potions in the shelf
 func _debug_set_shelf_inv()->void:
-	var green:InvItem = ItemRegistry.new_item("item_green_potion")
-	green.mixable = 0
-	green.sellable = 1
-	for i in range(5):
-		inv.insert(green)
-	inv.insert(ItemRegistry.new_item("item_red_potion"))
+	var debug_items : Array = []
+	debug_items.append(ItemRegistry.new_item("item_green_potion"))
+	debug_items.append(ItemRegistry.new_item("item_red_potion"))
+	debug_items.append(ItemRegistry.new_item("item_blue_potion"))
+	debug_items.append(ItemRegistry.new_item("item_dark_potion"))
+	for i in range(3):
+		for item : InvItem in debug_items:
+			item.sellable = true
+			item.mixable = false
+			inv.insert(item)
 
 # handles NPC entering the interact area.
 # when there is a lock, the npc goes into a waiting queue

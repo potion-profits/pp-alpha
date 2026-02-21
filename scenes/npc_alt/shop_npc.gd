@@ -137,7 +137,7 @@ func on_reached_destination() -> void:
 			if not is_checked_out and item_found:
 				var returned_item : InvItem = ItemRegistry.new_item(prefered_item)
 				returned_item.sellable = true
-				returned_item.mixable = true
+				returned_item.mixable = false
 				return_basket.return_item(returned_item)
 			
 			queue_free()

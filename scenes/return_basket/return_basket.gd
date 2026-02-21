@@ -15,14 +15,16 @@ func _ready()-> void:
 	entity_code = "basket"
 
 func _on_interact()->void:
-	if all_items:
-		var returned_item : InvItem = all_items.pop_back()
-		print("Box had: ", returned_item)
-		
-	else:
-		basket_sprite.modulate = Color("Red")
-		await get_tree().create_timer(0.3).timeout
-		basket_sprite.modulate = Color("00977c")
+	var player:Player = get_tree().get_first_node_in_group("player")
+	if player:
+		if all_items:
+			var returned_item : InvItem = all_items[-1]
+			if player.collect(returned_item):
+				all_items.pop_back()
+		else:
+			basket_sprite.modulate = Color("Red")
+			await get_tree().create_timer(0.3).timeout
+			basket_sprite.modulate = Color("00977c")
 
 func return_item(r_item : InvItem) -> void:
 	all_items.push_back(r_item)
