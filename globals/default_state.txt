@@ -4,9 +4,10 @@
 		"coins": 0,
 		"credits": {
 			"barrel": 0,
-			"crate" : 0,
-			"shelf": 0,
-			"cauldron" : 0
+			"basket": 0,
+			"cauldron": 0,
+			"crate": 0,
+			"shelf": 0
 		},
 		"inventory": {
 			"selected_index": 0,
@@ -401,8 +402,17 @@
 				},
 				"x_pos": 328.0,
 				"y_pos": -360.0
+			},
+			{
+				"entity_code": "basket",
+				"inv": {
+
+				},
+				"items": [],
+				"x_pos": 504.0,
+				"y_pos": -136.0
 			}
-		],
+		]
 	},
-	"version": "1.20.26/1"
+	"version": "2.17.26/1"
 }

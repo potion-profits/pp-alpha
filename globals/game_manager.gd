@@ -12,7 +12,7 @@ var player_data:Dictionary = {}	## Holds the player's data. See [Player].
 
 # PLEASE UPDATE THIS IF THE DEFAULT STATE NEEDS TO BE UPDATED
 # format is MM.DD.YR/Version
-const default_state_version: String = "2.17.26/1"
+const default_state_version: String = "2.20.26/1"
 
 func _ready()->void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
