@@ -33,11 +33,18 @@ func return_item(r_item : InvItem) -> void:
 func from_dict(data:Dictionary)->void:
 	super.from_dict(data)
 	if data.has("items") and len(data["items"]) > 0:
-		all_items = data["items"]
+		for item : Dictionary in data["items"]:
+			var temp_item : InvItem = InvItem.new()
+			temp_item.from_dict(item)
+			all_items.append(temp_item)
 
 func to_dict()-> Dictionary:
+	var item_info_arr : Array = []
+	for item : InvItem in all_items:
+		item_info_arr.append(item.to_dict())
+
 	var return_items:Dictionary = {
-		"items": all_items
+		"items": item_info_arr
 	}
 	return_items.merge(super.to_dict())
 	return return_items
