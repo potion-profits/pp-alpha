@@ -2,6 +2,7 @@ class_name ReturnBasket extends Entity
 
 @onready var interactable: Area2D = $Interactable
 @onready var basket_sprite: Sprite2D = $BasketSprite
+@onready var empty_basket_sprite: Sprite2D = $EmptyBasketSprite
 
 var all_items : Array = []
 
@@ -22,9 +23,9 @@ func _on_interact()->void:
 			if player.collect(returned_item):
 				all_items.pop_back()
 		else:
-			basket_sprite.modulate = Color("Red")
+			basket_sprite.hide()
 			await get_tree().create_timer(0.3).timeout
-			basket_sprite.modulate = Color("00977c")
+			basket_sprite.show()
 
 func return_item(r_item : InvItem) -> void:
 	all_items.push_back(r_item)
