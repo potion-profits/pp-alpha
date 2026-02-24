@@ -4,9 +4,12 @@
 [ext_resource type="PackedScene" uid="uid://fi1qxearbah2" path="res://scenes/interactions/interactable.tscn" id="2_mp8pv"]
 [ext_resource type="Texture2D" uid="uid://dys2rb18fl24r" path="res://assets/interior/shop/return_basket.png" id="3_mp8pv"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_mp8pv"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mp8pv"]
+radius = 7.0
+height = 22.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f83qj"]
+size = Vector2(16, 10)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mp8pv"]
 atlas = ExtResource("3_mp8pv")
@@ -23,9 +26,12 @@ metadata/_custom_type_script = "uid://b1odcrnx3mby"
 [node name="Interactable" parent="." instance=ExtResource("2_mp8pv")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable"]
-shape = SubResource("RectangleShape2D_mp8pv")
+position = Vector2(0, 3)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_mp8pv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_f83qj")
 
 [node name="EmptyBasketSprite" type="Sprite2D" parent="."]
