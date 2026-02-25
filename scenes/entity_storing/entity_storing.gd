@@ -45,6 +45,7 @@ const ENTITY_SCENE_ID : Dictionary = {
 	"crate": 3,
 	"cauldron": 4,
 	"shelf": 5,
+	"basket": 7
 }
 
 ## The tileset source that holds the store icon
@@ -82,7 +83,7 @@ func _ready() -> void:
 func _find_init_target() -> void:
 	if em:
 		for child in em.get_children():
-			if child is Entity and child.entity_code in ENTITY_SCENE_ID.keys():
+			if child is Entity and child.entity_code in ENTITY_SCENE_ID.keys() and child.entity_code != "basket":
 				# only set current_entity if one hasnt been set
 				if _at_front(child):
 					f_selectables.append(child)

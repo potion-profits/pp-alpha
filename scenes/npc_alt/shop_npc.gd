@@ -13,6 +13,9 @@ var floor_map : Node2D
 ## arbitrarily set to one in current build
 var inv : Inv = Inv.new(1)
 
+## References the return basket
+var return_basket : ReturnBasket
+
 const SPEED : int = 100
 const PROX_THRESHOLD : float = 2.0
 const CHECKOUT_TIME : float = 10.0
@@ -44,6 +47,8 @@ var prefered_item : String = "item_red_potion"
 var item_found : bool = false
 ## Tracks if the NPC has been checked out
 var is_checked_out : bool = false
+## Tracks if the NPC has been triggered to leave
+var has_left: bool = false
 
 ## Used to map the shop NPC's class to its prefered item
 var prefered_item_map : Dictionary = {
@@ -56,12 +61,12 @@ var prefered_item_map : Dictionary = {
 func _ready() -> void:
 	super._ready()
 	prefered_item = prefered_item_map[npc_class]
+	change_state(current_action)
 
 func _physics_process(_delta : float) -> void:
 	velocity = Vector2.ZERO
 	if current_path.is_empty():
 		animate(0,0)
-		npc_action()
 		return
 		
 	var local_target : Vector2 = floor_map.tilemap.map_to_local(current_path[path_index])
@@ -74,7 +79,69 @@ func _physics_process(_delta : float) -> void:
 		path_index += 1
 		if path_index >= current_path.size():
 			current_path = []
+			on_reached_destination()
 
+## Changes the NPC's state to the given action
+func change_state(new_state : action) -> void:
+		current_action = new_state
+		enter_state(new_state)
+
+## Calls proper NPC function based on the given state
+func enter_state(state : action) -> void:
+	match state:
+		action.GET_POTION:
+			potion_action()
+		action.CHECKOUT:
+			checkout_action()
+		action.LEAVE:
+			leave_action()
+
+## State in which NPC looks for a potion at each shelf
+func potion_action() -> void:
+	# check shelf for potion
+	if item_found:
+		change_state(action.CHECKOUT)
+		return
+	if shelves.is_empty():	# no more shelves to visit
+		change_state(action.LEAVE)
+		return
+	var next_shelf : int = randi_range(0, len(shelves) - 1)
+	target = shelves.pop_at(next_shelf)
+	move_to_point()
+
+func checkout_action() -> void:
+	target = checkout
+	move_to_point()
+
+func leave_action() -> void:
+	target = floor_map.spawn
+	move_to_point()
+
+func on_reached_destination() -> void:
+	match current_action:
+		action.GET_POTION:
+			wait_timer.start(2.0)
+			await wait_timer.timeout
+			change_state(action.GET_POTION)
+		action.CHECKOUT:
+			if not is_checked_out:
+				checkout_timer.start(CHECKOUT_TIME)
+				await checkout_timer.timeout
+			change_state(action.LEAVE)
+		action.LEAVE:
+			if has_left:
+				return
+			
+			has_left = true
+			
+			if not is_checked_out and item_found:
+				var returned_item : InvItem = ItemRegistry.new_item(prefered_item)
+				returned_item.sellable = true
+				returned_item.mixable = false
+				return_basket.return_item(returned_item)
+			
+			queue_free()
+	
 ## Determines the path from the NPC's current position to its target utilizing the floor tilemap
 ## from the main shop and the astar grid of the tilemap. See [b]astar.gd[/b]
 func move_to_point() -> void:
@@ -86,6 +153,7 @@ func move_to_point() -> void:
 		return
 	current_path = path
 	path_index = 0
+
 
 ## Retreives the path from the [param start] tile to the [param end] tile. In order to utilize the
 ## astar grid pathing algorithm, the tiles must be converted into their respective astar ids:[br]
@@ -107,32 +175,6 @@ func get_astar_path(start : Vector2i, end : Vector2i) -> Array[Vector2i]:
 		tile_path.append(floor_map.id_to_tile(id_cell))
 	
 	return tile_path
-
-## State machine to determine the next NPC action after reaching the end of its path.
-func npc_action() -> void:
-	set_physics_process(false)
-	match current_action:
-		action.GET_POTION:
-			# check shelf for potion
-			if item_found:
-				move_to_checkout()
-			else:
-				if shelves.is_empty():	# no more shelves to visit
-					move_to_spawn()
-				else:
-					var next_shelf : int = randi_range(0, len(shelves) - 1)
-					target = shelves.pop_at(next_shelf)
-					move_to_point()
-			wait_timer.start(2.0)
-			await wait_timer.timeout
-		action.CHECKOUT:
-			if not is_checked_out:
-				checkout_timer.start(CHECKOUT_TIME)
-				await checkout_timer.timeout
-			move_to_spawn()
-		action.LEAVE:
-			queue_free()
-	set_physics_process(true)
 
 ## Animates the NPC based on velocity determined by movement along path
 func animate(x_dir: float, y_dir : float) -> void:
@@ -165,18 +207,6 @@ func animate(x_dir: float, y_dir : float) -> void:
 		if sprite.sprite_frames.has_animation("idle_" + last_dir):
 			sprite.play("idle_" + last_dir)
 
-## State and target update for movement to checkout
-func move_to_checkout() -> void:
-	current_action = action.CHECKOUT
-	target = checkout
-	move_to_point()
-
-## State and target update for movement to leave the shop
-func move_to_spawn() -> void:
-	current_action = action.LEAVE
-	target = floor_map.spawn
-	move_to_point()
-
 ## Checks the entered [param shelf] for the NPC's prefered item. If found, it will remove one of
 ## the item from the shelf and then proceed to checkout.
 func check_shelf(shelf : Entity) -> void:
@@ -189,7 +219,7 @@ func check_shelf(shelf : Entity) -> void:
 		if (item.amount > 0 and item.item.texture_code == prefered_item and item.item.sellable):
 			item_found = true
 			shelf.remove_item(i, 1)
-			move_to_checkout()
+			change_state(action.CHECKOUT)
 			break
 
 func _on_navigation_agent_2d_velocity_computed(safe_velocity: Vector2) -> void:

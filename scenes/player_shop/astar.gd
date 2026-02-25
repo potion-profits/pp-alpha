@@ -24,6 +24,8 @@ var shelf_targets : Array[Vector2i] = []
 var checkout : Vector2i
 ## [AStarGrid2D] for NPC pathing
 var astar : AStarGrid2D
+## Entity for returning items when not checked out
+var return_basket : ReturnBasket
 
 # create new astar grid
 # get position of markers for points of interest in tilemap
@@ -43,6 +45,8 @@ func prep_astar() -> void:
 					var target_tile : Vector2i = tilemap.local_to_map(shelf_child.global_position)
 					if target_tile in tilemap.get_used_cells():
 						shelf_targets.append(target_tile)
+		if child is Entity and child.entity_code == "basket":
+			return_basket = child
 	spawn = tilemap.local_to_map(spawn_marker.position)
 	checkout = tilemap.local_to_map(checkout_marker.position)
 	setup_grid()

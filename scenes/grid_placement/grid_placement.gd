@@ -82,6 +82,11 @@ const ENTITIES : Dictionary = {
 		"price": 40,
 		"blocks_above": true,
 	},
+	"basket":{
+		"tile_id": 7,
+		"price": 0,
+		"blocks_above": false,
+	}
 }
 
 ## The tileset source id

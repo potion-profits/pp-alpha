@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=4 uid="uid://dn6rvgl3wwaa8"]
+[gd_scene load_steps=30 format=4 uid="uid://dn6rvgl3wwaa8"]
 
 [ext_resource type="Script" uid="uid://uccfj6k4tobk" path="res://scenes/entity_storing/entity_storing.gd" id="1_a2w30"]
 [ext_resource type="Texture2D" uid="uid://cq4mo6l3w2oka" path="res://assets/interior/shop/background.png" id="2_wxsnm"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://cysl4wlh1iw8n" path="res://scenes/grid_placement/invalid_block.tscn" id="11_1njff"]
 [ext_resource type="PackedScene" uid="uid://b0flhrlw7t57t" path="res://scenes/player/player.tscn" id="12_3ljkl"]
 [ext_resource type="Script" uid="uid://v2b04jaxuakv" path="res://globals/entity_manager.gd" id="13_4iqv4"]
+[ext_resource type="PackedScene" uid="uid://8e0u14t36rob" path="res://scenes/return_basket/return_basket.tscn" id="13_ytqk7"]
 [ext_resource type="PackedScene" uid="uid://ydlnke6gesg1" path="res://scenes/cash_register/cash_register.tscn" id="14_oytw1"]
 [ext_resource type="PackedScene" uid="uid://dk76x6o356j3i" path="res://scenes/player_shop/npc_spawner.tscn" id="15_7ddkh"]
 [ext_resource type="Script" uid="uid://348byftoo3e7" path="res://globals/direction_hold_controller.gd" id="16_w4frw"]
@@ -719,6 +720,7 @@ scenes/3/scene = ExtResource("8_am64c")
 scenes/4/scene = ExtResource("9_4pnlc")
 scenes/5/scene = ExtResource("10_6hydb")
 scenes/6/scene = ExtResource("11_1njff")
+scenes/7/scene = ExtResource("13_ytqk7")
 
 [sub_resource type="TileSet" id="TileSet_epjix"]
 custom_data_layer_0/name = "shelf_footprint"
