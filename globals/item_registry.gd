@@ -25,14 +25,14 @@ var items:Dictionary = {
 		"mixable": false,
 		"sellable": false,
 		"texture_code": "item_empty_bottle",
-		"sell_price": -1
+		"sell_price": 0
 	},
 	"item_red_potion":{
 		"max_stack_size":1,
 		"mixable": true,
 		"sellable": false,
 		"texture_code": "item_red_potion",
-		"sell_price": 45
+		"sell_price": 45	
 	},
 	"item_green_potion":{
 		"max_stack_size":1,
