@@ -2,6 +2,9 @@ extends Node2D
 
 @onready var entities: Node2D = $Entities
 @onready var cashier_npc: CharacterBody2D = $Entities/CashierNpc
+@onready var spawn_marker: Marker2D = $PlayerSpawn
+
+var saved_position : Vector2
 
 func _ready() -> void:
 	for child in entities.get_children():
@@ -24,7 +27,9 @@ func open_purchase_scene() -> void:
 
 func _on_move_town_detection_body_entered(body: Node2D) -> void:
 	if body is Player:
-		SceneManager.change_to("res://scenes/town/town.tscn")
+		var payload : Dictionary = SceneManager.get_payload()
+		payload["player_position"] = spawn_marker.global_position
+		SceneManager.change_to("res://scenes/town/town.tscn", payload)
 
 func update_sprite(node : Entity) -> void:
 	if node is Barrel:

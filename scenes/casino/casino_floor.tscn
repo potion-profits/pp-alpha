@@ -327,6 +327,9 @@ position = Vector2(704, 960)
 position = Vector2(832, 1101)
 shape = SubResource("RectangleShape2D_ka76d")
 
+[node name="PlayerSpawn" type="Marker2D" parent="MoveTownArea"]
+position = Vector2(832, 1083)
+
 [connection signal="pressed" from="CanvasLayer/ExchangeContainer/HBoxContainer/LessCoins" to="." method="_on_less_coins_pressed"]
 [connection signal="pressed" from="CanvasLayer/ExchangeContainer/HBoxContainer/MoreCoins" to="." method="_on_more_coins_pressed"]
 [connection signal="pressed" from="CanvasLayer/ExchangeContainer/ConfirmExchange" to="." method="_on_confirm_exchange_pressed"]

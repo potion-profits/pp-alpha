@@ -625,6 +625,9 @@ position = Vector2(533, 17)
 position = Vector2(394, -3)
 shape = SubResource("RectangleShape2D_g03oc")
 
+[node name="PlayerSpawn" type="Marker2D" parent="FrontRoom"]
+position = Vector2(416, -4)
+
 [node name="BackRoom" type="Node2D" parent="."]
 
 [node name="MoveFrontRoomDetection" type="Area2D" parent="BackRoom"]

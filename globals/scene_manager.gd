@@ -10,6 +10,10 @@ extends Node
 var scene_payload : Dictionary = {}
 ## Holds last known position of character for each scene they loaded into in a session
 var last_known_positions : Dictionary = {}
+## Holds last known scene file path
+var last_known_scene: String
+
+
 
 ## Unloads current scene and loads given scene.[br][br]
 ##
@@ -18,10 +22,16 @@ var last_known_positions : Dictionary = {}
 ## Takes [param scene_path] as file path to the scene[br]
 ## Optionally takes [param payload] as a dictionary of information to be passed[br]
 func change_to(scene_path: String, payload : Dictionary = {}) -> void:
-	save_player_position() # save position before leaving
 	GameManager.save_scene_runtime_state() # save state
 	scene_payload = {}	# in case payload was not consumed
 	scene_payload = payload	# save given payload
+	# save position before leaving
+	if payload and payload["player_position"]:
+		save_player_position(payload["player_position"]) 
+	else:
+		save_player_position()
+	last_known_scene = current_scene().scene_file_path
+	print("Last known scene name: ", current_scene().name) 
 	GameManager.connect_scene_load_callback()	# ready to load next scene's state
 	get_tree().call_deferred("change_scene_to_file", scene_path)	# change the scene when possible
 	MusicManager.play_bg_music(scene_path) # play the relevant song for the new scene
@@ -42,20 +52,20 @@ func current_scene() -> Node:
 	return get_tree().current_scene
 
 ## Adds player's last position when loading out of scene
-func save_player_position() -> void:
+func save_player_position(player_pos: Vector2 = Vector2.ZERO) -> void:
 	var player : Player = get_tree().get_first_node_in_group("player")
-	var pos_offset : Vector2 = Vector2(0, 5)
 	if player:
 		var scene_name: StringName = get_tree().current_scene.name
-		last_known_positions[scene_name] = player.global_position - pos_offset
+		if player_pos != Vector2.ZERO:
+			last_known_positions[scene_name] = player_pos
+		else:
+			last_known_positions[scene_name] = player.global_position
+	print(last_known_positions)
 
 ## Loads player's last known position (if applicable) of scene they are loading into
 func load_player_position() -> void:
 	var player : Player = get_tree().get_first_node_in_group("player")
 	if player:
-		var scene_name: StringName = get_tree().current_scene.name
+		var scene_name: StringName = current_scene().name
 		if last_known_positions.has(scene_name):
 			player.global_position = last_known_positions[scene_name]
-		if scene_name != "Town":
-				player.last_dir = "up"
-				player.animated_sprite.play("idle_up")

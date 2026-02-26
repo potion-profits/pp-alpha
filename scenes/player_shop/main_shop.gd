@@ -24,6 +24,10 @@ extends Node2D
 @onready var inv_ui: Control = $Static_UI/Inv_UI
 ## Scene's [EntityManager]
 @onready var entity_manager: EntityManager = $EntityManager
+## Player
+@onready var player : Player = $EntityManager/Player
+## Front door spawn marker
+@onready var spawn_marker : Marker2D = $FrontRoom/PlayerSpawn
 
 ## Size of player's window
 var viewport_size: Vector2
@@ -43,11 +47,14 @@ func _ready()->void:
 	GameManager.set_pause_menu(menu_instance.get_node("PauseMenuControl"))
 	get_viewport().size_changed.connect(_on_viewport_size_changed)
 	await get_tree().process_frame
-	shifted_to_top = SceneManager.last_known_positions.has("Shop")
 	viewport_size = get_viewport_rect().size
+	if player.global_position.y <= b_bottom_right.global_position.y:
+		transition_camera(b_top_left, b_bottom_right)
+	else:
+		transition_camera(f_top_left, f_bottom_right)
+	player_camera.reset_smoothing()
 	_on_viewport_size_changed() # initalize inv UI position
-	if SceneManager.last_known_positions.has("MainShop"):
-		shift_ui(true)
+
 
 func _physics_process(_delta: float) -> void:
 	if OS.is_debug_build() and Input.is_key_pressed(KEY_HOME):
@@ -55,7 +62,9 @@ func _physics_process(_delta: float) -> void:
 
 func _on_move_town_detection_body_entered(body: Node2D) -> void:
 	if body is Player:
-		SceneManager.change_to("res://scenes/town/town.tscn")
+		var payload : Dictionary = SceneManager.get_payload()
+		payload["player_position"] = spawn_marker.global_position
+		SceneManager.change_to("res://scenes/town/town.tscn", payload)
 
 ## Moves the camera when the player transitions from the frontroom to the backroom or the backroom 
 ## to the frontroom
@@ -121,16 +130,20 @@ func shift_ui(to_top: bool) -> void:
 
 func _on_bottom_collision_body_entered_frontroom(body: Node2D) -> void:
 	if body is Player:
+		await get_tree().process_frame
 		shift_ui(true)
 
 func _on_bottom_collision_body_entered_backroom(body: Node2D) -> void:
 	if body is Player:
+		await get_tree().process_frame
 		shift_ui(true)
 
 func _on_bottom_collision_body_exited_frontroom(body: Node2D) -> void:
 	if body is Player:
+		await get_tree().process_frame
 		shift_ui(false)
 
 func _on_bottom_collision_body_exited_backroom(body: Node2D) -> void:
 	if body is Player:
+		await get_tree().process_frame
 		shift_ui(false)
