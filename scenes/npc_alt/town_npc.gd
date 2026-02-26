@@ -8,7 +8,7 @@ var floor_map : Node2D
 var target: Vector2
 
 var is_moving : bool = false
-
+var bounced : bool = false
 ## Represents the astar path of the NPC
 var current_path : Array = []
 ## Represents the current index of the NPC's path
@@ -20,6 +20,7 @@ const roam_max : float = 7
 
 var time_elapsed : float = 0
 var roam_timeout : float = randf_range(roam_min, roam_max)
+var collision : KinematicCollision2D
 
 func _ready() -> void:
 	super._ready()
@@ -30,8 +31,8 @@ func _ready() -> void:
 	
 
 func rand_move() -> void:
-	var off1 : int = randi_range(-15,15)
-	var off2 : int = randi_range(-15,15)
+	var off1 : int = randi_range(-20,20)
+	var off2 : int = randi_range(-20,20)
 	target = self.position + Vector2(off1, off2)
 
 func _process(delta: float) -> void:
@@ -47,6 +48,7 @@ func _process(delta: float) -> void:
 		is_moving = false
 		time_elapsed = 0
 		velocity = Vector2.ZERO
+		bounced = false
 	
 	if is_moving:
 		move_to_point()
@@ -87,11 +89,16 @@ func animate(x_dir: float, y_dir : float) -> void:
 func move_to_point() -> void:
 	if target == null:
 		return
-	var direction: Vector2 = (target-self.position)
-	var distance : float = direction.length()
-	if distance < 2:
-		velocity = Vector2.ZERO
-		is_moving = false
-		return
-	velocity = direction.normalized() * SPEED
-	move_and_slide()
+	if collision:
+		velocity = velocity.bounce(collision.get_normal())
+		roam_timeout -= 0.5
+		bounced = true
+	if not bounced:
+		var direction: Vector2 = (target-self.position)
+		var distance : float = direction.length()
+		if distance < 2:
+			velocity = Vector2.ZERO
+			is_moving = false
+			return
+		velocity = direction.normalized()
+	collision = move_and_collide(velocity)
