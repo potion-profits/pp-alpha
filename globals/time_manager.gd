@@ -89,6 +89,16 @@ func get_time_from_string(s : String) -> int:
 func player_sleep() -> void:
 	# trigger fade
 	var cs : Node = SceneManager.current_scene()
+	if cs.name == "MainShop": 
+		var em : EntityManager = cs.get_node("EntityManager") 
+		var return_basket : ReturnBasket = cs.get_node("EntityManager/ReturnBasket") 
+		for child in em.get_children(): 
+			if child is ShopNpc: 
+				if child.item_found: 
+					var potion : InvItem = ItemRegistry.new_item(child.prefered_item) 
+					potion.sellable = true 
+					return_basket.return_item(potion) 
+				child.free()
 	if cs.has_node("SleepFade"):
 		var fade : TextureRect = cs.get_node("SleepFade")
 		fade.visible = true
