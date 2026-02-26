@@ -33,7 +33,7 @@ const SELECTABLE_PRICES : Dictionary = {
 	"blue_barrel": 250,
 	"green_barrel": 340,
 	"dark_barrel": 420,
-	"crate": 80
+	"crate": 40
 }
 ## Maintains a consistent order of barrel types to cycle through
 const BARREL_ORDER: Array = ["red_barrel", "blue_barrel", "green_barrel", "dark_barrel"]

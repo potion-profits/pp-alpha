@@ -24,31 +24,36 @@ var items:Dictionary = {
 		"max_stack_size":1,
 		"mixable": false,
 		"sellable": false,
-		"texture_code": "item_empty_bottle"
+		"texture_code": "item_empty_bottle",
+		"sell_price": -1
 	},
 	"item_red_potion":{
 		"max_stack_size":1,
 		"mixable": true,
 		"sellable": false,
-		"texture_code": "item_red_potion"
+		"texture_code": "item_red_potion",
+		"sell_price": 45
 	},
 	"item_green_potion":{
 		"max_stack_size":1,
 		"mixable": true,
 		"sellable": false,
-		"texture_code": "item_green_potion"
+		"texture_code": "item_green_potion",
+		"sell_price": 55
 	},
 	"item_blue_potion":{
 		"max_stack_size":1,
 		"mixable": true,
 		"sellable": false,
-		"texture_code": "item_blue_potion"
+		"texture_code": "item_blue_potion",
+		"sell_price": 70
 	},
 	"item_dark_potion":{
 		"max_stack_size":1,
 		"mixable": true,
 		"sellable": false,
-		"texture_code": "item_dark_potion"
+		"texture_code": "item_dark_potion",
+		"sell_price": 120
 	}
 }
 
@@ -74,3 +79,11 @@ func get_icon(code: String) -> AtlasTexture:
 	tex.atlas = atlas
 	tex.region = item_icons[code]
 	return tex
+
+## Returns the sell price corresponding to the given item code
+func get_item_price(code: String) -> int:
+	if not items.has(code):
+		push_warning("Missing item information for item code: %s" %code)
+		return 0
+	
+	return items[code]["sell_price"]
