@@ -528,3 +528,37 @@ limit_top = 0
 limit_bottom = 350
 script = ExtResource("8_5vpkg")
 target = NodePath("../Player")
+
+[node name="SpawnLocations" type="Node2D" parent="."]
+
+[node name="SpawnLocation" type="Marker2D" parent="SpawnLocations"]
+position = Vector2(288, 208)
+
+[node name="SpawnLocation2" type="Marker2D" parent="SpawnLocations"]
+position = Vector2(448, 259)
+
+[node name="SpawnLocation3" type="Marker2D" parent="SpawnLocations"]
+position = Vector2(576, 235)
+
+[node name="SpawnLocation4" type="Marker2D" parent="SpawnLocations"]
+position = Vector2(232, 272)
+
+[node name="SpawnLocation5" type="Marker2D" parent="SpawnLocations"]
+position = Vector2(384, 239)
+
+[node name="SpawnLocation6" type="Marker2D" parent="SpawnLocations"]
+position = Vector2(704, 279)
+
+[node name="SpawnLocation7" type="Marker2D" parent="SpawnLocations"]
+position = Vector2(928, 255)
+
+[node name="SpawnLocation8" type="Marker2D" parent="SpawnLocations"]
+position = Vector2(1128, 264)
+
+[node name="SpawnLocation9" type="Marker2D" parent="SpawnLocations"]
+position = Vector2(1192, 216)
+
+[node name="SpawnLocation10" type="Marker2D" parent="SpawnLocations"]
+position = Vector2(1384, 280)
+
+[node name="NPCs" type="Node2D" parent="."]

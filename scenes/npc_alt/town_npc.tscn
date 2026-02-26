@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://bes20bjabnk7n"]
+[gd_scene load_steps=47 format=3 uid="uid://2pr8nm3s3mgd"]
 
 [ext_resource type="Script" uid="uid://c2kjtyklfbpig" path="res://scenes/npc_alt/town_npc.gd" id="1_itrhp"]
 [ext_resource type="Texture2D" uid="uid://bm1pqxiujy2td" path="res://assets/char_sprites/npc_sprites/npc_chay_variation/NPC Idle Cycle-Sheet.png" id="2_itrhp"]
