@@ -11,8 +11,8 @@ extends Node
 ## At any time the player may sleep in the shop bed to advance the in-game day to the next day. [br]
 ## Each real-world second is multiplied by [constant TIME_FACTOR] to obtain the in-game time.
 
-const TIME_FACTOR = 120	# each real-world minute is an in-game hour
-#const TIME_FACTOR = 3600 # for testing make it 60 times faster
+#const TIME_FACTOR = 120	# each real-world minute is an in-game hour
+const TIME_FACTOR = 3600 # for testing make it 60 times faster
 
 const HOUR = 3600
 const MIN = 60
@@ -22,18 +22,25 @@ var time : float = 0.0
 ## Represents days since the game started
 var day : int = 0
 
+signal day_end
+
 # don't process until the game is running
 # set_process(true) occurs in start_menu.gd when play is pressed
 func _ready() -> void:
 	TimeManager.set_process(false)
+	SceneManager.scene_ready.connect(_on_scene_ready)
 
 func _process(delta: float) -> void:
 	time += delta * TIME_FACTOR
 	if time >= HOUR * 30:
 		# If player doesn't sleep, trigger the pass out feature
-		#GameManager.pass_out_player()
-		time = 0
-		day += 1
+		set_process(false)
+		var cs : Node = SceneManager.current_scene()
+		GameManager.player_passed_out = true
+		if cs.name == "MainShop":
+			_on_scene_ready()
+		else:
+			day_end.emit()
 
 ## Returns the format string for the in-game time represented as real-world time
 func get_string_from_time() -> String:
@@ -85,35 +92,13 @@ func get_time_from_string(s : String) -> int:
 		ret += mins * MIN
 	return ret
 
-## Handles when a player sleeps in the bed
-func player_sleep() -> void:
-	# trigger fade
-	var cs : Node = SceneManager.current_scene()
-	if cs.name == "MainShop": 
-		var em : EntityManager = cs.get_node("EntityManager") 
-		var return_basket : ReturnBasket = cs.get_node("EntityManager/ReturnBasket") 
-		for child in em.get_children(): 
-			if child is ShopNpc: 
-				if child.item_found: 
-					var potion : InvItem = ItemRegistry.new_item(child.prefered_item) 
-					potion.sellable = true 
-					return_basket.return_item(potion) 
-				child.free()
-	if cs.has_node("SleepFade"):
-		var fade : TextureRect = cs.get_node("SleepFade")
-		fade.visible = true
-		var tween: Tween = create_tween()
-		tween.tween_property(fade, "modulate:a", 1, 0.5).from(0.0)
-		set_process(false)
-		tween.tween_property(fade, "modulate:a", 0.0, 0.5)
-		time = 0	
-		day += 1
-		await tween.finished
-		fade.visible = false
-		set_process(true)
-	else:
-		print("Sleep fade texture rect not found!")
-		time = 0
-		day += 1
-	var spawner : Node = cs.get_node("EntityManager/NpcSpawner")
-	spawner._ready()
+func _on_scene_ready() -> void:
+	if GameManager.player_passed_out:
+		print("player pased out and is being forced to sleep")
+		var cs : Node = SceneManager.current_scene()
+		await get_tree().process_frame
+		if cs.name == "MainShop":
+			var player : Player = cs.get_node("EntityManager/Player")
+			var bed : Entity = cs.get_node("EntityManager/Bed")
+			player.position = bed.position + Vector2(-10, 0)
+			cs.player_sleep()

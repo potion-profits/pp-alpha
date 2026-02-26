@@ -5,6 +5,7 @@ extends Node
 ## Primarily handles saving/loading from both memory and disk. 
 ## Also handles unhandled inputs, which is used for the pause menu.
 
+@onready var player_passed_out : bool = false
 
 var pause_menu: Control	## The instance of the pause menu (likely will change)
 var runtime_entities:Dictionary = {} ## Holds all the entities in every scene. See [Entity].
