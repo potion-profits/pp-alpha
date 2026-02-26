@@ -6,10 +6,18 @@ extends Node
 ## passing payloads between scenes, receiving payloads,
 ## and getting the current scene.
 
+@onready var shop_path : String = "res://scenes/player_shop/main_shop.gd"
+
 ## Holds any information that the previous scene wants the new scene to have.
 var scene_payload : Dictionary = {}
 ## Holds last known position of character for each scene they loaded into in a session
 var last_known_positions : Dictionary = {}
+
+signal scene_ready
+
+func _ready() -> void:
+	TimeManager.day_end.connect(_on_day_end)
+	get_tree().scene_changed.connect(_on_scene_changed)
 
 ## Unloads current scene and loads given scene.[br][br]
 ##
@@ -59,3 +67,12 @@ func load_player_position() -> void:
 		if scene_name != "Town":
 				player.last_dir = "up"
 				player.animated_sprite.play("idle_up")
+
+func _on_day_end() -> void:
+	get_tree().change_scene_to_file(shop_path)
+	print("scene changed to:")
+	print(current_scene())
+
+func _on_scene_changed() -> void:
+	print("scene is ready")
+	scene_ready.emit()	

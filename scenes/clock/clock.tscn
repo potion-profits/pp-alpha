@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://ctf43uq3ex4w7"]
+
+[ext_resource type="Script" uid="uid://dn2ojry711yi2" path="res://scenes/clock/clock.gd" id="1_4o2gw"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_3sjps"]
+font_size = 48
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Clock" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4o2gw")
+
+[node name="Time" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 23.0
+grow_horizontal = 0
+text = "07:00 AM "
+label_settings = SubResource("LabelSettings_3sjps")

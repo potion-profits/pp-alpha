@@ -57,6 +57,36 @@ func _on_move_town_detection_body_entered(body: Node2D) -> void:
 	if body is Player:
 		SceneManager.change_to("res://scenes/town/town.tscn")
 
+func player_sleep() -> void:
+	clear_npcs()
+	var fade : TextureRect = self.get_node("SleepFade")
+	fade.visible = true
+	var tween: Tween = create_tween()
+	tween.tween_property(fade, "modulate:a", 1, 0.5).from(0.0)
+	TimeManager.set_process(false)
+	tween.tween_property(fade, "modulate:a", 0.0, 0.5)
+	TimeManager.time = 0
+	TimeManager.day += 1
+	await tween.finished
+	fade.visible = false
+	TimeManager.set_process(true)
+	var spawner : Node = self.get_node("EntityManager/NpcSpawner")
+	spawner._ready()
+
+func clear_npcs() -> void:
+	var em : EntityManager = get_node("EntityManager") 
+	var return_basket : ReturnBasket = get_node("EntityManager/ReturnBasket") 
+	var register : Node2D = get_node("EntityManager/CashRegister")
+	for child in em.get_children(): 
+		if child is ShopNpc: 
+			if child.item_found: 
+				var potion : InvItem = ItemRegistry.new_item(child.prefered_item) 
+				potion.mixable = false
+				potion.sellable = true 
+				return_basket.return_item(potion) 
+			child.free()
+	register.cust_waiting_icon.visible = false
+
 ## Moves the camera when the player transitions from the frontroom to the backroom or the backroom 
 ## to the frontroom
 func transition_camera(top_left: Marker2D, bottom_right: Marker2D) -> void:
