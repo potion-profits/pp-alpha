@@ -132,6 +132,7 @@ visible = false
 collision_mask = 1
 
 [node name="InteractableShape" type="CollisionShape2D" parent="Interactable"]
+visible = false
 position = Vector2(0, 1)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_ssudb")

@@ -17,6 +17,13 @@ var exchange_amt : int = 0
 signal end_exchange
 
 func _ready() -> void:
+	# ----- Necessary for pause menu in scene -----
+	var pause_scene : Resource = preload("res://scenes/ui/pause_menu.tscn")
+	var menu_instance : Node = pause_scene.instantiate()
+	add_child(menu_instance)
+	GameManager.set_pause_menu(menu_instance.get_node("PauseMenuControl"))
+	# ----------------------------------------------
+	
 	exchange_container.visible = false
 	cashier_npc.interactable.interact = process_exchange
 """

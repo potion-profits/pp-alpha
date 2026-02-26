@@ -4,9 +4,17 @@ extends Node2D
 @onready var cashier_npc: CharacterBody2D = $Entities/CashierNpc
 
 func _ready() -> void:
+	# ----- Necessary for pause menu in scene -----
+	var pause_scene : Resource = preload("res://scenes/ui/pause_menu.tscn")
+	var menu_instance : Node = pause_scene.instantiate()
+	add_child(menu_instance)
+	GameManager.set_pause_menu(menu_instance.get_node("PauseMenuControl"))
+	# ----------------------------------------------
+	
 	for child in entities.get_children():
 		if child is Npc or child is Player:
 			continue
+		
 		# only runs in debug mode according to Godot
 		# ensures that non entities besides player and cashier are children of entity manager
 		assert(child is Entity, "remove all non entities from entity manager besides player/npc")

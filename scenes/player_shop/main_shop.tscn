@@ -614,6 +614,8 @@ tile_set = SubResource("TileSet_s7qt3")
 position = Vector2(416, 15)
 shape = SubResource("RectangleShape2D_s7qt3")
 
+[node name="Marker2D" type="Marker2D" parent="FrontRoom/MoveTownDetection"]
+
 [node name="MoveStorageRoomDetection" type="Area2D" parent="FrontRoom"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FrontRoom/MoveStorageRoomDetection"]

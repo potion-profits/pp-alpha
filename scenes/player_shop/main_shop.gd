@@ -86,9 +86,9 @@ func _on_npc_spawner_npc_spawned(npc_instance : Node2D) -> void:
 func setup_npc(npc : Node2D) -> void:
 	npc.floor_map = floor_map
 	npc.shelves = floor_map.shelf_targets.duplicate()
-	npc.target = npc.shelves.pop_at(randi_range(0, len(npc.shelves) - 1))
 	npc.checkout = floor_map.checkout
 	npc.global_position = floor_map.tilemap.map_to_local(floor_map.spawn)
+	npc.return_basket = floor_map.return_basket
 
 func _on_viewport_size_changed() -> void:
 	viewport_size = get_viewport_rect().size
