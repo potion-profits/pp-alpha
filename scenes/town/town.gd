@@ -1,13 +1,15 @@
 extends Node2D
 
 var spawn_location_pos : Array = []
+## Expects a Node named SpawnLocations to be under the scene's root node that
+## holds markers to spawn locations
 @onready var spawn_locations: Node2D = $SpawnLocations
 @onready var bb: Node2D = $BuildingsBoundaries
 @onready var bot_bound: Marker2D = $ForegroundMarker
 @onready var player: Player = $BuildingsBoundaries/Player
 @onready var trees: TileMapLayer = $BuildingsBoundaries/TopBottomBoundaries/TreesForeground
 
-const town_npc_scene : PackedScene = preload("res://scenes/npc_alt/town_npc.tscn")
+const town_npc_scene : PackedScene = preload("res://scenes/npc_alt/roaming_npc.tscn")
 var below : bool = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -29,7 +31,7 @@ func _process(_delta: float) -> void:
 		trees.modulate.a = 1
 
 func spawn_npc(loc: Vector2) -> void:
-	var t_npc : TownNpc = town_npc_scene.instantiate()
+	var t_npc : RoamingNpc = town_npc_scene.instantiate()
 	t_npc.position = loc
 	bb.add_child(t_npc)
 	bb.move_child(t_npc, 0)

@@ -1,4 +1,4 @@
-class_name TownNpc extends Npc
+class_name RoamingNpc extends Npc
 
 ## This class represents an NPC that will spawn within the town scene
 

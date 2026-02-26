@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://cydb0qypcgibl"]
+[gd_scene load_steps=17 format=4 uid="uid://cydb0qypcgibl"]
 
 [ext_resource type="Texture2D" uid="uid://b7jx6m1vn82gh" path="res://assets/interior/casino/casino_tilemap.png" id="1_0k5tk"]
 [ext_resource type="Script" uid="uid://bgfajl2miu8ge" path="res://scenes/casino/casino_floor.gd" id="1_dnyyd"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dp7r8vke6s7c5" path="res://scenes/coin_ui/player_chip.tscn" id="4_ka76d"]
 [ext_resource type="PackedScene" uid="uid://sb6usiw8cw7v" path="res://scenes/npc_alt/cashier_npc.tscn" id="5_a4x82"]
 [ext_resource type="PackedScene" uid="uid://ckd2slmjdifxy" path="res://scenes/coin_ui/player_coin.tscn" id="5_y1lbc"]
+[ext_resource type="PackedScene" uid="uid://di6hjmsu64nei" path="res://scenes/npc_alt/npc.tscn" id="9_o5pd2"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_dfl8t"]
 outline_size = 5
@@ -326,6 +327,139 @@ position = Vector2(704, 960)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MoveTownArea"]
 position = Vector2(832, 1101)
 shape = SubResource("RectangleShape2D_ka76d")
+
+[node name="SpawnLocations" type="Node2D" parent="."]
+
+[node name="Spawn" type="Marker2D" parent="SpawnLocations"]
+position = Vector2(791, 704)
+
+[node name="Spawn14" type="Marker2D" parent="SpawnLocations"]
+position = Vector2(665, 672)
+
+[node name="Spawn15" type="Marker2D" parent="SpawnLocations"]
+position = Vector2(665, 868)
+
+[node name="Spawn2" type="Marker2D" parent="SpawnLocations"]
+position = Vector2(835, 795)
+
+[node name="Spawn3" type="Marker2D" parent="SpawnLocations"]
+position = Vector2(770, 937)
+
+[node name="Spawn4" type="Marker2D" parent="SpawnLocations"]
+position = Vector2(998, 896)
+
+[node name="Spawn5" type="Marker2D" parent="SpawnLocations"]
+position = Vector2(917, 947)
+
+[node name="Spawn6" type="Marker2D" parent="SpawnLocations"]
+position = Vector2(942, 824)
+
+[node name="Spawn7" type="Marker2D" parent="SpawnLocations"]
+position = Vector2(984, 720)
+
+[node name="Spawn8" type="Marker2D" parent="SpawnLocations"]
+position = Vector2(912, 741)
+
+[node name="Spawn16" type="Marker2D" parent="SpawnLocations"]
+position = Vector2(868, 881)
+
+[node name="Spawn9" type="Marker2D" parent="SpawnLocations"]
+position = Vector2(948, 1018)
+
+[node name="Spawn10" type="Marker2D" parent="SpawnLocations"]
+position = Vector2(873, 1040)
+
+[node name="Spawn11" type="Marker2D" parent="SpawnLocations"]
+position = Vector2(710, 1039)
+
+[node name="Spawn12" type="Marker2D" parent="SpawnLocations"]
+position = Vector2(829, 997)
+
+[node name="Spawn13" type="Marker2D" parent="SpawnLocations"]
+position = Vector2(846, 685)
+
+[node name="Npcs" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Npc" parent="Npcs" instance=ExtResource("9_o5pd2")]
+position = Vector2(648, 635)
+
+[node name="Npc13" parent="Npcs" instance=ExtResource("9_o5pd2")]
+position = Vector2(685, 703)
+
+[node name="Npc14" parent="Npcs" instance=ExtResource("9_o5pd2")]
+position = Vector2(723, 767)
+
+[node name="Npc15" parent="Npcs" instance=ExtResource("9_o5pd2")]
+position = Vector2(704, 833)
+
+[node name="Npc16" parent="Npcs" instance=ExtResource("9_o5pd2")]
+position = Vector2(685, 831)
+
+[node name="Npc17" parent="Npcs" instance=ExtResource("9_o5pd2")]
+position = Vector2(704, 897)
+
+[node name="Npc18" parent="Npcs" instance=ExtResource("9_o5pd2")]
+position = Vector2(704, 961)
+
+[node name="Npc19" parent="Npcs" instance=ExtResource("9_o5pd2")]
+position = Vector2(684, 960)
+
+[node name="Npc20" parent="Npcs" instance=ExtResource("9_o5pd2")]
+position = Vector2(723, 960)
+
+[node name="Npc21" parent="Npcs" instance=ExtResource("9_o5pd2")]
+position = Vector2(723, 960)
+
+[node name="Npc2" parent="Npcs" instance=ExtResource("9_o5pd2")]
+position = Vector2(664, 635)
+
+[node name="Npc3" parent="Npcs" instance=ExtResource("9_o5pd2")]
+position = Vector2(680, 635)
+
+[node name="Npc4" parent="Npcs" instance=ExtResource("9_o5pd2")]
+position = Vector2(712, 635)
+
+[node name="Npc5" parent="Npcs" instance=ExtResource("9_o5pd2")]
+position = Vector2(728, 635)
+
+[node name="Npc6" parent="Npcs" instance=ExtResource("9_o5pd2")]
+position = Vector2(744, 635)
+
+[node name="Npc7" parent="Npcs" instance=ExtResource("9_o5pd2")]
+position = Vector2(904, 635)
+
+[node name="Npc8" parent="Npcs" instance=ExtResource("9_o5pd2")]
+position = Vector2(920, 635)
+
+[node name="Npc9" parent="Npcs" instance=ExtResource("9_o5pd2")]
+position = Vector2(952, 635)
+
+[node name="Npc10" parent="Npcs" instance=ExtResource("9_o5pd2")]
+position = Vector2(968, 635)
+
+[node name="Npc11" parent="Npcs" instance=ExtResource("9_o5pd2")]
+position = Vector2(984, 635)
+
+[node name="Npc12" parent="Npcs" instance=ExtResource("9_o5pd2")]
+position = Vector2(1000, 635)
+
+[node name="Dealers" type="Node2D" parent="."]
+
+[node name="Dealer" parent="Dealers" instance=ExtResource("9_o5pd2")]
+position = Vector2(704, 687)
+
+[node name="Dealer2" parent="Dealers" instance=ExtResource("9_o5pd2")]
+position = Vector2(704, 751)
+
+[node name="Dealer3" parent="Dealers" instance=ExtResource("9_o5pd2")]
+position = Vector2(704, 815)
+
+[node name="Dealer4" parent="Dealers" instance=ExtResource("9_o5pd2")]
+position = Vector2(704, 879)
+
+[node name="Dealer5" parent="Dealers" instance=ExtResource("9_o5pd2")]
+position = Vector2(704, 943)
 
 [connection signal="pressed" from="CanvasLayer/ExchangeContainer/HBoxContainer/LessCoins" to="." method="_on_less_coins_pressed"]
 [connection signal="pressed" from="CanvasLayer/ExchangeContainer/HBoxContainer/MoreCoins" to="." method="_on_more_coins_pressed"]
