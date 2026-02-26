@@ -561,4 +561,5 @@ position = Vector2(1192, 216)
 [node name="SpawnLocation10" type="Marker2D" parent="SpawnLocations"]
 position = Vector2(1384, 280)
 
-[node name="NPCs" type="Node2D" parent="."]
+[node name="ForegroundMarker" type="Marker2D" parent="."]
+position = Vector2(0, 294)

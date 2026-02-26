@@ -2,9 +2,6 @@ class_name TownNpc extends Npc
 
 ## This class represents an NPC that will spawn within the town scene
 
-
-@onready var wait_time: Timer = $wait_time
-
 ## Represents the last direction of the NPC
 var last_dir : String = "up"
 var floor_map : Node2D
@@ -18,18 +15,23 @@ var current_path : Array = []
 var path_index : int = 0
 
 const SPEED : int = 100
-const roam_min : float = 5
-const roam_max : float = 10
+const roam_min : float = 3
+const roam_max : float = 7
 
 var time_elapsed : float = 0
 var roam_timeout : float = randf_range(roam_min, roam_max)
 
 func _ready() -> void:
 	super._ready()
+	var starting_dir : int = randi_range(0, directions.size()-1)
+	var starting_flipped : bool = randi_range(0,1)
+	last_dir = directions[starting_dir]
+	sprite.flip_h = starting_flipped
+	
 
 func rand_move() -> void:
-	var off1 : int = randi_range(-100,100)
-	var off2 : int = randi_range(-100,100)
+	var off1 : int = randi_range(-15,15)
+	var off2 : int = randi_range(-15,15)
 	target = self.position + Vector2(off1, off2)
 
 func _process(delta: float) -> void:
@@ -39,10 +41,17 @@ func _process(delta: float) -> void:
 		is_moving = true
 		rand_move()
 		roam_timeout = randf_range(roam_min, roam_max)
-		move_to_point()
+	
+	if time_elapsed >= roam_timeout and is_moving:
 		roam_timeout = randf_range(roam_min, roam_max)
-		time_elapsed = 0
 		is_moving = false
+		time_elapsed = 0
+		velocity = Vector2.ZERO
+	
+	if is_moving:
+		move_to_point()
+	
+	animate(velocity.x, velocity.y)
 
 ## Animates the NPC based on velocity determined by movement along path
 func animate(x_dir: float, y_dir : float) -> void:
@@ -78,5 +87,11 @@ func animate(x_dir: float, y_dir : float) -> void:
 func move_to_point() -> void:
 	if target == null:
 		return
-	velocity = (target - self.position).normalized() * SPEED
+	var direction: Vector2 = (target-self.position)
+	var distance : float = direction.length()
+	if distance < 2:
+		velocity = Vector2.ZERO
+		is_moving = false
+		return
+	velocity = direction.normalized() * SPEED
 	move_and_slide()
