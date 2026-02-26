@@ -11,6 +11,19 @@ class_name Casino extends Node2D
 @onready var num_coins_to_exchange: Label = $CanvasLayer/ExchangeContainer/HBoxContainer/NumCoinsToExchange
 ## Handles currency and prize exchange, see also [Npc]
 @onready var cashier_npc: CharacterBody2D = $CashierNpc
+@onready var npcs: Node2D = $Npcs
+@onready var dealers: Node2D = $Dealers
+@onready var idle_sheet : Resource = preload(
+	"res://assets/char_sprites/npc_sprites/npc_customers/rogue_npc_idle.png"
+	)
+const roaming_npc_scene : PackedScene = preload("res://scenes/npc_alt/roaming_npc.tscn")
+const squib_amt : int = 2
+
+var spawn_location_pos : Array = []
+## Expects a Node named SpawnLocations to be under the scene's root node that
+## holds markers to spawn locations
+@onready var spawn_locations: Node2D = $SpawnLocations
+
 ## Amount of coins to exchange for chips
 var exchange_amt : int = 0
 ## Used to signal when the player is done exchanging with the cashier
@@ -26,6 +39,21 @@ func _ready() -> void:
 	
 	exchange_container.visible = false
 	cashier_npc.interactable.interact = process_exchange
+	
+	for npc : Npc in npcs.get_children():
+		npc.sprite.frame = randi_range(0, 3)
+		npc.sprite.play("idle_up")
+	
+	for dealer : Npc in dealers.get_children():
+		dealer.sprite.sprite_frames = dealer.build_sprite_frames(idle_sheet, null)
+		dealer.npc_class = "rogue"
+		dealer.sprite.frame = randi_range(0, 3)
+		dealer.sprite.play("idle_down")
+	
+	for location : Marker2D in spawn_locations.get_children():
+		spawn_location_pos.append(location.position)
+	spawn_roaming_npcs()
+
 """
 # I want the player to be able to use buttons to signal, but process runs faster than the interact
 # resulting in race conditions
@@ -43,6 +71,24 @@ func process_exchange() -> void:
 	await end_exchange
 	exchange_container.visible = false
 	player.set_physics_process(true)
+
+
+func spawn_roaming_npcs()->void:
+	for location : Vector2 in spawn_location_pos:
+		location = squib(location)
+		spawn_npc(location)
+
+func squib(loc : Vector2) -> Vector2:
+	var off1 : int = randi_range(-squib_amt,squib_amt)
+	var off2 : int = randi_range(-squib_amt,squib_amt)
+	
+	return loc + Vector2(off1, off2)
+
+func spawn_npc(loc: Vector2) -> void:
+	var t_npc : RoamingNpc = roaming_npc_scene.instantiate()
+	t_npc.position = loc
+	npcs.add_child(t_npc)
+	npcs.move_child(t_npc, 0)
 
 # exchange logic for coins to chips
 func _on_confirm_exchange_pressed() -> void:
