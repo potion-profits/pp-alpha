@@ -541,7 +541,7 @@ tile_map_data = PackedByteArray("AAAXABcAAAAGAA0AAAAYABcAAAAHAAUAAAAZABcAAAAIAAU
 tile_set = SubResource("TileSet_0ur2j")
 
 [node name="PlayerSpawn" type="Marker2D" parent="."]
-position = Vector2(511, 363)
+position = Vector2(511, 358)
 
 [node name="MoveTownDetection" type="Area2D" parent="."]
 position = Vector2(512, 378)

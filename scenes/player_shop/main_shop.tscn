@@ -531,6 +531,7 @@ size = Vector2(106, 36)
 script = ExtResource("1_47hg3")
 
 [node name="TextureRect" type="TextureRect" parent="."]
+visible = false
 offset_left = -120.0
 offset_top = -925.0
 offset_right = 955.0
