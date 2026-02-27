@@ -65,19 +65,21 @@ func fade_in(seconds: float = 0.5) -> void:
 ## Optionally takes [param with_transition] to enable/disable fade transition
 func change_to(scene_path: String, payload: Dictionary = {}, with_transition: bool = true) -> void:
 	GameManager.save_scene_runtime_state()
-	scene_payload = payload
-	# Save position before leaving
+	scene_payload = {} # in case payload was not consumed
+	scene_payload = payload # save given payload
 	if payload.has("player_position"):
-		save_player_position(payload["player_position"])
+		save_player_position(payload["player_position"]) # can overload saved position with optional arg
 	else:
-		save_player_position()
+		save_player_position() # defaults to player global pos
 	last_known_scene = current_scene().scene_file_path
-	GameManager.connect_scene_load_callback()
+	GameManager.connect_scene_load_callback() # ready to load next scene's state
+	## fade out before scene change
 	if with_transition:
 		await fade_out(0.5)
 	get_tree().paused = false
-	get_tree().call_deferred("change_scene_to_file", scene_path)
-	MusicManager.play_bg_music(scene_path)
+	get_tree().call_deferred("change_scene_to_file", scene_path) # change the scene when possible
+	MusicManager.play_bg_music(scene_path)  # play the relevant song for the new scene
+	# fade in after scene change
 	if with_transition:
 		await get_tree().tree_changed
 		await get_tree().process_frame
@@ -115,3 +117,6 @@ func load_player_position() -> void:
 		var scene_name: StringName = current_scene().name
 		if last_known_positions.has(scene_name):
 			player.global_position = last_known_positions[scene_name]
+		if scene_payload.has("player_direction"):
+			player.last_dir = scene_payload["player_direction"]
+			player.animated_sprite.play("idle_" + scene_payload["player_direction"])
