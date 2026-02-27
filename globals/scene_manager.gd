@@ -1,14 +1,15 @@
 extends Node
-## Interface to easily manage scene transitions and common scene structures.
-##
+
+## Interface to easily manage scene transitions and common scene structures. [br][br]
+## 
 ## Allows for changing scenes while maintaining game state, 
 ## passing payloads between scenes, receiving payloads,
 ## and getting the current scene.
 
 ## Holds any information that the previous scene wants the new scene to have.
-var scene_payload: Dictionary = {}
+var scene_payload : Dictionary = {}
 ## Holds last known position of character for each scene they loaded into in a session
-var last_known_positions: Dictionary = {}
+var last_known_positions : Dictionary = {}
 ## Holds last known scene file path
 var last_known_scene: String
 
@@ -39,31 +40,32 @@ func setup_transition() -> void:
 
 ## Plays fade out transition (transparent to black)
 func fade_out(seconds: float = 0.5) -> void:
+	var player : Player = get_tree().get_first_node_in_group("player")
+	if player:
+		player.set_physics_process(false)
 	is_transitioning = true
-	get_tree().paused = true
 	var tw: Tween = create_tween()
-	tw.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	tw.tween_property(transition_rect, "color:a", 1.0, seconds)
 	await tw.finished
 
 ## Plays fade in transition (black to transparent)
 func fade_in(seconds: float = 0.5) -> void:
+	var player : Player = get_tree().get_first_node_in_group("player")
+	if player:
+		player.set_physics_process(false)
 	var tw: Tween = create_tween()
-	tw.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	tw.tween_property(transition_rect, "color:a", 0.0, seconds)
 	await tw.finished
-	get_tree().paused = false
 	is_transitioning = false
 
 ## Unloads current scene and loads given scene.
 ##
-## Saves current scenes state, stores the payload, prepares to load the next scene, 
-## and changes the scene.
+## Saves current scenes state, stores the payload, prepares to load the next scene, and changes the scene.[br][br]
 ##
 ## Takes [param scene_path] as file path to the scene
 ## Optionally takes [param payload] as a dictionary of information to be passed
 ## Optionally takes [param with_transition] to enable/disable fade transition
-func change_to(scene_path: String, payload: Dictionary = {}, with_transition: bool = true) -> void:
+func change_to(scene_path: String, payload: Dictionary = {}) -> void:
 	GameManager.save_scene_runtime_state()
 	scene_payload = {} # in case payload was not consumed
 	scene_payload = payload # save given payload
@@ -74,16 +76,12 @@ func change_to(scene_path: String, payload: Dictionary = {}, with_transition: bo
 	last_known_scene = current_scene().scene_file_path
 	GameManager.connect_scene_load_callback() # ready to load next scene's state
 	## fade out before scene change
-	if with_transition:
-		await fade_out(0.5)
-	get_tree().paused = false
+	await fade_out(0.5)
 	get_tree().call_deferred("change_scene_to_file", scene_path) # change the scene when possible
 	MusicManager.play_bg_music(scene_path)  # play the relevant song for the new scene
 	# fade in after scene change
-	if with_transition:
-		await get_tree().tree_changed
-		await get_tree().process_frame
-		fade_in(0.5)
+	await get_tree().process_frame
+	fade_in(0.5)
 
 ## Consumes and returns the current payload.
 ## 
@@ -94,7 +92,7 @@ func get_payload() -> Dictionary:
 	scene_payload = {}
 	return payload
 
-## Returns the current scene as a node.
+## Returns the current scene as a node. [br][br]
 ##
 ## Synonamous to [code] get_tree().current_scene [/code]
 func current_scene() -> Node:
