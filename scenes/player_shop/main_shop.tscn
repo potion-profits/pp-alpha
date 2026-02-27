@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=4 uid="uid://c0wgfjbxk58k0"]
+[gd_scene load_steps=23 format=4 uid="uid://c0wgfjbxk58k0"]
 
 [ext_resource type="Script" uid="uid://cyi5m0rhrv7o2" path="res://scenes/player_shop/main_shop.gd" id="1_47hg3"]
 [ext_resource type="Texture2D" uid="uid://cq4mo6l3w2oka" path="res://assets/interior/shop/background.png" id="2_ixtpo"]
@@ -527,14 +527,17 @@ size = Vector2(34, 21)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g03oc"]
 size = Vector2(106, 36)
 
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_1jnhp"]
+b = Vector2(1.9073486e-06, 30)
+
 [node name="MainShop" type="Node2D"]
 script = ExtResource("1_47hg3")
 
-[node name="TextureRect" type="TextureRect" parent="."]
-offset_left = -120.0
-offset_top = -925.0
-offset_right = 955.0
-offset_bottom = 150.0
+[node name="Background" type="TextureRect" parent="."]
+offset_left = -118.0
+offset_top = -930.0
+offset_right = 957.0
+offset_bottom = 145.0
 texture = ExtResource("2_ixtpo")
 
 [node name="Static_UI" type="CanvasLayer" parent="."]
@@ -627,13 +630,21 @@ position = Vector2(533, 17)
 position = Vector2(394, -3)
 shape = SubResource("RectangleShape2D_g03oc")
 
+[node name="TownDoorBarrier" type="StaticBody2D" parent="FrontRoom"]
+
+[node name="Barrier" type="CollisionShape2D" parent="FrontRoom/TownDoorBarrier"]
+position = Vector2(431, 14)
+rotation = 1.5707964
+shape = SubResource("SegmentShape2D_1jnhp")
+
+[node name="StorageDoorBarrier" type="StaticBody2D" parent="FrontRoom"]
+
+[node name="Barrier" type="CollisionShape2D" parent="FrontRoom/StorageDoorBarrier"]
+position = Vector2(479, -220)
+rotation = 1.5707964
+shape = SubResource("SegmentShape2D_1jnhp")
+
 [node name="BackRoom" type="Node2D" parent="."]
-
-[node name="MoveFrontRoomDetection" type="Area2D" parent="BackRoom"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BackRoom/MoveFrontRoomDetection"]
-position = Vector2(464, -289)
-shape = SubResource("RectangleShape2D_6w02k")
 
 [node name="BackroomFloors" type="TileMapLayer" parent="BackRoom"]
 tile_map_data = PackedByteArray("AAAQAOT/AAAEAAcAAAAQAOX/AAAEAAgAAAAQAOb/AAAEAAkAAAAQAOf/AAAEAAkAAAAQAOj/AAAEAAoAAAAQAOn/AAAEAAcAAAAQAOr/AAAEAAgAAAAQAOv/AAAEAAkAAAAQAOz/AAAEAAoAAAARAOT/AAABAAcAAAARAOX/AAABAAgAAAARAOb/AAABAAkAAAARAOf/AAABAAkAAAARAOj/AAABAAoAAAARAOn/AAABAAcAAAARAOr/AAABAAgAAAARAOv/AAABAAkAAAARAOz/AAABAAoAAAASAOT/AAACAAcAAAASAOX/AAACAAgAAAASAOb/AAACAAkAAAASAOf/AAACAAkAAAASAOj/AAACAAoAAAASAOn/AAACAAcAAAASAOr/AAACAAgAAAASAOv/AAACAAkAAAASAOz/AAACAAoAAAATAOT/AAADAAcAAAATAOX/AAADAAgAAAATAOb/AAADAAkAAAATAOf/AAADAAkAAAATAOj/AAADAAoAAAATAOn/AAADAAcAAAATAOr/AAADAAgAAAATAOv/AAADAAkAAAATAOz/AAADAAoAAAAUAOT/AAAEAAcAAAAUAOX/AAAEAAgAAAAUAOb/AAAEAAkAAAAUAOf/AAAEAAkAAAAUAOj/AAAEAAoAAAAUAOn/AAAEAAcAAAAUAOr/AAAEAAgAAAAUAOv/AAAEAAkAAAAUAOz/AAAEAAoAAAAVAOT/AAABAAcAAAAVAOX/AAABAAgAAAAVAOb/AAABAAkAAAAVAOf/AAABAAkAAAAVAOj/AAABAAoAAAAVAOn/AAABAAcAAAAVAOr/AAABAAgAAAAVAOv/AAABAAkAAAAVAOz/AAABAAoAAAAWAOT/AAACAAcAAAAWAOX/AAACAAgAAAAWAOb/AAACAAkAAAAWAOf/AAACAAkAAAAWAOj/AAACAAoAAAAWAOn/AAACAAcAAAAWAOr/AAACAAgAAAAWAOv/AAACAAkAAAAWAOz/AAACAAoAAAAXAOT/AAADAAcAAAAXAOX/AAADAAgAAAAXAOb/AAADAAkAAAAXAOf/AAADAAkAAAAXAOj/AAADAAoAAAAXAOn/AAADAAcAAAAXAOr/AAADAAgAAAAXAOv/AAADAAkAAAAXAOz/AAADAAoAAAAYAOT/AAAEAAcAAAAYAOX/AAAEAAgAAAAYAOb/AAAEAAkAAAAYAOf/AAAEAAkAAAAYAOj/AAAEAAoAAAAYAOn/AAAEAAcAAAAYAOr/AAAEAAgAAAAYAOv/AAAEAAkAAAAYAOz/AAAEAAoAAAAZAOT/AAABAAcAAAAZAOX/AAABAAgAAAAZAOb/AAABAAkAAAAZAOf/AAABAAkAAAAZAOj/AAABAAoAAAAZAOn/AAABAAcAAAAZAOr/AAABAAgAAAAZAOv/AAABAAkAAAAZAOz/AAABAAoAAAAaAOT/AAACAAcAAAAaAOX/AAACAAgAAAAaAOb/AAACAAkAAAAaAOf/AAACAAkAAAAaAOj/AAACAAoAAAAaAOn/AAACAAcAAAAaAOr/AAACAAgAAAAaAOv/AAACAAkAAAAaAOz/AAACAAoAAAAbAOT/AAADAAcAAAAbAOX/AAADAAgAAAAbAOb/AAADAAkAAAAbAOf/AAADAAkAAAAbAOj/AAADAAoAAAAbAOn/AAADAAcAAAAbAOr/AAADAAgAAAAbAOv/AAADAAkAAAAbAOz/AAADAAoAAAAcAOT/AAAEAAcAAAAcAOX/AAAEAAgAAAAcAOb/AAAEAAkAAAAcAOf/AAAEAAkAAAAcAOj/AAAEAAoAAAAcAOn/AAAEAAcAAAAcAOr/AAAEAAgAAAAcAOv/AAAEAAkAAAAcAOz/AAAEAAoAAAAcAO3/AAACAAcAAAAdAOT/AAABAAcAAAAdAOX/AAABAAgAAAAdAOb/AAABAAkAAAAdAOf/AAABAAkAAAAdAOj/AAABAAoAAAAdAOn/AAABAAcAAAAdAOr/AAABAAgAAAAdAOv/AAABAAkAAAAdAOz/AAABAAoAAAAdAO3/AAADAAcAAAAeAOT/AAACAAcAAAAeAOX/AAACAAgAAAAeAOb/AAACAAkAAAAeAOf/AAACAAkAAAAeAOj/AAACAAoAAAAeAOn/AAACAAcAAAAeAOr/AAACAAgAAAAeAOv/AAACAAkAAAAeAOz/AAACAAoAAAAfAOT/AAADAAcAAAAfAOX/AAADAAgAAAAfAOb/AAADAAkAAAAfAOf/AAADAAkAAAAfAOj/AAADAAoAAAAfAOn/AAADAAcAAAAfAOr/AAADAAgAAAAfAOv/AAADAAkAAAAfAOz/AAADAAoAAAAgAOT/AAAEAAcAAAAgAOX/AAAEAAgAAAAgAOb/AAAEAAkAAAAgAOf/AAAEAAkAAAAgAOj/AAAEAAoAAAAgAOn/AAAEAAcAAAAgAOr/AAAEAAgAAAAgAOv/AAAEAAkAAAAgAOz/AAAEAAoAAAA=")
@@ -667,6 +678,19 @@ position = Vector2(533, -288)
 position = Vector2(394, -289)
 shape = SubResource("RectangleShape2D_g03oc")
 
+[node name="FrontRoomDoorBarrier" type="StaticBody2D" parent="BackRoom"]
+
+[node name="Barrier" type="CollisionShape2D" parent="BackRoom/FrontRoomDoorBarrier"]
+position = Vector2(479, -290)
+rotation = 1.5707964
+shape = SubResource("SegmentShape2D_1jnhp")
+
+[node name="MoveFrontRoomDetection" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MoveFrontRoomDetection"]
+position = Vector2(464, -289)
+shape = SubResource("RectangleShape2D_6w02k")
+
 [node name="EntityManager" type="Node2D" parent="."]
 y_sort_enabled = true
 script = ExtResource("5_41gid")
@@ -695,7 +719,7 @@ position = Vector2(448, -145)
 [connection signal="body_entered" from="FrontRoom/MoveStorageRoomDetection" to="." method="_on_move_storage_room_detection_body_entered"]
 [connection signal="body_entered" from="FrontRoom/FrontRoomEdges/BottomCollision" to="." method="_on_bottom_collision_body_entered_frontroom"]
 [connection signal="body_exited" from="FrontRoom/FrontRoomEdges/BottomCollision" to="." method="_on_bottom_collision_body_exited_frontroom"]
-[connection signal="body_entered" from="BackRoom/MoveFrontRoomDetection" to="." method="_on_move_front_room_detection_body_entered"]
 [connection signal="body_entered" from="BackRoom/BackRoomEdges/BottomCollision" to="." method="_on_bottom_collision_body_entered_backroom"]
 [connection signal="body_exited" from="BackRoom/BackRoomEdges/BottomCollision" to="." method="_on_bottom_collision_body_exited_backroom"]
+[connection signal="body_entered" from="MoveFrontRoomDetection" to="." method="_on_move_front_room_detection_body_entered"]
 [connection signal="npc_spawned" from="EntityManager/NpcSpawner" to="." method="_on_npc_spawner_npc_spawned"]
