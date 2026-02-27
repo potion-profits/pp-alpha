@@ -29,6 +29,8 @@ func set_pause_menu(menu: Control)->void:
 # Any input in this function will always behave as defined here unless 
 # explicitly handled elsewhere
 func _unhandled_input(event : InputEvent)->void:
+	if SceneManager.is_transitioning:
+		return
 	if event.is_action_pressed("ui_cancel"):
 		#Case where pausing is allowed
 		if(pause_menu):

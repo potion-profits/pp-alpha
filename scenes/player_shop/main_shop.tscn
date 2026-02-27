@@ -531,6 +531,7 @@ size = Vector2(106, 36)
 script = ExtResource("1_47hg3")
 
 [node name="TextureRect" type="TextureRect" parent="."]
+visible = false
 offset_left = -120.0
 offset_top = -925.0
 offset_right = 955.0
@@ -626,6 +627,9 @@ position = Vector2(533, 17)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FrontRoom/FrontRoomEdges/BottomCollision"]
 position = Vector2(394, -3)
 shape = SubResource("RectangleShape2D_g03oc")
+
+[node name="PlayerSpawn" type="Marker2D" parent="FrontRoom"]
+position = Vector2(416, -4)
 
 [node name="BackRoom" type="Node2D" parent="."]
 

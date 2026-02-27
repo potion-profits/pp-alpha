@@ -10,25 +10,82 @@ extends Node
 var scene_payload : Dictionary = {}
 ## Holds last known position of character for each scene they loaded into in a session
 var last_known_positions : Dictionary = {}
+## Holds last known scene file path
+var last_known_scene: String
 
-## Unloads current scene and loads given scene.[br][br]
+## Transition overlay
+var transition_layer: CanvasLayer
+var transition_rect: ColorRect
+## True while a transition is playing
+var is_transitioning: bool = false
+
+func _ready() -> void:
+	# allows transition to persist between scenes
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	setup_transition()
+
+## Creates the transition overlay
+func setup_transition() -> void:
+	transition_layer = CanvasLayer.new()
+	transition_layer.layer = 100 # transition layer always 
+	add_child(transition_layer)
+	
+	# creates transition overlay that lives only during transition
+	# will cover whole screen
+	transition_rect = ColorRect.new()
+	transition_rect.color = Color(0, 0, 0, 0)
+	transition_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	transition_layer.add_child(transition_rect)
+	transition_rect.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+
+## Plays fade out transition (transparent to black)
+func fade_out(seconds: float = 0.5) -> void:
+	var player : Player = get_tree().get_first_node_in_group("player")
+	if player:
+		player.set_physics_process(false)
+	is_transitioning = true
+	var tw: Tween = create_tween()
+	tw.tween_property(transition_rect, "color:a", 1.0, seconds)
+	await tw.finished
+
+## Plays fade in transition (black to transparent)
+func fade_in(seconds: float = 0.5) -> void:
+	var player : Player = get_tree().get_first_node_in_group("player")
+	if player:
+		player.set_physics_process(false)
+	var tw: Tween = create_tween()
+	tw.tween_property(transition_rect, "color:a", 0.0, seconds)
+	await tw.finished
+	is_transitioning = false
+
+## Unloads current scene and loads given scene.
 ##
 ## Saves current scenes state, stores the payload, prepares to load the next scene, and changes the scene.[br][br]
 ##
-## Takes [param scene_path] as file path to the scene[br]
-## Optionally takes [param payload] as a dictionary of information to be passed[br]
-func change_to(scene_path: String, payload : Dictionary = {}) -> void:
-	save_player_position() # save position before leaving
-	GameManager.save_scene_runtime_state() # save state
-	scene_payload = {}	# in case payload was not consumed
-	scene_payload = payload	# save given payload
-	GameManager.connect_scene_load_callback()	# ready to load next scene's state
-	get_tree().call_deferred("change_scene_to_file", scene_path)	# change the scene when possible
-	MusicManager.play_bg_music(scene_path) # play the relevant song for the new scene
+## Takes [param scene_path] as file path to the scene
+## Optionally takes [param payload] as a dictionary of information to be passed
+## Optionally takes [param with_transition] to enable/disable fade transition
+func change_to(scene_path: String, payload: Dictionary = {}) -> void:
+	GameManager.save_scene_runtime_state()
+	scene_payload = {} # in case payload was not consumed
+	scene_payload = payload # save given payload
+	if payload.has("player_position"):
+		save_player_position(payload["player_position"]) # can overload saved position with optional arg
+	else:
+		save_player_position() # defaults to player global pos
+	last_known_scene = current_scene().scene_file_path
+	GameManager.connect_scene_load_callback() # ready to load next scene's state
+	## fade out before scene change
+	await fade_out(0.5)
+	get_tree().call_deferred("change_scene_to_file", scene_path) # change the scene when possible
+	MusicManager.play_bg_music(scene_path)  # play the relevant song for the new scene
+	# fade in after scene change
+	await get_tree().process_frame
+	fade_in(0.5)
 
-## Consumes and returns the current payload. [br][br]
+## Consumes and returns the current payload.
 ## 
-## Ensures that the once the payload is used, it wont be used again.
+## Ensures that once the payload is used, it wont be used again.
 ## Expected to only be called once because the payload is destroyed at each call.
 func get_payload() -> Dictionary:
 	var payload: Dictionary = scene_payload
@@ -41,21 +98,23 @@ func get_payload() -> Dictionary:
 func current_scene() -> Node:
 	return get_tree().current_scene
 
-## Adds player's last position when loading out of scene
-func save_player_position() -> void:
-	var player : Player = get_tree().get_first_node_in_group("player")
-	var pos_offset : Vector2 = Vector2(0, 5)
+## Saves player's last position when loading out of scene
+func save_player_position(player_pos: Vector2 = Vector2.ZERO) -> void:
+	var player: Player = get_tree().get_first_node_in_group("player")
 	if player:
-		var scene_name: StringName = get_tree().current_scene.name
-		last_known_positions[scene_name] = player.global_position - pos_offset
+		var scene_name: StringName = current_scene().name
+		if player_pos != Vector2.ZERO:
+			last_known_positions[scene_name] = player_pos
+		else:
+			last_known_positions[scene_name] = player.global_position
 
 ## Loads player's last known position (if applicable) of scene they are loading into
 func load_player_position() -> void:
-	var player : Player = get_tree().get_first_node_in_group("player")
+	var player: Player = get_tree().get_first_node_in_group("player")
 	if player:
-		var scene_name: StringName = get_tree().current_scene.name
+		var scene_name: StringName = current_scene().name
 		if last_known_positions.has(scene_name):
 			player.global_position = last_known_positions[scene_name]
-		if scene_name != "Town":
-				player.last_dir = "up"
-				player.animated_sprite.play("idle_up")
+		if scene_payload.has("player_direction"):
+			player.last_dir = scene_payload["player_direction"]
+			player.animated_sprite.play("idle_" + scene_payload["player_direction"])
