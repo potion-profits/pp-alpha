@@ -4,13 +4,13 @@ class_name Casino extends Node2D
 ## The player may exchange coins for chips and chips for prizes / upgrades from the cashier stand.
 
 ## See [Player]
-@onready var player: Player = $Player
+@onready var player: Player = $Entities/Player
 ## UI container for the exchange menu, opens on interact with cashier
 @onready var exchange_container: VBoxContainer = $CanvasLayer/ExchangeContainer
 ## Label for displaying the current pending exchange amount
 @onready var num_coins_to_exchange: Label = $CanvasLayer/ExchangeContainer/HBoxContainer/NumCoinsToExchange
 ## Handles currency and prize exchange, see also [Npc]
-@onready var cashier_npc: CharacterBody2D = $CashierNpc
+@onready var cashier_npc: CharacterBody2D = $StaticAssets/CashierNpc
 ## Amount of coins to exchange for chips
 var exchange_amt : int = 0
 ## Used to signal when the player is done exchanging with the cashier
