@@ -334,6 +334,8 @@ shape = SubResource("RectangleShape2D_ka76d")
 [node name="EntityManager" type="Node" parent="."]
 script = ExtResource("7_o5pd2")
 metadata/_custom_type_script = "uid://v2b04jaxuakv"
+[node name="PlayerSpawn" type="Marker2D" parent="MoveTownArea"]
+position = Vector2(832, 1083)
 
 [connection signal="pressed" from="CanvasLayer/ExchangeContainer/HBoxContainer/LessCoins" to="." method="_on_less_coins_pressed"]
 [connection signal="pressed" from="CanvasLayer/ExchangeContainer/HBoxContainer/MoreCoins" to="." method="_on_more_coins_pressed"]
