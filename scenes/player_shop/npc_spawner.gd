@@ -10,16 +10,16 @@ signal npc_spawned	## Sent to shop to handle NPC instance setup
 
 var min_t : float
 var max_t : float
-var eight : int
-var eleven : int
-var fourteen : int
-var seventeen : int
+
+## Stores target in-game times for relevant real-world times to control variable spwan rate logic
+@onready var target_times : Dictionary = {
+	8: TimeManager.get_time_from_string('08:00'),
+	11: TimeManager.get_time_from_string('11:00'),
+	14: TimeManager.get_time_from_string('14:00'),
+	17: TimeManager.get_time_from_string('17:00'),
+}
 
 func _ready() -> void:
-	eight = TimeManager.get_time_from_string('08:00')
-	eleven = TimeManager.get_time_from_string('11:00')
-	fourteen = TimeManager.get_time_from_string('14:00')
-	seventeen = TimeManager.get_time_from_string('17:00')
 	var times : Array = get_respawn_range()
 	rand_time = randf_range(times[0], times[1])
 	npc_respawn_timer.start(rand_time)
@@ -31,19 +31,20 @@ func _on_npc_respawn_timer_timeout() -> void:
 	var times : Array = get_respawn_range()
 	rand_time = randf_range(times[0], times[1])
 	npc_respawn_timer.start(rand_time)
-	
+
+## Uses in-game time to set spanwer respwan range for variable spawn rates
 func get_respawn_range() -> Array:
 	var t : Array = [0,0]
-	if TimeManager.time <= eight:
+	if TimeManager.time <= target_times[8]:
 		t[0] = 30
 		t[1] = 35
-	elif TimeManager.time <= eleven:
+	elif TimeManager.time <= target_times[11]:
 		t[0] = 5
 		t[1] = 10
-	elif TimeManager.time <= fourteen:
+	elif TimeManager.time <= target_times[14]:
 		t[0] = 3
 		t[1] = 5
-	elif TimeManager.time <= seventeen:
+	elif TimeManager.time <= target_times[17]:
 		t[0] = 4
 		t[1] = 10
 	else:

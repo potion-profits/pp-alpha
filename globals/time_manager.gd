@@ -93,12 +93,10 @@ func get_time_from_string(s : String) -> int:
 	return ret
 
 func _on_scene_ready() -> void:
-	if GameManager.player_passed_out:
-		print("player pased out and is being forced to sleep")
-		var cs : Node = SceneManager.current_scene()
-		await get_tree().process_frame
-		if cs.name == "MainShop":
-			var player : Player = cs.get_node("EntityManager/Player")
-			var bed : Entity = cs.get_node("EntityManager/Bed")
-			player.position = bed.position + Vector2(-10, 0)
-			cs.player_sleep()
+	var cs : Node = SceneManager.current_scene()
+	if cs.name == "MainShop":
+		var player : Player = cs.get_node("EntityManager/Player")
+		var bed : Entity = cs.get_node("EntityManager/Bed")
+		player.position = bed.position + Vector2(-10, 0)
+		cs.check_camera_pos()
+		cs.player_sleep()

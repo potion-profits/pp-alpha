@@ -48,13 +48,15 @@ func _ready()->void:
 	get_viewport().size_changed.connect(_on_viewport_size_changed)
 	await get_tree().process_frame
 	viewport_size = get_viewport_rect().size
+	check_camera_pos()
+	_on_viewport_size_changed() # initalize inv UI position
+
+func check_camera_pos() -> void:
 	if player.global_position.y <= b_bottom_right.global_position.y:
 		transition_camera(b_top_left, b_bottom_right)
 	else:
 		transition_camera(f_top_left, f_bottom_right)
 	player_camera.reset_smoothing()
-	_on_viewport_size_changed() # initalize inv UI position
-
 
 func _physics_process(_delta: float) -> void:
 	if OS.is_debug_build() and Input.is_key_pressed(KEY_HOME):
@@ -67,6 +69,7 @@ func _on_move_town_detection_body_entered(body: Node2D) -> void:
 		SceneManager.change_to("res://scenes/town/town.tscn", payload)
 
 func player_sleep() -> void:
+	GameManager.player_passed_out = false
 	clear_npcs()
 	var fade : TextureRect = self.get_node("SleepFade")
 	fade.visible = true

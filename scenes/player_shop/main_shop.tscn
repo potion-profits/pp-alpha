@@ -541,7 +541,6 @@ offset_bottom = 51.0
 texture = ExtResource("2_ixtpo")
 
 [node name="TextureRect" type="TextureRect" parent="."]
-visible = false
 offset_left = -120.0
 offset_top = -925.0
 offset_right = 955.0

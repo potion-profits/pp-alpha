@@ -54,6 +54,7 @@ func prep_astar() -> void:
 ## See [AStarGrid2D] for [method AStarGrid2D.update]. Sets all counter and shelf tiles to solid 
 ## (unwalkable)
 func setup_grid() -> void:
+	@warning_ignore("deprecated_keyword")
 	astar.size =  tilemap.get_used_rect().size
 	astar.offset = tilemap.get_used_rect().position
 	astar.cell_size = tilemap.tile_set.tile_size
