@@ -4,15 +4,14 @@ class_name Casino extends Node2D
 ## The player may exchange coins for chips and chips for prizes / upgrades from the cashier stand.
 
 ## See [Player]
-@onready var player: Player = $Player
+@onready var player: Player = $'y-sort/Player'
 ## UI container for the exchange menu, opens on interact with cashier
 @onready var exchange_container: VBoxContainer = $CanvasLayer/ExchangeContainer
 ## Label for displaying the current pending exchange amount
 @onready var num_coins_to_exchange: Label = $CanvasLayer/ExchangeContainer/HBoxContainer/NumCoinsToExchange
 ## Handles currency and prize exchange, see also [Npc]
 @onready var cashier_npc: CharacterBody2D = $CashierNpc
-@onready var npcs: Node2D = $Npcs
-@onready var dealers: Node2D = $Dealers
+@onready var ysort: Node2D = $"y-sort"
 @onready var idle_sheet : Resource = preload(
 	"res://assets/char_sprites/npc_sprites/npc_customers/rogue_npc_idle.png"
 	)
@@ -40,15 +39,17 @@ func _ready() -> void:
 	exchange_container.visible = false
 	cashier_npc.interactable.interact = process_exchange
 	
-	for npc : Npc in npcs.get_children():
-		npc.sprite.frame = randi_range(0, 3)
-		npc.sprite.play("idle_up")
+	for npc : Node in ysort.get_children():
+		if npc.name.begins_with('Npc'):
+			npc.sprite.frame = randi_range(0, 3)
+			npc.sprite.play("idle_up")
 	
-	for dealer : Npc in dealers.get_children():
-		dealer.sprite.sprite_frames = dealer.build_sprite_frames(idle_sheet, null)
-		dealer.npc_class = "rogue"
-		dealer.sprite.frame = randi_range(0, 3)
-		dealer.sprite.play("idle_down")
+	for dealer : Node in ysort.get_children():
+		if dealer.name.begins_with("Dealer"):
+			dealer.sprite.sprite_frames = dealer.build_sprite_frames(idle_sheet, null)
+			dealer.npc_class = "rogue"
+			dealer.sprite.frame = randi_range(0, 3)
+			dealer.sprite.play("idle_down")
 	
 	for location : Marker2D in spawn_locations.get_children():
 		spawn_location_pos.append(location.position)
@@ -87,8 +88,8 @@ func squib(loc : Vector2) -> Vector2:
 func spawn_npc(loc: Vector2) -> void:
 	var t_npc : RoamingNpc = roaming_npc_scene.instantiate()
 	t_npc.position = loc
-	npcs.add_child(t_npc)
-	npcs.move_child(t_npc, 0)
+	ysort.add_child(t_npc)
+	ysort.move_child(t_npc, 0)
 
 # exchange logic for coins to chips
 func _on_confirm_exchange_pressed() -> void:

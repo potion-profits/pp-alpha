@@ -217,6 +217,109 @@ size = Vector2(68, 18)
 [node name="CasinoFloor" type="Node2D"]
 script = ExtResource("1_dnyyd")
 
+[node name="y-sort" type="Node2D" parent="."]
+z_index = 1
+y_sort_enabled = true
+
+[node name="Player" parent="y-sort" instance=ExtResource("2_dfl8t")]
+position = Vector2(824, 1063)
+
+[node name="Camera2D" type="Camera2D" parent="y-sort/Player"]
+zoom = Vector2(10, 10)
+
+[node name="BlackjackTable" parent="y-sort" instance=ExtResource("3_dfl8t")]
+position = Vector2(704, 704)
+
+[node name="BlackjackTable2" parent="y-sort" instance=ExtResource("3_dfl8t")]
+position = Vector2(704, 768)
+
+[node name="BlackjackTable3" parent="y-sort" instance=ExtResource("3_dfl8t")]
+position = Vector2(704, 832)
+
+[node name="BlackjackTable4" parent="y-sort" instance=ExtResource("3_dfl8t")]
+position = Vector2(704, 896)
+
+[node name="BlackjackTable5" parent="y-sort" instance=ExtResource("3_dfl8t")]
+position = Vector2(704, 960)
+
+[node name="Dealer" parent="y-sort" instance=ExtResource("9_o5pd2")]
+position = Vector2(704, 687)
+
+[node name="Dealer2" parent="y-sort" instance=ExtResource("9_o5pd2")]
+position = Vector2(704, 751)
+
+[node name="Dealer3" parent="y-sort" instance=ExtResource("9_o5pd2")]
+position = Vector2(704, 815)
+
+[node name="Dealer4" parent="y-sort" instance=ExtResource("9_o5pd2")]
+position = Vector2(704, 879)
+
+[node name="Dealer5" parent="y-sort" instance=ExtResource("9_o5pd2")]
+position = Vector2(704, 943)
+
+[node name="Npc" parent="y-sort" instance=ExtResource("9_o5pd2")]
+position = Vector2(648, 635)
+
+[node name="Npc13" parent="y-sort" instance=ExtResource("9_o5pd2")]
+position = Vector2(685, 704)
+
+[node name="Npc14" parent="y-sort" instance=ExtResource("9_o5pd2")]
+position = Vector2(723, 768)
+
+[node name="Npc15" parent="y-sort" instance=ExtResource("9_o5pd2")]
+position = Vector2(704, 833)
+
+[node name="Npc16" parent="y-sort" instance=ExtResource("9_o5pd2")]
+position = Vector2(685, 832)
+
+[node name="Npc17" parent="y-sort" instance=ExtResource("9_o5pd2")]
+position = Vector2(704, 897)
+
+[node name="Npc18" parent="y-sort" instance=ExtResource("9_o5pd2")]
+position = Vector2(704, 961)
+
+[node name="Npc19" parent="y-sort" instance=ExtResource("9_o5pd2")]
+position = Vector2(684, 960)
+
+[node name="Npc20" parent="y-sort" instance=ExtResource("9_o5pd2")]
+position = Vector2(723, 960)
+
+[node name="Npc21" parent="y-sort" instance=ExtResource("9_o5pd2")]
+position = Vector2(723, 960)
+
+[node name="Npc2" parent="y-sort" instance=ExtResource("9_o5pd2")]
+position = Vector2(664, 635)
+
+[node name="Npc3" parent="y-sort" instance=ExtResource("9_o5pd2")]
+position = Vector2(680, 635)
+
+[node name="Npc4" parent="y-sort" instance=ExtResource("9_o5pd2")]
+position = Vector2(712, 635)
+
+[node name="Npc5" parent="y-sort" instance=ExtResource("9_o5pd2")]
+position = Vector2(728, 635)
+
+[node name="Npc6" parent="y-sort" instance=ExtResource("9_o5pd2")]
+position = Vector2(744, 635)
+
+[node name="Npc7" parent="y-sort" instance=ExtResource("9_o5pd2")]
+position = Vector2(904, 635)
+
+[node name="Npc8" parent="y-sort" instance=ExtResource("9_o5pd2")]
+position = Vector2(920, 635)
+
+[node name="Npc9" parent="y-sort" instance=ExtResource("9_o5pd2")]
+position = Vector2(952, 635)
+
+[node name="Npc10" parent="y-sort" instance=ExtResource("9_o5pd2")]
+position = Vector2(968, 635)
+
+[node name="Npc11" parent="y-sort" instance=ExtResource("9_o5pd2")]
+position = Vector2(984, 635)
+
+[node name="Npc12" parent="y-sort" instance=ExtResource("9_o5pd2")]
+position = Vector2(1000, 635)
+
 [node name="TextureRect" type="TextureRect" parent="."]
 z_index = -2
 offset_left = 334.0
@@ -230,7 +333,7 @@ texture = ExtResource("2_a4x82")
 [node name="PlayerCoins" parent="CanvasLayer" node_paths=PackedStringArray("player") instance=ExtResource("5_y1lbc")]
 z_index = 10
 scale = Vector2(2, 2)
-player = NodePath("../../Player")
+player = NodePath("../../y-sort/Player")
 
 [node name="PlayerChips" parent="CanvasLayer" node_paths=PackedStringArray("player") instance=ExtResource("4_ka76d")]
 offset_left = 12.0
@@ -238,7 +341,7 @@ offset_top = 89.0
 offset_right = 12.0
 offset_bottom = 89.0
 scale = Vector2(2, 2)
-player = NodePath("../../Player")
+player = NodePath("../../y-sort/Player")
 
 [node name="ExchangeContainer" type="VBoxContainer" parent="CanvasLayer"]
 anchors_preset = 8
@@ -301,27 +404,6 @@ tile_set = SubResource("TileSet_y1lbc")
 z_index = -1
 position = Vector2(800, 626)
 
-[node name="Player" parent="." instance=ExtResource("2_dfl8t")]
-position = Vector2(824, 1063)
-
-[node name="Camera2D" type="Camera2D" parent="Player"]
-zoom = Vector2(10, 10)
-
-[node name="BlackjackTable" parent="." instance=ExtResource("3_dfl8t")]
-position = Vector2(704, 704)
-
-[node name="BlackjackTable2" parent="." instance=ExtResource("3_dfl8t")]
-position = Vector2(704, 768)
-
-[node name="BlackjackTable3" parent="." instance=ExtResource("3_dfl8t")]
-position = Vector2(704, 832)
-
-[node name="BlackjackTable4" parent="." instance=ExtResource("3_dfl8t")]
-position = Vector2(704, 896)
-
-[node name="BlackjackTable5" parent="." instance=ExtResource("3_dfl8t")]
-position = Vector2(704, 960)
-
 [node name="MoveTownArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MoveTownArea"]
@@ -377,89 +459,6 @@ position = Vector2(829, 997)
 
 [node name="Spawn13" type="Marker2D" parent="SpawnLocations"]
 position = Vector2(846, 685)
-
-[node name="Npcs" type="Node2D" parent="."]
-y_sort_enabled = true
-
-[node name="Npc" parent="Npcs" instance=ExtResource("9_o5pd2")]
-position = Vector2(648, 635)
-
-[node name="Npc13" parent="Npcs" instance=ExtResource("9_o5pd2")]
-position = Vector2(685, 703)
-
-[node name="Npc14" parent="Npcs" instance=ExtResource("9_o5pd2")]
-position = Vector2(723, 767)
-
-[node name="Npc15" parent="Npcs" instance=ExtResource("9_o5pd2")]
-position = Vector2(704, 833)
-
-[node name="Npc16" parent="Npcs" instance=ExtResource("9_o5pd2")]
-position = Vector2(685, 831)
-
-[node name="Npc17" parent="Npcs" instance=ExtResource("9_o5pd2")]
-position = Vector2(704, 897)
-
-[node name="Npc18" parent="Npcs" instance=ExtResource("9_o5pd2")]
-position = Vector2(704, 961)
-
-[node name="Npc19" parent="Npcs" instance=ExtResource("9_o5pd2")]
-position = Vector2(684, 960)
-
-[node name="Npc20" parent="Npcs" instance=ExtResource("9_o5pd2")]
-position = Vector2(723, 960)
-
-[node name="Npc21" parent="Npcs" instance=ExtResource("9_o5pd2")]
-position = Vector2(723, 960)
-
-[node name="Npc2" parent="Npcs" instance=ExtResource("9_o5pd2")]
-position = Vector2(664, 635)
-
-[node name="Npc3" parent="Npcs" instance=ExtResource("9_o5pd2")]
-position = Vector2(680, 635)
-
-[node name="Npc4" parent="Npcs" instance=ExtResource("9_o5pd2")]
-position = Vector2(712, 635)
-
-[node name="Npc5" parent="Npcs" instance=ExtResource("9_o5pd2")]
-position = Vector2(728, 635)
-
-[node name="Npc6" parent="Npcs" instance=ExtResource("9_o5pd2")]
-position = Vector2(744, 635)
-
-[node name="Npc7" parent="Npcs" instance=ExtResource("9_o5pd2")]
-position = Vector2(904, 635)
-
-[node name="Npc8" parent="Npcs" instance=ExtResource("9_o5pd2")]
-position = Vector2(920, 635)
-
-[node name="Npc9" parent="Npcs" instance=ExtResource("9_o5pd2")]
-position = Vector2(952, 635)
-
-[node name="Npc10" parent="Npcs" instance=ExtResource("9_o5pd2")]
-position = Vector2(968, 635)
-
-[node name="Npc11" parent="Npcs" instance=ExtResource("9_o5pd2")]
-position = Vector2(984, 635)
-
-[node name="Npc12" parent="Npcs" instance=ExtResource("9_o5pd2")]
-position = Vector2(1000, 635)
-
-[node name="Dealers" type="Node2D" parent="."]
-
-[node name="Dealer" parent="Dealers" instance=ExtResource("9_o5pd2")]
-position = Vector2(704, 687)
-
-[node name="Dealer2" parent="Dealers" instance=ExtResource("9_o5pd2")]
-position = Vector2(704, 751)
-
-[node name="Dealer3" parent="Dealers" instance=ExtResource("9_o5pd2")]
-position = Vector2(704, 815)
-
-[node name="Dealer4" parent="Dealers" instance=ExtResource("9_o5pd2")]
-position = Vector2(704, 879)
-
-[node name="Dealer5" parent="Dealers" instance=ExtResource("9_o5pd2")]
-position = Vector2(704, 943)
 
 [connection signal="pressed" from="CanvasLayer/ExchangeContainer/HBoxContainer/LessCoins" to="." method="_on_less_coins_pressed"]
 [connection signal="pressed" from="CanvasLayer/ExchangeContainer/HBoxContainer/MoreCoins" to="." method="_on_more_coins_pressed"]

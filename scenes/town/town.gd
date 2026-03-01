@@ -33,6 +33,7 @@ func _process(_delta: float) -> void:
 func spawn_npc(loc: Vector2) -> void:
 	var t_npc : RoamingNpc = town_npc_scene.instantiate()
 	t_npc.position = loc
+	t_npc.z_index = 201
 	bb.add_child(t_npc)
 	bb.move_child(t_npc, 0)
 
