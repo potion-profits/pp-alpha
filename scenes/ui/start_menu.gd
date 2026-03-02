@@ -9,11 +9,6 @@ extends "res://scenes/ui/base_menu.gd"
 # Reference to rectangle to fade into for animations
 @onready var fade_color: ColorRect = $FadeColor
 
-const menu_scenes : Array = [
-	"res://scenes/cinematics/opening_logos.tscn",
-	"res://scenes/ui/options_menu.tscn"
-]
-
 func _ready()->void:
 	# fade in the start menu
 	if !OS.is_debug_build():
@@ -30,8 +25,7 @@ func _ready()->void:
 
 func _on_play_pressed()->void:
 	var last_scene : String = SceneManager.last_known_scene
-	# Only switch if last scene is not menu or logos
-	if last_scene and last_scene not in menu_scenes:
+	if last_scene:
 		SceneManager.change_to(last_scene)
 	else:
 		SceneManager.change_to("res://scenes/player_shop/main_shop.tscn")
