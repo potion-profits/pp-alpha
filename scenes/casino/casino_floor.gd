@@ -79,7 +79,9 @@ func _update_exchange_label(new_amt : int) -> void:
 
 func _on_move_town_area_body_entered(body: Node2D) -> void:
 	if body is Player:
-		SceneManager.change_to("res://scenes/town/town.tscn")
+		var payload : Dictionary = SceneManager.get_payload()
+		payload["player_position"] = spawn_marker.global_position
+		SceneManager.change_to("res://scenes/town/town.tscn", payload)
 
 func _on_redeem_pressed() -> void:
 	# create sub menu for various prizes (buy a barrel, cauldron, other upgrade)
