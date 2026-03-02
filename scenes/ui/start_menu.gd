@@ -15,7 +15,6 @@ func _ready()->void:
 
 func _on_play_pressed()->void:
 	var last_scene : String = SceneManager.last_known_scene
-	print("Last scene is ", last_scene)
 	if last_scene:
 		SceneManager.change_to(last_scene)
 	else:
