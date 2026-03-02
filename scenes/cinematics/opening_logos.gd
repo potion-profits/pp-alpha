@@ -2,7 +2,7 @@ extends Control
 
 @onready var animation: AnimationPlayer = $AnimationPlayer
 # Reference to the animated Shay sprite playing for the studio logo
-@onready var shay : AnimatedSprite2D = $CanvasLayer/Shay
+@onready var shay : AnimatedSprite2D = $CanvasLayer/Control/Shay
 @onready var godot_logo: TextureRect = $CanvasLayer/GodotLogo
 @onready var studio_logo: TextureRect = $CanvasLayer/StudioLogo
 
