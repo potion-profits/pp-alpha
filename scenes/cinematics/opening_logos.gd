@@ -2,9 +2,9 @@ extends Control
 
 @onready var animation: AnimationPlayer = $AnimationPlayer
 # Reference to the animated Shay sprite playing for the studio logo
-@onready var shay : AnimatedSprite2D = $Shay
-@onready var godot_logo: Sprite2D = $GodotLogo
-@onready var studio_logo: Sprite2D = $StudioLogo
+@onready var shay : AnimatedSprite2D = $CanvasLayer/Shay
+@onready var godot_logo: TextureRect = $CanvasLayer/GodotLogo
+@onready var studio_logo: TextureRect = $CanvasLayer/StudioLogo
 
 # time for logo to appear
 const logo_time: float = 3.5

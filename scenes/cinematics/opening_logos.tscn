@@ -11,7 +11,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect:color")
+tracks/0/path = NodePath("CanvasLayer/ColorRect:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -26,7 +26,7 @@ resource_name = "fade_in"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect:color")
+tracks/0/path = NodePath("CanvasLayer/ColorRect:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -42,7 +42,7 @@ length = 1.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect:color")
+tracks/0/path = NodePath("CanvasLayer/ColorRect:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -410,13 +410,18 @@ libraries = {
 &"": SubResource("AnimationLibrary_jk5yn")
 }
 
-[node name="StudioLogo" type="Sprite2D" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="StudioLogo" type="TextureRect" parent="CanvasLayer"]
 visible = false
-position = Vector2(967.00006, 586.75)
-scale = Vector2(2.101852, 2.3416667)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("3_jk5yn")
 
-[node name="Shay" type="AnimatedSprite2D" parent="."]
+[node name="Shay" type="AnimatedSprite2D" parent="CanvasLayer"]
 visible = false
 position = Vector2(956, 376)
 scale = Vector2(24.447369, 24.447369)
@@ -425,12 +430,21 @@ animation = &"walk_left"
 autoplay = "idle_down"
 frame_progress = 0.23032242
 
-[node name="GodotLogo" type="Sprite2D" parent="."]
-position = Vector2(960, 538)
+[node name="GodotLogo" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -312.0
+offset_top = -356.5
+offset_right = 312.0
+offset_bottom = 356.5
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("1_3e6bk")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 1
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
