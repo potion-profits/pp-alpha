@@ -24,7 +24,12 @@ func _ready()->void:
 	super._ready()
 
 func _on_play_pressed()->void:
-	SceneManager.change_to("res://scenes/player_shop/main_shop.tscn")
+	var last_scene : String = SceneManager.last_known_scene
+	if last_scene:
+		SceneManager.change_to(last_scene)
+	else:
+		SceneManager.change_to("res://scenes/player_shop/main_shop.tscn")
+	TimeManager.set_process(true)
 
 func _on_options_pressed()->void:
 	SceneManager.change_to("res://scenes/ui/options_menu.tscn")

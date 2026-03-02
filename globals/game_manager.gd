@@ -5,6 +5,7 @@ extends Node
 ## Primarily handles saving/loading from both memory and disk. 
 ## Also handles unhandled inputs, which is used for the pause menu.
 
+@onready var player_passed_out : bool = false
 
 var pause_menu: Control	## The instance of the pause menu (likely will change)
 var runtime_entities:Dictionary = {} ## Holds all the entities in every scene. See [Entity].
@@ -29,6 +30,8 @@ func set_pause_menu(menu: Control)->void:
 # Any input in this function will always behave as defined here unless 
 # explicitly handled elsewhere
 func _unhandled_input(event : InputEvent)->void:
+	if SceneManager.is_transitioning:
+		return
 	if event.is_action_pressed("ui_cancel"):
 		#Case where pausing is allowed
 		if(pause_menu):
@@ -41,6 +44,7 @@ func unpause()->void:
 		get_tree().paused = false
 		pause_menu.hide()
 		pause_menu.visible = false
+		TimeManager.set_process(true)
 
 ## Commits everything in [member runtime_entities] and [member player_data] to disk.[br][br]
 ##
