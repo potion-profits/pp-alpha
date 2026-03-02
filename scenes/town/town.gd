@@ -13,10 +13,6 @@ const town_npc_scene : PackedScene = preload("res://scenes/npc_alt/roaming_npc.t
 var below : bool = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	var pause_scene : Resource = preload("res://scenes/ui/pause_menu.tscn")
-	var menu_instance : Node = pause_scene.instantiate()
-	add_child(menu_instance)
-	GameManager.set_pause_menu(menu_instance.get_node("PauseMenuControl"))
 	for location : Marker2D in spawn_locations.get_children():
 		spawn_location_pos.append(location.position)
 	spawn_town_npcs()
