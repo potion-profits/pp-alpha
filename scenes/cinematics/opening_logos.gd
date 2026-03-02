@@ -7,7 +7,7 @@ extends Control
 @onready var studio_logo: Sprite2D = $StudioLogo
 
 func _ready() -> void:
-	if OS.is_debug_build():
+	if !OS.is_debug_build():
 		play_logos()
 	# Debug mode skips logos
 	else:

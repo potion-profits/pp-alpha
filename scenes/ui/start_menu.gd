@@ -16,7 +16,7 @@ const menu_scenes : Array = [
 
 func _ready()->void:
 	# fade in the start menu
-	if OS.is_debug_build():
+	if !OS.is_debug_build():
 		play_fade_in()
 	# debug mode defaults the buttons to original position
 	else:
