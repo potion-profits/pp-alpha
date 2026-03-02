@@ -47,6 +47,8 @@ func _on_interact()->void:
 			if player.collect(inv.slots[0].item):
 				inv.slots[0].amount-=1	#the player collected, so remove item from cauldron
 				inv.slots[0].item = null
+				progress_bar.value = MIN_PROGRESS
+				progress_bar.visible = false
 
 ## Safely plays the cauldron's mixing animation
 func animation_play() -> void:
@@ -97,8 +99,8 @@ func _on_mix_timer_timeout() -> void:
 	mixing = false
 	inv.slots[0].item.mixable = false
 	inv.slots[0].item.sellable = true
-	progress_bar.visible = false
-	progress_bar.value = MIN_PROGRESS
+	#progress_bar.visible = false
+	progress_bar.value = MAX_PROGRESS
 	mix_timer.stop()
 	# stop looping sfx once timer runs out
 	if mix_sfx:
