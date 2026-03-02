@@ -25,6 +25,15 @@ var transition_rect: ColorRect
 var is_transitioning: bool = false
 var with_transition: bool = true
 
+## Menu scenes to not save
+const menu_scenes : Array = [
+	"res://scenes/cinematics/opening_logos.tscn",
+	"res://scenes/ui/options_menu.tscn",
+	"res://scenes/ui/start_menu.tscn",
+	"res://scenes/ui/volume_menu.tscn",
+	"res://scenes/ui/pause_menu.tscn"
+]
+
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	setup_transition()
@@ -85,7 +94,9 @@ func change_to(scene_path: String, payload: Dictionary = {}) -> void:
 	if payload.has("transition"):
 		with_transition = payload["transition"]
 	
-	last_known_scene = current_scene().scene_file_path
+	var cs : String = current_scene().scene_file_path
+	if cs not in menu_scenes:
+		last_known_scene  = cs
 	GameManager.connect_scene_load_callback()
 	
 	## Fade out first
