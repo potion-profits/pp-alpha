@@ -15,6 +15,7 @@ func _ready()->void:
 func _on_menu_pressed()->void:
 	#save and return to menu!! for now just menu
 	SceneManager.change_to("res://scenes/ui/start_menu.tscn")
+	TimeManager.set_process(false)
 
 
 func _on_resume_pressed()->void:

@@ -4,13 +4,15 @@ class_name Casino extends Node2D
 ## The player may exchange coins for chips and chips for prizes / upgrades from the cashier stand.
 
 ## See [Player]
-@onready var player: Player = $Player
+@onready var player: Player = $YSort/Player
 ## UI container for the exchange menu, opens on interact with cashier
 @onready var exchange_container: VBoxContainer = $CanvasLayer/ExchangeContainer
 ## Label for displaying the current pending exchange amount
 @onready var num_coins_to_exchange: Label = $CanvasLayer/ExchangeContainer/HBoxContainer/NumCoinsToExchange
 ## Handles currency and prize exchange, see also [Npc]
 @onready var cashier_npc: CharacterBody2D = $CashierNpc
+
+@onready var spawn_marker: Marker2D = $MoveTownArea/PlayerSpawn
 ## Amount of coins to exchange for chips
 var exchange_amt : int = 0
 ## Used to signal when the player is done exchanging with the cashier
@@ -79,7 +81,9 @@ func _update_exchange_label(new_amt : int) -> void:
 
 func _on_move_town_area_body_entered(body: Node2D) -> void:
 	if body is Player:
-		SceneManager.change_to("res://scenes/town/town.tscn")
+		var payload : Dictionary = SceneManager.get_payload()
+		payload["player_position"] = spawn_marker.global_position
+		SceneManager.change_to("res://scenes/town/town.tscn", payload)
 
 func _on_redeem_pressed() -> void:
 	# create sub menu for various prizes (buy a barrel, cauldron, other upgrade)
