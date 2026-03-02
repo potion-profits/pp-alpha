@@ -7,7 +7,7 @@ extends Control
 @onready var studio_logo: Sprite2D = $StudioLogo
 
 func _ready() -> void:
-	if !OS.is_debug_build():
+	if OS.is_debug_build():
 		play_logos()
 	# Debug mode skips logos
 	else:
@@ -19,10 +19,10 @@ func play_logos() -> void:
 		# Play Godot Logo
 		animation.play("fade_in")
 		# time for logo to appear
-		await get_tree().create_timer(4.5).timeout
+		await get_tree().create_timer(3.5).timeout
 		animation.play("fade_out")
 		# this timer must match fade out time to ensure logo switch after fade is finished
-		await get_tree().create_timer(3.0).timeout
+		await get_tree().create_timer(1.5).timeout
 		
 		# switch logo states
 		godot_logo.visible = false
@@ -32,9 +32,9 @@ func play_logos() -> void:
 		# Play Studio Cejjo logo
 		shay.play("walk_left")
 		animation.play("fade_in")
-		await get_tree().create_timer(4.5).timeout
+		await get_tree().create_timer(3.5).timeout
 		animation.play("fade_out")
-		await get_tree().create_timer(3.0).timeout
+		await get_tree().create_timer(1.5).timeout
 		
 		# Switch to main menu 
 		SceneManager.change_to("res://scenes/ui/start_menu.tscn")
