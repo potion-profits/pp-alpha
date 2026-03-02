@@ -4,19 +4,28 @@ class_name Casino extends Node2D
 ## The player may exchange coins for chips and chips for prizes / upgrades from the cashier stand.
 
 ## See [Player]
-@onready var player: Player = $Player
+@onready var player: Player = $Entities/Player
 ## UI container for the exchange menu, opens on interact with cashier
 @onready var exchange_container: VBoxContainer = $CanvasLayer/ExchangeContainer
 ## Label for displaying the current pending exchange amount
 @onready var num_coins_to_exchange: Label = $CanvasLayer/ExchangeContainer/HBoxContainer/NumCoinsToExchange
 ## Handles currency and prize exchange, see also [Npc]
-@onready var cashier_npc: CharacterBody2D = $CashierNpc
+@onready var cashier_npc: CharacterBody2D = $StaticAssets/CashierNpc
+
+@onready var spawn_marker: Marker2D = $StaticAssets/MoveTownArea/PlayerSpawn
 ## Amount of coins to exchange for chips
 var exchange_amt : int = 0
 ## Used to signal when the player is done exchanging with the cashier
 signal end_exchange
 
 func _ready() -> void:
+	# ----- Necessary for pause menu in scene -----
+	var pause_scene : Resource = preload("res://scenes/ui/pause_menu.tscn")
+	var menu_instance : Node = pause_scene.instantiate()
+	add_child(menu_instance)
+	GameManager.set_pause_menu(menu_instance.get_node("PauseMenuControl"))
+	# ----------------------------------------------
+	
 	exchange_container.visible = false
 	cashier_npc.interactable.interact = process_exchange
 """
@@ -72,7 +81,9 @@ func _update_exchange_label(new_amt : int) -> void:
 
 func _on_move_town_area_body_entered(body: Node2D) -> void:
 	if body is Player:
-		SceneManager.change_to("res://scenes/town/town.tscn")
+		var payload : Dictionary = SceneManager.get_payload()
+		payload["player_position"] = spawn_marker.global_position
+		SceneManager.change_to("res://scenes/town/town.tscn", payload)
 
 func _on_redeem_pressed() -> void:
 	# create sub menu for various prizes (buy a barrel, cauldron, other upgrade)

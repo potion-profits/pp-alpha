@@ -24,6 +24,10 @@ extends Node2D
 @onready var inv_ui: Control = $Static_UI/Inv_UI
 ## Scene's [EntityManager]
 @onready var entity_manager: EntityManager = $EntityManager
+## Player
+@onready var player : Player = $EntityManager/Player
+## Front door spawn marker
+@onready var spawn_marker : Marker2D = $FrontRoom/PlayerSpawn
 
 ## Tutorial script instance
 @onready var tutorial: CanvasLayer = $Tutorial_UI
@@ -56,11 +60,16 @@ func _ready() -> void:
 		tutorial.visible = false
 	
 	await get_tree().process_frame
-	shifted_to_top = SceneManager.last_known_positions.has("Shop")
 	viewport_size = get_viewport_rect().size
+	check_camera_pos()
 	_on_viewport_size_changed() # initalize inv UI position
-	if SceneManager.last_known_positions.has("MainShop"):
-		shift_ui(true)
+
+func check_camera_pos() -> void:
+	if player.global_position.y <= b_bottom_right.global_position.y:
+		transition_camera(b_top_left, b_bottom_right)
+	else:
+		transition_camera(f_top_left, f_bottom_right)
+	player_camera.reset_smoothing()
 
 func _process(_delta: float) -> void:
 	if tutorial and not GameManager.tutorial_completed:
@@ -76,7 +85,40 @@ func _physics_process(_delta: float) -> void:
 
 func _on_move_town_detection_body_entered(body: Node2D) -> void:
 	if body is Player:
-		SceneManager.change_to("res://scenes/town/town.tscn")
+		var payload : Dictionary = SceneManager.get_payload()
+		payload["player_position"] = spawn_marker.global_position
+		SceneManager.change_to("res://scenes/town/town.tscn", payload)
+
+func player_sleep() -> void:
+	GameManager.player_passed_out = false
+	clear_npcs()
+	var fade : TextureRect = self.get_node("SleepFade")
+	fade.visible = true
+	var tween: Tween = create_tween()
+	tween.tween_property(fade, "modulate:a", 1, 0.5).from(0.0)
+	TimeManager.set_process(false)
+	tween.tween_property(fade, "modulate:a", 0.0, 0.5)
+	TimeManager.time = 0
+	TimeManager.day += 1
+	await tween.finished
+	fade.visible = false
+	TimeManager.set_process(true)
+	var spawner : Node = self.get_node("EntityManager/NpcSpawner")
+	spawner._ready()
+
+func clear_npcs() -> void:
+	var em : EntityManager = get_node("EntityManager") 
+	var return_basket : ReturnBasket = get_node("EntityManager/ReturnBasket") 
+	var register : Node2D = get_node("EntityManager/CashRegister")
+	for child in em.get_children(): 
+		if child is ShopNpc: 
+			if child.item_found: 
+				var potion : InvItem = ItemRegistry.new_item(child.prefered_item) 
+				potion.mixable = false
+				potion.sellable = true 
+				return_basket.return_item(potion) 
+			child.free()
+	register.cust_waiting_icon.visible = false
 
 ## Moves the camera when the player transitions from the frontroom to the backroom or the backroom 
 ## to the frontroom
@@ -111,9 +153,9 @@ func _on_npc_spawner_npc_spawned(npc_instance : Node2D) -> void:
 func setup_npc(npc : Node2D) -> void:
 	npc.floor_map = floor_map
 	npc.shelves = floor_map.shelf_targets.duplicate()
-	npc.target = npc.shelves.pop_at(randi_range(0, len(npc.shelves) - 1))
 	npc.checkout = floor_map.checkout
 	npc.global_position = floor_map.tilemap.map_to_local(floor_map.spawn)
+	npc.return_basket = floor_map.return_basket
 
 func _on_viewport_size_changed() -> void:
 	viewport_size = get_viewport_rect().size
@@ -146,18 +188,22 @@ func shift_ui(to_top: bool) -> void:
 
 func _on_bottom_collision_body_entered_frontroom(body: Node2D) -> void:
 	if body is Player:
+		await get_tree().process_frame
 		shift_ui(true)
 
 func _on_bottom_collision_body_entered_backroom(body: Node2D) -> void:
 	if body is Player:
+		await get_tree().process_frame
 		shift_ui(true)
 
 func _on_bottom_collision_body_exited_frontroom(body: Node2D) -> void:
 	if body is Player:
+		await get_tree().process_frame
 		shift_ui(false)
 
 func _on_bottom_collision_body_exited_backroom(body: Node2D) -> void:
 	if body is Player:
+		await get_tree().process_frame
 		shift_ui(false)
 
 func _on_tutorial_complete() -> void:

@@ -6,10 +6,31 @@ var shop : Node = null
 func before_each() -> void:
 	shop = shop_scene.instantiate()
 	add_child_autofree(shop)
+	load_data()
 	await wait_process_frames(2)		# lets scene ready
 
 func after_each() -> void:
 	pass
+
+func load_data() -> void:
+	var cs := shop
+	var player_node: Node = cs.find_child("Player", true, false)
+	if player_node and GameManager.player_data:
+		player_node.from_dict(GameManager.player_data)
+	
+	SceneManager.load_player_position()
+
+	var em:EntityManager = null
+	var scene_name:String = "MainShop"
+	if cs.has_node("EntityManager"):
+		em = cs.get_node("EntityManager")
+	if em:
+		for child in em.get_children():
+			if child is Entity:
+				child.queue_free()
+	if em and GameManager.runtime_entities.has(scene_name):
+		for data:Dictionary in GameManager.runtime_entities[scene_name]:
+			em.load_from_dict(data)
 
 func test_astar_initialized() -> void:
 	var astar : Node = shop.floor_map

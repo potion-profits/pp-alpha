@@ -2,11 +2,22 @@ extends Node2D
 
 @onready var entities: Node2D = $Entities
 @onready var cashier_npc: CharacterBody2D = $Entities/CashierNpc
+@onready var spawn_marker: Marker2D = $PlayerSpawn
+
+var saved_position : Vector2
 
 func _ready() -> void:
+	# ----- Necessary for pause menu in scene -----
+	var pause_scene : Resource = preload("res://scenes/ui/pause_menu.tscn")
+	var menu_instance : Node = pause_scene.instantiate()
+	add_child(menu_instance)
+	GameManager.set_pause_menu(menu_instance.get_node("PauseMenuControl"))
+	# ----------------------------------------------
+	
 	for child in entities.get_children():
 		if child is Npc or child is Player:
 			continue
+		
 		# only runs in debug mode according to Godot
 		# ensures that non entities besides player and cashier are children of entity manager
 		assert(child is Entity, "remove all non entities from entity manager besides player/npc")
@@ -24,7 +35,9 @@ func open_purchase_scene() -> void:
 
 func _on_move_town_detection_body_entered(body: Node2D) -> void:
 	if body is Player:
-		SceneManager.change_to("res://scenes/town/town.tscn")
+		var payload : Dictionary = SceneManager.get_payload()
+		payload["player_position"] = spawn_marker.global_position
+		SceneManager.change_to("res://scenes/town/town.tscn", payload)
 
 func update_sprite(node : Entity) -> void:
 	if node is Barrel:

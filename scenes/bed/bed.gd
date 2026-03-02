@@ -24,6 +24,9 @@ func _on_interact() -> void:
 		return
 	GameManager.save_scene_runtime_state()
 	GameManager.commit_to_storage()
+	var cs : Node = SceneManager.current_scene()
+	if cs.name == "MainShop":
+		cs.player_sleep()
 	_save_timeout()
 	bed_sfx.play()
 

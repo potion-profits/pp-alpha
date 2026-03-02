@@ -12,7 +12,8 @@ var entity_codes:Dictionary = {
 	"shelf": "res://scenes/shelf/shelf.tscn",
 	"crate": "res://scenes/crate/crate.tscn",
 	"barrel": "res://scenes/barrel/barrel.tscn",
-	"bed": "res://scenes/bed/bed.tscn"
+	"bed": "res://scenes/bed/bed.tscn",
+	"basket": "res://scenes/return_basket/return_basket.tscn"
 }
 
 ## Creates an in game representation of an Entity given it's data.[br][br]

@@ -31,6 +31,12 @@ size_flags_vertical = 3
 theme_override_font_sizes/font_size = 50
 text = "Refill"
 
+[node name="Storage" type="Button" parent="TabContainer/Options"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 50
+text = "Storage"
+
 [node name="Placement" type="Button" parent="TabContainer/Options"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -49,5 +55,6 @@ theme_override_font_sizes/font_size = 50
 text = "Return to Crate & Barrel"
 
 [connection signal="pressed" from="TabContainer/Options/Refill" to="." method="_on_refill_pressed"]
+[connection signal="pressed" from="TabContainer/Options/Storage" to="." method="_on_storage_pressed"]
 [connection signal="pressed" from="TabContainer/Options/Placement" to="." method="_on_placement_pressed"]
 [connection signal="pressed" from="TabContainer/Exit Shop/Town" to="." method="_on_town_pressed"]

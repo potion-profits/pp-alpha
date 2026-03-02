@@ -19,7 +19,7 @@ extends Node2D
 ## Reference to the entity manager 
 @onready var em: EntityManager = $EntityManager
 ## Reference to the price label
-@onready var cost: Label = $Static_UI/HBoxContainer/Cost
+@onready var cost: Label = $Static_UI/CostContainer/Cost
 ## Reference to the smooth movement handler
 @onready var hold_controller: DirectionalHoldController = $DirectionalHoldController
 
@@ -82,6 +82,11 @@ const ENTITIES : Dictionary = {
 		"price": 40,
 		"blocks_above": true,
 	},
+	"basket":{
+		"tile_id": 7,
+		"price": 0,
+		"blocks_above": false,
+	}
 }
 
 ## The tileset source id
@@ -116,6 +121,7 @@ func _ready() -> void:
 	player.global_position = Vector2.ZERO
 	
 	_restore_entities_to_tilemap()
+	update_price()
 
 # Switches to and from back and front room
 func _switch_cam() -> void:
@@ -194,7 +200,12 @@ func _place() -> void:
 		return
 	
 	place_entity(current_tile)
-	player.set_coins(-(entity_info().price))
+	if player.credits[current_entity]:
+		player.set_credit(current_entity, -1)
+		update_price()
+	else:
+		player.set_coins(-(entity_info().price))
+	
 
 ## Moves the preview layer entity to the entity layer
 func place_entity(tile: Vector2i) -> void:
@@ -217,7 +228,11 @@ func _cycle() -> void:
 
 # change the price label to reflect the current entity's price
 func update_price()->void:
-	cost.text = str(-entity_info().price)
+	var this_cred : int = player.credits[current_entity]
+	if this_cred:
+		cost.text = "FREE!!"
+	else:
+		cost.text = str(-entity_info().price)
 
 # every frame, try to update the preview and process any movement
 func _process(delta: float) -> void:
@@ -290,7 +305,7 @@ func can_place_entity(tile : Vector2i) -> bool:
 		if not _empty_cell(entity_layer, above):
 			return false
 	
-	if entity_info().price > player.get_coins():
+	if entity_info().price > player.get_coins() and player.credits[current_entity] <= 0:
 		return false
 	
 	return true

@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=4 uid="uid://c0wgfjbxk58k0"]
+[gd_scene load_steps=23 format=4 uid="uid://c0wgfjbxk58k0"]
 
 [ext_resource type="Script" uid="uid://cyi5m0rhrv7o2" path="res://scenes/player_shop/main_shop.gd" id="1_47hg3"]
 [ext_resource type="Texture2D" uid="uid://cq4mo6l3w2oka" path="res://assets/interior/shop/background.png" id="2_ixtpo"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bsufnqq4jkbjx" path="res://scenes/dialogue/tutorial/tutorial.tscn" id="3_lmcqa"]
 [ext_resource type="Texture2D" uid="uid://4c4v2xp0o710" path="res://assets/interior/shop/inshop01.png" id="4_85e8s"]
 [ext_resource type="PackedScene" uid="uid://ckd2slmjdifxy" path="res://scenes/coin_ui/player_coin.tscn" id="4_g03oc"]
+[ext_resource type="PackedScene" uid="uid://ctf43uq3ex4w7" path="res://scenes/clock/clock.tscn" id="5_1jnhp"]
 [ext_resource type="Script" uid="uid://v2b04jaxuakv" path="res://globals/entity_manager.gd" id="5_41gid"]
 [ext_resource type="Texture2D" uid="uid://b6sxxon0bv8sh" path="res://assets/interior/shop/counter_all01.png" id="5_47hg3"]
 [ext_resource type="PackedScene" uid="uid://nfogt8087sfy" path="res://scenes/barrel/barrel.tscn" id="6_85e8s"]
@@ -534,10 +535,22 @@ size = Vector2(34, 21)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g03oc"]
 size = Vector2(106, 36)
 
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_1jnhp"]
+b = Vector2(1.9073486e-06, 30)
+
 [node name="MainShop" type="Node2D"]
 script = ExtResource("1_47hg3")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="SleepFade" type="TextureRect" parent="."]
+visible = false
+z_index = 1
+offset_left = -97.0
+offset_top = -1024.0
+offset_right = 978.0
+offset_bottom = 51.0
+texture = ExtResource("2_ixtpo")
+
+[node name="Background" type="TextureRect" parent="."]
 offset_left = -120.0
 offset_top = -925.0
 offset_right = 955.0
@@ -584,6 +597,7 @@ position = Vector2(330, -429)
 
 [node name="CauldronMarker" type="Marker2D" parent="TutorialMarkers"]
 position = Vector2(408, -349)
+[node name="Clock" parent="Static_UI" instance=ExtResource("5_1jnhp")]
 
 [node name="FrontRoom" type="Node2D" parent="."]
 
@@ -628,6 +642,8 @@ tile_set = SubResource("TileSet_s7qt3")
 position = Vector2(416, 15)
 shape = SubResource("RectangleShape2D_s7qt3")
 
+[node name="Marker2D" type="Marker2D" parent="FrontRoom/MoveTownDetection"]
+
 [node name="MoveStorageRoomDetection" type="Area2D" parent="FrontRoom"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FrontRoom/MoveStorageRoomDetection"]
@@ -651,6 +667,22 @@ position = Vector2(-1, 1)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FrontRoom/FrontRoomEdges/BottomCollision"]
 position = Vector2(394, -3)
 shape = SubResource("RectangleShape2D_g03oc")
+
+[node name="TownDoorBarrier" type="StaticBody2D" parent="FrontRoom"]
+
+[node name="Barrier" type="CollisionShape2D" parent="FrontRoom/TownDoorBarrier"]
+position = Vector2(431, 14)
+rotation = 1.5707964
+shape = SubResource("SegmentShape2D_1jnhp")
+
+[node name="StorageDoorBarrier" type="StaticBody2D" parent="FrontRoom"]
+
+[node name="Barrier" type="CollisionShape2D" parent="FrontRoom/StorageDoorBarrier"]
+position = Vector2(479, -220)
+rotation = 1.5707964
+shape = SubResource("SegmentShape2D_1jnhp")
+[node name="PlayerSpawn" type="Marker2D" parent="FrontRoom"]
+position = Vector2(416, -4)
 
 [node name="BackRoom" type="Node2D" parent="."]
 position = Vector2(0, 229)
@@ -695,6 +727,19 @@ position = Vector2(-1, 1)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BackRoom/BackRoomEdges/BottomCollision"]
 position = Vector2(394, -535)
 shape = SubResource("RectangleShape2D_g03oc")
+
+[node name="FrontRoomDoorBarrier" type="StaticBody2D" parent="BackRoom"]
+
+[node name="Barrier" type="CollisionShape2D" parent="BackRoom/FrontRoomDoorBarrier"]
+position = Vector2(479, -290)
+rotation = 1.5707964
+shape = SubResource("SegmentShape2D_1jnhp")
+
+[node name="MoveFrontRoomDetection" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MoveFrontRoomDetection"]
+position = Vector2(464, -289)
+shape = SubResource("RectangleShape2D_6w02k")
 
 [node name="EntityManager" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -766,7 +811,7 @@ position = Vector2(483, -142)
 [connection signal="body_entered" from="FrontRoom/MoveStorageRoomDetection" to="." method="_on_move_storage_room_detection_body_entered"]
 [connection signal="body_entered" from="FrontRoom/FrontRoomEdges/BottomCollision" to="." method="_on_bottom_collision_body_entered_frontroom"]
 [connection signal="body_exited" from="FrontRoom/FrontRoomEdges/BottomCollision" to="." method="_on_bottom_collision_body_exited_frontroom"]
-[connection signal="body_entered" from="BackRoom/MoveFrontRoomDetection" to="." method="_on_move_front_room_detection_body_entered"]
 [connection signal="body_entered" from="BackRoom/BackRoomEdges/BottomCollision" to="." method="_on_bottom_collision_body_entered_backroom"]
 [connection signal="body_exited" from="BackRoom/BackRoomEdges/BottomCollision" to="." method="_on_bottom_collision_body_exited_backroom"]
+[connection signal="body_entered" from="MoveFrontRoomDetection" to="." method="_on_move_front_room_detection_body_entered"]
 [connection signal="npc_spawned" from="EntityManager/NpcSpawner" to="." method="_on_npc_spawner_npc_spawned"]
