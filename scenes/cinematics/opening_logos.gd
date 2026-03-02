@@ -1,6 +1,7 @@
 extends Control
 
 @onready var animation: AnimationPlayer = $AnimationPlayer
+# Reference to the animated Shay sprite playing for the studio logo
 @onready var shay : AnimatedSprite2D = $Shay
 @onready var godot_logo: Sprite2D = $GodotLogo
 @onready var studio_logo: Sprite2D = $StudioLogo
@@ -8,8 +9,11 @@ extends Control
 func _ready() -> void:
 	if !OS.is_debug_build():
 		play_logos()
+	# Debug mode skips logos
+	else:
+		SceneManager.change_to("res://scenes/ui/start_menu.tscn")
 
-# Plays logos (Godot Engine, Studio Logo)
+## Plays logos when called (Currently: Godot Engine, Studio Logo)
 func play_logos() -> void:
 	if animation:
 		# Play Godot Logo
@@ -17,7 +21,7 @@ func play_logos() -> void:
 		# time for logo to appear
 		await get_tree().create_timer(4.5).timeout
 		animation.play("fade_out")
-		# this timer must match fade out time to ensure scene switch after fade is finished
+		# this timer must match fade out time to ensure logo switch after fade is finished
 		await get_tree().create_timer(3.0).timeout
 		
 		# switch logo states
@@ -25,7 +29,7 @@ func play_logos() -> void:
 		studio_logo.visible = true
 		shay.visible = true
 		
-		# Play studio logo
+		# Play Studio Cejjo logo
 		shay.play("walk_left")
 		animation.play("fade_in")
 		await get_tree().create_timer(4.5).timeout

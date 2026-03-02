@@ -6,6 +6,21 @@
 [ext_resource type="Texture2D" uid="uid://bl24jrao46dmm" path="res://assets/char_sprites/Chay Idle-Sheet.png" id="4_usfha"]
 [ext_resource type="Texture2D" uid="uid://mgupfasihl7i" path="res://assets/char_sprites/Chay Walk Cycle-Sheet.png" id="5_bhmob"]
 
+[sub_resource type="Animation" id="Animation_rhjo4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_3e6bk"]
 resource_name = "fade_in"
 length = 2.0
@@ -20,21 +35,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_rhjo4"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0, 0, 0, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_jk5yn"]
@@ -424,7 +424,7 @@ scale = Vector2(24.447369, 24.447369)
 sprite_frames = SubResource("SpriteFrames_487n5")
 animation = &"walk_left"
 autoplay = "idle_down"
-frame_progress = 0.9359724
+frame_progress = 0.23032242
 
 [node name="GodotLogo" type="Sprite2D" parent="."]
 position = Vector2(960, 538)

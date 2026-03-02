@@ -6,13 +6,16 @@ extends "res://scenes/ui/base_menu.gd"
 
 # Reference to animation player that contains the fade in transition
 @onready var animation: AnimationPlayer = $FadeIn
-# Reference to rectangle used for animations
-@onready var fade_color: ColorRect = $ColorRect
+# Reference to rectangle to fade into for animations
+@onready var fade_color: ColorRect = $FadeColor
 
 func _ready()->void:
-	# fade in the start menu (Need to discuss: fade on all switches to start menu?)
+	# fade in the start menu
 	if !OS.is_debug_build():
 		play_fade_in()
+	# debug mode defaults the buttons to original position
+	else:
+		animation.play("RESET")
 	button_map = {
 		"MarginContainer/VBoxContainer/Play": "res://assets/ui/play_button.tres",
 		"MarginContainer/VBoxContainer/Options": "res://assets/ui/options_button.tres",
@@ -32,7 +35,9 @@ func _on_quit_pressed()->void:
 	get_tree().quit()
 
 func play_fade_in() -> void:
+	fade_color.visible = true
 	animation.play("fade_in")
-	# remove color rect node to not block inputs once fade is finished
+	# this timer must match fade in time to ensure ColorRect not removed early
 	await get_tree().create_timer(4.0).timeout
+	# remove ColorRect node to not block inputs
 	fade_color.queue_free()
