@@ -1,5 +1,5 @@
 extends Node
-## Interface to easily manage scene transitions and common scene structures.
+## Interface to easily manage scene transitions and common scene structures. [br][br]
 ##
 ## Allows for changing scenes while maintaining game state, 
 ## passing payloads between scenes, receiving payloads,
@@ -13,7 +13,7 @@ var scene_payload: Dictionary = {}
 ## Signal emitted after a scene has fully loaded AND fade-in is complete
 signal scene_ready
 
-## Holds last known position of character for each scene they loaded into in a session
+## Holds last known position of character for each scene they loaded pinto in a session
 var last_known_positions: Dictionary = {}
 var last_known_scene: String
 
@@ -97,7 +97,7 @@ func change_to(scene_path: String, payload: Dictionary = {}) -> void:
 	MusicManager.play_bg_music(scene_path)
 
 func get_payload() -> Dictionary:
-	var payload := scene_payload
+	var payload : Dictionary = scene_payload
 	scene_payload = {}
 	return payload
 
