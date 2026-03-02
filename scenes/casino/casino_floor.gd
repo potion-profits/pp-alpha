@@ -90,7 +90,6 @@ func spawn_npc(loc: Vector2) -> void:
 	var t_npc : RoamingNpc = roaming_npc_scene.instantiate()
 	t_npc.position = loc
 	ysort.add_child(t_npc)
-	ysort.move_child(t_npc, 0)
 
 # exchange logic for coins to chips
 func _on_confirm_exchange_pressed() -> void:
