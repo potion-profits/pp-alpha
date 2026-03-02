@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=4 uid="uid://c0wgfjbxk58k0"]
+[gd_scene load_steps=31 format=4 uid="uid://c0wgfjbxk58k0"]
 
 [ext_resource type="Script" uid="uid://cyi5m0rhrv7o2" path="res://scenes/player_shop/main_shop.gd" id="1_47hg3"]
 [ext_resource type="Texture2D" uid="uid://cq4mo6l3w2oka" path="res://assets/interior/shop/background.png" id="2_ixtpo"]
@@ -581,6 +581,8 @@ offset_bottom = -3.0
 scale = Vector2(1.5, 1.5)
 player = NodePath("../../EntityManager/Player")
 
+[node name="Clock" parent="Static_UI" instance=ExtResource("5_1jnhp")]
+
 [node name="TutorialMarkers" type="Node" parent="."]
 
 [node name="WelcomeMarker" type="Marker2D" parent="TutorialMarkers"]
@@ -597,7 +599,6 @@ position = Vector2(330, -429)
 
 [node name="CauldronMarker" type="Marker2D" parent="TutorialMarkers"]
 position = Vector2(408, -349)
-[node name="Clock" parent="Static_UI" instance=ExtResource("5_1jnhp")]
 
 [node name="FrontRoom" type="Node2D" parent="."]
 
@@ -681,6 +682,7 @@ shape = SubResource("SegmentShape2D_1jnhp")
 position = Vector2(479, -220)
 rotation = 1.5707964
 shape = SubResource("SegmentShape2D_1jnhp")
+
 [node name="PlayerSpawn" type="Marker2D" parent="FrontRoom"]
 position = Vector2(416, -4)
 
