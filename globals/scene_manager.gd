@@ -43,24 +43,36 @@ func setup_transition() -> void:
 	transition_rect.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 
 func fade_out(seconds: float = 0.5) -> void:
+	var player: Player = get_tree().get_first_node_in_group("player")
+	if player:
+		player.set_physics_process(false)
 	is_transitioning = true
 	var tw: Tween = create_tween()
 	tw.tween_property(transition_rect, "color:a", 1.0, seconds)
 	await tw.finished
 
 func fade_in(seconds: float = 0.5) -> void:
+	var player: Player = get_tree().get_first_node_in_group("player")
+	if player:
+		player.set_physics_process(false)
 	var tw: Tween = create_tween()
 	tw.tween_property(transition_rect, "color:a", 0.0, seconds)
 	await tw.finished
 	is_transitioning = false
+	player = get_tree().get_first_node_in_group("player")
+	if player:
+		player.set_physics_process(true)
 
-func change_to(scene_path: String, payload: Dictionary = {}, transition: bool = true) -> void:
+
+func change_to(scene_path: String, payload: Dictionary = {}) -> void:
 	# Prevent double transitions
 	if is_transitioning:
 		return
 	
 	if GameManager.player_passed_out:
-		transition = false
+		with_transition = false
+	else:
+		with_transition = true
 	
 	GameManager.save_scene_runtime_state()
 	scene_payload = payload.duplicate()
@@ -69,14 +81,17 @@ func change_to(scene_path: String, payload: Dictionary = {}, transition: bool = 
 		save_player_position(payload["player_position"])
 	else:
 		save_player_position()
+		
+	if payload.has("transition"):
+		with_transition = payload["transition"]
 	
 	last_known_scene = current_scene().scene_file_path
 	GameManager.connect_scene_load_callback()
 	
-	# Fade out first
-	if transition:
+	## Fade out first
+	if with_transition:
 		await fade_out(0.5)
-	
+
 	# Change scene (deferred for safety)
 	get_tree().call_deferred("change_scene_to_file", scene_path)
 	MusicManager.play_bg_music(scene_path)
