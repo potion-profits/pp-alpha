@@ -412,8 +412,8 @@ libraries = {
 
 [node name="StudioLogo" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(967.00006, 522)
-scale = Vector2(2.101852, 2.101852)
+position = Vector2(967.00006, 586.75)
+scale = Vector2(2.101852, 2.3416667)
 texture = ExtResource("3_jk5yn")
 
 [node name="Shay" type="AnimatedSprite2D" parent="."]
