@@ -16,6 +16,8 @@ var can_advance: bool = true
 var player_has_interacted: bool = false
 ## To track proper tutorial interaction with shelf
 var shelf_item_count_before: int = 0
+## Player first slot check
+var selected_slot : InvSlot
 
 ## Scene references set by setup()
 var tutorial_character: StaticBody2D
@@ -111,45 +113,42 @@ func check_item_interaction() -> void:
 	var player: Player = get_tree().get_first_node_in_group("player")
 	if not player:
 		return
+	
+	var current_step: Dictionary = get_current_step()
+	if current_step.is_empty():
+		return
+	var step_id: String = current_step["id"]
 
-	for crate: Node2D in get_tree().get_nodes_in_group("tutorial_crate"):
-		if player.global_position.distance_to(crate.global_position) < 50:
-			advance("bottle_grabbed")
-			return
+	if step_id == "grab_bottle":
+		for crate: Node2D in get_tree().get_nodes_in_group("tutorial_crate"):
+			if player.global_position.distance_to(crate.global_position) < 50:
+				await get_tree().process_frame
+				selected_slot = player.get_selected_slot()
+				if selected_slot and selected_slot.item:
+					if selected_slot.item.texture_code == "item_empty_bottle":
+						advance("bottle_grabbed")
+				return
 
-	for barrel: Node2D in get_tree().get_nodes_in_group("tutorial_barrel"):
-		if player.global_position.distance_to(barrel.global_position) < 50:
-			var selected_slot: InvSlot = player.get_selected_slot()
-			if selected_slot and selected_slot.item:
-				var item: InvItem = selected_slot.item
-				if item.texture_code == "item_empty_bottle" or (item.mixable and not item.sellable):
-					advance("ingredients_grabbed")
-					return
-			return
-
-	for cauldron: Node2D in get_tree().get_nodes_in_group("tutorial_cauldron"):
-		if player.global_position.distance_to(cauldron.global_position) < 50:
-			var current_step: Dictionary = get_current_step()
-
-			if current_step["id"] == "mix_potion":
+	elif step_id == "mix_potion":
+		for cauldron: Node2D in get_tree().get_nodes_in_group("tutorial_cauldron"):
+			if player.global_position.distance_to(cauldron.global_position) < 50:
+				await get_tree().process_frame
 				if cauldron.mixing or (cauldron.inv.slots[0].item and cauldron.inv.slots[0].item.mixable):
 					advance("potion_mixed")
-					return
-			elif current_step["id"] == "wait_brewing":
-				if not cauldron.mixing:
-					advance("potion_ready")
-					return
-			elif current_step["id"] == "grab_potion":
+				return
+
+	elif step_id == "grab_potion":
+		for cauldron: Node2D in get_tree().get_nodes_in_group("tutorial_cauldron"):
+			if player.global_position.distance_to(cauldron.global_position) < 50:
 				await get_tree().process_frame
 				var slot: InvSlot = player.get_selected_slot()
 				if slot and slot.item and slot.item.sellable:
 					advance("potion_grabbed")
-					return
+				return
 
-	for shelf: Node2D in get_tree().get_nodes_in_group("tutorial_shelf"):
-		if player.global_position.distance_to(shelf.global_position) < 50:
-			var current_step: Dictionary = get_current_step()
-			if current_step["id"] == "go_to_shelf":
+	elif step_id == "go_to_shelf":
+		for shelf: Node2D in get_tree().get_nodes_in_group("tutorial_shelf"):
+			if player.global_position.distance_to(shelf.global_position) < 50:
 				shelf_item_count_before = 0
 				for shelf_node: Node2D in get_tree().get_nodes_in_group("tutorial_shelf"):
 					if "inv" in shelf_node and shelf_node.inv:
@@ -168,7 +167,14 @@ func check_process() -> void:
 	if current_step.is_empty():
 		return
 
-	if current_step["id"] == "stock_shelf":
+	if current_step["id"] == "get_ingredients":
+		var player: Player = get_tree().get_first_node_in_group("player")
+		if player:
+			var slot: InvSlot = player.get_selected_slot()
+			if slot and slot.item and slot.item.texture_code == "item_red_potion":
+				advance("ingredients_grabbed")
+
+	elif current_step["id"] == "stock_shelf":
 		var current_count: int = 0
 		for shelf: Node2D in get_tree().get_nodes_in_group("tutorial_shelf"):
 			if "inv" in shelf and shelf.inv:

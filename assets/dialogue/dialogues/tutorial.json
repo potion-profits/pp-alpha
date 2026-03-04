@@ -77,7 +77,7 @@
 	{
 	  "id": "close_shelf",
 	  "marker": "ShelfMarker",
-	  "text": "Great! Now press ESC to close the shelf menu.",
+	  "text": "Great! Now press E or ESC to close the shelf menu.",
 	  "wait_for": "shelf_closed",
 	  "cooldown": 3.0
 	},
