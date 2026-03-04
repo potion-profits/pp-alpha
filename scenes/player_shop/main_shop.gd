@@ -41,10 +41,6 @@ var scaled_size: Vector2
 var orig_pos: Vector2
 
 func _ready()->void:
-	var pause_scene : Resource = preload("res://scenes/ui/pause_menu.tscn")
-	var menu_instance : Node = pause_scene.instantiate()
-	add_child(menu_instance)
-	GameManager.set_pause_menu(menu_instance.get_node("PauseMenuControl"))
 	get_viewport().size_changed.connect(_on_viewport_size_changed)
 	await get_tree().process_frame
 	viewport_size = get_viewport_rect().size

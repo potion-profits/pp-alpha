@@ -459,9 +459,6 @@ position = Vector2(704, 961)
 [node name="Npc19" parent="Entities" instance=ExtResource("9_o5pd2")]
 position = Vector2(684, 960)
 
-[node name="Npc20" parent="Entities" instance=ExtResource("9_o5pd2")]
-position = Vector2(723, 960)
-
 [node name="Npc21" parent="Entities" instance=ExtResource("9_o5pd2")]
 position = Vector2(723, 960)
 
