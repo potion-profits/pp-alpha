@@ -62,7 +62,7 @@ func _ready() -> void:
 	await get_tree().process_frame
 	viewport_size = get_viewport_rect().size
 	check_camera_pos()
-	_on_viewport_size_changed() # initalize inv UI position
+	_on_viewport_size_changed()
 
 func check_camera_pos() -> void:
 	if player.global_position.y <= b_bottom_right.global_position.y:
@@ -70,14 +70,6 @@ func check_camera_pos() -> void:
 	else:
 		transition_camera(f_top_left, f_bottom_right)
 	player_camera.reset_smoothing()
-
-func _process(_delta: float) -> void:
-	if tutorial and not GameManager.tutorial_completed:
-		tutorial.check_process()
-
-func _input(event: InputEvent) -> void:
-	if tutorial and not GameManager.tutorial_completed:
-		tutorial.on_input(event)
 
 func _physics_process(_delta: float) -> void:
 	if OS.is_debug_build() and Input.is_key_pressed(KEY_HOME):
@@ -107,21 +99,20 @@ func player_sleep() -> void:
 	spawner._ready()
 
 func clear_npcs() -> void:
-	var em : EntityManager = get_node("EntityManager") 
-	var return_basket : ReturnBasket = get_node("EntityManager/ReturnBasket") 
+	var em : EntityManager = get_node("EntityManager")
+	var return_basket : ReturnBasket = get_node("EntityManager/ReturnBasket")
 	var register : Node2D = get_node("EntityManager/CashRegister")
-	for child in em.get_children(): 
-		if child is ShopNpc: 
-			if child.item_found: 
-				var potion : InvItem = ItemRegistry.new_item(child.prefered_item) 
+	for child in em.get_children():
+		if child is ShopNpc:
+			if child.item_found:
+				var potion : InvItem = ItemRegistry.new_item(child.prefered_item)
 				potion.mixable = false
-				potion.sellable = true 
-				return_basket.return_item(potion) 
+				potion.sellable = true
+				return_basket.return_item(potion)
 			child.free()
 	register.cust_waiting_icon.visible = false
 
-## Moves the camera when the player transitions from the frontroom to the backroom or the backroom 
-## to the frontroom
+## Moves the camera when the player transitions from the frontroom to the backroom or vice versa
 func transition_camera(top_left: Marker2D, bottom_right: Marker2D) -> void:
 	player_camera.limit_left = int(top_left.global_position.x)
 	player_camera.limit_top = int(top_left.global_position.y)
@@ -132,19 +123,15 @@ func _on_move_storage_room_detection_body_entered(body: Node2D) -> void:
 	if body is Player:
 		body.global_position = backroom_frontdoor_dest_marker.global_position
 		transition_camera(b_top_left, b_bottom_right)
-		if tutorial and not GameManager.tutorial_completed:
-			tutorial.advance("entered_backroom")
 
 func _on_move_front_room_detection_body_entered(body: Node2D) -> void:
 	if body is Player:
 		body.global_position = frontroom_backdoor_dest_marker.global_position
 		transition_camera(f_top_left, f_bottom_right)
-		if tutorial and not GameManager.tutorial_completed:
-			tutorial.advance("entered_frontroom")
-	
+
 func _on_npc_spawner_npc_spawned(npc_instance : Node2D) -> void:
 	if floor_map.shelf_targets.is_empty():
-		return # no shelves in shop scene => no valid target for npcs
+		return
 	setup_npc(npc_instance)
 	entity_manager.add_child(npc_instance)
 	npc_instance.move_to_point()

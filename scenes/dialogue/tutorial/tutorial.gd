@@ -3,7 +3,7 @@ extends CanvasLayer
 
 ## Tutorial UI nodes
 @onready var dialogue_label: Label = $DialogueContainer/DialoguePanel/MarginContainer/DialogueLabel
-@onready var character_portrait: TextureRect = $DialogueContainer/TutorialCatPortrait
+@onready var character_portrait: TextureRect = $DialogueContainer/DialoguePanel/TutorialCatPortrait
 
 ## Indicator of which tutorial step player is on
 var current_step_index: int = 0
@@ -23,11 +23,24 @@ var selected_slot : InvSlot
 var tutorial_character: StaticBody2D
 var tutorial_markers: Node
 
+## Backroom boundary for room detection
+var backroom_bottom: float = 0.0
+
 signal tutorial_complete
+
+func _process(_delta: float) -> void:
+	if not GameManager.tutorial_completed:
+		check_process()
+
+func _input(event: InputEvent) -> void:
+	if not GameManager.tutorial_completed:
+		on_input(event)
 
 func setup(scene_root: Node) -> void:
 	tutorial_character = scene_root.get_node("EntityManager/TutorialCat")
 	tutorial_markers = scene_root.get_node("TutorialMarkers")
+	
+	backroom_bottom = scene_root.get_node("BackRoom/BackRoomEdges/BottomRight").global_position.y
 	
 	for cauldron: Node2D in get_tree().get_nodes_in_group("tutorial_cauldron"):
 		if cauldron.has_node("MixTimer"):
@@ -49,6 +62,18 @@ func show_current_step() -> void:
 		return
 
 	var step: Dictionary = tutorial_steps[current_step_index]
+
+	# Skip backroom/frontroom steps if player is already there
+	if step["id"] == "go_backroom":
+		var player: Player = get_tree().get_first_node_in_group("player")
+		if player and player.global_position.y <= backroom_bottom:
+			advance("entered_backroom")
+			return
+	elif step["id"] == "go_frontroom":
+		var player: Player = get_tree().get_first_node_in_group("player")
+		if player and player.global_position.y > backroom_bottom:
+			advance("entered_frontroom")
+			return
 
 	if step.has("marker") and tutorial_markers:
 		var marker: Marker2D = tutorial_markers.get_node_or_null(step["marker"])
@@ -95,6 +120,8 @@ func on_complete() -> void:
 	if is_instance_valid(tutorial_character):
 		if tutorial_character.has_node("SpeechBubble"):
 			tutorial_character.get_node("SpeechBubble").visible = false
+	set_process(false)
+	set_process_input(false)
 
 ## Tracking player and input for tutorial advancement
 func on_input(event: InputEvent) -> void:
@@ -167,7 +194,17 @@ func check_process() -> void:
 	if current_step.is_empty():
 		return
 
-	if current_step["id"] == "get_ingredients":
+	if current_step["id"] == "go_backroom":
+		var player: Player = get_tree().get_first_node_in_group("player")
+		if player and player.global_position.y <= backroom_bottom:
+			advance("entered_backroom")
+
+	elif current_step["id"] == "go_frontroom":
+		var player: Player = get_tree().get_first_node_in_group("player")
+		if player and player.global_position.y > backroom_bottom:
+			advance("entered_frontroom")
+
+	elif current_step["id"] == "get_ingredients":
 		var player: Player = get_tree().get_first_node_in_group("player")
 		if player:
 			var slot: InvSlot = player.get_selected_slot()

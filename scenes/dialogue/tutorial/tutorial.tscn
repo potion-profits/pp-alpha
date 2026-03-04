@@ -72,11 +72,11 @@ theme_override_fonts/font = ExtResource("1_to5ef")
 theme_override_font_sizes/font_size = 32
 autowrap_mode = 2
 
-[node name="TutorialCatPortrait" type="TextureRect" parent="DialogueContainer"]
+[node name="TutorialCatPortrait" type="TextureRect" parent="DialogueContainer/DialoguePanel"]
 layout_mode = 0
-offset_left = 551.0
-offset_top = -430.0
-offset_right = 591.0
-offset_bottom = -390.0
+offset_left = 381.0
+offset_top = -141.0
+offset_right = 421.0
+offset_bottom = -101.0
 scale = Vector2(7.5, 7.5)
 texture = ExtResource("3_hs6vr")
