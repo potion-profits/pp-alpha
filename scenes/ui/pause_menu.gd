@@ -18,6 +18,7 @@ func _on_menu_pressed()->void:
 	#unpause tree when returning to menu (so menu processes are not paused)
 	get_tree().paused = false
 	SceneManager.change_to("res://scenes/ui/start_menu.tscn")
+	TimeManager.set_process(false)
 
 func _on_options_pressed()->void:
 	SceneManager.change_to("res://scenes/ui/new_options.tscn")

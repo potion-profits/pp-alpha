@@ -1,4 +1,4 @@
-extends Entity	#will help store placement and inventory information for persistence
+class_name Cauldron extends Entity	#will help store placement and inventory information for persistence
 
 ## Handles cauldron functionality and visual representation.
 ##
@@ -14,9 +14,13 @@ extends Entity	#will help store placement and inventory information for persiste
 @onready var progress_bar: TextureProgressBar = $ProgressBar	## Reference to progress bar
 @onready var mix_sfx: AudioStreamPlayer2D = $MixSFX ## Reference to audio stream for sound effects
 @export var animation_name: String = "default"	## Cauldron animation name
+@onready var flame_animation: AnimatedSprite2D = $FlameAnim
 
 var mixing: bool = false	## Keeps track of the cauldron's state
 const MIX_DURATION : float = 3.0
+const NUM_FLAME_FRAMES : int = 15
+const MAX_PROGRESS : int = 100
+const MIN_PROGRESS : int = 0
 
 func _ready()-> void:
 	#links interactable template to cauldron specific method (needed for all interactables)
@@ -25,6 +29,10 @@ func _ready()-> void:
 	super._ready()
 	#used to find out what actual scene to place in entity manager
 	entity_code = "cauldron"
+	
+	#Selects random frame to start flame animation
+	flame_animation.frame = randi() % NUM_FLAME_FRAMES
+	
 	if !inv:
 		inv = Inv.new(1)
 
@@ -39,6 +47,8 @@ func _on_interact()->void:
 			if player.collect(inv.slots[0].item):
 				inv.slots[0].amount-=1	#the player collected, so remove item from cauldron
 				inv.slots[0].item = null
+				progress_bar.value = MIN_PROGRESS
+				progress_bar.visible = false
 
 ## Safely plays the cauldron's mixing animation
 func animation_play() -> void:
@@ -89,8 +99,8 @@ func _on_mix_timer_timeout() -> void:
 	mixing = false
 	inv.slots[0].item.mixable = false
 	inv.slots[0].item.sellable = true
-	progress_bar.visible = false
-	progress_bar.value = 100
+	#progress_bar.visible = false
+	progress_bar.value = MAX_PROGRESS
 	mix_timer.stop()
 	# stop looping sfx once timer runs out
 	if mix_sfx:
@@ -99,7 +109,9 @@ func _on_mix_timer_timeout() -> void:
 func _process(_delta: float) -> void:
 	if mixing:
 		var progress_fill: float = (mix_timer.time_left / MIX_DURATION) * 100
-		progress_bar.value = progress_fill
+		
+		# Invert fill progress
+		progress_bar.value = MAX_PROGRESS - progress_fill
 
 ## Creates and returns a dictionary representation of this cauldron. See also [method from_dict].
 func to_dict()-> Dictionary:
@@ -124,7 +136,8 @@ func from_dict(data:Dictionary)->void:
 # Restores the cauldron's timer state after loading
 func _restore_timer(time_left: float)->void:
 	if mix_timer:
-		progress_bar.value = (time_left/MIX_DURATION) * 100
+		# Invert fill progress
+		progress_bar.value = MAX_PROGRESS - (time_left/MIX_DURATION) * 100
 		progress_bar.visible = true
 		mix_timer.stop()
 		mix_timer.start(time_left)

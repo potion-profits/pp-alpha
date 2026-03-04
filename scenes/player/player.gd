@@ -7,7 +7,7 @@ class_name Player
 ## See Inv
 var inv: Inv
 
-const SPEED = 100
+var SPEED : float = 100
 const DASH_MULT = 2.2
 const DASH_DURATION = 0.17
 const DASH_COOLDOWN = 0.5
@@ -17,6 +17,14 @@ const MAX_COINS = int(pow(2, 62))
 var coins : int
 ## Represents amount of casino chips owned by the player
 var chips : int
+## The amount of free placements available
+var credits : Dictionary = {
+	"barrel": 0,
+	"crate" : 0,
+	"shelf": 0,
+	"cauldron" : 0
+}
+
 ## Tracks whether the player is currently dashing or not
 var is_dashing : bool = false
 var can_move : bool = true	## False when player is in an unmoveable state (UI open)
@@ -38,7 +46,7 @@ var step_frames: Array = [1, 3]
 
 signal update_coins	## Triggers the coin UI to update on any change to coin amount
 signal update_chips ## Triggers the chip UI to update on any change to chip amount
-
+signal update_credits ## Triggers the credit UI to update on any change to credtis
 ## Utilized in the state machine for player movement
 enum movement_state {
 	IDLE,
@@ -65,11 +73,13 @@ func _ready() -> void:
 	if !inv:
 		inv = Inv.new(5)
 	if inv_ui:
-		inv.selected_index = GameManager.player_data["inventory"]["selected_index"] if GameManager.player_data else 0
+		inv.selected_index = GameManager.player_data["inventory"]["selected_index"]
 		inv_ui.inv = inv #links player inventory and respective ui
 		inv_ui.allow_hotkeys = true #allows 1-5 use for hotbar-like inv
-	coins = GameManager.player_data["coins"] if GameManager.player_data else 0
-	chips = GameManager.player_data["chips"] if GameManager.player_data else 0
+	coins = GameManager.player_data["coins"]
+	chips = GameManager.player_data["chips"]
+	if OS.is_debug_build():
+		SPEED = SPEED * 3.5
 	#_debug_set_player_inv()
 
 #handles toggled and held inventory
@@ -201,6 +211,13 @@ func set_chips(chips_delta : int) -> int:
 	update_chips.emit()
 	return new_chips
 
+func set_credit(e_code : String, credit_delta : int) -> int:
+	var new_credit : int = credits[e_code] + credit_delta
+	if new_credit < 0 :
+		return credits[e_code]
+	credits[e_code] = new_credit
+	update_credits.emit()
+	return new_credit
 
 ## Return's the player's entire inventory
 func get_inventory() -> Inv:
@@ -258,7 +275,8 @@ func to_dict()->Dictionary:
 	return{
 		"inventory": inv.to_dict(),
 		"coins": coins,
-		"chips": chips
+		"chips": chips,
+		"credits": credits
 	}
 
 ## Translates save state data into player inventory, coins, and chips
@@ -266,6 +284,7 @@ func from_dict(data:Dictionary)->void:
 	inv.from_dict(data["inventory"])
 	coins = data["coins"]
 	chips = data["chips"]
+	credits = data["credits"]
 	
 
 func _debug_set_player_inv()->void:

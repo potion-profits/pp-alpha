@@ -2,6 +2,13 @@
 	"player": {
 		"chips": 0,
 		"coins": 0,
+		"credits": {
+			"barrel": 0,
+			"basket": 0,
+			"cauldron": 0,
+			"crate": 0,
+			"shelf": 0
+		},
 		"inventory": {
 			"selected_index": 0,
 			"slots": [
@@ -46,7 +53,7 @@
 
 				},
 				"x_pos": 520.0,
-				"y_pos": -429.0
+				"y_pos": -432.0
 			},
 			{
 				"entity_code": "shelf",
@@ -127,8 +134,8 @@
 						}
 					]
 				},
-				"x_pos": 275.0,
-				"y_pos": -199.0
+				"x_pos": 264.0,
+				"y_pos": -184.0
 			},
 			{
 				"entity_code": "shelf",
@@ -209,8 +216,8 @@
 						}
 					]
 				},
-				"x_pos": 367.0,
-				"y_pos": -199.0
+				"x_pos": 360.0,
+				"y_pos": -184.0
 			},
 			{
 				"entity_code": "shelf",
@@ -291,8 +298,8 @@
 						}
 					]
 				},
-				"x_pos": 275.0,
-				"y_pos": -103.0
+				"x_pos": 264.0,
+				"y_pos": -88.0
 			},
 			{
 				"barrel_id": "red_barrel",
@@ -302,8 +309,8 @@
 					"slots": []
 				},
 				"ml": 1000,
-				"x_pos": 353.0,
-				"y_pos": -433.0
+				"x_pos": 360.0,
+				"y_pos": -424.0
 			},
 			{
 				"barrel_id": "empty_barrel",
@@ -313,8 +320,8 @@
 					"slots": []
 				},
 				"ml": 0,
-				"x_pos": 378.0,
-				"y_pos": -425.0
+				"x_pos": 376.0,
+				"y_pos": -424.0
 			},
 			{
 				"barrel_id": "empty_barrel",
@@ -324,8 +331,8 @@
 					"slots": []
 				},
 				"ml": 0,
-				"x_pos": 399.0,
-				"y_pos": -415.0
+				"x_pos": 408.0,
+				"y_pos": -408.0
 			},
 			{
 				"barrel_id": "empty_barrel",
@@ -335,8 +342,8 @@
 					"slots": []
 				},
 				"ml": 0,
-				"x_pos": 422.0,
-				"y_pos": -406.0
+				"x_pos": 424.0,
+				"y_pos": -392.0
 			},
 			{
 				"entity_code": "cauldron",
@@ -353,8 +360,8 @@
 				},
 				"mix_timer_time_left": 0.0,
 				"mixing": false,
-				"x_pos": 383.0,
-				"y_pos": -353.0
+				"x_pos": 376.0,
+				"y_pos": -344.0
 			},
 			{
 				"bottles": 0,
@@ -365,7 +372,7 @@
 						{
 							"amount": 0,
 							"item": {
-								"max_stack_size": 16,
+								"max_stack_size": 1,
 								"mixable": false,
 								"sellable": false,
 								"texture_code": "item_empty_bottle"
@@ -373,8 +380,8 @@
 						}
 					]
 				},
-				"x_pos": 325.0,
-				"y_pos": -397.0
+				"x_pos": 328.0,
+				"y_pos": -392.0
 			},
 			{
 				"bottles": 8,
@@ -385,7 +392,7 @@
 						{
 							"amount": 8,
 							"item": {
-								"max_stack_size": 16,
+								"max_stack_size": 1,
 								"mixable": false,
 								"sellable": false,
 								"texture_code": "item_empty_bottle"
@@ -393,10 +400,19 @@
 						}
 					]
 				},
-				"x_pos": 325.0,
-				"y_pos": -369.0
+				"x_pos": 328.0,
+				"y_pos": -360.0
+			},
+			{
+				"entity_code": "basket",
+				"inv": {
+
+				},
+				"items": [],
+				"x_pos": 504.0,
+				"y_pos": -136.0
 			}
 		]
 	},
-	"version": "1.12.26/1"
+	"version": "2.17.26/1"
 }

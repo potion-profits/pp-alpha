@@ -5,16 +5,20 @@ extends Node
 ## Primarily handles saving/loading from both memory and disk. 
 ## Also handles unhandled inputs, which is used for the pause menu.
 
+@onready var player_passed_out : bool = false
 
-var pause_menu: Control	## The instance of the pause menu (likely will change)
+## The instance of the pause menu (likely will change)
+var pause_menu: CanvasLayer = preload("res://scenes/ui/pause_menu.tscn").instantiate()
 var runtime_entities:Dictionary = {} ## Holds all the entities in every scene. See [Entity].
 var player_data:Dictionary = {}	## Holds the player's data. See [Player].
+var pause_enabled : bool = false
 
 # PLEASE UPDATE THIS IF THE DEFAULT STATE NEEDS TO BE UPDATED
 # format is MM.DD.YR/Version
-const default_state_version: String = "1.12.26/1" 
+const default_state_version: String = "2.20.26/1"
 
 func _ready()->void:
+	pause_menu.layer = 200
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	load_from_storage()
 	# Load settings data from storage to apply all settings on game boot
@@ -28,21 +32,34 @@ func set_pause_menu(menu: Control)->void:
 	pause_menu = menu
 	unpause()
 
+func enable_pause()->void:
+	pause_menu.hide()
+	pause_menu.visible = false
+	pause_enabled = true
+	
+func disable_pause() -> void:
+	pause_menu.hide()
+	pause_menu.visible = false
+	pause_enabled = false
+
 # Any input in this function will always behave as defined here unless 
 # explicitly handled elsewhere
 func _unhandled_input(event : InputEvent)->void:
+	if SceneManager.is_transitioning:
+		return
 	if event.is_action_pressed("ui_cancel"):
 		#Case where pausing is allowed
-		if(pause_menu):
+		if(pause_menu and pause_enabled):
 			get_tree().paused = !get_tree().paused
 			pause_menu.visible = get_tree().paused
 
 ## Unpauses the game by removing the pause menu.
 func unpause()->void:
-	if (pause_menu):
+	if (pause_menu and pause_enabled):
 		get_tree().paused = false
 		pause_menu.hide()
 		pause_menu.visible = false
+		TimeManager.set_process(true)
 
 ## Commits everything in [member runtime_entities] and [member player_data] to disk.[br][br]
 ##
@@ -97,7 +114,7 @@ func load_from_storage()->void:
 	runtime_entities = json["scenes"]
 	player_data = json["player"]
 	
-	print("Game Loaded with : ",player_data,"\n", runtime_entities)
+	#print("Game Loaded with : ",player_data,"\n", runtime_entities)
 
 ## Stores current scene's and player's state into the runtime memory.[br][br]
 ##
@@ -114,7 +131,7 @@ func save_scene_runtime_state() -> void:
 		for entity in em.get_children():
 			if entity is Entity:
 				runtime_entities[scene_name].append(entity.to_dict())
-				print("saved: ",entity.to_dict())
+				#print("saved: ",entity.to_dict())
 	var player_node: Node = cs.find_child("Player", true, false)
 	if player_node:
 		player_data = player_node.to_dict()
@@ -127,6 +144,8 @@ func load_scene_runtime_state()->void:
 	var player_node: Node = cs.find_child("Player", true, false)
 	if player_node and player_data:
 		player_node.from_dict(player_data)
+	
+	SceneManager.load_player_position()
 
 	var em:EntityManager = null
 	var scene_name:String = cs.name
@@ -139,7 +158,7 @@ func load_scene_runtime_state()->void:
 	if em and runtime_entities.has(scene_name):
 		for data:Dictionary in runtime_entities[scene_name]:
 			em.load_from_dict(data)
-			print("loaded: ", data)
+			#print("loaded: ", data)
 
 ## Creates a callback to load the next scene's state. [br][br]
 ##
