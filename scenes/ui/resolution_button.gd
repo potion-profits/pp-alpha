@@ -13,14 +13,16 @@ const RESULTION_OPTIONS: Dictionary = {
 }
 
 var current_screen: int
+# the device's native resolution
+var native_res_text: String
+var native_res: Vector2i
 
 func _ready() -> void:
+	current_screen = DisplayServer.window_get_current_screen()
+	native_res = DisplayServer.screen_get_size(current_screen)
+	native_res_text = "{x} x {y}".format({"x": native_res.x, "y": native_res.y})
 	add_resolution_items()
 	load_data()
-	current_screen = DisplayServer.window_get_current_screen()
-
-func get_native_display_res() -> Vector2i:
-	return DisplayServer.screen_get_size(current_screen)
 
 func load_data() -> void:
 	_on_option_button_item_selected(SettingDataContainer.resolution_mode_index)
@@ -32,6 +34,9 @@ func load_data() -> void:
 func add_resolution_items() -> void:
 	for res_text: String in RESULTION_OPTIONS:
 		option_button.add_item(res_text)
+	# if option for player's native resolution does not exist, add it as an option
+	if !RESULTION_OPTIONS.get(native_res_text):
+		option_button.add_item(native_res_text)
 
 func _on_option_button_item_selected(index: int) -> void:
 	var resolution: Vector2i = RESULTION_OPTIONS.values()[index]
@@ -43,7 +48,6 @@ func on_window_switch(idx: int) -> void:
 	if idx == 1:
 		check_disable_resolution(idx)
 		#var native_res : Vector2i = get_native_display_res(current_screen)
-		
 
 func check_disable_resolution(idx: int) -> void:
 	# 1 is fullscreen mode
