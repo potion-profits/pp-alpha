@@ -28,9 +28,10 @@ extends Node2D
 @onready var player : Player = $EntityManager/Player
 ## Front door spawn marker
 @onready var spawn_marker : Marker2D = $FrontRoom/PlayerSpawn
-
 ## Tutorial script instance
 @onready var tutorial: CanvasLayer = $Tutorial_UI
+## Clock
+@onready var clock : Control = $Static_UI/Clock
 
 ## Size of player's window
 var viewport_size: Vector2
@@ -56,6 +57,7 @@ func _ready() -> void:
 		tutorial.setup(self)
 		tutorial.tutorial_complete.connect(_on_tutorial_complete)
 		tutorial.start(DialogueManager.get_array("tutorial", "tutorial"))
+		clock.visible = false
 	else:
 		tutorial.visible = false
 	
@@ -196,4 +198,5 @@ func _on_bottom_collision_body_exited_backroom(body: Node2D) -> void:
 func _on_tutorial_complete() -> void:
 	if tutorial:
 		tutorial.on_complete()
+		clock.visible = true
 	tutorial = null

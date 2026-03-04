@@ -48,6 +48,7 @@ func setup(scene_root: Node) -> void:
 
 ## Starts tutorial
 func start(steps: Array) -> void:
+	TimeManager.set_process(false)
 	tutorial_steps = steps
 	current_step_index = 0
 	can_advance = true
@@ -122,6 +123,7 @@ func on_complete() -> void:
 			tutorial_character.get_node("SpeechBubble").visible = false
 	set_process(false)
 	set_process_input(false)
+	TimeManager.set_process(true)
 
 ## Tracking player and input for tutorial advancement
 func on_input(event: InputEvent) -> void:
