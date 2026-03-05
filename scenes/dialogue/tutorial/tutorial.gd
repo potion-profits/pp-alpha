@@ -82,7 +82,6 @@ func show_current_step() -> void:
 			tutorial_character.global_position = marker.global_position
 			tutorial_character.visible = true
 
-	DialogueManager.show_text(step["text"], step.get("speaker", ""))
 	dialogue_label.text = step["text"]
 
 ## Advance to next tutorial step

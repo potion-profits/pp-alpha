@@ -61,10 +61,6 @@ func _process(_delta : float) -> void:
 
 ## Opens dialogue with cashier, branches to exchange or info
 func open_cashier_dialogue() -> void:
-	var last_dir: String = player.last_dir
-	var player_idle_dir: String = "idle_" + last_dir
-	player.animated_sprite.play(player_idle_dir)
-	player.set_physics_process(false)
 	dialogue_ui.open("casino", "cashier_greeting")
 
 ## Handles dialogue actions

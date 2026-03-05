@@ -5,6 +5,9 @@ var dialogue_data: Dictionary = {}
 
 signal dialogue_shown(text: String, speaker: String)
 
+## flag for dialogue being open
+var dialogue_open : bool = false
+
 func _ready() -> void:
 	load_all_dialogues()
 
@@ -52,7 +55,3 @@ func show_dialogue(file_key: String, dialogue_id: String) -> Dictionary:
 		var text: String = dialogue.get("text", "")
 		dialogue_shown.emit(text, speaker)
 	return dialogue
-
-## Convenience for emitting dialogue text directly
-func show_text(text: String, speaker: String = "") -> void:
-	dialogue_shown.emit(text, speaker)

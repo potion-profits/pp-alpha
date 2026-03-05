@@ -74,7 +74,7 @@ func fade_in(seconds: float = 0.5) -> void:
 	await tw.finished
 	is_transitioning = false
 	player = get_tree().get_first_node_in_group("player")
-	if player:
+	if player and not DialogueManager.dialogue_open:
 		player.set_physics_process(true)
 
 
