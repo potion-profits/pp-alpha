@@ -4,9 +4,9 @@ class_name Casino extends Node2D
 ## See [Player]
 @onready var player: Player = $Entities/Player
 ## UI container for the exchange menu, opens on interact with cashier
-@onready var exchange_container: VBoxContainer = $CanvasLayer/ExchangeContainer
+@onready var exchange_container: VBoxContainer = $DialogueUI/ExchangeContainer
 ## Label for displaying the current pending exchange amount
-@onready var num_coins_to_exchange: Label = $CanvasLayer/ExchangeContainer/HBoxContainer/NumCoinsToExchange
+@onready var num_coins_to_exchange: Label = $DialogueUI/ExchangeContainer/HBoxContainer/NumCoinsToExchange
 ## Handles currency and prize exchange, see also [Npc]
 @onready var cashier_npc: CharacterBody2D = $StaticAssets/CashierNpc
 @onready var spawn_marker: Marker2D = $StaticAssets/MoveTownArea/PlayerSpawn
