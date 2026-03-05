@@ -6,7 +6,12 @@ extends Node
 ## and getting the current scene.
 
 @onready var shop_path : String = "res://scenes/player_shop/main_shop.tscn"
-
+var pausable_scenes : Array = [
+	'res://scenes/casino/casino_floor.tscn',
+	'res://scenes/town/town.tscn',
+	'res://scenes/supply_shop/supply_shop.tscn',
+	'res://scenes/player_shop/main_shop.tscn',
+]
 ## Holds any information that the previous scene wants the new scene to have.
 var scene_payload: Dictionary = {}
 
@@ -24,6 +29,15 @@ var transition_rect: ColorRect
 ## True while a transition is playing
 var is_transitioning: bool = false
 var with_transition: bool = true
+
+## Menu scenes to not save
+const menu_scenes : Array = [
+	"res://scenes/cinematics/opening_logos.tscn",
+	"res://scenes/ui/options_menu.tscn",
+	"res://scenes/ui/start_menu.tscn",
+	"res://scenes/ui/volume_menu.tscn",
+	"res://scenes/ui/pause_menu.tscn"
+]
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -85,7 +99,9 @@ func change_to(scene_path: String, payload: Dictionary = {}) -> void:
 	if payload.has("transition"):
 		with_transition = payload["transition"]
 	
-	last_known_scene = current_scene().scene_file_path
+	var cs : String = current_scene().scene_file_path
+	if cs not in menu_scenes:
+		last_known_scene  = cs
 	GameManager.connect_scene_load_callback()
 	
 	## Fade out first
@@ -95,6 +111,14 @@ func change_to(scene_path: String, payload: Dictionary = {}) -> void:
 	# Change scene (deferred for safety)
 	get_tree().call_deferred("change_scene_to_file", scene_path)
 	MusicManager.play_bg_music(scene_path)
+	
+	if scene_path in pausable_scenes:
+		if not GameManager.pause_menu.get_parent():
+			call_deferred("add_child", GameManager.pause_menu)
+		GameManager.call_deferred("unpause")
+		GameManager.enable_pause()
+	else:
+		GameManager.disable_pause()
 
 func get_payload() -> Dictionary:
 	var payload : Dictionary = scene_payload

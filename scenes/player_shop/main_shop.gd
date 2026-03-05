@@ -44,12 +44,7 @@ var scaled_size: Vector2
 ## Holds position for inventory UI to default to
 var orig_pos: Vector2
 
-func _ready() -> void:
-	add_to_group("main_shop")
-	var pause_scene : Resource = preload("res://scenes/ui/pause_menu.tscn")
-	var menu_instance : Node = pause_scene.instantiate()
-	add_child(menu_instance)
-	GameManager.set_pause_menu(menu_instance.get_node("PauseMenuControl"))
+func _ready()->void:
 	get_viewport().size_changed.connect(_on_viewport_size_changed)
 	
 	if not GameManager.tutorial_completed:

@@ -7,26 +7,32 @@ extends Node
 
 @onready var player_passed_out : bool = false
 
-var pause_menu: Control	## The instance of the pause menu (likely will change)
+## The instance of the pause menu (likely will change)
+var pause_menu: CanvasLayer = preload("res://scenes/ui/pause_menu.tscn").instantiate()
 var runtime_entities:Dictionary = {} ## Holds all the entities in every scene. See [Entity].
 var player_data:Dictionary = {}	## Holds the player's data. See [Player].
 var tutorial_completed: bool = false ## Tutorial bool so only runs on first instance
+var pause_enabled : bool = false
 
 # PLEASE UPDATE THIS IF THE DEFAULT STATE NEEDS TO BE UPDATED
 # format is MM.DD.YR/Version
 const default_state_version: String = "2.20.26/1"
 
 func _ready()->void:
+	pause_menu.layer = 200
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	load_from_storage()
-
-## Sets the pause menu to the given Control Node. [br][br]
-##
-## Should be called when a scene with a pause menu is added to the scene tree.[br][br]
-## Takes [param menu] to assign as the pause menu.
-func set_pause_menu(menu: Control)->void:
-	pause_menu = menu
 	unpause()
+
+func enable_pause()->void:
+	pause_menu.hide()
+	pause_menu.visible = false
+	pause_enabled = true
+	
+func disable_pause() -> void:
+	pause_menu.hide()
+	pause_menu.visible = false
+	pause_enabled = false
 
 # Any input in this function will always behave as defined here unless 
 # explicitly handled elsewhere
@@ -35,13 +41,13 @@ func _unhandled_input(event : InputEvent)->void:
 		return
 	if event.is_action_pressed("ui_cancel"):
 		#Case where pausing is allowed
-		if(pause_menu):
+		if(pause_menu and pause_enabled):
 			get_tree().paused = !get_tree().paused
 			pause_menu.visible = get_tree().paused
 
 ## Unpauses the game by removing the pause menu.
 func unpause()->void:
-	if (pause_menu):
+	if (pause_menu and pause_enabled):
 		get_tree().paused = false
 		pause_menu.hide()
 		pause_menu.visible = false
