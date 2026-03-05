@@ -112,7 +112,7 @@ func _on_less_coins_pressed() -> void:
 	_update_exchange_label(exchange_amt)
 
 func _on_more_coins_pressed() -> void:
-	var current: int = player.get_coins()
+	var current : int = player.get_coins()
 	if Input.is_action_pressed("sprint"):
 		exchange_amt += 100
 	else:
@@ -122,12 +122,12 @@ func _on_more_coins_pressed() -> void:
 		# not enough coins label
 	_update_exchange_label(exchange_amt)
 
-func _update_exchange_label(new_amt: int) -> void:
+func _update_exchange_label(new_amt : int) -> void:
 	num_coins_to_exchange.text = str(new_amt) + " Coins"
 
 func _on_move_town_area_body_entered(body: Node2D) -> void:
 	if body is Player:
-		var payload: Dictionary = SceneManager.get_payload()
+		var payload : Dictionary = SceneManager.get_payload()
 		payload["player_position"] = spawn_marker.global_position
 		SceneManager.change_to("res://scenes/town/town.tscn", payload)
 
