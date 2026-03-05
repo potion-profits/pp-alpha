@@ -3,6 +3,8 @@ extends Node2D
 @onready var entities: Node2D = $Entities
 @onready var cashier_npc: CharacterBody2D = $Entities/CashierNpc
 @onready var spawn_marker: Marker2D = $PlayerSpawn
+@onready var player: Player = $Entities/Player
+@onready var dialogue_ui: CanvasLayer = $DialogueUI
 
 var saved_position : Vector2
 
@@ -26,12 +28,27 @@ func _ready() -> void:
 		interactable.tooltip = ""
 		update_sprite(child)
 	
-	cashier_npc.interactable.interact = open_purchase_scene
+	dialogue_ui.action_triggered.connect(_on_dialogue_action)
+	dialogue_ui.dialogue_ended.connect(func() -> void: player.set_physics_process(true))
+	cashier_npc.interactable.interact = open_shopkeeper_dialogue
 
+func open_shopkeeper_dialogue() -> void:
+	var last_dir: String = player.last_dir
+	player.animated_sprite.play("idle_" + last_dir)
+	player.set_physics_process(false)
+	dialogue_ui.open("supply_shop", "shopkeeper_greeting")
+
+func _on_dialogue_action(action: String, _data: Dictionary) -> void:
+	if action == "refill":
+		SceneManager.change_to("res://scenes/refill_scene/backroom.tscn")
+	elif action == "storage":
+		SceneManager.change_to("res://scenes/entity_storing/entity_storing.tscn")
+	elif action == "placement":
+		SceneManager.change_to("res://scenes/grid_placement/grid_placement.tscn")
+
+# link to Ozcar's code here
 func open_purchase_scene() -> void:
-	# link to Ozcar's code here
 	SceneManager.change_to("res://scenes/town_menu/town_menu.tscn")
-	pass
 
 func _on_move_town_detection_body_entered(body: Node2D) -> void:
 	if body is Player:
