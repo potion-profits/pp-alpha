@@ -1,7 +1,14 @@
 extends Node
 
+## Responsible for the settings.config file (loading and saving/creating)
+##
+## Fetches current settings state and saves/creates a file
+## Also calls load setting function when loading from file 
+
 const CONFIG_PATH: String = "user://settings.cfg"
+# Dictionary used when saving
 var setting_data_dict: Dictionary = {}
+# Dictionary used when loading
 var loaded_settings_dict: Dictionary = {}
 
 func _ready() -> void:
@@ -10,16 +17,23 @@ func _ready() -> void:
 	# load data from file
 	load_settings_data()
 
-# Saves to config file
+## Saves to config file [br][br]
+##
+## If config file does not exist, automatically create one
+## else overwrite existing config
 func on_settings_save(data: Dictionary) -> void:
 	var cfg: ConfigFile = ConfigFile.new()
 	# ConfigFile class auto serializes dict entries
 	cfg.set_value("settings","data", data)
 	cfg.save(CONFIG_PATH)
 
+## Loads setting from config file [br][br]
+##
+## Loads in config file and updates current setting state
+## on_settings_save ensures a config file exists
 func load_settings_data() -> void:
-	var cfg:ConfigFile = ConfigFile.new()
-	var err:Error = cfg.load(CONFIG_PATH)
+	var cfg: ConfigFile = ConfigFile.new()
+	var err: Error = cfg.load(CONFIG_PATH)
 	if err != OK:
 		return
 	

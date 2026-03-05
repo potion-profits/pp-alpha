@@ -1,20 +1,29 @@
 extends Node
 
-## Default Setting values
+## Tracks all current settings state in one place in code
+##
+## Contains callback functions called from SettingManager
+## Callbacks edit the current state of the settings
+## When saving, the state of current settings gets written to file by SaveManager
+## When loading, the state of settings gets overwritten by loaded file values, else default
+
+# Keybind resource reference, contains Default keybind information and assigned keybinds
+# Acts as state container for keybinds specifically
 @onready var keybind_resource : KeybindContainer = preload("res://scenes/ui/default_keybinds.tres")
 
+# Relevant setting values
 var tooltip_enabled: bool = true
 var window_mode_index: int = 0
 var resolution_mode_index: int = 0
-# Volumes stored are db values
+# Volumes stored are db values (converted to linear later)
 var master_volume: float = 0.0
 var music_volume: float = 0.0
 var sfx_volume: float = 0.0
 
-## Save loaded data
+# Loaded data from file
 var loaded_data: Dictionary = {}
 
-# Map action -> resource property name
+# Maps action -> resource property name
 @onready var ACTION_TO_BIND_PROP: Dictionary = {
 	keybind_resource.MOVE_LEFT: "move_left_key",
 	keybind_resource.MOVE_RIGHT: "move_right_key",
@@ -29,7 +38,7 @@ var loaded_data: Dictionary = {}
 	keybind_resource.SLOT_5: "slot_5_key"
 }
 
-# Map action -> default property name
+# Maps action -> default property name
 @onready var ACTION_TO_DEFAULT_PROP: Dictionary = {
 	keybind_resource.MOVE_LEFT: "DEFAULT_MOVE_LEFT_KEY",
 	keybind_resource.MOVE_RIGHT: "DEFAULT_MOVE_RIGHT_KEY",
@@ -48,7 +57,10 @@ func _ready() -> void:
 	handle_signals()
 	create_storage_dict()
 
-# Temporarly saving all hotkeys
+## Initializes the settings container and connects to SettingManager signals.[br][br]
+##
+## This function is called once on game startup. It ensures the container is
+## listening for load signals, and can produce a settings dictionary for saving.
 func create_storage_dict() -> Dictionary:
 	var setting_dict: Dictionary = {
 		"tooltip_enabled": tooltip_enabled,
@@ -61,21 +73,21 @@ func create_storage_dict() -> Dictionary:
 	}
 	return setting_dict
 
-## Will be created within the settings storage dictionary (nested dict)
-# Created on save, used for loading
+## Initializes the keybind container (within the storage dict)
 func create_keybind_dict() -> Dictionary:
-	# Map from keybind container resource (custom keys, defaults already set)
+	# Map from keybind container resource (custom keys, else defaults already set)
 	var keybind_dict: Dictionary = {}
 	for action: String in ACTION_TO_BIND_PROP.keys():
 		var key_name: String = ACTION_TO_BIND_PROP[action]
 		var event: InputEvent = keybind_resource.get(key_name)
 		keybind_dict[action] = event.physical_keycode
 	return keybind_dict
-
 #TODO From vid, extra getters to validate and return defaults for missing values (create resource file)
 
-# Signal related data to load (parameter of settings data loaded in)
-# Called once settings config file detected from SaveManager
+## Applies loaded settings data from file into this container.[br][br]
+##
+## Called when SaveManager emits a loaded settings dictionary through SettingManager.
+## (ie once settings config file detected)
 func on_load_settings_data(data_dict: Dictionary) -> void:
 	if !data_dict:
 		return
@@ -89,7 +101,8 @@ func on_load_settings_data(data_dict: Dictionary) -> void:
 	on_sfx_vol_set(loaded_data.get("sfx_volume"))
 	on_keybinds_loaded(loaded_data.get("keybinds"))
 
-# Signal related data to set
+## Setter functions for updating setting state
+## Signal related data to set
 func on_tooltip_enabled(enabled: bool) -> void:
 	tooltip_enabled = enabled
 
@@ -108,39 +121,37 @@ func on_music_vol_set(value: float) -> void:
 func on_sfx_vol_set(value: float) -> void:
 	sfx_volume = value
 
-# Setter functions for rebinding keys
+# I DO NOT LIKE THIS AT ALL (Works but ugly), fuck ass tutorial
+## Loads keybind overrides from a saved dictionary.[br][br]
+##
+## For each supported action, reads the saved physical_keycode integer and
+## constructs an InputEventKey to store into the keybind resource.
+func on_keybinds_loaded(keybind_data: Dictionary) -> void:
+	if keybind_data == null or keybind_data.is_empty():
+		return
+	for action: String in ACTION_TO_BIND_PROP.keys():
+		if not keybind_data.has(action):
+			continue
+		var keycode: int = int(keybind_data.get(action))
+		if keycode <= 0:
+			continue
+		var event: InputEvent = InputEventKey.new()
+		event.physical_keycode = keycode
+		# Assign new InputEventKey to keyboard resource
+		var prop: String = ACTION_TO_BIND_PROP.get(action, "")
+		if prop != "":
+			keybind_resource.set(prop, event)
+
+## Setter functions for rebinding keys
 func set_keybind(action: String, event: InputEventKey) -> void:
 	var action_name: String = ACTION_TO_BIND_PROP.get(action)
 	if action_name:
 		keybind_resource.set(action_name,event)
 
-
-# I DO NOT LIKE THIS AT ALL (Works but ugly), fuck ass tutorial
-# Once the loaded config is loaded (via signal) assign each loaded value to the actual keybind
-## match loaded in dictionary to each action
-## physical keycode of action, needed for Godot to bind
-## the input event (move_left, dash, etc.) to bind the keycode to 
-## the input event name to set the loaded keybind in the resource
-func on_keybinds_loaded(data: Dictionary) -> void:
-	if data == null or data.is_empty():
-		return
-
-	for action: String in ACTION_TO_BIND_PROP.keys():
-		if not data.has(action):
-			continue
-
-		var keycode: int = int(data.get(action))
-		if keycode <= 0:
-			continue
-
-		var ev: InputEvent = InputEventKey.new()
-		ev.physical_keycode = keycode
-
-		var prop: String = ACTION_TO_BIND_PROP.get(action, "")
-		if prop != "":
-			keybind_resource.set(prop, ev)
-
-### Getter functions
+## Getter functions
+## Returns current keybind state of the given action [br][br]
+##
+## Takes in parameters:[param p3] action: InputMap action name.[br][br]
 func get_keybind(action: String) -> InputEventKey:
 	# if keybinds were loaded use current
 	if loaded_data.has("keybinds") and loaded_data["keybinds"].has(action):
@@ -155,7 +166,7 @@ func get_keybind(action: String) -> InputEventKey:
 		return null
 	return keybind_resource.get(default_prop)
 
-## connect all signals from SettingManager (will refactor to lambda)
+## connect all signals from SettingManager (maybe refactor to a lambda)
 func handle_signals() -> void:
 	SettingManager.load_settings_data.connect(on_load_settings_data)
 	SettingManager.on_tooltip_enabled.connect(on_tooltip_enabled)
