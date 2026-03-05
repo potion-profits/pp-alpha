@@ -31,6 +31,15 @@ func _ready() -> void:
 	dialogue_ui.action_triggered.connect(_on_dialogue_action)
 	dialogue_ui.dialogue_ended.connect(func() -> void: player.set_physics_process(true))
 	cashier_npc.interactable.interact = open_shopkeeper_dialogue
+	
+	# Reopen dialogue if returning from a sub-scene
+	var payload: Dictionary = SceneManager.get_payload()
+	if payload.get("reopen_dialogue", false):
+		var pos: Vector2 = payload.get("player_position", Vector2.ZERO)
+		if pos != Vector2.ZERO:
+			player.global_position = pos
+		await get_tree().process_frame
+		open_shopkeeper_dialogue()
 
 func open_shopkeeper_dialogue() -> void:
 	var last_dir: String = player.last_dir
@@ -39,12 +48,15 @@ func open_shopkeeper_dialogue() -> void:
 	dialogue_ui.open("supply_shop", "shopkeeper_greeting")
 
 func _on_dialogue_action(action: String, _data: Dictionary) -> void:
+	var payload: Dictionary = SceneManager.get_payload()
+	payload["player_position"] = player.global_position
+	payload["reopen_dialogue"] = true
 	if action == "refill":
-		SceneManager.change_to("res://scenes/refill_scene/backroom.tscn")
+		SceneManager.change_to("res://scenes/refill_scene/backroom.tscn", payload)
 	elif action == "storage":
-		SceneManager.change_to("res://scenes/entity_storing/entity_storing.tscn")
+		SceneManager.change_to("res://scenes/entity_storing/entity_storing.tscn", payload)
 	elif action == "placement":
-		SceneManager.change_to("res://scenes/grid_placement/grid_placement.tscn")
+		SceneManager.change_to("res://scenes/grid_placement/grid_placement.tscn", payload)
 
 # link to Ozcar's code here
 func open_purchase_scene() -> void:
