@@ -41,6 +41,7 @@ func open(file_key: String, dialogue_id: String) -> void:
 	visible = true
 	show_node(dialogue_id)
 	DialogueManager.dialogue_open = true
+	player.set_physics_process(false)
 
 ## Displays a dialogue node by ID — sets text and creates choice buttons
 func show_node(dialogue_id: String) -> void:
@@ -106,11 +107,14 @@ func clear_choices() -> void:
 
 ## Closes the dialogue UI and emits dialogue_ended
 func close() -> void:
+	var player : Player = get_tree().get_first_node_in_group("player")
 	clear_choices()
 	visible = false
 	is_active = false
 	waiting_for_dismiss = false
 	dialogue_ended.emit()
+	DialogueManager.dialogue_open = false
+	player.set_physics_process(true)
 
 ## Handles keyboard input selecting choices
 func _input(event: InputEvent) -> void:
