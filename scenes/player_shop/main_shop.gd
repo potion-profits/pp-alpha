@@ -69,7 +69,7 @@ func _ready()->void:
 	await get_tree().process_frame
 	viewport_size = get_viewport_rect().size
 	check_camera_pos()
-	_on_viewport_size_changed()
+	_on_viewport_size_changed() # initalize inv UI position
 
 func check_camera_pos() -> void:
 	if player.global_position.y <= b_bottom_right.global_position.y:
@@ -138,7 +138,7 @@ func _on_move_front_room_detection_body_entered(body: Node2D) -> void:
 
 func _on_npc_spawner_npc_spawned(npc_instance : Node2D) -> void:
 	if floor_map.shelf_targets.is_empty():
-		return
+		return # no shelves in shop scene => no valid target for npcs
 	setup_npc(npc_instance)
 	entity_manager.add_child(npc_instance)
 	npc_instance.move_to_point()

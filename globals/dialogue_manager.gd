@@ -42,8 +42,7 @@ func get_array(file_key: String, array_key: String) -> Array:
 ## Returns a specific dialogue entry by file key and dialogue id
 func get_dialogue(file_key: String, dialogue_id: String) -> Dictionary:
 	var data: Dictionary = get_data(file_key)
-	var dialogues: Dictionary = data.get("dialogues", {})
-	return dialogues.get(dialogue_id, {})
+	return data.get(dialogue_id, {})
 
 ## Shows a dialogue by file key and dialogue id, emits signal
 func show_dialogue(file_key: String, dialogue_id: String) -> Dictionary:
