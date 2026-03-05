@@ -40,9 +40,29 @@
 	  "text": "Let me know if there's anything else you need!",
 	  "choices": [
 		{ "label": "Exchange coins for chips", "next": null, "action": "open_exchange" },
+		{ "label": "Redeem prizes", "next": "prizes" },
 		{ "label": "Please explain how this place works", "next": "rules" },
-		{ "label": "No, thanks!", "next": null }
+		{ "label": "...You're bald...", "next": "bald"},
+		{ "label": "No, thanks!", "next": null },
+		
 	  ]
+	},
+	"bald": {
+	  "speaker": "Cashier",
+	  "text": "... Yeah.",
+	  "choices": [
+		{ "label": "You have twins around...", "next": "twins" },
+		{ "label": "Nevermind...", "next": null }
+		
+	  ]
+	},
+	"twins": {
+	  "speaker": "Cashier",
+	  "text": "... Thanks for coming by! Mr. Shark will come see you sometime soon. :)",
+	  "choices": [
+		{ "label": "Right. Sounds ominous!", "next": null }
+	  ]
+		
 	}
   }
 }

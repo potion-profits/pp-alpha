@@ -243,6 +243,7 @@ scale = Vector2(2, 2)
 player = NodePath("../../Entities/Player")
 
 [node name="DialogueUI" parent="." instance=ExtResource("4_o5pd2")]
+visible = false
 
 [node name="ExchangeContainer" type="VBoxContainer" parent="DialogueUI"]
 anchors_preset = 7
