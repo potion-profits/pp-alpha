@@ -16,7 +16,6 @@ func load_all_dialogues() -> void:
 	var path: String = "res://assets/dialogue/dialogues/"
 	var dir: DirAccess = DirAccess.open(path)
 	if not dir:
-		print(">>> ERROR: Could not open dialogues directory")
 		return
 	
 	dir.list_dir_begin()
@@ -29,7 +28,6 @@ func load_all_dialogues() -> void:
 				var parsed: Variant = JSON.parse_string(file.get_as_text())
 				if parsed is Dictionary:
 					dialogue_data[key] = parsed
-					print(">>> Loaded dialogue file: ", key)
 		file_name = dir.get_next()
 	dir.list_dir_end()
 

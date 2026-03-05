@@ -123,6 +123,7 @@ func on_complete() -> void:
 	set_process(false)
 	set_process_input(false)
 	TimeManager.set_process(true)
+	GameManager.tutorial_completed = true
 
 ## Tracking player and input for tutorial advancement
 func on_input(event: InputEvent) -> void:
