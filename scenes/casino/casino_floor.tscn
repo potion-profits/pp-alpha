@@ -305,9 +305,11 @@ position = Vector2(800, 639)
 
 [node name="CashierNpc2" parent="StaticAssets" instance=ExtResource("5_a4x82")]
 position = Vector2(832, 639)
+is_interactable = false
 
 [node name="CashierNpc3" parent="StaticAssets" instance=ExtResource("5_a4x82")]
 position = Vector2(864, 639)
+is_interactable = false
 
 [node name="Walls" type="TileMapLayer" parent="StaticAssets"]
 z_index = -1
