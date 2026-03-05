@@ -12,7 +12,7 @@ config_version=5
 
 config/name="potion-profits-game"
 config/version="0.0.1"
-run/main_scene="uid://c4idipr74234u"
+run/main_scene="uid://bkjnwya2kgeso"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 run/size/initial_screen=0
@@ -24,6 +24,7 @@ GameManager="*res://globals/game_manager.gd"
 ItemRegistry="*res://globals/item_registry.gd"
 SceneManager="*res://globals/scene_manager.gd"
 MusicManager="*res://globals/music_manager.tscn"
+TimeManager="*res://globals/time_manager.gd"
 
 [debug]
 

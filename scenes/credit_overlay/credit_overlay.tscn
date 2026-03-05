@@ -1,0 +1,141 @@
+[gd_scene load_steps=10 format=3 uid="uid://80151ujktixb"]
+
+[ext_resource type="Script" uid="uid://ddka0e25ohj08" path="res://scenes/credit_overlay/credit_overlay.gd" id="1_a2p0v"]
+[ext_resource type="Texture2D" uid="uid://cna3dlftjloo6" path="res://assets/interior/shop/shelfandpotion01.png" id="2_a2p0v"]
+[ext_resource type="Texture2D" uid="uid://cx6xf4hpuaq4i" path="res://assets/interior/shop/crates01.png" id="3_gtegy"]
+[ext_resource type="Texture2D" uid="uid://do1mxhb4uqurj" path="res://assets/interior/shop/all_barrels01.png" id="4_ubs7k"]
+[ext_resource type="Texture2D" uid="uid://de68bfn16ivla" path="res://assets/interior/shop/cauldron_LARGE-Sheet.png" id="5_nf6fg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4t0j1"]
+atlas = ExtResource("2_a2p0v")
+region = Rect2(64, 64, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7fuim"]
+atlas = ExtResource("3_gtegy")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_31fts"]
+atlas = ExtResource("4_ubs7k")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ofcsi"]
+atlas = ExtResource("5_nf6fg")
+region = Rect2(0, 16, 16, 16)
+
+[node name="StoreCredits" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+size_flags_horizontal = 0
+script = ExtResource("1_a2p0v")
+
+[node name="Shelf" type="HBoxContainer" parent="."]
+layout_direction = 2
+layout_mode = 0
+offset_left = -4.0
+offset_top = 45.000004
+offset_right = 79.0
+offset_bottom = 82.0
+scale = Vector2(2.25, 2.25)
+theme_override_constants/separation = 2
+
+[node name="ShelfTexture" type="TextureRect" parent="Shelf"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("AtlasTexture_4t0j1")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ShelfAmt" type="Label" parent="Shelf"]
+custom_minimum_size = Vector2(0, 23)
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+text = "0"
+
+[node name="Crate" type="HBoxContainer" parent="."]
+layout_direction = 2
+layout_mode = 0
+offset_left = -4.0
+offset_top = 123.00001
+offset_right = 79.0
+offset_bottom = 160.0
+scale = Vector2(2.25, 2.25)
+theme_override_constants/separation = 2
+
+[node name="CrateTexture" type="TextureRect" parent="Crate"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("AtlasTexture_7fuim")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CrateAmt" type="Label" parent="Crate"]
+custom_minimum_size = Vector2(0, 23)
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+text = "0"
+
+[node name="Barrel" type="HBoxContainer" parent="."]
+layout_direction = 2
+layout_mode = 0
+offset_left = -4.0
+offset_top = 187.0
+offset_right = 79.0
+offset_bottom = 224.0
+scale = Vector2(2.25, 2.25)
+theme_override_constants/separation = 2
+
+[node name="BarrelTexture" type="TextureRect" parent="Barrel"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("AtlasTexture_31fts")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="BarrelAmt" type="Label" parent="Barrel"]
+custom_minimum_size = Vector2(0, 23)
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+text = "0"
+
+[node name="Cauldron" type="HBoxContainer" parent="."]
+layout_direction = 2
+layout_mode = 0
+offset_left = -4.0
+offset_top = 251.0
+offset_right = 79.0
+offset_bottom = 288.0
+scale = Vector2(2.25, 2.25)
+theme_override_constants/separation = 2
+
+[node name="CauldronTexture" type="TextureRect" parent="Cauldron"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("AtlasTexture_ofcsi")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CauldronAmt" type="Label" parent="Cauldron"]
+custom_minimum_size = Vector2(0, 23)
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+text = "0"

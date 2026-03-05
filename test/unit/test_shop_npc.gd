@@ -2,13 +2,14 @@ extends GutTest
 
 var shop_scene : Resource = load("res://scenes/player_shop/main_shop.tscn")
 var shop : Node = null
-var npc_scene : Resource = load("res://scenes/npc_alt/basic_npc.tscn")
+var npc_scene : Resource = load("res://scenes/npc_alt/shop_npc.tscn")
 var npc : Npc = null
 
 # setup shop and npc before each test runs
 func before_each() -> void:
 	shop = shop_scene.instantiate()
 	add_child_autofree(shop)
+	load_data()
 	await wait_process_frames(2)	# allows instances to call _ready()
 	
 	npc = npc_scene.instantiate()
@@ -20,8 +21,30 @@ func before_each() -> void:
 func after_each() -> void:
 	pass
 
+func load_data() -> void:
+	var cs := shop
+	var player_node: Node = cs.find_child("Player", true, false)
+	if player_node and GameManager.player_data:
+		player_node.from_dict(GameManager.player_data)
+	
+	SceneManager.load_player_position()
+
+	var em:EntityManager = null
+	var scene_name:String = "MainShop"
+	if cs.has_node("EntityManager"):
+		em = cs.get_node("EntityManager")
+	if em:
+		for child in em.get_children():
+			if child is Entity:
+				child.queue_free()
+	if em and GameManager.runtime_entities.has(scene_name):
+		for data:Dictionary in GameManager.runtime_entities[scene_name]:
+			em.load_from_dict(data)
+
 func test_npc_has_prefered_item() -> void:
 	assert_not_null(npc.prefered_item)
+	var item_from_map : String = npc.prefered_item_map[npc.npc_class]
+	assert_eq(npc.prefered_item, item_from_map, "NPC class should determine correct prefered item")
 
 func test_npc_path_to_shelf() -> void:
 	assert_not_null(npc.target, "NPC should have a target to move towards")

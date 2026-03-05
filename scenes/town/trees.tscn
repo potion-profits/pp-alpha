@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://dk8lmhwc0b1dn"]
+
+[ext_resource type="Texture2D" uid="uid://cdayuk0mpceyk" path="res://assets/exterior/town_scene_nature/oak_tree_strip.png" id="1_4y3nl"]
+
+[node name="Trees" type="Node2D"]
+
+[node name="Trees" type="Sprite2D" parent="."]
+texture = ExtResource("1_4y3nl")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(-80, 19, -70, 19, -75, 13, -75, 7, -68, 13, -65, 13, -63, 11, -62, 12, -62, 24, -65, 29, -49, 29, -54, 23, -54, 11, -48, 12, -45, 16, -41, 16, -40, 14, -39, 15, -38, 27, -41, 32, -25, 32, -30, 26, -30, 14, -23, 15, -19, 10, -18, 16, -21, 20, -21, 21, -5, 21, -10, 15, -10, 10, -8, 12, -4, 12, -2, 10, -1, 11, -1, 23, -5, 28, 12, 28, 7, 22, 7, 10, 17, 11, 18, 9, 20, 10, 20, 22, 17, 27, 33, 27, 28, 21, 28, 12, 33, 18, 37, 18, 38, 16, 40, 17, 40, 29, 37, 34, 53, 34, 48, 28, 48, 16, 55, 17, 58, 13, 58, 23, 55, 28, 71, 28, 66, 22, 66, 10, 69, 11, 73, 11, 77, 7, 77, 14, 74, 19, 80, 19, 80, -11, -80, -10)

@@ -12,7 +12,8 @@ var entity_codes:Dictionary = {
 	"shelf": "res://scenes/shelf/shelf.tscn",
 	"crate": "res://scenes/crate/crate.tscn",
 	"barrel": "res://scenes/barrel/barrel.tscn",
-	"bed": "res://scenes/bed/bed.tscn"
+	"bed": "res://scenes/bed/bed.tscn",
+	"basket": "res://scenes/return_basket/return_basket.tscn"
 }
 
 ## Creates an in game representation of an Entity given it's data.[br][br]
@@ -20,7 +21,14 @@ var entity_codes:Dictionary = {
 ## Takes [param data] and expects a valid entity code. [br][br]
 ## See [member entity_codes] and [method Entity.from_dict].
 func load_from_dict(data:Dictionary)->void:
-	var entity_scene : PackedScene = load(entity_codes[data["entity_code"]])
-	var entity: Entity = entity_scene.instantiate() as Entity
+	var entity: Entity = create_entity(data["entity_code"])
 	entity.from_dict(data)
 	add_child(entity)
+
+## Creates and returns an instance of an Entity given the proper entity code.[br][br]
+##
+## Takes [param entity_code] and expects it to be valid. See [member entity_codes].
+func create_entity(entity_code: String) -> Entity:
+	var entity_scene : PackedScene = load(entity_codes[entity_code])
+	var entity: Entity = entity_scene.instantiate() as Entity
+	return entity
