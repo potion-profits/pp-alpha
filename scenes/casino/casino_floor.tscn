@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=4 uid="uid://cydb0qypcgibl"]
+[gd_scene load_steps=18 format=4 uid="uid://cydb0qypcgibl"]
 
 [ext_resource type="Texture2D" uid="uid://b7jx6m1vn82gh" path="res://assets/interior/casino/casino_tilemap.png" id="1_0k5tk"]
 [ext_resource type="Script" uid="uid://bgfajl2miu8ge" path="res://scenes/casino/casino_floor.gd" id="1_dnyyd"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://b0flhrlw7t57t" path="res://scenes/player/player.tscn" id="2_dfl8t"]
 [ext_resource type="PackedScene" uid="uid://m6dvdqtwgruy" path="res://scenes/casino/blackjack_table.tscn" id="3_dfl8t"]
 [ext_resource type="PackedScene" uid="uid://dp7r8vke6s7c5" path="res://scenes/coin_ui/player_chip.tscn" id="4_ka76d"]
+[ext_resource type="PackedScene" uid="uid://c3qqvdemavffu" path="res://scenes/ui/dialogue_ui.tscn" id="4_o5pd2"]
 [ext_resource type="PackedScene" uid="uid://sb6usiw8cw7v" path="res://scenes/npc_alt/cashier_npc.tscn" id="5_a4x82"]
 [ext_resource type="PackedScene" uid="uid://ckd2slmjdifxy" path="res://scenes/coin_ui/player_coin.tscn" id="5_y1lbc"]
 
@@ -284,6 +285,8 @@ text = "Redeem Prizes"
 layout_mode = 2
 text = "Cancel
 "
+
+[node name="DialogueUI" parent="." instance=ExtResource("4_o5pd2")]
 
 [node name="StaticAssets" type="Node2D" parent="."]
 

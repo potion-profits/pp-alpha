@@ -1,8 +1,6 @@
 class_name Casino extends Node2D
-
 ## Main scene for the casino level that features playable casino games and a cashier.
 ## The player may exchange coins for chips and chips for prizes / upgrades from the cashier stand.
-
 ## See [Player]
 @onready var player: Player = $Entities/Player
 ## UI container for the exchange menu, opens on interact with cashier
@@ -11,40 +9,42 @@ class_name Casino extends Node2D
 @onready var num_coins_to_exchange: Label = $CanvasLayer/ExchangeContainer/HBoxContainer/NumCoinsToExchange
 ## Handles currency and prize exchange, see also [Npc]
 @onready var cashier_npc: CharacterBody2D = $StaticAssets/CashierNpc
-
 @onready var spawn_marker: Marker2D = $StaticAssets/MoveTownArea/PlayerSpawn
+@onready var dialogue_ui: CanvasLayer = $DialogueUI
 ## Amount of coins to exchange for chips
-var exchange_amt : int = 0
-## Used to signal when the player is done exchanging with the cashier
-signal end_exchange
+var exchange_amt: int = 0
 
 func _ready() -> void:
 	# ----- Necessary for pause menu in scene -----
-	var pause_scene : Resource = preload("res://scenes/ui/pause_menu.tscn")
-	var menu_instance : Node = pause_scene.instantiate()
+	var pause_scene: Resource = preload("res://scenes/ui/pause_menu.tscn")
+	var menu_instance: Node = pause_scene.instantiate()
 	add_child(menu_instance)
 	GameManager.set_pause_menu(menu_instance.get_node("PauseMenuControl"))
 	# ----------------------------------------------
-	
-	exchange_container.visible = false
-	cashier_npc.interactable.interact = process_exchange
-"""
-# I want the player to be able to use buttons to signal, but process runs faster than the interact
-# resulting in race conditions
-func _process(_delta : float) -> void:
-	if exchange_container.visible and (
-		Input.is_action_pressed("interact") or Input.is_key_pressed(KEY_ESCAPE)):
-			end_exchange.emit()
-"""
 
-## Interact function for the cashier NPC, see interactable for further reference.
-## Opens the exchange menu to allow the player to exchange coins for chips and chips for prizes
-func process_exchange() -> void:
-	player.set_physics_process(false)
-	exchange_container.visible = true
-	await end_exchange
 	exchange_container.visible = false
-	player.set_physics_process(true)
+	dialogue_ui.action_triggered.connect(_on_dialogue_action)
+	dialogue_ui.dialogue_ended.connect(func() -> void:
+		exchange_container.visible = false
+		player.set_physics_process(true)
+	)
+	cashier_npc.interactable.interact = open_cashier_dialogue
+
+## Opens dialogue with cashier, branches to exchange or info
+func open_cashier_dialogue() -> void:
+	var last_dir: String = player.last_dir
+	var player_idle_dir: String = "idle_" + last_dir
+	player.animated_sprite.play(player_idle_dir)
+	player.set_physics_process(false)
+	dialogue_ui.open("casino", "cashier_greeting")
+
+## Handles dialogue actions
+func _on_dialogue_action(action: String, _data: Dictionary) -> void:
+	if action == "open_exchange":
+		exchange_amt = 0
+		_update_exchange_label(exchange_amt)
+		dialogue_ui.show_text("Exchange your coins for chips as needed!")
+		exchange_container.visible = true
 
 # exchange logic for coins to chips
 func _on_confirm_exchange_pressed() -> void:
@@ -54,7 +54,8 @@ func _on_confirm_exchange_pressed() -> void:
 	_update_exchange_label(exchange_amt)
 
 func _on_cancel_exchange_pressed() -> void:
-	end_exchange.emit()
+	exchange_container.visible = false
+	dialogue_ui.show_node("anything_else")
 
 func _on_less_coins_pressed() -> void:
 	if Input.is_action_pressed("sprint"):
@@ -66,7 +67,7 @@ func _on_less_coins_pressed() -> void:
 	_update_exchange_label(exchange_amt)
 
 func _on_more_coins_pressed() -> void:
-	var current : int = player.get_coins()
+	var current: int = player.get_coins()
 	if Input.is_action_pressed("sprint"):
 		exchange_amt += 100
 	else:
@@ -76,12 +77,12 @@ func _on_more_coins_pressed() -> void:
 		# not enough coins label
 	_update_exchange_label(exchange_amt)
 
-func _update_exchange_label(new_amt : int) -> void:
+func _update_exchange_label(new_amt: int) -> void:
 	num_coins_to_exchange.text = str(new_amt) + " Coins"
 
 func _on_move_town_area_body_entered(body: Node2D) -> void:
 	if body is Player:
-		var payload : Dictionary = SceneManager.get_payload()
+		var payload: Dictionary = SceneManager.get_payload()
 		payload["player_position"] = spawn_marker.global_position
 		SceneManager.change_to("res://scenes/town/town.tscn", payload)
 
