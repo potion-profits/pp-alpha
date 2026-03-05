@@ -32,6 +32,8 @@ extends Node2D
 @onready var tutorial: CanvasLayer = $Tutorial_UI
 ## Clock
 @onready var clock : Control = $Static_UI/Clock
+## Tutorial cat
+@onready var tutorial_cat : StaticBody2D = $EntityManager/TutorialCat
 
 ## Size of player's window
 var viewport_size: Vector2
@@ -47,6 +49,10 @@ var orig_pos: Vector2
 func _ready()->void:
 	get_viewport().size_changed.connect(_on_viewport_size_changed)
 	
+	# skip tutorial on debug
+	if OS.is_debug_build():
+		GameManager.tutorial_completed = true
+		
 	if not GameManager.tutorial_completed:
 		await get_tree().process_frame
 		tutorial.setup(self)
@@ -55,6 +61,10 @@ func _ready()->void:
 		clock.visible = false
 	else:
 		tutorial.visible = false
+		clock.visible = true
+		TimeManager.set_process(true)
+		if tutorial_cat.has_node("SpeechBubble"):
+			tutorial_cat.get_node("SpeechBubble").visible = false
 	
 	await get_tree().process_frame
 	viewport_size = get_viewport_rect().size
