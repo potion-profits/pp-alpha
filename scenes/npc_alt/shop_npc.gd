@@ -139,7 +139,7 @@ func on_reached_destination() -> void:
 				returned_item.sellable = true
 				returned_item.mixable = false
 				return_basket.return_item(returned_item)
-			
+#			
 			queue_free()
 	
 ## Determines the path from the NPC's current position to its target utilizing the floor tilemap
