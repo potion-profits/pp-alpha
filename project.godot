@@ -26,7 +26,7 @@ SceneManager="*res://globals/scene_manager.gd"
 SettingManager="*res://globals/setting_manager.gd"
 SettingDataContainer="*res://globals/setting_data_container.gd"
 SaveManager="*res://globals/save_manager.gd"
-NewOptions="*res://scenes/ui/new_options.tscn"
+SettingsMenu="*res://scenes/ui/settings_menu.tscn"
 MusicManager="*res://globals/music_manager.tscn"
 TimeManager="*res://globals/time_manager.gd"
 

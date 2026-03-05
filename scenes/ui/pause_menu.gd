@@ -21,8 +21,8 @@ func _on_menu_pressed()->void:
 	TimeManager.set_process(false)
 
 func _on_options_pressed()->void:
-	SceneManager.change_to("res://scenes/ui/new_options.tscn")
-	NewOptions.open()
+	SceneManager.change_to("res://scenes/ui/settings_menu.tscn")
+	SettingsMenu.open()
 
 func _on_resume_pressed()->void:
 	GameManager.unpause()
