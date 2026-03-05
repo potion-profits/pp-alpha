@@ -23,13 +23,6 @@ func _ready()->void:
 	load_from_storage()
 	# Load settings data from storage to apply all settings on game boot
 	SaveManager.load_settings_data()
-
-## Sets the pause menu to the given Control Node. [br][br]
-##
-## Should be called when a scene with a pause menu is added to the scene tree.[br][br]
-## Takes [param menu] to assign as the pause menu.
-func set_pause_menu(menu: Control)->void:
-	pause_menu = menu
 	unpause()
 
 func enable_pause()->void:

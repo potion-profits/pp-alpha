@@ -9,6 +9,7 @@ class_name HotkeyRebindButton
 # Exported to button field 
 @export var action_name: String = ""
 
+# Maps actions to displayed text per keybind
 var action_to_display: Dictionary = {
 	"move_left": "MOVE LEFT",
 	"move_right": "MOVE RIGHT",
@@ -76,6 +77,8 @@ func _unhandled_key_input(event: InputEvent) -> void:
 	button.button_pressed = false
 
 func rebind_action_key(event: InputEvent) -> void:
+	if !event:
+		return
 	# Erase current event
 	InputMap.action_erase_events(action_name)
 	# Rebind the pressed key to new action

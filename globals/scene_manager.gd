@@ -36,7 +36,8 @@ const menu_scenes : Array = [
 	"res://scenes/ui/options_menu.tscn",
 	"res://scenes/ui/start_menu.tscn",
 	"res://scenes/ui/volume_menu.tscn",
-	"res://scenes/ui/pause_menu.tscn"
+	"res://scenes/ui/pause_menu.tscn",
+	"res://scenes/ui/new_options.tscn"
 ]
 
 func _ready() -> void:
