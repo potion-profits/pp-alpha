@@ -344,7 +344,10 @@ height = 8.0
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5w1mn"]
 
 [node name="BasicNpc" type="CharacterBody2D"]
-collision_mask = 128
+collision_layer = 64
+collision_mask = 129
+floor_stop_on_slope = false
+platform_floor_layers = 4294967294
 script = ExtResource("1_ofxo4")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

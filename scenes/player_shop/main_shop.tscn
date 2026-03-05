@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=4 uid="uid://c0wgfjbxk58k0"]
+[gd_scene load_steps=24 format=4 uid="uid://c0wgfjbxk58k0"]
 
 [ext_resource type="Script" uid="uid://cyi5m0rhrv7o2" path="res://scenes/player_shop/main_shop.gd" id="1_47hg3"]
 [ext_resource type="Texture2D" uid="uid://cq4mo6l3w2oka" path="res://assets/interior/shop/background.png" id="2_ixtpo"]
@@ -588,7 +588,7 @@ tile_map_data = PackedByteArray("AAAeAPf/AQAGAAIAAAAbAPf/AQAGAAYAAAAcAPf/AQABAAE
 tile_set = SubResource("TileSet_bg63s")
 
 [node name="Spawn" type="Marker2D" parent="FrontRoom/AstarTilemap"]
-position = Vector2(421, 5)
+position = Vector2(424, 8)
 
 [node name="Checkout" type="Marker2D" parent="FrontRoom/AstarTilemap"]
 position = Vector2(448, -122)
@@ -643,6 +643,7 @@ position = Vector2(394, -3)
 shape = SubResource("RectangleShape2D_g03oc")
 
 [node name="TownDoorBarrier" type="StaticBody2D" parent="FrontRoom"]
+collision_layer = 32768
 
 [node name="Barrier" type="CollisionShape2D" parent="FrontRoom/TownDoorBarrier"]
 position = Vector2(431, 14)
@@ -650,11 +651,13 @@ rotation = 1.5707964
 shape = SubResource("SegmentShape2D_1jnhp")
 
 [node name="StorageDoorBarrier" type="StaticBody2D" parent="FrontRoom"]
+collision_layer = 32768
 
 [node name="Barrier" type="CollisionShape2D" parent="FrontRoom/StorageDoorBarrier"]
 position = Vector2(479, -220)
 rotation = 1.5707964
 shape = SubResource("SegmentShape2D_1jnhp")
+
 [node name="PlayerSpawn" type="Marker2D" parent="FrontRoom"]
 position = Vector2(416, -4)
 
@@ -693,6 +696,7 @@ position = Vector2(394, -289)
 shape = SubResource("RectangleShape2D_g03oc")
 
 [node name="FrontRoomDoorBarrier" type="StaticBody2D" parent="BackRoom"]
+collision_layer = 32768
 
 [node name="Barrier" type="CollisionShape2D" parent="BackRoom/FrontRoomDoorBarrier"]
 position = Vector2(479, -290)
