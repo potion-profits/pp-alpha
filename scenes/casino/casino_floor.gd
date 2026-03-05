@@ -28,10 +28,9 @@ var exchange_amt: int = 0
 func _ready() -> void:
 	exchange_container.visible = false
 	dialogue_ui.action_triggered.connect(_on_dialogue_action)
-	dialogue_ui.dialogue_ended.connect(func() -> void:
-		exchange_container.visible = false
-		player.set_physics_process(true)
-	)
+	#dialogue_ui.dialogue_ended.connect(func() -> void:
+		#exchange_container.visible = false
+	#)
 	cashier_npc.interactable.interact = open_cashier_dialogue
 	
 	for npc : Node in ysort.get_children():
