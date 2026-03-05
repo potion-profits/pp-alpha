@@ -42,8 +42,8 @@ func _ready() -> void:
 	
 	for npc : Node in ysort.get_children():
 		if npc.name.begins_with('Npc'):
-			npc.sprite.frame = randi_range(0, 3)
 			npc.sprite.play("idle_up")
+			npc.sprite.frame = randi_range(0, 3)
 	
 	for dealer : Node in ysort.get_children():
 		if dealer.name.begins_with("Dealer"):
@@ -90,6 +90,7 @@ func spawn_npc(loc: Vector2) -> void:
 	var t_npc : RoamingNpc = roaming_npc_scene.instantiate()
 	t_npc.position = loc
 	ysort.add_child(t_npc)
+	t_npc.sprite.frame = randi_range(0, 3)
 
 # exchange logic for coins to chips
 func _on_confirm_exchange_pressed() -> void:
