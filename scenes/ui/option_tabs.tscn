@@ -8,7 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://bd3fqatqau8j1" path="res://scenes/ui/resolution_button.tscn" id="2_x1aak"]
 
 [sub_resource type="Theme" id="Theme_0sy41"]
-default_font_size = 45
+default_font = ExtResource("1_56t7g")
+default_font_size = 30
 
 [sub_resource type="Theme" id="Theme_4i7af"]
 
@@ -35,9 +36,10 @@ theme = SubResource("Theme_0sy41")
 theme_override_constants/side_margin = 0
 theme_override_constants/icon_separation = 0
 tab_alignment = 1
-current_tab = 0
+current_tab = 2
 
 [node name="Game" type="TabBar" parent="TabContainer"]
+visible = false
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_56t7g")
 metadata/_tab_index = 0
@@ -93,31 +95,16 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="Sound" type="TabBar" parent="TabContainer"]
-visible = false
 layout_mode = 2
 theme = SubResource("Theme_4i7af")
 theme_override_fonts/font = ExtResource("1_56t7g")
 metadata/_tab_index = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Sound"]
+[node name="VolumeMenu" parent="TabContainer/Sound" instance=ExtResource("1_0sy41")]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 24
-theme_override_constants/margin_top = 24
-theme_override_constants/margin_right = 24
-theme_override_constants/margin_bottom = 24
-
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Sound/MarginContainer"]
-layout_mode = 2
-theme_override_constants/separation = 64
-alignment = 1
-
-[node name="VolumeMenu" parent="TabContainer/Sound/MarginContainer/VBoxContainer" instance=ExtResource("1_0sy41")]
-layout_mode = 2
+size_flags_vertical = 6
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 40
 
 [node name="Controls" type="TabBar" parent="TabContainer"]
 visible = false
