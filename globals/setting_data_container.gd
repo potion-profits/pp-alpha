@@ -114,33 +114,46 @@ func set_keybind(action: String, event: InputEventKey) -> void:
 	if action_name:
 		keybind_resource.set(action_name,event)
 
+
 # I DO NOT LIKE THIS AT ALL (Works but ugly), fuck ass tutorial
 # Once the loaded config is loaded (via signal) assign each loaded value to the actual keybind
+## match loaded in dictionary to each action
+## physical keycode of action, needed for Godot to bind
+## the input event (move_left, dash, etc.) to bind the keycode to 
+## the input event name to set the loaded keybind in the resource
 func on_keybinds_loaded(data: Dictionary) -> void:
-	# match loaded in dictionary to each action
-	for action: String in ACTION_TO_BIND_PROP.keys():
-		# physical keycode of action, needed for Godot to bind
-		var keycode: int = int(data.get(action))
-		# the input event (move_left, dash, etc.) to bind the keycode to 
-		var loaded_action: InputEvent = InputEventKey.new()
-		loaded_action.physical_keycode = keycode
-		# the input event name to set the loaded keybind in the resource
-		var prop: String = ACTION_TO_BIND_PROP.get(action)
-		keybind_resource.set(prop, loaded_action)
+	if data == null or data.is_empty():
+		return
 
-## Getter functions
+	for action: String in ACTION_TO_BIND_PROP.keys():
+		if not data.has(action):
+			continue
+
+		var keycode: int = int(data.get(action))
+		if keycode <= 0:
+			continue
+
+		var ev: InputEvent = InputEventKey.new()
+		ev.physical_keycode = keycode
+
+		var prop: String = ACTION_TO_BIND_PROP.get(action, "")
+		if prop != "":
+			keybind_resource.set(prop, ev)
+
+### Getter functions
 func get_keybind(action: String) -> InputEventKey:
 	# if keybinds were loaded use current
-	var prop: String = ACTION_TO_BIND_PROP.get(action, "")
-	if loaded_data.has("keybinds") and loaded_data.get("keybinds").has(action):
-		if prop:
-			return keybind_resource.get(prop)
+	if loaded_data.has("keybinds") and loaded_data["keybinds"].has(action):
+		var prop: String = ACTION_TO_BIND_PROP.get(action, "")
+		if prop == "":
+			return null
+		return keybind_resource.get(prop)
 
 	# otherwise fall back to default
-	var default_property: String = ACTION_TO_DEFAULT_PROP.get(action, "")
-	if default_property == "":
+	var default_prop: String = ACTION_TO_DEFAULT_PROP.get(action, "")
+	if default_prop == "":
 		return null
-	return keybind_resource.get(default_property)
+	return keybind_resource.get(default_prop)
 
 ## connect all signals from SettingManager (will refactor to lambda)
 func handle_signals() -> void:
