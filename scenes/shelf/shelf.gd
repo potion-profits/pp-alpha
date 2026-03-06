@@ -24,8 +24,8 @@ var inv_size: int = 12 ## The size of the shelf's inventory
 var potion_visuals : Array[Sprite2D] = []
 var fill_visuals : Array[Sprite2D] = []
 
-const SHELF_TOOLTIP_OPEN: String = "Press E to Open"
-const SHELF_TOOLTIP_CLOSE: String = "Press E to Close"
+const SHELF_OPEN_TOOLTIP: String = "Press E to Open"
+const SHELF_CLOSE_TOOLTIP: String = "Press E to Close"
 
 # Mapping item_id -> rgb color for modulation
 const visual_color_map = {
@@ -40,7 +40,7 @@ const visual_color_map = {
 func _ready()-> void:
 	#links interactable template to shelf specific method (needed for all interactables)
 	interactable.interact = _on_interact
-	interactable.tooltip = SHELF_TOOLTIP_OPEN
+	interactable.tooltip = SHELF_OPEN_TOOLTIP
 	#sets up entity info 
 	super._ready()
 	#used to find out what actual scene to place in entity manager
@@ -80,11 +80,11 @@ func _on_interact()->void:
 		# play sound effect on open
 		shelf_sfx.pitch_scale = 1
 		shelf_sfx.play()
-		interactable.tooltip = SHELF_TOOLTIP_CLOSE
+		interactable.tooltip = SHELF_CLOSE_TOOLTIP
 	# close on "e" 
 	elif shelf_ui.visible:
 		close_shelf()
-		interactable.tooltip = SHELF_TOOLTIP_OPEN
+		interactable.tooltip = SHELF_OPEN_TOOLTIP
 
 func _input(event: InputEvent) -> void:
 	# close on "esc"
