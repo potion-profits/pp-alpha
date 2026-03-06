@@ -15,6 +15,9 @@ class_name Casino extends Node2D
 @onready var idle_sheet : Resource = preload(
 	"res://assets/char_sprites/npc_sprites/npc_customers/rogue_npc_idle.png"
 	)
+	
+@onready var elevator: Elevator = $StaticAssets/Elevator
+
 const roaming_npc_scene : PackedScene = preload("res://scenes/npc_alt/roaming_npc.tscn")
 const squib_amt : int = 2
 
@@ -33,6 +36,7 @@ func _ready() -> void:
 		player.set_physics_process(true)
 	)
 	cashier_npc.interactable.interact = open_cashier_dialogue
+	elevator.interactable.interact = open_elevator_dialogue
 	
 	for npc : Node in ysort.get_children():
 		if npc.name.begins_with('Npc'):
@@ -59,13 +63,21 @@ func _process(_delta : float) -> void:
 			end_exchange.emit()
 """
 
-## Opens dialogue with cashier, branches to exchange or info
-func open_cashier_dialogue() -> void:
+func prep_dialogue_open() ->void:
 	var last_dir: String = player.last_dir
 	var player_idle_dir: String = "idle_" + last_dir
 	player.animated_sprite.play(player_idle_dir)
 	player.set_physics_process(false)
+
+## Opens dialogue with cashier, branches to exchange or info
+func open_cashier_dialogue() -> void:
+	prep_dialogue_open()
 	dialogue_ui.open("casino", "cashier_greeting")
+
+func open_elevator_dialogue() -> void:
+	prep_dialogue_open()
+	#dialogue_ui.open("casino","elevator_prompt")
+	elevator._on_dialogue_action()
 
 ## Handles dialogue actions
 func _on_dialogue_action(action: String, _data: Dictionary) -> void:
