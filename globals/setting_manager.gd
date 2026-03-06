@@ -39,7 +39,7 @@ func emit_on_tooltip_enabled(enabled: bool) -> void:
 func emit_on_window_selected(index: int) -> void:
 	on_window_selected.emit(index)
 
-func emit_on_resultion_selected(index: int) -> void:
+func emit_on_resolution_selected(index: int) -> void:
 	on_resolution_selected.emit(index)
 
 func emit_on_master_vol_set(value: float) -> void:

@@ -27,7 +27,7 @@ func _on_option_button_item_selected(index: int) -> void:
 	# Emit signal for save data
 	SettingManager.emit_on_window_selected(index)
 	# Emit signal for resolution button
-	resolution_button.check_disable_resolution(index)
+	resolution_button.on_window_switch(index)
 	# Map option value index to WINDOW_MODE_ARRAY
 	match index:
 		0: #Windowed
