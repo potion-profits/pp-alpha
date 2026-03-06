@@ -16,9 +16,9 @@
 		"speaker": "Shopkeeper",
 		"text": "In this shop, you can refill your crates and barrels, buy new shelves or crates or barrels or cauldrons, and place any existing furniture you have!",
 		"choices": [
-			{ "label": "Refill supplies", "next": null, "action": "refill" },
-			{ "label": "Storage", "next": null, "action": "storage" },
-			{ "label": "Placement", "next": null, "action": "placement" },
+			{ "label": "Refill supplies", "next": "shopkeeper_greeting", "action": "refill" },
+			{ "label": "Storage", "action": "storage" },
+			{ "label": "Placement", "action": "placement" },
 			{ "label": "I think I saw you at the casino...", "next": "casino" },
 			{ "label": "Nevermind...", "next": null }
 		]

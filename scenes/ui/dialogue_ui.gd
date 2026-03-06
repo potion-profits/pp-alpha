@@ -42,6 +42,7 @@ func open(file_key: String, dialogue_id: String) -> void:
 	show_node(dialogue_id)
 	DialogueManager.dialogue_open = true
 	player.set_physics_process(false)
+	TimeManager.set_process(false)
 
 ## Displays a dialogue node by ID — sets text and creates choice buttons
 func show_node(dialogue_id: String) -> void:
@@ -115,6 +116,7 @@ func close() -> void:
 	dialogue_ended.emit()
 	DialogueManager.dialogue_open = false
 	player.set_physics_process(true)
+	TimeManager.set_process(true)
 
 ## Handles keyboard input selecting choices
 func _input(event: InputEvent) -> void:

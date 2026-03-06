@@ -43,8 +43,8 @@
 					}
 				}
 			]
-		}
-		"tutorial_completed": true
+		},
+		"tutorial_completed": false
 	},
 	"scenes": {
 		"MainShop": [
