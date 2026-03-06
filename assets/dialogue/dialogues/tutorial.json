@@ -108,5 +108,14 @@
 	  "wait_for": "player_moved",
 	  "cooldown": 5.0
 	}
-	  ]
-		}
+	  ],
+	"skip_tutorial": {
+		"speaker": "",
+		"text": "If you leave the shop, you'll skip the tutorial. 
+		Would you like to still leave?",
+		"choices": [
+			{ "label": "Bye!", "next": null, "action": "skip_tutorial" },
+			{ "label": "Let's continue the tutorial.", "next": null, "action": "continue_tutorial" }
+		]
+	}
+}

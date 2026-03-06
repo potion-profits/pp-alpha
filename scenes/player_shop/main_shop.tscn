@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=4 uid="uid://c0wgfjbxk58k0"]
+[gd_scene load_steps=27 format=4 uid="uid://c0wgfjbxk58k0"]
 
 [ext_resource type="Script" uid="uid://cyi5m0rhrv7o2" path="res://scenes/player_shop/main_shop.gd" id="1_47hg3"]
 [ext_resource type="Texture2D" uid="uid://cq4mo6l3w2oka" path="res://assets/interior/shop/background.png" id="2_ixtpo"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://v2b04jaxuakv" path="res://globals/entity_manager.gd" id="5_41gid"]
 [ext_resource type="Texture2D" uid="uid://b6sxxon0bv8sh" path="res://assets/interior/shop/counter_all01.png" id="5_47hg3"]
 [ext_resource type="PackedScene" uid="uid://b0flhrlw7t57t" path="res://scenes/player/player.tscn" id="6_b6yhm"]
+[ext_resource type="PackedScene" uid="uid://c3qqvdemavffu" path="res://scenes/ui/dialogue_ui.tscn" id="7_g03oc"]
 [ext_resource type="PackedScene" uid="uid://dk76x6o356j3i" path="res://scenes/player_shop/npc_spawner.tscn" id="12_47hg3"]
 [ext_resource type="PackedScene" uid="uid://20651jic501l" path="res://scenes/cat/cat.tscn" id="14_g03oc"]
 [ext_resource type="PackedScene" uid="uid://bk1hol15q64bh" path="res://scenes/inventory/inv_ui.tscn" id="14_paag6"]
@@ -577,6 +578,8 @@ scale = Vector2(1.5, 1.5)
 player = NodePath("../../EntityManager/Player")
 
 [node name="Clock" parent="Static_UI" instance=ExtResource("5_1jnhp")]
+
+[node name="DialogueUI" parent="." instance=ExtResource("7_g03oc")]
 
 [node name="TutorialMarkers" type="Node" parent="."]
 
