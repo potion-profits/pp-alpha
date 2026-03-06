@@ -50,11 +50,11 @@ func _ready()->void:
 	get_viewport().size_changed.connect(_on_viewport_size_changed)
 	
 	# skip tutorial on debug
-	#if OS.is_debug_build():
-		#GameManager.tutorial_completed = true
+	await get_tree().process_frame
+	if OS.is_debug_build():
+		GameManager.tutorial_completed = true
 		
 	if not GameManager.tutorial_completed:
-		await get_tree().process_frame
 		tutorial.setup(self)
 		tutorial.tutorial_complete.connect(_on_tutorial_complete)
 		tutorial.start(DialogueManager.get_array("tutorial", "tutorial"))
