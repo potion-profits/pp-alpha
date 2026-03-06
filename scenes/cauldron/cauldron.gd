@@ -16,9 +16,12 @@ class_name Cauldron extends Entity	#will help store placement and inventory info
 @export var animation_name: String = "default"	## Cauldron animation name
 @onready var flame_animation: AnimatedSprite2D = $FlameAnim
 
+var player_in_area: Player
+
 var mixing: bool = false	## Keeps track of the cauldron's state
 const MIX_DURATION : float = 3.0
-const CAULDRON_TOOLTIP : String = "Press E to Brew Potion"
+const CAULDRON_MIXABLE_TOOLTIP : String = "Press E to Brew Potion"
+const CAULDRON_COLLECTABLE_TOOLTIP : String = "Press E to Collect Potion"
 const NUM_FLAME_FRAMES : int = 15
 const MAX_PROGRESS : int = 100
 const MIN_PROGRESS : int = 0
@@ -26,7 +29,8 @@ const MIN_PROGRESS : int = 0
 func _ready()-> void:
 	#links interactable template to cauldron specific method (needed for all interactables)
 	interactable.interact = _on_interact
-	interactable.tooltip = CAULDRON_TOOLTIP
+	interactable.tooltip = CAULDRON_MIXABLE_TOOLTIP
+	interactable.is_interactable = false
 	#sets up entity info 
 	super._ready()
 	#used to find out what actual scene to place in entity manager
@@ -56,7 +60,7 @@ func _on_interact()->void:
 func animation_play() -> void:
 	if cauldron_anim and cauldron_anim.sprite_frames.has_animation(animation_name):
 		cauldron_anim.play(animation_name)
-		interactable.is_interactable = false
+		#interactable.is_interactable = false
 	else:
 		push_error("AnimatedSprite2D or animation '" + animation_name + "' not found!")
 
@@ -110,10 +114,42 @@ func _on_mix_timer_timeout() -> void:
 	
 func _process(_delta: float) -> void:
 	if mixing:
+		interactable.is_interactable = false
 		var progress_fill: float = (mix_timer.time_left / MIX_DURATION) * 100
 		
 		# Invert fill progress
 		progress_bar.value = MAX_PROGRESS - progress_fill
+	
+	if player_in_area:
+		# Case where cauldron has potion ready
+		var potion : InvItem = inv.slots[0].item
+		
+		if (potion):
+			# Must be non-mixable & sellable
+			if (!potion.mixable and potion.sellable and player_in_area.has_empty_slot()):
+				# Item is ready to be collected
+				interactable.tooltip = CAULDRON_COLLECTABLE_TOOLTIP
+				interactable.is_interactable = true
+			
+			return
+		
+		# Case where cauldron is empty and player is holding bottle
+		var selected_slot: InvSlot = player_in_area.get_selected_slot()
+		
+		# Check if slot/item exists
+		if (!selected_slot or !selected_slot.item):
+			interactable.is_interactable = false
+			return
+		
+		# Item must be mixable & non-sellable
+		if (selected_slot.item.mixable and !selected_slot.item.sellable):
+			# Held item is a mixable potion
+			interactable.tooltip = CAULDRON_MIXABLE_TOOLTIP
+			interactable.is_interactable = true
+			return
+		
+		# Fallback on not interactable	
+		interactable.is_interactable = false
 
 ## Creates and returns a dictionary representation of this cauldron. See also [method from_dict].
 func to_dict()-> Dictionary:
@@ -143,3 +179,14 @@ func _restore_timer(time_left: float)->void:
 		progress_bar.visible = true
 		mix_timer.stop()
 		mix_timer.start(time_left)
+
+
+func _on_interactable_body_entered(body: Node2D) -> void:
+	if body is Player:
+		player_in_area = body
+
+
+func _on_interactable_body_exited(body: Node2D) -> void:
+	if body is Player:
+		player_in_area = null
+		interactable.is_interactable = false
