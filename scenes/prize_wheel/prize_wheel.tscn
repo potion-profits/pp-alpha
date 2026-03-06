@@ -1,0 +1,105 @@
+[gd_scene load_steps=10 format=3 uid="uid://cs2gjrwvapnby"]
+
+[ext_resource type="Texture2D" uid="uid://bjcjb6u0wo1jd" path="res://assets/interior/casino/base.png" id="1_8mung"]
+[ext_resource type="Texture2D" uid="uid://kl0jyh6mljkc" path="res://assets/interior/casino/wheel.png" id="1_tpkrs"]
+[ext_resource type="Texture2D" uid="uid://do1mxhb4uqurj" path="res://assets/interior/shop/all_barrels01.png" id="2_qdw0i"]
+[ext_resource type="Texture2D" uid="uid://cna3dlftjloo6" path="res://assets/interior/shop/shelfandpotion01.png" id="3_pntfe"]
+[ext_resource type="Texture2D" uid="uid://cv55asmmy332" path="res://assets/casino/chip.png" id="4_pntfe"]
+[ext_resource type="Texture2D" uid="uid://c65en4lls4b8o" path="res://assets/inventory/simple_gold_coin.png" id="5_8mung"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8mung"]
+atlas = ExtResource("2_qdw0i")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xo8pa"]
+atlas = ExtResource("3_pntfe")
+region = Rect2(64, 64, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a27hy"]
+atlas = ExtResource("4_pntfe")
+region = Rect2(0, 0, 16, 16)
+
+[node name="PrizeWheel" type="Node2D"]
+
+[node name="Base" type="Sprite2D" parent="."]
+position = Vector2(0, -9)
+texture = ExtResource("1_8mung")
+
+[node name="Wheel" type="Sprite2D" parent="."]
+texture = ExtResource("1_tpkrs")
+
+[node name="Barrel" type="Sprite2D" parent="Wheel"]
+position = Vector2(33, -34)
+rotation = 0.7853982
+scale = Vector2(1.9670956, 1.9670956)
+texture = SubResource("AtlasTexture_8mung")
+
+[node name="Shelf" type="Sprite2D" parent="Wheel"]
+position = Vector2(-29, 29)
+rotation = -2.3602843
+scale = Vector2(1.0646662, 1.0646662)
+texture = SubResource("AtlasTexture_xo8pa")
+
+[node name="Chip1" type="Sprite2D" parent="Wheel"]
+position = Vector2(-12, -53)
+texture = SubResource("AtlasTexture_a27hy")
+
+[node name="Chip2" type="Sprite2D" parent="Wheel"]
+position = Vector2(12, -53)
+texture = SubResource("AtlasTexture_a27hy")
+
+[node name="Chip3" type="Sprite2D" parent="Wheel"]
+position = Vector2(-52, 10)
+rotation = -1.5707964
+texture = SubResource("AtlasTexture_a27hy")
+
+[node name="Chip4" type="Sprite2D" parent="Wheel"]
+position = Vector2(-52, -12)
+rotation = -1.5707964
+texture = SubResource("AtlasTexture_a27hy")
+
+[node name="Chip5" type="Sprite2D" parent="Wheel"]
+position = Vector2(28, 44.999996)
+rotation = -3.926991
+texture = SubResource("AtlasTexture_a27hy")
+
+[node name="Chip6" type="Sprite2D" parent="Wheel"]
+position = Vector2(44, 27.999996)
+rotation = -3.926991
+texture = SubResource("AtlasTexture_a27hy")
+
+[node name="Coin1" type="Sprite2D" parent="Wheel"]
+position = Vector2(51, -11)
+rotation = -1.5707964
+scale = Vector2(0.7274177, 0.7274177)
+texture = ExtResource("5_8mung")
+
+[node name="Coin2" type="Sprite2D" parent="Wheel"]
+position = Vector2(51, 10)
+rotation = -1.5707964
+scale = Vector2(0.7274177, 0.7274177)
+texture = ExtResource("5_8mung")
+
+[node name="Coin3" type="Sprite2D" parent="Wheel"]
+position = Vector2(10.000001, 51)
+rotation = -3.1415927
+scale = Vector2(0.7274177, 0.7274177)
+texture = ExtResource("5_8mung")
+
+[node name="Coin4" type="Sprite2D" parent="Wheel"]
+position = Vector2(-11, 51)
+rotation = -3.1415927
+scale = Vector2(0.7274177, 0.7274177)
+texture = ExtResource("5_8mung")
+
+[node name="Coin5" type="Sprite2D" parent="Wheel"]
+position = Vector2(-44, -28)
+rotation = -2.3561945
+scale = Vector2(0.7274177, 0.7274177)
+texture = ExtResource("5_8mung")
+
+[node name="Coin6" type="Sprite2D" parent="Wheel"]
+position = Vector2(-27, -45)
+rotation = -2.3561945
+scale = Vector2(0.7274177, 0.7274177)
+texture = ExtResource("5_8mung")
