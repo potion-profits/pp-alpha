@@ -36,10 +36,9 @@ theme = SubResource("Theme_0sy41")
 theme_override_constants/side_margin = 0
 theme_override_constants/icon_separation = 0
 tab_alignment = 1
-current_tab = 2
+current_tab = 0
 
 [node name="Game" type="TabBar" parent="TabContainer"]
-visible = false
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_56t7g")
 metadata/_tab_index = 0
@@ -95,6 +94,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="Sound" type="TabBar" parent="TabContainer"]
+visible = false
 layout_mode = 2
 theme = SubResource("Theme_4i7af")
 theme_override_fonts/font = ExtResource("1_56t7g")

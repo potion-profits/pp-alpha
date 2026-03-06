@@ -89,7 +89,7 @@ func create_keybind_dict() -> Dictionary:
 ## Called when SettingSaveManager emits a loaded settings dictionary through SettingManager.
 ## (ie once settings config file detected)
 func on_load_settings_data(data_dict: Dictionary) -> void:
-	if !data_dict:
+	if !data_dict or !data_dict.has("data"):
 		return
 	loaded_data = data_dict.get("data")
 	# Call each setting function with loaded dict( everything except keybinds)
