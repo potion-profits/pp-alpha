@@ -32,7 +32,8 @@ func _on_play_pressed()->void:
 	TimeManager.set_process(true)
 
 func _on_options_pressed()->void:
-	SceneManager.change_to("res://scenes/ui/options_menu.tscn")
+	SceneManager.change_to("res://scenes/ui/settings_menu.tscn")
+	SettingsMenu.open()
 
 func _on_quit_pressed()->void:
 	#we will hard save here for now

@@ -262,7 +262,7 @@ func _on_confirm_pressed() -> void:
 
 func _on_plus_chips_pressed() -> void:
 	var current : int = player.get_chips()
-	if Input.is_action_pressed("sprint"):
+	if Input.is_action_pressed("dash"):
 		bet += 100
 	else:
 		bet += 10
@@ -271,7 +271,7 @@ func _on_plus_chips_pressed() -> void:
 	chip_amount.text = str(bet) + " Chips"
 
 func _on_minus_chips_pressed() -> void:
-	if Input.is_action_pressed("sprint"):
+	if Input.is_action_pressed("dash"):
 		bet -= 100
 	else:
 		bet -= 10
