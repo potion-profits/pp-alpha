@@ -80,8 +80,8 @@ func _ready() -> void:
 	coins = GameManager.player_data["coins"]
 	chips = GameManager.player_data["chips"]
 	GameManager.tutorial_completed = GameManager.player_data.get("tutorial_completed", false)
-	#if OS.is_debug_build():
-		#SPEED = SPEED * 3.5
+	if OS.is_debug_build():
+		SPEED = SPEED * 3.5
 	#_debug_set_player_inv()
 
 #handles toggled and held inventory
