@@ -28,6 +28,12 @@ extends Node2D
 @onready var player : Player = $EntityManager/Player
 ## Front door spawn marker
 @onready var spawn_marker : Marker2D = $FrontRoom/PlayerSpawn
+## Tutorial script instance
+@onready var tutorial: CanvasLayer = $Tutorial_UI
+## Clock
+@onready var clock : Control = $Static_UI/Clock
+## Tutorial cat
+@onready var tutorial_cat : StaticBody2D = $EntityManager/TutorialCat
 
 ## Size of player's window
 var viewport_size: Vector2
@@ -42,6 +48,24 @@ var orig_pos: Vector2
 
 func _ready()->void:
 	get_viewport().size_changed.connect(_on_viewport_size_changed)
+	
+	# skip tutorial on debug
+	await get_tree().process_frame
+	if OS.is_debug_build():
+		GameManager.tutorial_completed = true
+		
+	if not GameManager.tutorial_completed:
+		tutorial.setup(self)
+		tutorial.tutorial_complete.connect(_on_tutorial_complete)
+		tutorial.start(DialogueManager.get_array("tutorial", "tutorial"))
+		clock.visible = false
+	else:
+		tutorial.visible = false
+		clock.visible = true
+		TimeManager.set_process(true)
+		if tutorial_cat.has_node("SpeechBubble"):
+			tutorial_cat.get_node("SpeechBubble").visible = false
+	
 	await get_tree().process_frame
 	viewport_size = get_viewport_rect().size
 	check_camera_pos()
@@ -67,6 +91,7 @@ func _on_move_town_detection_body_entered(body: Node2D) -> void:
 func player_sleep() -> void:
 	GameManager.player_passed_out = false
 	clear_npcs()
+	close_open_shelf()
 	var fade : TextureRect = self.get_node("SleepFade")
 	fade.visible = true
 	var tween: Tween = create_tween()
@@ -81,22 +106,27 @@ func player_sleep() -> void:
 	var spawner : Node = self.get_node("EntityManager/NpcSpawner")
 	spawner._ready()
 
+func close_open_shelf() -> void:
+	var em : EntityManager = get_node("EntityManager")
+	for child in em.get_children():
+		if child is Shelf and child.shelf_ui.visible:
+			child.close_shelf()
+
 func clear_npcs() -> void:
-	var em : EntityManager = get_node("EntityManager") 
-	var return_basket : ReturnBasket = get_node("EntityManager/ReturnBasket") 
+	var em : EntityManager = get_node("EntityManager")
+	var return_basket : ReturnBasket = get_node("EntityManager/ReturnBasket")
 	var register : Node2D = get_node("EntityManager/CashRegister")
-	for child in em.get_children(): 
-		if child is ShopNpc: 
-			if child.item_found: 
-				var potion : InvItem = ItemRegistry.new_item(child.prefered_item) 
+	for child in em.get_children():
+		if child is ShopNpc:
+			if child.item_found:
+				var potion : InvItem = ItemRegistry.new_item(child.prefered_item)
 				potion.mixable = false
-				potion.sellable = true 
-				return_basket.return_item(potion) 
+				potion.sellable = true
+				return_basket.return_item(potion)
 			child.free()
 	register.cust_waiting_icon.visible = false
 
-## Moves the camera when the player transitions from the frontroom to the backroom or the backroom 
-## to the frontroom
+## Moves the camera when the player transitions from the frontroom to the backroom or vice versa
 func transition_camera(top_left: Marker2D, bottom_right: Marker2D) -> void:
 	player_camera.limit_left = int(top_left.global_position.x)
 	player_camera.limit_top = int(top_left.global_position.y)
@@ -176,3 +206,10 @@ func _on_bottom_collision_body_exited_backroom(body: Node2D) -> void:
 	if body is Player:
 		await get_tree().process_frame
 		shift_ui(false)
+
+func _on_tutorial_complete() -> void:
+	if tutorial:
+		tutorial.on_complete()
+		clock.visible = true
+	tutorial = null
+	GameManager.tutorial_completed = true

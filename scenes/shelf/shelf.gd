@@ -1,4 +1,4 @@
-extends Entity	#will help store placement and inventory information for persistence
+class_name Shelf extends Entity	#will help store placement and inventory information for persistence
 
 ## Represents and maintains functionality of a shelf. 
 ##

@@ -310,10 +310,12 @@ func can_place_entity(tile : Vector2i) -> bool:
 	
 	return true
 
-# returns to menu, should change to shop when merged
+## Changes the scene back to the supply shop.[br][br]
+## Passes the payload through so the supply shop can restore player position
+## and reopen the dialogue.
 func _menu()->void:
-	player.global_position = original_pos
-	SceneManager.change_to("res://scenes/town_menu/town_menu.tscn")
+	var payload: Dictionary = SceneManager.get_payload()
+	SceneManager.change_to("res://scenes/supply_shop/supply_shop.tscn", payload)
 	
 ## Returns the info of the current entity from ENTITIES
 func entity_info() -> Dictionary:

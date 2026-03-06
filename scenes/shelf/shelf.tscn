@@ -22,7 +22,7 @@ atlas = ExtResource("4_e2dnf")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y5jy8"]
 size = Vector2(16, 9)
 
-[node name="shelf" type="StaticBody2D"]
+[node name="shelf" type="StaticBody2D" groups=["tutorial_shelf"]]
 collision_mask = 129
 script = ExtResource("1_ctj1q")
 

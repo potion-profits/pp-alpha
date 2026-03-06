@@ -1,0 +1,81 @@
+{
+
+	"cashier_greeting": {
+		"speaker": "Cashier",
+		"text": "Welcome to the casino! Let me know how to help!",
+		"choices": [
+			{ "label": "Exchange coins for chips", "next": null, "action": "open_exchange" },
+			{ "label": "Redeem prizes", "next": "prizes" },
+			{ "label": "Please explain how this place works", "next": "rules" },
+			{ "label": "Nevermind...", "next": null }
+		]
+	},
+	
+	"prizes": {
+		"speaker": "Cashier",
+		"text": "Hmm... we're still setting up the prize shelf. Check back soon!",
+		"choices": [
+			{ "label": "I'll exchange some coins then", "next": null, "action": "open_exchange" },
+			{ "label": "Alright, maybe later.", "next": null }
+		]
+	},
+
+	"rules": {
+		"speaker": "Cashier",
+		"text": "Buy chips from me, then head to the tables to play. Win more chips, then redeem them here for prizes!",
+		"choices": [
+			{ "label": "Let me exchange some coins", "next": null, "action": "open_exchange" },
+			{ "label": "I would like to know what games you have", "next": "games_info" },
+			{ "label": "Thanks!", "next": null }
+		]
+	},
+	
+	
+	"games_info": {
+	  "speaker": "Cashier",
+	  "text": "Right now we've got a couple blackjack tables set up for you. More games coming soon!",
+	  "choices": [
+		{ "label": "Let me exchange some coins.", "next": null, "action": "open_exchange" },
+		{ "label": "Thanks!", "next": null }
+	  ]
+	},
+	
+	"anything_else": {
+		"speaker": "Cashier",
+		"text": "Let me know if there's anything else you need!",
+		"choices": [
+			{ "label": "Exchange coins for chips", "next": null, "action": "open_exchange" },
+			{ "label": "Redeem prizes", "next": "prizes" },
+			{ "label": "Please explain how this place works", "next": "rules" },
+			{ "label": "...You're bald...", "next": "bald"},
+			{ "label": "No, thanks!", "next": null },
+		]
+	},
+	
+	
+	"bald": {
+		"speaker": "Cashier",
+		"text": "... Yeah.",
+		"choices": [
+			{ "label": "You have twins around...", "next": "twins" },
+			{ "label": "Nevermind...", "next": null }
+		]
+	},
+	
+	"twins": {
+		"speaker": "Cashier",
+		"text": "... Thanks for coming by! Mr. Shark will come see you sometime soon. :)",
+		"choices": [
+			{ "label": "Right. Sounds ominous!", "next": null }
+	  ]
+	},
+	
+	"not_enough_coins": {
+		"speaker": "Cashier",
+		"text": "Oooh, you don't have enough for that. \nMinimum buy in around here is 10 coins! \nMaybe try being successful and come back.",
+		"choices": [
+			{ "label": "It's rough out here, okay...", "next": "anything_else" }
+		]
+	}
+
+}

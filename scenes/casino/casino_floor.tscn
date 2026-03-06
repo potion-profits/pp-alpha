@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://cydb0qypcgibl"]
+[gd_scene load_steps=19 format=4 uid="uid://cydb0qypcgibl"]
 
 [ext_resource type="Texture2D" uid="uid://b7jx6m1vn82gh" path="res://assets/interior/casino/casino_tilemap.png" id="1_0k5tk"]
 [ext_resource type="Script" uid="uid://bgfajl2miu8ge" path="res://scenes/casino/casino_floor.gd" id="1_dnyyd"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://b0flhrlw7t57t" path="res://scenes/player/player.tscn" id="2_dfl8t"]
 [ext_resource type="PackedScene" uid="uid://m6dvdqtwgruy" path="res://scenes/casino/blackjack_table.tscn" id="3_dfl8t"]
 [ext_resource type="PackedScene" uid="uid://dp7r8vke6s7c5" path="res://scenes/coin_ui/player_chip.tscn" id="4_ka76d"]
+[ext_resource type="PackedScene" uid="uid://c3qqvdemavffu" path="res://scenes/ui/dialogue_ui.tscn" id="4_o5pd2"]
 [ext_resource type="PackedScene" uid="uid://sb6usiw8cw7v" path="res://scenes/npc_alt/cashier_npc.tscn" id="5_a4x82"]
 [ext_resource type="PackedScene" uid="uid://ckd2slmjdifxy" path="res://scenes/coin_ui/player_coin.tscn" id="5_y1lbc"]
 [ext_resource type="PackedScene" uid="uid://di6hjmsu64nei" path="res://scenes/npc_alt/npc.tscn" id="9_o5pd2"]
@@ -241,47 +242,47 @@ offset_bottom = 126.0
 scale = Vector2(2, 2)
 player = NodePath("../../Entities/Player")
 
-[node name="ExchangeContainer" type="VBoxContainer" parent="CanvasLayer"]
+[node name="DialogueUI" parent="." instance=ExtResource("4_o5pd2")]
 visible = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 66.0
-offset_top = -302.0
-offset_right = 221.0
-offset_bottom = -166.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(1.5, 1.5)
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/ExchangeContainer"]
+[node name="ExchangeContainer" type="VBoxContainer" parent="DialogueUI"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -77.5
+offset_top = -136.0
+offset_right = 77.5
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(1.5, 1.5)
+pivot_offset = Vector2(0, 200)
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="DialogueUI/ExchangeContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="LessCoins" type="Button" parent="CanvasLayer/ExchangeContainer/HBoxContainer"]
+[node name="LessCoins" type="Button" parent="DialogueUI/ExchangeContainer/HBoxContainer"]
 layout_mode = 2
 text = "-"
 
-[node name="NumCoinsToExchange" type="Label" parent="CanvasLayer/ExchangeContainer/HBoxContainer"]
+[node name="NumCoinsToExchange" type="Label" parent="DialogueUI/ExchangeContainer/HBoxContainer"]
 layout_mode = 2
 text = " 0 Coins"
 label_settings = SubResource("LabelSettings_dfl8t")
 
-[node name="MoreCoins" type="Button" parent="CanvasLayer/ExchangeContainer/HBoxContainer"]
+[node name="MoreCoins" type="Button" parent="DialogueUI/ExchangeContainer/HBoxContainer"]
 layout_mode = 2
 text = "+"
 
-[node name="ConfirmExchange" type="Button" parent="CanvasLayer/ExchangeContainer"]
+[node name="ConfirmExchange" type="Button" parent="DialogueUI/ExchangeContainer"]
 layout_mode = 2
 text = "Exchange for Chips"
 
-[node name="Redeem" type="Button" parent="CanvasLayer/ExchangeContainer"]
-layout_mode = 2
-text = "Redeem Prizes"
-
-[node name="CancelExchange" type="Button" parent="CanvasLayer/ExchangeContainer"]
+[node name="CancelExchange" type="Button" parent="DialogueUI/ExchangeContainer"]
 layout_mode = 2
 text = "Cancel
 "
@@ -495,9 +496,8 @@ position = Vector2(984, 635)
 [node name="Npc12" parent="Entities" instance=ExtResource("9_o5pd2")]
 position = Vector2(1000, 635)
 
-[connection signal="pressed" from="CanvasLayer/ExchangeContainer/HBoxContainer/LessCoins" to="." method="_on_less_coins_pressed"]
-[connection signal="pressed" from="CanvasLayer/ExchangeContainer/HBoxContainer/MoreCoins" to="." method="_on_more_coins_pressed"]
-[connection signal="pressed" from="CanvasLayer/ExchangeContainer/ConfirmExchange" to="." method="_on_confirm_exchange_pressed"]
-[connection signal="pressed" from="CanvasLayer/ExchangeContainer/Redeem" to="." method="_on_redeem_pressed"]
-[connection signal="pressed" from="CanvasLayer/ExchangeContainer/CancelExchange" to="." method="_on_cancel_exchange_pressed"]
+[connection signal="pressed" from="DialogueUI/ExchangeContainer/HBoxContainer/LessCoins" to="." method="_on_less_coins_pressed"]
+[connection signal="pressed" from="DialogueUI/ExchangeContainer/HBoxContainer/MoreCoins" to="." method="_on_more_coins_pressed"]
+[connection signal="pressed" from="DialogueUI/ExchangeContainer/ConfirmExchange" to="." method="_on_confirm_exchange_pressed"]
+[connection signal="pressed" from="DialogueUI/ExchangeContainer/CancelExchange" to="." method="_on_cancel_exchange_pressed"]
 [connection signal="body_entered" from="StaticAssets/MoveTownArea" to="." method="_on_move_town_area_body_entered"]

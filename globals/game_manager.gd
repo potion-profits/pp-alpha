@@ -11,11 +11,12 @@ extends Node
 var pause_menu: CanvasLayer = preload("res://scenes/ui/pause_menu.tscn").instantiate()
 var runtime_entities:Dictionary = {} ## Holds all the entities in every scene. See [Entity].
 var player_data:Dictionary = {}	## Holds the player's data. See [Player].
+var tutorial_completed: bool = false ## Tutorial bool so only runs on first instance
 var pause_enabled : bool = false
 
 # PLEASE UPDATE THIS IF THE DEFAULT STATE NEEDS TO BE UPDATED
 # format is MM.DD.YR/Version
-const default_state_version: String = "2.20.26/1"
+const default_state_version: String = "3.05.26/1"
 
 func _ready()->void:
 	pause_menu.layer = 200
@@ -135,7 +136,7 @@ func load_scene_runtime_state()->void:
 	var player_node: Node = cs.find_child("Player", true, false)
 	if player_node and player_data:
 		player_node.from_dict(player_data)
-	
+
 	SceneManager.load_player_position()
 
 	var em:EntityManager = null

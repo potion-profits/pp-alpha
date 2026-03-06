@@ -209,9 +209,9 @@ func _input(event: InputEvent) -> void:
 func _process(delta: float) -> void:
 	hold_controller.process(delta)
 
-## Changes the scene to the town menu.[br][br]
-## Currently does not do anything other than change the scene through 
-## [method SceneManage.change_to]. Would like to implement some sort of 
-## message or popup.
+## Changes the scene back to the supply shop.[br][br]
+## Passes the payload through so the supply shop can restore player position
+## and reopen the dialogue.
 func menu()->void:
-	SceneManager.change_to("res://scenes/town_menu/town_menu.tscn")
+	var payload: Dictionary = SceneManager.get_payload()
+	SceneManager.change_to("res://scenes/supply_shop/supply_shop.tscn", payload)

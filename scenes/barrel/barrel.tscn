@@ -43,7 +43,7 @@ animations = [{
 "speed": 9.0
 }]
 
-[node name="Barrel" type="StaticBody2D"]
+[node name="Barrel" type="StaticBody2D" groups=["tutorial_barrel"]]
 script = ExtResource("1_8tcro")
 metadata/_custom_type_script = "uid://b1odcrnx3mby"
 
