@@ -22,6 +22,10 @@ const NUM_FLAME_FRAMES : int = 15
 const MAX_PROGRESS : int = 100
 const MIN_PROGRESS : int = 0
 
+## Signals for successful mix and potion collection
+signal mixing_potion(player: Player)
+signal potion_collected(player: Player)
+
 func _ready()-> void:
 	#links interactable template to cauldron specific method (needed for all interactables)
 	interactable.interact = _on_interact
@@ -47,6 +51,7 @@ func _on_interact()->void:
 			if player.collect(inv.slots[0].item):
 				inv.slots[0].amount-=1	#the player collected, so remove item from cauldron
 				inv.slots[0].item = null
+				potion_collected.emit()
 				progress_bar.value = MIN_PROGRESS
 				progress_bar.visible = false
 
@@ -70,6 +75,7 @@ func animation_stop() -> void:
 func start_mixing()->void:
 	if inv.slots[0].item:
 		mixing = true
+		mixing_potion.emit()
 		if mix_timer:
 			mix_timer.wait_time = MIX_DURATION
 			mix_timer.start()
@@ -99,7 +105,6 @@ func _on_mix_timer_timeout() -> void:
 	mixing = false
 	inv.slots[0].item.mixable = false
 	inv.slots[0].item.sellable = true
-	#progress_bar.visible = false
 	progress_bar.value = MAX_PROGRESS
 	mix_timer.stop()
 	# stop looping sfx once timer runs out

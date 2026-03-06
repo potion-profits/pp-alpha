@@ -26,12 +26,8 @@ func _ready() -> void:
 	
 	# Reopen dialogue if returning from a sub-scene
 	var payload: Dictionary = SceneManager.get_payload()
-	if payload.get("reopen_dialogue", false):
-		var pos: Vector2 = payload.get("player_position", Vector2.ZERO)
-		if pos != Vector2.ZERO:
-			player.global_position = pos
-		await get_tree().process_frame
-		open_shopkeeper_dialogue()
+	if payload.has("file_key") and payload.has("dialogue_id"):
+		dialogue_ui.open(payload["file_key"], payload["dialogue_id"])
 
 func open_shopkeeper_dialogue() -> void:
 	var last_dir: String = player.last_dir
@@ -40,9 +36,12 @@ func open_shopkeeper_dialogue() -> void:
 	dialogue_ui.open("supply_shop", "shopkeeper_greeting")
 
 func _on_dialogue_action(action: String, _data: Dictionary) -> void:
+	# reload player from subscene into same moment
 	var payload: Dictionary = SceneManager.get_payload()
 	payload["player_position"] = player.global_position
-	payload["reopen_dialogue"] = true
+	payload["file_key"] = dialogue_ui.current_file_key
+	print("payload", payload)
+	
 	if action == "refill":
 		SceneManager.change_to("res://scenes/refill_scene/backroom.tscn", payload)
 	elif action == "storage":

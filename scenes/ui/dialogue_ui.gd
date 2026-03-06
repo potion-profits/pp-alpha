@@ -27,10 +27,11 @@ func _ready() -> void:
 
 ## Opens the dialogue UI starting at the given dialogue node
 func open(file_key: String, dialogue_id: String) -> void:
+	
+	## forcce player to stop walking
 	var player : Player = get_tree().get_first_node_in_group("player")
 	var last_dir: String = player.last_dir
 	var player_idle_dir: String = "idle_" + last_dir
-	
 	if last_dir:
 		player.animated_sprite.play(player_idle_dir)
 	
@@ -95,8 +96,8 @@ func select_choice(index: int) -> void:
 			close()
 	# If there is a next node, emit action and continue to next dialogue
 	else:
-		if action != "":
-			action_triggered.emit(action, choice)
+		#if action != "":
+		action_triggered.emit(action, choice)
 		show_node(next_id)
 
 ## Removes all choice buttons from the container
@@ -110,10 +111,13 @@ func clear_choices() -> void:
 func close() -> void:
 	var player : Player = get_tree().get_first_node_in_group("player")
 	clear_choices()
+	
 	visible = false
 	is_active = false
 	waiting_for_dismiss = false
 	dialogue_ended.emit()
+	
+	# allow player to move and time to continue
 	DialogueManager.dialogue_open = false
 	player.set_physics_process(true)
 	TimeManager.set_process(true)

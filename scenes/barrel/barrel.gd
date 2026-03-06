@@ -42,6 +42,9 @@ const MAX_ML :int = 1_000 ## Amount to refill to, may change with different size
 var ml :int = 1_000	## Amount the current barrel has
 @export var barrel_type : String = "empty_barrel"	## Dictates the sprite and item given out
 
+## Signal for successful barrel pull
+signal ingredients_taken(player: Player)
+
 func _ready() -> void:	
 	# Links interactable template to barrel specific method
 	interactable.interact = _on_interact
@@ -102,11 +105,13 @@ func _on_interact() -> void:
 		if (selected_slot.amount > 1 && (player.has_empty_slot() || player.can_stack_item(new_bottle))):
 			player.remove_from_selected()
 			player.collect(new_bottle)
+			ingredients_taken.emit()
 			ml -= 100
 			
 		elif (selected_slot.amount == 1):
 			player.remove_from_selected()
 			player.collect(new_bottle)
+			ingredients_taken.emit()
 			ml -= 100
 		
 		check_barrel_capacity()

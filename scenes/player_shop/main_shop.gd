@@ -36,6 +36,8 @@ extends Node2D
 @onready var tutorial_cat : StaticBody2D = $EntityManager/TutorialCat
 ## Dialogue UI
 @onready var dialogue_ui : CanvasLayer = $DialogueUI
+## Spawner
+@onready var spawner : Node = $EntityManager/NpcSpawner
 
 ## Size of player's window
 var viewport_size: Vector2
@@ -61,21 +63,21 @@ func _ready()->void:
 		tutorial.tutorial_complete.connect(_on_tutorial_complete)
 		tutorial.start(DialogueManager.get_array("tutorial", "tutorial"))
 		clock.visible = false
+		spawner.npc_respawn_timer.stop()
 	else:
 		tutorial.visible = false
 		clock.visible = true
 		TimeManager.set_process(true)
+		TimeManager.time = 0.0
 		if tutorial_cat.has_node("SpeechBubble"):
 			tutorial_cat.get_node("SpeechBubble").visible = false
 	
-	await get_tree().process_frame
 	viewport_size = get_viewport_rect().size
 	check_camera_pos()
 	_on_viewport_size_changed() # initalize inv UI position
 	dialogue_ui.action_triggered.connect(_on_dialogue_action)
 
 func check_camera_pos() -> void:
-	await get_tree().process_frame
 	if player.global_position.y <= b_bottom_right.global_position.y:
 		transition_camera(b_top_left, b_bottom_right)
 	else:
@@ -110,7 +112,7 @@ func player_sleep() -> void:
 	await tween.finished
 	fade.visible = false
 	TimeManager.set_process(true)
-	var spawner : Node = self.get_node("EntityManager/NpcSpawner")
+	TimeManager.time = 0.0
 	spawner._ready()
 
 func close_open_shelf() -> void:
@@ -135,6 +137,7 @@ func clear_npcs() -> void:
 
 ## Moves the camera when the player transitions from the frontroom to the backroom or vice versa
 func transition_camera(top_left: Marker2D, bottom_right: Marker2D) -> void:
+	await get_tree().process_frame
 	player_camera.limit_left = int(top_left.global_position.x)
 	player_camera.limit_top = int(top_left.global_position.y)
 	player_camera.limit_right = int(bottom_right.global_position.x)
@@ -220,7 +223,8 @@ func _on_tutorial_complete() -> void:
 		clock.visible = true
 	tutorial = null
 	GameManager.tutorial_completed = true
-	
+	spawner.npc_respawn_timer.start()
+
 func _on_dialogue_action(action: String, _data: Dictionary) -> void:
 	if action == "skip_tutorial":
 		dialogue_ui.close()
@@ -231,10 +235,10 @@ func _on_dialogue_action(action: String, _data: Dictionary) -> void:
 	elif action == "continue_tutorial":
 		dialogue_ui.close()
 		TimeManager.set_process(false) ## close dialogue will turn it back on
-		tutorial.visible = true
+		if tutorial:
+			tutorial.visible = true
 		inv_ui.visible = true
-		
-	
+
 func skip_tutorial() -> void:
 	tutorial.visible = false
 	inv_ui.visible = false

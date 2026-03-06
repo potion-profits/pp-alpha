@@ -20,6 +20,9 @@ class_name Crate extends Entity	#will help store placement and inventory informa
 const MAX_AMT: int = 8	## Max amount crates can hold
 var crate_inv_amt : int = 0	## Current amount this crate has
 
+## Successful interact
+signal bottle_taken(player: Player)
+
 func _ready()-> void:
 	#links interactable template to cauldron specific method (needed for all interactables)
 	interactable.interact = _on_interact
@@ -47,6 +50,7 @@ func _on_interact()->void:
 			if player.collect(temp_item):
 				inv.slots[0].amount-=1	#the player collected, so remove item from crate
 				crate_sfx.play() # play sound effect on player collection
+				bottle_taken.emit()
 				if inv.slots[0].amount <= 0:
 					inv.slots[0].item = null # make item null if no more items to be picked up
 					#update_crate()
