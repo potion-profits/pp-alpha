@@ -4,11 +4,16 @@ class_name ReturnBasket extends Entity
 @onready var basket_sprite: Sprite2D = $BasketSprite
 @onready var empty_basket_sprite: Sprite2D = $EmptyBasketSprite
 
+const BASKET_COLLECT_TOOLTIP: String = "Press E to Collect Potion"
+var player_in_area: Player
+
 var all_items : Array = []
 
 func _ready()-> void:
 	#links interactable template to cauldron specific method (needed for all interactables)
 	interactable.interact = _on_interact
+	interactable.tooltip = BASKET_COLLECT_TOOLTIP
+	interactable.is_interactable = false
 	
 	#sets up entity info 
 	super._ready()
@@ -48,3 +53,28 @@ func to_dict()-> Dictionary:
 	}
 	return_items.merge(super.to_dict())
 	return return_items
+
+# Adds player for processing and enables process
+#
+# Note: This is only used to decide whether to show tooltip
+func _on_interactable_body_entered(body: Node2D) -> void:
+	if body is Player:
+		player_in_area = body
+		set_process(true)
+
+# Removes player from processing and disables process
+#
+# Note: This is only used to decide whether to show tooltip
+func _on_interactable_body_exited(body: Node2D) -> void:
+	if body is Player:
+		player_in_area = null
+		set_process(false)
+		interactable.is_interactable = false
+
+# Decides when to show tooltip based on player and basket conditions
+func _process(_delta: float) -> void:
+	if player_in_area:
+		if (player_in_area.has_empty_slot() and len(all_items) > 0):
+			interactable.is_interactable = true
+		else:
+			interactable.is_interactable = false
