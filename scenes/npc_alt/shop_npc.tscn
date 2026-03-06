@@ -345,7 +345,7 @@ height = 8.0
 
 [node name="BasicNpc" type="CharacterBody2D"]
 collision_layer = 64
-collision_mask = 129
+collision_mask = 131
 floor_stop_on_slope = false
 platform_floor_layers = 4294967294
 script = ExtResource("1_ofxo4")
