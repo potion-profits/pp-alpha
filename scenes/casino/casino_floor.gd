@@ -28,9 +28,6 @@ var exchange_amt: int = 0
 func _ready() -> void:
 	exchange_container.visible = false
 	dialogue_ui.action_triggered.connect(_on_dialogue_action)
-	#dialogue_ui.dialogue_ended.connect(func() -> void:
-		#exchange_container.visible = false
-	#)
 	cashier_npc.interactable.interact = open_cashier_dialogue
 	
 	for npc : Node in ysort.get_children():
@@ -65,10 +62,13 @@ func open_cashier_dialogue() -> void:
 ## Handles dialogue actions
 func _on_dialogue_action(action: String, _data: Dictionary) -> void:
 	if action == "open_exchange":
-		exchange_amt = 0
-		_update_exchange_label(exchange_amt)
-		dialogue_ui.show_text("Exchange your coins for chips as needed!")
-		exchange_container.visible = true
+		if player["coins"] < 10:
+			dialogue_ui.open("casino", "not_enough_coins")
+		else:
+			exchange_amt = 0
+			_update_exchange_label(exchange_amt)
+			dialogue_ui.show_text("Exchange your coins for chips as needed!")
+			exchange_container.visible = true
 
 func spawn_roaming_npcs()->void:
 	for location : Vector2 in spawn_location_pos:
