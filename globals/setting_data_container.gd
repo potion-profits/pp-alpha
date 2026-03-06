@@ -4,7 +4,7 @@ extends Node
 ##
 ## Contains callback functions called from SettingManager
 ## Callbacks edit the current state of the settings
-## When saving, the state of current settings gets written to file by SaveManager
+## When saving, the state of current settings gets written to file by SettingSaveManager
 ## When loading, the state of settings gets overwritten by loaded file values, else default
 
 # Keybind resource reference, contains Default keybind information and assigned keybinds
@@ -86,7 +86,7 @@ func create_keybind_dict() -> Dictionary:
 
 ## Applies loaded settings data from file into this container.[br][br]
 ##
-## Called when SaveManager emits a loaded settings dictionary through SettingManager.
+## Called when SettingSaveManager emits a loaded settings dictionary through SettingManager.
 ## (ie once settings config file detected)
 func on_load_settings_data(data_dict: Dictionary) -> void:
 	if !data_dict:

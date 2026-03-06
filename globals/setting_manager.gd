@@ -21,14 +21,14 @@ signal load_settings_data(setting_dict: Dictionary)
 ## Emits a request to save the current settings dictionary.[br][br]
 ##
 ## This does not write to disk by itself. Instead, it broadcasts a signal that
-## SaveManager listens to in order to serialize and save settings.
+## SettingSaveManager listens to in order to serialize and save settings.
 func emit_set_settings_dict(setting_dict: Dictionary) -> void:
 	set_settings_dict.emit(setting_dict)
 
 ## Emits a request to load the settings dictionary from file.[br][br]
 ##
 ## This does not read from disk by itself. Instead, it broadcasts a signal that
-## SaveManager listens to in order to fetch file data to a dictionary.
+## SettingSaveManager listens to in order to fetch file data to a dictionary.
 func emit_load_settings_data(setting_dict: Dictionary) -> void:
 	load_settings_data.emit(setting_dict)
 

@@ -22,7 +22,7 @@ func _ready()->void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	load_from_storage()
 	# Load settings data from storage to apply all settings on game boot
-	SaveManager.load_settings_data()
+	SettingSaveManager.load_settings_data()
 	unpause()
 
 func enable_pause()->void:

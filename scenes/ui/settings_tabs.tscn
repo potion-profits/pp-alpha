@@ -13,7 +13,7 @@ default_font_size = 30
 
 [sub_resource type="Theme" id="Theme_4i7af"]
 
-[node name="OptionTabs" type="Control"]
+[node name="SettingsTabs" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
