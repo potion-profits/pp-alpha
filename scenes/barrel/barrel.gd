@@ -38,15 +38,21 @@ const barrel_bottle_map = {
 	"dark_barrel": "item_dark_potion"
 }
 
+var player_in_area: Player
+
 const MAX_ML :int = 1_000 ## Amount to refill to, may change with different sized barrels
 const BARREL_TOOLTIP: String = "Press E to Fill Bottle" ## Tooltip for interactable
 var ml :int = 1_000	## Amount the current barrel has
 @export var barrel_type : String = "empty_barrel"	## Dictates the sprite and item given out
 
+
 func _ready() -> void:	
+	set_process(false)
+	
 	# Links interactable template to barrel specific method
 	interactable.interact = _on_interact
 	interactable.tooltip = BARREL_TOOLTIP
+	interactable.is_interactable = false
 	
 	
 	# Sets up entity info
@@ -58,7 +64,6 @@ func _ready() -> void:
 	
 	if (barrel_type == "empty_barrel"):
 		ml = 0
-		interactable.is_interactable = false
 	
 	if (!inv):
 		inv = Inv.new(0)
@@ -160,7 +165,6 @@ func refill(barrel_id: String)->void:
 ## Checks the barrel's current capacity and changes the sprite appropriately.[br][br]
 func check_barrel_capacity()->void:
 	if (ml <= 0):
-		interactable.is_interactable = false
 		change_barrel_color("empty_barrel", "empty")
 		return
 	
@@ -187,3 +191,32 @@ func check_barrel_capacity()->void:
 		change_barrel_color(barrel_type, "low")
 		return
 		
+## Adds player for processing and enables process
+##
+## Note: This is only used to decide whether to show tooltip
+func _on_interactable_body_entered(body: Node2D) -> void:
+	if body is Player:
+		player_in_area = body
+		set_process(true)
+
+## Removes player from processing and disables process
+##
+## Note: This is only used to decide whether to show tooltip
+func _on_interactable_body_exited(body: Node2D) -> void:
+	if body is Player:
+		player_in_area = null
+		interactable.is_interactable = false
+		set_process(false)
+
+## Decides when to show tooltip based on player and barrel conditions
+func _process(_delta: float) -> void:
+	interactable.is_interactable = false
+	if player_in_area:
+		
+		var selected_slot: InvSlot = player_in_area.get_selected_slot()
+		
+		if (!selected_slot or !selected_slot.item):
+			return
+			
+		if (selected_slot.item.texture_code == "item_empty_bottle" and ml > 0):
+			interactable.is_interactable = true
