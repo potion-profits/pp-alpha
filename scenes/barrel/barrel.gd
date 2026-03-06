@@ -191,24 +191,24 @@ func check_barrel_capacity()->void:
 		change_barrel_color(barrel_type, "low")
 		return
 		
-## Adds player for processing and enables process
-##
-## Note: This is only used to decide whether to show tooltip
+# Adds player for processing and enables process
+#
+# Note: This is only used to decide whether to show tooltip
 func _on_interactable_body_entered(body: Node2D) -> void:
 	if body is Player:
 		player_in_area = body
 		set_process(true)
 
-## Removes player from processing and disables process
-##
-## Note: This is only used to decide whether to show tooltip
+# Removes player from processing and disables process
+#
+# Note: This is only used to decide whether to show tooltip
 func _on_interactable_body_exited(body: Node2D) -> void:
 	if body is Player:
 		player_in_area = null
 		interactable.is_interactable = false
 		set_process(false)
 
-## Decides when to show tooltip based on player and barrel conditions
+# Decides when to show tooltip based on player and barrel conditions
 func _process(_delta: float) -> void:
 	interactable.is_interactable = false
 	if player_in_area:
