@@ -91,6 +91,7 @@ func _on_move_town_detection_body_entered(body: Node2D) -> void:
 func player_sleep() -> void:
 	GameManager.player_passed_out = false
 	clear_npcs()
+	close_open_shelf()
 	var fade : TextureRect = self.get_node("SleepFade")
 	fade.visible = true
 	var tween: Tween = create_tween()
@@ -104,6 +105,12 @@ func player_sleep() -> void:
 	TimeManager.set_process(true)
 	var spawner : Node = self.get_node("EntityManager/NpcSpawner")
 	spawner._ready()
+
+func close_open_shelf() -> void:
+	var em : EntityManager = get_node("EntityManager")
+	for child in em.get_children():
+		if child is Shelf and child.shelf_ui.visible:
+			child.close_shelf()
 
 func clear_npcs() -> void:
 	var em : EntityManager = get_node("EntityManager")
