@@ -51,6 +51,6 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 theme_override_fonts/font = ExtResource("2_0b1cv")
 theme_override_font_sizes/font_size = 32
-text = "Exit"
+text = "Save & Exit"
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Exit" to="." method="_on_exit_pressed"]
