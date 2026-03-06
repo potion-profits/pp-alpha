@@ -58,6 +58,7 @@ func _ready() -> void:
 	
 	if (barrel_type == "empty_barrel"):
 		ml = 0
+		interactable.is_interactable = false
 	
 	if (!inv):
 		inv = Inv.new(0)
@@ -159,6 +160,7 @@ func refill(barrel_id: String)->void:
 ## Checks the barrel's current capacity and changes the sprite appropriately.[br][br]
 func check_barrel_capacity()->void:
 	if (ml <= 0):
+		interactable.is_interactable = false
 		change_barrel_color("empty_barrel", "empty")
 		return
 	
