@@ -205,3 +205,4 @@ func _on_tutorial_complete() -> void:
 		tutorial.on_complete()
 		clock.visible = true
 	tutorial = null
+	GameManager.tutorial_completed = true

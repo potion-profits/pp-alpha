@@ -11,6 +11,7 @@ var pausable_scenes : Array = [
 	'res://scenes/town/town.tscn',
 	'res://scenes/supply_shop/supply_shop.tscn',
 	'res://scenes/player_shop/main_shop.tscn',
+	'res://scenes/casino/casino_floor.tscn'
 ]
 ## Holds any information that the previous scene wants the new scene to have.
 var scene_payload: Dictionary = {}
@@ -74,7 +75,7 @@ func fade_in(seconds: float = 0.5) -> void:
 	await tw.finished
 	is_transitioning = false
 	player = get_tree().get_first_node_in_group("player")
-	if player:
+	if player and not DialogueManager.dialogue_open:
 		player.set_physics_process(true)
 
 

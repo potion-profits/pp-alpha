@@ -68,6 +68,14 @@
 		"choices": [
 			{ "label": "Right. Sounds ominous!", "next": null }
 	  ]
+	},
+	
+	"not_enough_coins": {
+		"speaker": "Cashier",
+		"text": "Oooh, you don't have enough for that. \nMinimum buy in around here is 10 coins! \nMaybe try being successful and come back.",
+		"choices": [
+			{ "label": "It's rough out here, okay...", "next": "anything_else" }
+		]
 	}
 
 }

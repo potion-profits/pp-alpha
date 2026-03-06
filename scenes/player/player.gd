@@ -68,6 +68,7 @@ var current_state : movement_state = movement_state.IDLE
 ## Tracks current direction of player
 var last_dir := "down"
 
+
 func _ready() -> void:
 	add_to_group("player")
 	if !inv:
@@ -78,6 +79,7 @@ func _ready() -> void:
 		inv_ui.allow_hotkeys = true #allows 1-5 use for hotbar-like inv
 	coins = GameManager.player_data["coins"]
 	chips = GameManager.player_data["chips"]
+	GameManager.tutorial_completed = GameManager.player_data.get("tutorial_completed", false)
 	#if OS.is_debug_build():
 		#SPEED = SPEED * 3.5
 	#_debug_set_player_inv()
@@ -273,6 +275,7 @@ func interact_with_entity(entity: Entity)->void:
 ## Translates player inventory, coins, and chips into a dictionary for save state
 func to_dict()->Dictionary:
 	return{
+		"tutorial_completed": GameManager.tutorial_completed,
 		"inventory": inv.to_dict(),
 		"coins": coins,
 		"chips": chips,
@@ -281,6 +284,7 @@ func to_dict()->Dictionary:
 
 ## Translates save state data into player inventory, coins, and chips
 func from_dict(data:Dictionary)->void:
+	GameManager.tutorial_completed = data.get("tutorial_completed", false)
 	inv.from_dict(data["inventory"])
 	coins = data["coins"]
 	chips = data["chips"]

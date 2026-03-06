@@ -22,7 +22,6 @@ func _ready() -> void:
 		update_sprite(child)
 	
 	dialogue_ui.action_triggered.connect(_on_dialogue_action)
-	dialogue_ui.dialogue_ended.connect(func() -> void: player.set_physics_process(true))
 	cashier_npc.interactable.interact = open_shopkeeper_dialogue
 	
 	# Reopen dialogue if returning from a sub-scene
@@ -50,10 +49,6 @@ func _on_dialogue_action(action: String, _data: Dictionary) -> void:
 		SceneManager.change_to("res://scenes/entity_storing/entity_storing.tscn", payload)
 	elif action == "placement":
 		SceneManager.change_to("res://scenes/grid_placement/grid_placement.tscn", payload)
-
-# link to Ozcar's code here
-func open_purchase_scene() -> void:
-	SceneManager.change_to("res://scenes/town_menu/town_menu.tscn")
 
 func _on_move_town_detection_body_entered(body: Node2D) -> void:
 	if body is Player:

@@ -24,16 +24,24 @@ signal action_triggered(action: String, data: Dictionary)
 
 func _ready() -> void:
 	visible = false
-	dialogue_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 
 ## Opens the dialogue UI starting at the given dialogue node
 func open(file_key: String, dialogue_id: String) -> void:
+	var player : Player = get_tree().get_first_node_in_group("player")
+	var last_dir: String = player.last_dir
+	var player_idle_dir: String = "idle_" + last_dir
+	
+	if last_dir:
+		player.animated_sprite.play(player_idle_dir)
+	
 	current_file_key = file_key
 	current_node_id = dialogue_id
 	is_active = true
 	waiting_for_dismiss = false
 	visible = true
 	show_node(dialogue_id)
+	DialogueManager.dialogue_open = true
+	player.set_physics_process(false)
 
 ## Displays a dialogue node by ID — sets text and creates choice buttons
 func show_node(dialogue_id: String) -> void:
@@ -50,7 +58,6 @@ func show_node(dialogue_id: String) -> void:
 	choice_list = choices
 
 	dialogue_label.text = node.get("text", "")
-	DialogueManager.show_text(node.get("text", ""), node.get("speaker", ""))
 
 	# If no choices, wait for player to dismiss with interact key
 	if choices.is_empty():
@@ -100,11 +107,14 @@ func clear_choices() -> void:
 
 ## Closes the dialogue UI and emits dialogue_ended
 func close() -> void:
+	var player : Player = get_tree().get_first_node_in_group("player")
 	clear_choices()
 	visible = false
 	is_active = false
 	waiting_for_dismiss = false
 	dialogue_ended.emit()
+	DialogueManager.dialogue_open = false
+	player.set_physics_process(true)
 
 ## Handles keyboard input selecting choices
 func _input(event: InputEvent) -> void:

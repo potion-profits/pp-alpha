@@ -5,6 +5,9 @@ var dialogue_data: Dictionary = {}
 
 signal dialogue_shown(text: String, speaker: String)
 
+## flag for dialogue being open
+var dialogue_open : bool = false
+
 func _ready() -> void:
 	load_all_dialogues()
 
@@ -13,7 +16,6 @@ func load_all_dialogues() -> void:
 	var path: String = "res://assets/dialogue/dialogues/"
 	var dir: DirAccess = DirAccess.open(path)
 	if not dir:
-		print(">>> ERROR: Could not open dialogues directory")
 		return
 	
 	dir.list_dir_begin()
@@ -26,7 +28,6 @@ func load_all_dialogues() -> void:
 				var parsed: Variant = JSON.parse_string(file.get_as_text())
 				if parsed is Dictionary:
 					dialogue_data[key] = parsed
-					print(">>> Loaded dialogue file: ", key)
 		file_name = dir.get_next()
 	dir.list_dir_end()
 
@@ -52,7 +53,3 @@ func show_dialogue(file_key: String, dialogue_id: String) -> Dictionary:
 		var text: String = dialogue.get("text", "")
 		dialogue_shown.emit(text, speaker)
 	return dialogue
-
-## Convenience for emitting dialogue text directly
-func show_text(text: String, speaker: String = "") -> void:
-	dialogue_shown.emit(text, speaker)
