@@ -4,19 +4,12 @@
 [ext_resource type="FontFile" uid="uid://cw8oj1vo0thiu" path="res://assets/vhs-vcr-osd.ttf" id="2_0b1cv"]
 [ext_resource type="PackedScene" uid="uid://cmw478b4fbd1o" path="res://scenes/ui/settings_tabs.tscn" id="3_yu862"]
 
-[node name="SettingsMenu" type="Control"]
+[node name="SettingsMenu" type="CanvasLayer"]
 process_mode = 3
 visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 script = ExtResource("1_x3vyp")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -40,7 +33,7 @@ text = "Options"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="OptionTabs" parent="MarginContainer/VBoxContainer" instance=ExtResource("3_yu862")]
+[node name="SettingsTab" parent="MarginContainer/VBoxContainer" instance=ExtResource("3_yu862")]
 layout_mode = 2
 size_flags_vertical = 3
 

@@ -42,7 +42,7 @@ func _unhandled_input(event : InputEvent)->void:
 		return
 	if event.is_action_pressed("ui_cancel"):
 		#Case where pausing is allowed
-		if(pause_menu and pause_enabled):
+		if(pause_menu and pause_enabled and !SettingsMenu.visible):
 			get_tree().paused = !get_tree().paused
 			pause_menu.visible = get_tree().paused
 
