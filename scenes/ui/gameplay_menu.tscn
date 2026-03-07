@@ -21,7 +21,5 @@ theme_override_font_sizes/font_size = 32
 text = "TOOLTIPS"
 vertical_alignment = 1
 
-[node name="OptionButton" type="CheckBox" parent="HBoxContainer"]
-custom_minimum_size = Vector2(256, 64)
+[node name="CheckButton" type="CheckButton" parent="HBoxContainer"]
 layout_mode = 2
-button_mask = 0
