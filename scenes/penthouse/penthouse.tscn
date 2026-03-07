@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://djfoh7e3ckmhl"]
+
+[ext_resource type="PackedScene" uid="uid://b0flhrlw7t57t" path="res://scenes/player/player.tscn" id="1_fhtrk"]
+[ext_resource type="Texture2D" uid="uid://cq4mo6l3w2oka" path="res://assets/interior/shop/background.png" id="1_g3ws7"]
+
+[node name="Penthouse" type="Node2D"]
+
+[node name="Background" type="TextureRect" parent="."]
+offset_left = -120.0
+offset_top = -925.0
+offset_right = 955.0
+offset_bottom = 150.0
+texture = ExtResource("1_g3ws7")
+
+[node name="Player" parent="." instance=ExtResource("1_fhtrk")]
+position = Vector2(360, -71)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(-1, 1)
+zoom = Vector2(10, 10)
+limit_left = 249
+limit_top = -247
+limit_right = 531
+limit_bottom = 16
+limit_smoothed = true
+position_smoothing_enabled = true
+position_smoothing_speed = 3.0

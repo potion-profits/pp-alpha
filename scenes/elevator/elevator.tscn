@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://di38kx2a12yn8"]
+[gd_scene load_steps=34 format=3 uid="uid://di38kx2a12yn8"]
 
 [ext_resource type="Script" uid="uid://dj7khlbvw7fx1" path="res://scenes/elevator/elevator.gd" id="1_7w7uo"]
 [ext_resource type="Texture2D" uid="uid://ndpkiahpuyw0" path="res://assets/interior/casino/elevator.png" id="1_x8gua"]
@@ -103,11 +103,79 @@ animations = [{
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lni73"]
 atlas = ExtResource("1_x8gua")
+region = Rect2(96, 16, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_afpyx"]
+atlas = ExtResource("1_x8gua")
+region = Rect2(64, 16, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gfmbb"]
+atlas = ExtResource("1_x8gua")
+region = Rect2(32, 16, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nstm4"]
+atlas = ExtResource("1_x8gua")
+region = Rect2(0, 16, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4bv7d"]
+atlas = ExtResource("1_x8gua")
+region = Rect2(96, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_snd85"]
+atlas = ExtResource("1_x8gua")
+region = Rect2(64, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vwrvp"]
+atlas = ExtResource("1_x8gua")
+region = Rect2(32, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7m0u3"]
+atlas = ExtResource("1_x8gua")
 region = Rect2(0, 0, 32, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_atgsh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lni73")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_afpyx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gfmbb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nstm4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4bv7d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_snd85")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vwrvp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7m0u3")
+}],
+"loop": false,
+"name": &"default",
+"speed": 1.5
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_atgsh"]
+atlas = ExtResource("1_x8gua")
+region = Rect2(128, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ad0rn"]
 atlas = ExtResource("1_x8gua")
-region = Rect2(128, 0, 16, 16)
+region = Rect2(128, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i8spm"]
+atlas = ExtResource("1_x8gua")
+region = Rect2(160, 0, 16, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x8gua"]
 size = Vector2(40, 14)
@@ -128,16 +196,26 @@ texture = SubResource("AtlasTexture_x8gua")
 
 [node name="ElevatorDoors" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_lni73")
-frame = 11
-frame_progress = 1.0
 
-[node name="Floors" type="Sprite2D" parent="."]
+[node name="Floors" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -8)
-texture = SubResource("AtlasTexture_lni73")
+sprite_frames = SubResource("SpriteFrames_atgsh")
+frame = 7
+frame_progress = 1.0
 
 [node name="Buttons" type="Sprite2D" parent="."]
 position = Vector2(-8, 8)
+texture = SubResource("AtlasTexture_atgsh")
+
+[node name="ButtonUp" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-8, 8)
 texture = SubResource("AtlasTexture_ad0rn")
+
+[node name="ButtonDown" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-8, 8)
+texture = SubResource("AtlasTexture_i8spm")
 
 [node name="OpenCollision" type="CollisionShape2D" parent="."]
 position = Vector2(0, -4)
@@ -152,3 +230,6 @@ shape = SubResource("RectangleShape2D_7w7uo")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable"]
 position = Vector2(0, 21.5)
 shape = SubResource("RectangleShape2D_hadwe")
+
+[connection signal="animation_finished" from="ElevatorDoors" to="." method="_on_elevator_doors_animation_finished"]
+[connection signal="animation_finished" from="Floors" to="." method="_on_floors_animation_finished"]

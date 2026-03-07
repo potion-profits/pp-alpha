@@ -72,8 +72,7 @@ func open_cashier_dialogue() -> void:
 
 func open_elevator_dialogue() -> void:
 	prep_dialogue_open()
-	#dialogue_ui.open("casino","elevator_prompt")
-	elevator._on_dialogue_action()
+	dialogue_ui.open("elevator","elevator_prompt")
 
 ## Handles dialogue actions
 func _on_dialogue_action(action: String, _data: Dictionary) -> void:
@@ -85,6 +84,13 @@ func _on_dialogue_action(action: String, _data: Dictionary) -> void:
 			_update_exchange_label(exchange_amt)
 			dialogue_ui.show_text("Exchange your coins for chips as needed!")
 			exchange_container.visible = true
+	if action == "elevator_enter":
+		dialogue_ui.close()
+		play_elevator_up()
+
+func play_elevator_up()->void:
+	player.set_physics_process(false)
+	elevator.start_anim()
 
 func spawn_roaming_npcs()->void:
 	for location : Vector2 in spawn_location_pos:

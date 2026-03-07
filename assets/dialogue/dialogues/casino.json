@@ -76,6 +76,14 @@
 		"choices": [
 			{ "label": "It's rough out here, okay...", "next": "anything_else" }
 		]
-	}
-
+	},
+	
+	"elevator_prompt":{
+		"speaker": "Inner Thoughts",
+		"text": "I wonder where this leads to...",
+		"choices":[
+			{"label": "Go to top floor", "next": null, "action": "elevator_enter"},
+			{"label": "Nevermind...", "next": null},
+		]
+	},
 }
