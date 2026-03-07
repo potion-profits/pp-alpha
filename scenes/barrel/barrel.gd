@@ -39,9 +39,10 @@ const barrel_bottle_map = {
 }
 
 var player_in_area: Player
+var interact_key: String = InputMap.get_action_description("interact").split(" ")[0]
 
 const MAX_ML :int = 1_000 ## Amount to refill to, may change with different sized barrels
-const BARREL_TOOLTIP: String = "Press E to Fill Bottle" ## Tooltip for interactable
+var BARREL_TOOLTIP: String = "Press %s to Fill Bottle" % [interact_key] ## Tooltip for interactable
 var ml :int = 1_000	## Amount the current barrel has
 @export var barrel_type : String = "empty_barrel"	## Dictates the sprite and item given out
 
@@ -87,7 +88,7 @@ func get_barrel_texture(barrel_id : String, level: String = "full") -> Texture2D
 	return atlas_texture
 
 ## Handles interaction with this barrel.
-func _on_interact() -> void:
+func _on_interact() -> void:			
 	if (ml <= 0):
 		return
 		

@@ -17,11 +17,12 @@ class_name Cauldron extends Entity	#will help store placement and inventory info
 @onready var flame_animation: AnimatedSprite2D = $FlameAnim
 
 var player_in_area: Player
+var interact_key: String = InputMap.get_action_description("interact").split(" ")[0]
 
 var mixing: bool = false	## Keeps track of the cauldron's state
 const MIX_DURATION : float = 3.0
-const CAULDRON_MIXABLE_TOOLTIP : String = "Press E to Brew Potion"
-const CAULDRON_COLLECTABLE_TOOLTIP : String = "Press E to Collect Potion"
+var CAULDRON_MIXABLE_TOOLTIP : String = "Press %s to Brew Potion" %[interact_key]
+var CAULDRON_COLLECTABLE_TOOLTIP : String = "Press %s to Collect Potion" %[interact_key]
 const NUM_FLAME_FRAMES : int = 15
 const MAX_PROGRESS : int = 100
 const MIN_PROGRESS : int = 0

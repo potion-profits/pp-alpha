@@ -16,7 +16,8 @@ var bob_height: float = 2.0	## How much the icon should bob
 @onready var sale_sfx : AudioStreamPlayer2D = $SaleSFX ## Reference to audio stream for sound effects
 @onready var interactable : Area2D = $Interactable ## Reference to component used for interaction
 
-const REGISTER_TOOLTIP : String = "Press E to Checkout"
+var interact_key: String = InputMap.get_action_description("interact").split(" ")[0]
+var REGISTER_TOOLTIP : String = "Press %s to Checkout" %[interact_key]
 
 func _ready() -> void:
 	cust_waiting_icon.visible = false

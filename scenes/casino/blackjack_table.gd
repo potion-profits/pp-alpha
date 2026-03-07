@@ -3,7 +3,8 @@ extends Entity
 @onready var interactable : Area2D = $Interactable
 @onready var table_sprite: Sprite2D = $TableSprite
 
-const BLACKJACK_TOOLTIP: String = "Press E to Play Blackjack"
+var interact_key: String = InputMap.get_action_description("interact").split(" ")[0]
+var BLACKJACK_TOOLTIP: String = "Press %s to Play Blackjack" %[interact_key]
 
 func _ready() -> void:	
 	# Links interactable template to barrel specific method

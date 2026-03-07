@@ -18,7 +18,8 @@ class_name Crate extends Entity	#will help store placement and inventory informa
 
 # default vars
 const MAX_AMT: int = 8	## Max amount crates can hold
-const CRATE_TOOLTIP: String = "Press E for Bottle" ## Tooltip for interactable
+var interact_key: String = InputMap.get_action_description("interact").split(" ")[0]
+var CRATE_TOOLTIP: String = "Press %s for Bottle" %[interact_key] ## Tooltip for interactable
 var player_in_area: Player
 var crate_inv_amt : int = 0	## Current amount this crate has
 

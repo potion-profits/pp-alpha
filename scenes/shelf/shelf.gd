@@ -24,8 +24,9 @@ var inv_size: int = 12 ## The size of the shelf's inventory
 var potion_visuals : Array[Sprite2D] = []
 var fill_visuals : Array[Sprite2D] = []
 
-const SHELF_OPEN_TOOLTIP: String = "Press E to Open"
-const SHELF_CLOSE_TOOLTIP: String = "Press E to Close"
+var interact_key: String = InputMap.get_action_description("interact").split(" ")[0]
+var SHELF_OPEN_TOOLTIP: String = "Press %s to Open" %[interact_key]
+var SHELF_CLOSE_TOOLTIP: String = "Press %s to Close" %[interact_key]
 
 # Mapping item_id -> rgb color for modulation
 const visual_color_map = {

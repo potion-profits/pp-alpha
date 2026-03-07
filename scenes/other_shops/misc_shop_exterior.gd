@@ -4,8 +4,13 @@ extends Entity
 
 @onready var interactable: Area2D = $Interactable
 
+var interact_key: String = InputMap.get_action_description("interact").split(" ")[0]
+var DOOR_TOOLTIP: String = "Press %s to Enter" %[interact_key]
+
 func _ready() -> void:
 	interactable.interact = _on_interact
+	interactable.tooltip = DOOR_TOOLTIP
+	
 	super._ready()
 	entity_code = "misc_shop_ext"
 
