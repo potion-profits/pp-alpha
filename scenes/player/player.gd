@@ -67,6 +67,7 @@ var input_slot_map : Dictionary = {
 var current_state : movement_state = movement_state.IDLE
 ## Tracks current direction of player
 var last_dir := "down"
+var last_flip_h := false
 
 
 func _ready() -> void:
@@ -145,12 +146,14 @@ func get_movement_input(_delta : float) -> void:
 			else:
 				anim_dir += "left"
 			animated_sprite.flip_h = false
+			last_flip_h = false
 		elif x_dir > 0:
 			if anim_dir == "":
 				anim_dir = "left"
 			else:
 				anim_dir += "left"
 			animated_sprite.flip_h = true
+			last_flip_h = true
 		
 		last_dir = anim_dir
 

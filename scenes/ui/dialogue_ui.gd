@@ -37,6 +37,8 @@ func open(file_key: String, dialogue_id: String) -> void:
 	
 	current_file_key = file_key
 	current_node_id = dialogue_id
+	DialogueManager.current_scene = file_key
+	DialogueManager.current_dialogue_id = dialogue_id
 	is_active = true
 	waiting_for_dismiss = false
 	visible = true
@@ -112,6 +114,8 @@ func close() -> void:
 	var player : Player = get_tree().get_first_node_in_group("player")
 	clear_choices()
 	
+	DialogueManager.current_scene = ""
+	DialogueManager.current_dialogue_id = ""
 	visible = false
 	is_active = false
 	waiting_for_dismiss = false
