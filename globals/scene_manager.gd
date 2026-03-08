@@ -157,7 +157,6 @@ func _on_day_end() -> void:
 func _on_scene_changed() -> void:
 	# Wait one frame to ensure scene is fully ready
 	await get_tree().process_frame
-	load_player_position()
 	if with_transition:
 		await fade_in(0.5)
 	if GameManager.player_passed_out:
