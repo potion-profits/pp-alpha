@@ -69,6 +69,15 @@ func _on_dialogue_action(action: String, _data: Dictionary) -> void:
 			_update_exchange_label(exchange_amt)
 			dialogue_ui.show_text("Exchange your coins for chips as needed!")
 			exchange_container.visible = true
+	elif action == "exchange_prize":
+		var price : int = _data["price"]
+		if player.chips < price:
+			dialogue_ui.open("casino", "not_enough_chips")
+		else:
+			var code : String = _data["entity_code"]
+			player.set_credit(code, 1)
+			player.set_chips(price * -1)
+			dialogue_ui.open("casino", "exchange_success")
 
 func spawn_roaming_npcs()->void:
 	for location : Vector2 in spawn_location_pos:

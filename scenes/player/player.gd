@@ -90,6 +90,9 @@ func _ready() -> void:
 #esc when held will close and pause
 #uses keys to enlarge sprites in inventory
 func _input(_event: InputEvent) -> void:
+	if Input.is_key_pressed(KEY_F1) and OS.is_debug_build():
+		set_coins(1000)
+	
 	if !inv_ui:
 		return
 		
