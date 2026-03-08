@@ -68,7 +68,6 @@ func _ready()->void:
 		tutorial.visible = false
 		clock.visible = true
 		TimeManager.set_process(true)
-		TimeManager.time = 0.0
 		if tutorial_cat.has_node("SpeechBubble"):
 			tutorial_cat.get_node("SpeechBubble").visible = false
 	
@@ -223,6 +222,7 @@ func _on_tutorial_complete() -> void:
 		clock.visible = true
 	tutorial = null
 	GameManager.tutorial_completed = true
+	TimeManager.set_process(true)
 	spawner.npc_respawn_timer.start()
 
 func _on_dialogue_action(action: String, _data: Dictionary) -> void:
@@ -234,7 +234,7 @@ func _on_dialogue_action(action: String, _data: Dictionary) -> void:
 		SceneManager.change_to("res://scenes/town/town.tscn", payload)
 	elif action == "continue_tutorial":
 		dialogue_ui.close()
-		TimeManager.set_process(false) ## close dialogue will turn it back on
+		TimeManager.set_process(false)
 		if tutorial:
 			tutorial.visible = true
 		inv_ui.visible = true
