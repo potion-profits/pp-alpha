@@ -52,12 +52,7 @@ var orig_pos: Vector2
 
 func _ready()->void:
 	get_viewport().size_changed.connect(_on_viewport_size_changed)
-	
-	# skip tutorial on debug
-	await get_tree().process_frame
-	#if OS.is_debug_build():
-		#GameManager.tutorial_completed = true
-		
+
 	if not GameManager.tutorial_completed:
 		tutorial.setup(self)
 		tutorial.tutorial_complete.connect(_on_tutorial_complete)
@@ -71,6 +66,7 @@ func _ready()->void:
 		if tutorial_cat.has_node("SpeechBubble"):
 			tutorial_cat.get_node("SpeechBubble").visible = false
 	
+	await get_tree().process_frame
 	viewport_size = get_viewport_rect().size
 	check_camera_pos()
 	_on_viewport_size_changed() # initalize inv UI position
