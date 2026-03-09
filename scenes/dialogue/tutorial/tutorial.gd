@@ -2,7 +2,7 @@
 extends CanvasLayer
 
 ## Tutorial UI nodes
-@onready var dialogue_label: Label = $DialogueContainer/DialoguePanel/MarginContainer/DialogueLabel
+@onready var dialogue_label: Label = $DialogueContainer/DialoguePanel/MarginContainer/ScrollContainer/DialogueLabel
 @onready var character_portrait: TextureRect = $DialogueContainer/DialoguePanel/TutorialCatPortrait
 
 ## Indicator of which tutorial step player is on
@@ -35,37 +35,38 @@ func _input(event: InputEvent) -> void:
 func setup(scene_root: Node) -> void:
 	tutorial_character = scene_root.get_node("EntityManager/TutorialCat")
 	tutorial_markers = scene_root.get_node("TutorialMarkers")
-
 	backroom_bottom = scene_root.get_node("BackRoom/BackRoomEdges/BottomRight").global_position.y
 
-	for cauldron: Node2D in get_tree().get_nodes_in_group("tutorial_cauldron"):
-		if cauldron.has_signal("mixing_potion") and not cauldron.mixing_potion.is_connected(_on_tutorial_event):
-			cauldron.mixing_potion.connect(_on_tutorial_event.bind("potion_mixed"))
+	var em := scene_root.get_node("EntityManager")
 
-		if cauldron.has_node("MixTimer"):
-			cauldron.get_node("MixTimer").timeout.connect(_on_tutorial_event.bind("potion_ready"))
+	for node in em.get_children():
+		if node is Cauldron:
+			if node.has_signal("mixing_potion") and not node.mixing_potion.is_connected(_on_tutorial_event.bind("potion_mixed")):
+				node.mixing_potion.connect(_on_tutorial_event.bind("potion_mixed"))
 
-		if cauldron.has_signal("potion_collected") and not cauldron.potion_collected.is_connected(_on_tutorial_event):
-			cauldron.potion_collected.connect(_on_tutorial_event.bind("potion_grabbed"))
+			if node.has_node("MixTimer") and not node.get_node("MixTimer").timeout.is_connected(_on_tutorial_event.bind("potion_ready")):
+				node.get_node("MixTimer").timeout.connect(_on_tutorial_event.bind("potion_ready"))
 
-	for crate: Node2D in get_tree().get_nodes_in_group("tutorial_crate"):
-		if crate.has_signal("bottle_taken") and not crate.bottle_taken.is_connected(_on_tutorial_event):
-			crate.bottle_taken.connect(_on_tutorial_event.bind("bottle_grabbed"))
+			if node.has_signal("potion_collected") and not node.potion_collected.is_connected(_on_tutorial_event.bind("potion_grabbed")):
+				node.potion_collected.connect(_on_tutorial_event.bind("potion_grabbed"))
 
-	for barrel: Node2D in get_tree().get_nodes_in_group("tutorial_barrel"):
-		if barrel.has_signal("ingredients_taken") and not barrel.ingredients_taken.is_connected(_on_tutorial_event):
-			barrel.ingredients_taken.connect(_on_tutorial_event.bind("ingredients_grabbed"))
+		elif node is Crate:
+			if node.has_signal("bottle_taken") and not node.bottle_taken.is_connected(_on_tutorial_event.bind("bottle_grabbed")):
+				node.bottle_taken.connect(_on_tutorial_event.bind("bottle_grabbed"))
 
-	for shelf: Node2D in get_tree().get_nodes_in_group("tutorial_shelf"):
-		if shelf.has_signal("shelf_opened") and not shelf.shelf_opened.is_connected(_on_tutorial_event):
-			shelf.shelf_opened.connect(_on_tutorial_event.bind("shelf_opened"))
+		elif node is Barrel:
+			if node.has_signal("ingredients_taken") and not node.ingredients_taken.is_connected(_on_tutorial_event.bind("ingredients_grabbed")):
+				node.ingredients_taken.connect(_on_tutorial_event.bind("ingredients_grabbed"))
 
-		if "inv" in shelf and shelf.inv and shelf.inv.has_signal("update") and not shelf.inv.update.is_connected(_on_tutorial_event):
-			shelf.inv.update.connect(_on_tutorial_event.bind("item_stocked"))
-			
-		if shelf.has_signal("shelf_closed") and not shelf.shelf_closed.is_connected(_on_tutorial_event):
-			shelf.shelf_closed.connect(_on_tutorial_event.bind("shelf_closed"))
+		elif node is Shelf:
+			if node.has_signal("shelf_opened") and not node.shelf_opened.is_connected(_on_tutorial_event.bind("shelf_opened")):
+				node.shelf_opened.connect(_on_tutorial_event.bind("shelf_opened"))
 
+			if node.inv and node.inv.has_signal("update") and not node.inv.update.is_connected(_on_tutorial_event.bind("item_stocked")):
+				node.inv.update.connect(_on_tutorial_event.bind("item_stocked"))
+
+			if node.has_signal("shelf_closed") and not node.shelf_closed.is_connected(_on_tutorial_event.bind("shelf_closed")):
+				node.shelf_closed.connect(_on_tutorial_event.bind("shelf_closed"))
 
 ## Starts tutorial
 func start(steps: Array) -> void:

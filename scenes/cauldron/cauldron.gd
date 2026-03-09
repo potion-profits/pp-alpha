@@ -23,8 +23,8 @@ const MAX_PROGRESS : int = 100
 const MIN_PROGRESS : int = 0
 
 ## Signals for successful mix and potion collection
-signal mixing_potion(player: Player)
-signal potion_collected(player: Player)
+signal mixing_potion()
+signal potion_collected()
 
 func _ready()-> void:
 	#links interactable template to cauldron specific method (needed for all interactables)

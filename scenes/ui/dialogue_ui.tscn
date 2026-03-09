@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://c3qqvdemavffu"]
 
 [ext_resource type="Script" uid="uid://c50kmof011m32" path="res://scenes/ui/dialogue_ui.gd" id="1_y3syv"]
-[ext_resource type="FontFile" uid="uid://w0od4ko6rxie" path="res://assets/dialogue/fonts/vhs-vcr-osd.ttf" id="2_sd0pw"]
+[ext_resource type="FontFile" uid="uid://djn684cose2cu" path="res://assets/dialogue/fonts/ari-w9500-bold.ttf" id="2_ysedr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qn8cy"]
 bg_color = Color(0.9307845, 0.83566743, 0.71181226, 1)
@@ -74,8 +74,8 @@ border_color = Color(0.8, 0.8, 0.8, 0)
 
 [sub_resource type="Theme" id="Theme_sd0pw"]
 resource_local_to_scene = true
-default_font = ExtResource("2_sd0pw")
-default_font_size = 30
+default_font = ExtResource("2_ysedr")
+default_font_size = 38
 Button/colors/font_color = Color(0, 0, 0, 1)
 Button/colors/font_disabled_color = Color(0.875, 0.875, 0.875, 0.5)
 Button/colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
@@ -156,6 +156,7 @@ custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
+theme_override_constants/separation = 32
 alignment = 1
 
 [node name="DialogueLabel" type="Label" parent="DialogueContainer/DialoguePanel/MarginContainer/ScrollContainer/VBoxContainer"]
@@ -163,13 +164,12 @@ custom_minimum_size = Vector2(1500, 0)
 layout_mode = 2
 size_flags_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_constants/line_spacing = -50
-theme_override_fonts/font = ExtResource("2_sd0pw")
-theme_override_font_sizes/font_size = 38
+theme_override_fonts/font = ExtResource("2_ysedr")
+theme_override_font_sizes/font_size = 48
 autowrap_mode = 3
 
 [node name="ChoiceContainer" type="VBoxContainer" parent="DialogueContainer/DialoguePanel/MarginContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 2
 theme = SubResource("Theme_sd0pw")
-theme_override_constants/separation = -30
+theme_override_constants/separation = 16

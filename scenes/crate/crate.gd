@@ -21,7 +21,7 @@ const MAX_AMT: int = 8	## Max amount crates can hold
 var crate_inv_amt : int = 0	## Current amount this crate has
 
 ## Successful interact
-signal bottle_taken(player: Player)
+signal bottle_taken()
 
 func _ready()-> void:
 	#links interactable template to cauldron specific method (needed for all interactables)

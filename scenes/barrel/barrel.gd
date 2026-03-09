@@ -43,7 +43,7 @@ var ml :int = 1_000	## Amount the current barrel has
 @export var barrel_type : String = "empty_barrel"	## Dictates the sprite and item given out
 
 ## Signal for successful barrel pull
-signal ingredients_taken(player: Player)
+signal ingredients_taken()
 
 func _ready() -> void:	
 	# Links interactable template to barrel specific method
