@@ -21,7 +21,9 @@ signal scene_ready
 
 ## Holds last known position of character for each scene they loaded pinto in a session
 var last_known_positions: Dictionary = {}
-var last_known_scene: String
+var last_known_scene: String = ""
+var last_dir: String = ""
+var last_flip_h: bool = false
 
 ## Transition overlay
 var transition_layer: CanvasLayer
@@ -37,7 +39,8 @@ const menu_scenes : Array = [
 	"res://scenes/ui/options_menu.tscn",
 	"res://scenes/ui/start_menu.tscn",
 	"res://scenes/ui/volume_menu.tscn",
-	"res://scenes/ui/pause_menu.tscn"
+	"res://scenes/ui/pause_menu.tscn",
+	"res://scenes/ui/settings_menu.tscn"
 ]
 
 func _ready() -> void:
@@ -78,7 +81,6 @@ func fade_in(seconds: float = 0.5) -> void:
 	if player and not DialogueManager.dialogue_open:
 		player.set_physics_process(true)
 
-
 func change_to(scene_path: String, payload: Dictionary = {}) -> void:
 	# Prevent double transitions
 	if is_transitioning:
@@ -92,13 +94,7 @@ func change_to(scene_path: String, payload: Dictionary = {}) -> void:
 	GameManager.save_scene_runtime_state()
 	scene_payload = payload.duplicate()
 	
-	if payload.has("player_position"):
-		save_player_position(payload["player_position"])
-	else:
-		save_player_position()
-		
-	if payload.has("transition"):
-		with_transition = payload["transition"]
+	handle_payload(payload)
 	
 	var cs : String = current_scene().scene_file_path
 	if cs not in menu_scenes:
@@ -136,18 +132,24 @@ func save_player_position(player_pos: Vector2 = Vector2.ZERO) -> void:
 		last_known_positions[scene_name] = (
 			player_pos if player_pos != Vector2.ZERO else player.global_position
 		)
+		last_dir = player.last_dir
+		last_flip_h = player.animated_sprite.flip_h 
 
 func load_player_position() -> void:
 	var player: Player = get_tree().get_first_node_in_group("player")
 	if player:
 		var scene_name: StringName = current_scene().name
 		
-		if last_known_positions.has(scene_name):
+		if last_known_positions.has(scene_name) and last_known_positions[scene_name] != Vector2.ZERO:
 			player.global_position = last_known_positions[scene_name]
 		
-		if scene_payload.has("player_direction"):
-			player.last_dir = scene_payload["player_direction"]
-			player.animated_sprite.play("idle_" + scene_payload["player_direction"])
+		# load player facing direction from last scene
+		if last_dir != "":
+			player.last_dir = last_dir 
+			player.animated_sprite.flip_h = last_flip_h
+			if player.animated_sprite.sprite_frames.has_animation("idle_" + player.last_dir):
+				player.animated_sprite.play("idle_" + player.last_dir)
+		
 
 func _on_day_end() -> void:
 	await change_to(shop_path, {})
@@ -160,3 +162,19 @@ func _on_scene_changed() -> void:
 		await fade_in(0.5)
 	if GameManager.player_passed_out:
 		scene_ready.emit()
+
+## Handles various payload keys
+func handle_payload(payload: Dictionary) -> void:
+	save_player_position() ## always save player global pos by default
+	if not payload:
+		return
+	for key:String in payload:
+		match key:
+			"player_position":
+				# overwrite player pos if given
+				save_player_position(payload["player_position"])
+			"with_transition":
+				with_transition = payload["with_transition"]
+			_: 
+				continue
+				

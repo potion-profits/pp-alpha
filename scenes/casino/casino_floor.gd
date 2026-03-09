@@ -36,8 +36,8 @@ func _ready() -> void:
 	
 	for npc : Node in ysort.get_children():
 		if npc.name.begins_with('Npc'):
-			npc.sprite.frame = randi_range(0, 3)
 			npc.sprite.play("idle_up")
+			npc.sprite.frame = randi_range(0, 3)
 	
 	for dealer : Node in ysort.get_children():
 		if dealer.name.begins_with("Dealer"):
@@ -84,6 +84,15 @@ func _on_dialogue_action(action: String, _data: Dictionary) -> void:
 			_update_exchange_label(exchange_amt)
 			dialogue_ui.show_text("Exchange your coins for chips as needed!")
 			exchange_container.visible = true
+	elif action == "exchange_prize":
+		var price : int = _data["price"]
+		if player.chips < price:
+			dialogue_ui.open("casino", "not_enough_chips")
+		else:
+			var code : String = _data["entity_code"]
+			player.set_credit(code, 1)
+			player.set_chips(price * -1)
+			dialogue_ui.open("casino", "exchange_success")
 	if action == "elevator_enter":
 		dialogue_ui.close()
 		play_elevator_up()
@@ -107,6 +116,7 @@ func spawn_npc(loc: Vector2) -> void:
 	var t_npc : RoamingNpc = roaming_npc_scene.instantiate()
 	t_npc.position = loc
 	ysort.add_child(t_npc)
+	t_npc.sprite.frame = randi_range(0, 3)
 
 # exchange logic for coins to chips
 func _on_confirm_exchange_pressed() -> void:
@@ -120,7 +130,7 @@ func _on_cancel_exchange_pressed() -> void:
 	dialogue_ui.show_node("anything_else")
 
 func _on_less_coins_pressed() -> void:
-	if Input.is_action_pressed("sprint"):
+	if Input.is_action_pressed("dash"):
 		exchange_amt -= 100
 	else:
 		exchange_amt -= 10
@@ -130,7 +140,7 @@ func _on_less_coins_pressed() -> void:
 
 func _on_more_coins_pressed() -> void:
 	var current : int = player.get_coins()
-	if Input.is_action_pressed("sprint"):
+	if Input.is_action_pressed("dash"):
 		exchange_amt += 100
 	else:
 		exchange_amt += 10

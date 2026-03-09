@@ -34,6 +34,10 @@ extends Node2D
 @onready var clock : Control = $Static_UI/Clock
 ## Tutorial cat
 @onready var tutorial_cat : StaticBody2D = $EntityManager/TutorialCat
+## Dialogue UI
+@onready var dialogue_ui : CanvasLayer = $DialogueUI
+## Spawner
+@onready var spawner : Node = $EntityManager/NpcSpawner
 
 ## Size of player's window
 var viewport_size: Vector2
@@ -48,17 +52,14 @@ var orig_pos: Vector2
 
 func _ready()->void:
 	get_viewport().size_changed.connect(_on_viewport_size_changed)
-	
-	# skip tutorial on debug
-	#if OS.is_debug_build():
-		#GameManager.tutorial_completed = true
-		
+
+	await get_tree().process_frame # wait for all entities to load in
 	if not GameManager.tutorial_completed:
-		await get_tree().process_frame
 		tutorial.setup(self)
 		tutorial.tutorial_complete.connect(_on_tutorial_complete)
 		tutorial.start(DialogueManager.get_array("tutorial", "tutorial"))
 		clock.visible = false
+		spawner.npc_respawn_timer.stop()
 	else:
 		tutorial.visible = false
 		clock.visible = true
@@ -66,10 +67,10 @@ func _ready()->void:
 		if tutorial_cat.has_node("SpeechBubble"):
 			tutorial_cat.get_node("SpeechBubble").visible = false
 	
-	await get_tree().process_frame
 	viewport_size = get_viewport_rect().size
 	check_camera_pos()
 	_on_viewport_size_changed() # initalize inv UI position
+	dialogue_ui.action_triggered.connect(_on_dialogue_action)
 
 func check_camera_pos() -> void:
 	if player.global_position.y <= b_bottom_right.global_position.y:
@@ -84,13 +85,17 @@ func _physics_process(_delta: float) -> void:
 
 func _on_move_town_detection_body_entered(body: Node2D) -> void:
 	if body is Player:
-		var payload : Dictionary = SceneManager.get_payload()
-		payload["player_position"] = spawn_marker.global_position
-		SceneManager.change_to("res://scenes/town/town.tscn", payload)
+		if not GameManager.tutorial_completed:
+			skip_tutorial()
+		else:
+			var payload : Dictionary = SceneManager.get_payload()
+			payload["player_position"] = spawn_marker.global_position
+			SceneManager.change_to("res://scenes/town/town.tscn", payload)
 
 func player_sleep() -> void:
 	GameManager.player_passed_out = false
 	clear_npcs()
+	close_open_shelf()
 	var fade : TextureRect = self.get_node("SleepFade")
 	fade.visible = true
 	var tween: Tween = create_tween()
@@ -102,8 +107,14 @@ func player_sleep() -> void:
 	await tween.finished
 	fade.visible = false
 	TimeManager.set_process(true)
-	var spawner : Node = self.get_node("EntityManager/NpcSpawner")
+	TimeManager.time = 0.0
 	spawner._ready()
+
+func close_open_shelf() -> void:
+	var em : EntityManager = get_node("EntityManager")
+	for child in em.get_children():
+		if child is Shelf and child.shelf_ui.visible:
+			child.close_shelf()
 
 func clear_npcs() -> void:
 	var em : EntityManager = get_node("EntityManager")
@@ -121,6 +132,7 @@ func clear_npcs() -> void:
 
 ## Moves the camera when the player transitions from the frontroom to the backroom or vice versa
 func transition_camera(top_left: Marker2D, bottom_right: Marker2D) -> void:
+	await get_tree().process_frame
 	player_camera.limit_left = int(top_left.global_position.x)
 	player_camera.limit_top = int(top_left.global_position.y)
 	player_camera.limit_right = int(bottom_right.global_position.x)
@@ -206,3 +218,24 @@ func _on_tutorial_complete() -> void:
 		clock.visible = true
 	tutorial = null
 	GameManager.tutorial_completed = true
+	TimeManager.set_process(true)
+	spawner.npc_respawn_timer.start()
+
+func _on_dialogue_action(action: String, _data: Dictionary) -> void:
+	if action == "skip_tutorial":
+		dialogue_ui.close()
+		_on_tutorial_complete()
+		var payload : Dictionary = SceneManager.get_payload()
+		payload["player_position"] = spawn_marker.global_position
+		SceneManager.change_to("res://scenes/town/town.tscn", payload)
+	elif action == "continue_tutorial":
+		dialogue_ui.close()
+		TimeManager.set_process(false)
+		if tutorial:
+			tutorial.visible = true
+		inv_ui.visible = true
+
+func skip_tutorial() -> void:
+	tutorial.visible = false
+	inv_ui.visible = false
+	dialogue_ui.open("tutorial", "skip_tutorial")

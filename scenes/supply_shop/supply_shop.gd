@@ -6,8 +6,6 @@ extends Node2D
 @onready var player: Player = $Entities/Player
 @onready var dialogue_ui: CanvasLayer = $DialogueUI
 
-var saved_position : Vector2
-
 func _ready() -> void:
 	for child in entities.get_children():
 		if child is Npc or child is Player:
@@ -25,13 +23,10 @@ func _ready() -> void:
 	cashier_npc.interactable.interact = open_shopkeeper_dialogue
 	
 	# Reopen dialogue if returning from a sub-scene
-	var payload: Dictionary = SceneManager.get_payload()
-	if payload.get("reopen_dialogue", false):
-		var pos: Vector2 = payload.get("player_position", Vector2.ZERO)
-		if pos != Vector2.ZERO:
-			player.global_position = pos
-		await get_tree().process_frame
-		open_shopkeeper_dialogue()
+	if DialogueManager.dialogue_open:
+		var file_key : String = DialogueManager.current_scene
+		var dialogue_id : String = DialogueManager.current_dialogue_id
+		dialogue_ui.open(file_key, dialogue_id)
 
 func open_shopkeeper_dialogue() -> void:
 	var last_dir: String = player.last_dir
@@ -40,9 +35,9 @@ func open_shopkeeper_dialogue() -> void:
 	dialogue_ui.open("supply_shop", "shopkeeper_greeting")
 
 func _on_dialogue_action(action: String, _data: Dictionary) -> void:
-	var payload: Dictionary = SceneManager.get_payload()
-	payload["player_position"] = player.global_position
-	payload["reopen_dialogue"] = true
+	var payload: Dictionary = {
+		"with_transition": false
+	}
 	if action == "refill":
 		SceneManager.change_to("res://scenes/refill_scene/backroom.tscn", payload)
 	elif action == "storage":

@@ -74,11 +74,7 @@ animations = [{
 atlas = ExtResource("2_3v208")
 region = Rect2(0, 16, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_lddwh"]
-atlas = ExtResource("2_3v208")
-region = Rect2(0, 16, 16, 16)
-
-[node name="Crate" type="StaticBody2D" groups=["tutorial_crate"]]
+[node name="Crate" type="StaticBody2D"]
 script = ExtResource("1_3v208")
 
 [node name="crate_back" type="Sprite2D" parent="."]

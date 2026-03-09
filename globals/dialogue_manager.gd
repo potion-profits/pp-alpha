@@ -5,6 +5,9 @@ var dialogue_data: Dictionary = {}
 
 signal dialogue_shown(text: String, speaker: String)
 
+var current_scene : String = ""
+var current_dialogue_id : String = ""
+
 ## flag for dialogue being open
 var dialogue_open : bool = false
 

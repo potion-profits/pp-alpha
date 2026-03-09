@@ -13,10 +13,13 @@
 	
 	"prizes": {
 		"speaker": "Cashier",
-		"text": "Hmm... we're still setting up the prize shelf. Check back soon!",
+		"text": "Select a prize to redeem with your hard-earned chips!",
 		"choices": [
-			{ "label": "I'll exchange some coins then", "next": null, "action": "open_exchange" },
-			{ "label": "Alright, maybe later.", "next": null }
+			{ "label": "I'll take an extra cauldron.    [150 chips]", "next": null, "action": "exchange_prize", "price": 150, "entity_code": "cauldron" },
+			{ "label": "How about a new shelf.    [100 chips]", "next": null, "action": "exchange_prize", "price": 100, "entity_code": "shelf" },
+			{ "label": "Do you have any barrels.    [80 chips]", "next": null, "action": "exchange_prize", "price": 80, "entity_code": "barrel" },
+			{ "label": "I could really use another crate.    [50 chips]", "next": null, "action": "exchange_prize", "price": 50, "entity_code": "crate" },
+			{ "label": "Maybe some other time.", "next": null }
 		]
 	},
 
@@ -78,12 +81,21 @@
 		]
 	},
 	
-	"elevator_prompt":{
-		"speaker": "Inner Thoughts",
-		"text": "I wonder where this leads to...",
-		"choices":[
-			{"label": "Go to top floor", "next": null, "action": "elevator_enter"},
-			{"label": "Nevermind...", "next": null},
+	"not_enough_chips": {
+		"speaker": "Cashier",
+		"text": "Oooh, you don't have enough chips for that prize. \nGo gamble some more and come back when you have some chips to brag about.",
+		"choices": [
+			{ "label": "This casino will be the ruin of me.", "next": "anything_else" }
 		]
 	},
+	
+	"exchange_success": {
+		"speaker": "Cashier",
+		"text": "OK, we have provided you an in-store credit for the prize you have selected with our prize-sponsor Crate & Barrel.\n 
+			Head next door when you want to place your prize.",
+		"choices": [
+			{ "label": "Sure thing, I'll grab my prize once I finish gambling.", "next": "anything_else" }
+		]
+	}
+
 }
