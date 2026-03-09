@@ -23,11 +23,13 @@ func add_window_mode_items() -> void:
 	for mode in WINDOW_MODE_ARRAY:
 		option_button.add_item(mode)
 
+func notify_resolution_button(index: int) -> void:
+	# Emit signal for resolution button
+	resolution_button.on_window_switch(index)
+
 func _on_option_button_item_selected(index: int) -> void:
 	# Emit signal for save data
 	SettingManager.emit_on_window_selected(index)
-	# Emit signal for resolution button
-	resolution_button.on_window_switch(index)
 	# Map option value index to WINDOW_MODE_ARRAY
 	match index:
 		0: #Windowed
@@ -39,3 +41,4 @@ func _on_option_button_item_selected(index: int) -> void:
 		2: #Borderless Windowed
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, true)
+	call_deferred("notify_resolution_button", index)

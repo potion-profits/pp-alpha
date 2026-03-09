@@ -28,14 +28,16 @@ func _ready() -> void:
 	load_data()
 
 func load_data() -> void:
-	# Set loaded screen resolution
-	_on_option_button_item_selected(SettingDataContainer.resolution_mode_index)
 	# Ensure UI selection index visual matches loaded index
 	option_button.select(SettingDataContainer.resolution_mode_index)
 	# Check if disabled resolution options based on loaded window mode (1 is fullscreen)
 	if (SettingDataContainer.window_mode_index == window_fullscreen_idx):
 		handle_fullscreen_resolution()
+	else:
+		# Set loaded screen resolution
+		apply_resolution_index(SettingDataContainer.resolution_mode_index)
 
+## Adds resolution options (including the user's native res to the array (Which adds to the UI dropdown)
 func add_resolution_items() -> void:
 	for res_text: String in RESOLUTION_OPTIONS:
 		option_button.add_item(res_text)
@@ -47,12 +49,19 @@ func add_resolution_items() -> void:
 		native_res_idx = option_button.item_count - 1
 
 func _on_option_button_item_selected(index: int) -> void:
+	apply_resolution_index(index)
+
+func apply_resolution_index(index: int) -> void:
 	var resolution: Vector2i
 	if index < RESOLUTION_OPTIONS.size():
 		resolution = RESOLUTION_OPTIONS.values()[index]
 	else:
 		resolution = native_res
 	SettingManager.emit_on_resolution_selected(index)
+	# Defer the actual resize to avoid race with window mode transitions
+	call_deferred("_set_window_size", resolution)
+
+func _set_window_size(resolution: Vector2i) -> void:
 	DisplayServer.window_set_size(resolution)
 
 ## Signal emmited from the window_buttton scene
@@ -61,17 +70,18 @@ func on_window_switch(idx: int) -> void:
 		return
 	# index window #1 is FullScreen mode
 	if option_button:
-		if idx == 1:
+		if idx == window_fullscreen_idx:
 			handle_fullscreen_resolution()
-			#var native_res : Vector2i = get_native_display_res(current_screen)
 		# any other mode has the option button available
 		else:
 			option_button.disabled = false
+			# Defer so Godot finishes the window mode transition first
+			_on_option_button_item_selected(option_button.selected)
 
 ## Handles FullScreen specific behavior 
 ##
 ## On Fullscreen selected, button is disabled
-## and set as the screen native resolution 
+## and set as the selected screen as native resolution 
 func handle_fullscreen_resolution() -> void:
 	if !option_button:
 		return
@@ -79,5 +89,3 @@ func handle_fullscreen_resolution() -> void:
 	option_button.disabled = true
 	# Set to current native resolution
 	option_button.select(native_res_idx)
-	#SettingManager.emit_on_resolution_selected(native_res_idx)
-	_on_option_button_item_selected(native_res_idx)
