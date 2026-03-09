@@ -1,18 +1,16 @@
 class_name Casino extends Node2D
-
 ## Main scene for the casino level that features playable casino games and a cashier.
 ## The player may exchange coins for chips and chips for prizes / upgrades from the cashier stand.
-
 ## See [Player]
 @onready var player: Player = $Entities/Player
 ## UI container for the exchange menu, opens on interact with cashier
-@onready var exchange_container: VBoxContainer = $CanvasLayer/ExchangeContainer
+@onready var exchange_container: VBoxContainer = $DialogueUI/ExchangeContainer
 ## Label for displaying the current pending exchange amount
-@onready var num_coins_to_exchange: Label = $CanvasLayer/ExchangeContainer/HBoxContainer/NumCoinsToExchange
+@onready var num_coins_to_exchange: Label = $DialogueUI/ExchangeContainer/HBoxContainer/NumCoinsToExchange
 ## Handles currency and prize exchange, see also [Npc]
 @onready var cashier_npc: CharacterBody2D = $StaticAssets/CashierNpc
-
 @onready var spawn_marker: Marker2D = $StaticAssets/MoveTownArea/PlayerSpawn
+@onready var dialogue_ui: CanvasLayer = $DialogueUI
 @onready var ysort: Node2D = $"Entities"
 @onready var idle_sheet : Resource = preload(
 	"res://assets/char_sprites/npc_sprites/npc_customers/rogue_npc_idle.png"
@@ -25,13 +23,12 @@ var spawn_location_pos : Array = []
 ## holds markers to spawn locations
 @onready var spawn_locations: Node2D = $StaticAssets/SpawnLocations
 ## Amount of coins to exchange for chips
-var exchange_amt : int = 0
-## Used to signal when the player is done exchanging with the cashier
-signal end_exchange
+var exchange_amt: int = 0
 
 func _ready() -> void:
 	exchange_container.visible = false
-	cashier_npc.interactable.interact = process_exchange
+	dialogue_ui.action_triggered.connect(_on_dialogue_action)
+	cashier_npc.interactable.interact = open_cashier_dialogue
 	
 	for npc : Node in ysort.get_children():
 		if npc.name.begins_with('Npc'):
@@ -58,15 +55,29 @@ func _process(_delta : float) -> void:
 			end_exchange.emit()
 """
 
-## Interact function for the cashier NPC, see interactable for further reference.
-## Opens the exchange menu to allow the player to exchange coins for chips and chips for prizes
-func process_exchange() -> void:
-	player.set_physics_process(false)
-	exchange_container.visible = true
-	await end_exchange
-	exchange_container.visible = false
-	player.set_physics_process(true)
+## Opens dialogue with cashier, branches to exchange or info
+func open_cashier_dialogue() -> void:
+	dialogue_ui.open("casino", "cashier_greeting")
 
+## Handles dialogue actions
+func _on_dialogue_action(action: String, _data: Dictionary) -> void:
+	if action == "open_exchange":
+		if player["coins"] < 10:
+			dialogue_ui.open("casino", "not_enough_coins")
+		else:
+			exchange_amt = 0
+			_update_exchange_label(exchange_amt)
+			dialogue_ui.show_text("Exchange your coins for chips as needed!")
+			exchange_container.visible = true
+	elif action == "exchange_prize":
+		var price : int = _data["price"]
+		if player.chips < price:
+			dialogue_ui.open("casino", "not_enough_chips")
+		else:
+			var code : String = _data["entity_code"]
+			player.set_credit(code, 1)
+			player.set_chips(price * -1)
+			dialogue_ui.open("casino", "exchange_success")
 
 func spawn_roaming_npcs()->void:
 	for location : Vector2 in spawn_location_pos:
@@ -93,7 +104,8 @@ func _on_confirm_exchange_pressed() -> void:
 	_update_exchange_label(exchange_amt)
 
 func _on_cancel_exchange_pressed() -> void:
-	end_exchange.emit()
+	exchange_container.visible = false
+	dialogue_ui.show_node("anything_else")
 
 func _on_less_coins_pressed() -> void:
 	if Input.is_action_pressed("dash"):

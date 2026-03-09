@@ -41,8 +41,15 @@ const BARREL_ORDER: Array = ["red_barrel", "blue_barrel", "green_barrel", "dark_
 ## Holds the index of the currently cycled through barrel refill type; default to red
 var current_barrel_idx : int = 0
 
+## current scene 
+@onready var cs : Node = SceneManager.current_scene()
+var saved_position : Vector2 = Vector2.ZERO
+
 func _ready()->void:
-	player.set_physics_process(false) # need gold but dont want to move character
+	player.set_physics_process(false) # need gold but dont want to move charactser
+	if SceneManager.last_known_positions.has(cs.name):
+		saved_position = SceneManager.last_known_positions[cs.name]
+	player.global_position = Vector2.ZERO
 	
 	## Connects the on step function to the movement handler
 	hold_controller.stepped.connect(_on_step)
@@ -209,9 +216,10 @@ func _input(event: InputEvent) -> void:
 func _process(delta: float) -> void:
 	hold_controller.process(delta)
 
-## Changes the scene to the town menu.[br][br]
-## Currently does not do anything other than change the scene through 
-## [method SceneManage.change_to]. Would like to implement some sort of 
-## message or popup.
+## Changes the scene back to the supply shop.[br][br]
+## Passes the payload through so the supply shop can restore player position
+## and reopen the dialogue.
 func menu()->void:
-	SceneManager.change_to("res://scenes/town_menu/town_menu.tscn")
+	var payload: Dictionary = SceneManager.get_payload()
+	payload["player_position"] = saved_position
+	SceneManager.change_to("res://scenes/supply_shop/supply_shop.tscn", payload)

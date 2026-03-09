@@ -67,6 +67,8 @@ var input_slot_map : Dictionary = {
 var current_state : movement_state = movement_state.IDLE
 ## Tracks current direction of player
 var last_dir := "down"
+var last_flip_h := false
+
 
 func _ready() -> void:
 	add_to_group("player")
@@ -78,6 +80,7 @@ func _ready() -> void:
 		inv_ui.allow_hotkeys = true #allows 1-5 use for hotbar-like inv
 	coins = GameManager.player_data["coins"]
 	chips = GameManager.player_data["chips"]
+	GameManager.tutorial_completed = GameManager.player_data.get("tutorial_completed", false)
 	if OS.is_debug_build():
 		SPEED = SPEED * 3.5
 	#_debug_set_player_inv()
@@ -87,6 +90,9 @@ func _ready() -> void:
 #esc when held will close and pause
 #uses keys to enlarge sprites in inventory
 func _input(_event: InputEvent) -> void:
+	if Input.is_key_pressed(KEY_F1) and OS.is_debug_build():
+		set_coins(1000)
+	
 	if !inv_ui:
 		return
 		
@@ -143,12 +149,14 @@ func get_movement_input(_delta : float) -> void:
 			else:
 				anim_dir += "left"
 			animated_sprite.flip_h = false
+			last_flip_h = false
 		elif x_dir > 0:
 			if anim_dir == "":
 				anim_dir = "left"
 			else:
 				anim_dir += "left"
 			animated_sprite.flip_h = true
+			last_flip_h = true
 		
 		last_dir = anim_dir
 
@@ -273,6 +281,7 @@ func interact_with_entity(entity: Entity)->void:
 ## Translates player inventory, coins, and chips into a dictionary for save state
 func to_dict()->Dictionary:
 	return{
+		"tutorial_completed": GameManager.tutorial_completed,
 		"inventory": inv.to_dict(),
 		"coins": coins,
 		"chips": chips,
@@ -281,6 +290,7 @@ func to_dict()->Dictionary:
 
 ## Translates save state data into player inventory, coins, and chips
 func from_dict(data:Dictionary)->void:
+	GameManager.tutorial_completed = data.get("tutorial_completed", false)
 	inv.from_dict(data["inventory"])
 	coins = data["coins"]
 	chips = data["chips"]

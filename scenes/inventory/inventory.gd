@@ -7,7 +7,7 @@ class_name Inv
 ## and slot based management.
 
 ## Singals when the inventory has been manipulated, indicated a visual update is required.
-signal update	
+signal update()	
 signal selection_changed(selected_index:int)	## Signals that a new slot was selected
 
 ## Holds the [InvSlot] for each of the spots in the inventory
@@ -104,6 +104,8 @@ func insert_slot_at(idx: int, invSlot: InvSlot)->void:
 	invSlot.owner = self
 	invSlot.index = idx
 	slots[idx] = invSlot
+	
+	update.emit()
 	
 ## Creates and returns a dictionary representation of this inventory. [br][br]
 ##

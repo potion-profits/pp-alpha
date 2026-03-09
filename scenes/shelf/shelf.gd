@@ -1,4 +1,4 @@
-extends Entity	#will help store placement and inventory information for persistence
+class_name Shelf extends Entity	#will help store placement and inventory information for persistence
 
 ## Represents and maintains functionality of a shelf. 
 ##
@@ -23,6 +23,10 @@ var inv_size: int = 12 ## The size of the shelf's inventory
 @onready var potion_visual_root : Node2D = $ShelfPotions
 var potion_visuals : Array[Sprite2D] = []
 var fill_visuals : Array[Sprite2D] = []
+
+## Successful action signals
+signal shelf_opened
+signal shelf_closed
 
 # Mapping item_id -> rgb color for modulation
 const visual_color_map = {
@@ -71,6 +75,7 @@ func _on_interact()->void:
 		inv.lock = true
 		player.close_inv_ui()
 		shelf_ui.visible = true
+		shelf_opened.emit()
 		#links both inventories and respective ui on open
 		shelf_ui.set_inventories(player_inv, inv)
 		# play sound effect on open
@@ -95,6 +100,7 @@ func close_shelf()->void:
 		clear_queue()
 		player.open_inv_ui()
 		shelf_ui.visible = false
+		shelf_closed.emit()
 		# sync inventories to ui on close
 		player_inv.update.emit()
 		# update visual on close
