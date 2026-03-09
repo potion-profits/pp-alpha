@@ -841,6 +841,7 @@ tile_map_data = PackedByteArray("AAAbAPj/AAAAAAAABgAcAPj/AAAAAAAABgAcAPb/AAAAAAA
 tile_set = SubResource("TileSet_epjix")
 
 [node name="Player" parent="." instance=ExtResource("11_pgdk6")]
+visible = false
 position = Vector2(907, -242)
 
 [node name="EntityManager" type="Node2D" parent="."]
