@@ -1,25 +1,40 @@
-[gd_scene load_steps=10 format=3 uid="uid://cs2gjrwvapnby"]
+[gd_scene load_steps=13 format=3 uid="uid://cs2gjrwvapnby"]
 
 [ext_resource type="Texture2D" uid="uid://bjcjb6u0wo1jd" path="res://assets/interior/casino/base.png" id="1_8mung"]
 [ext_resource type="Texture2D" uid="uid://kl0jyh6mljkc" path="res://assets/interior/casino/wheel.png" id="1_tpkrs"]
+[ext_resource type="Script" uid="uid://bvyo68wwukdy1" path="res://scenes/prize_wheel/prize_wheel.gd" id="1_xo8pa"]
 [ext_resource type="Texture2D" uid="uid://do1mxhb4uqurj" path="res://assets/interior/shop/all_barrels01.png" id="2_qdw0i"]
-[ext_resource type="Texture2D" uid="uid://cna3dlftjloo6" path="res://assets/interior/shop/shelfandpotion01.png" id="3_pntfe"]
 [ext_resource type="Texture2D" uid="uid://cv55asmmy332" path="res://assets/casino/chip.png" id="4_pntfe"]
 [ext_resource type="Texture2D" uid="uid://c65en4lls4b8o" path="res://assets/inventory/simple_gold_coin.png" id="5_8mung"]
+[ext_resource type="PackedScene" uid="uid://fi1qxearbah2" path="res://scenes/interactions/interactable.tscn" id="7_a27hy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lp50y"]
+size = Vector2(87, 66)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8mung"]
 atlas = ExtResource("2_qdw0i")
 region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_xo8pa"]
-atlas = ExtResource("3_pntfe")
-region = Rect2(64, 64, 16, 32)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_a27hy"]
 atlas = ExtResource("4_pntfe")
 region = Rect2(0, 0, 16, 16)
 
-[node name="PrizeWheel" type="Node2D"]
+[sub_resource type="LabelSettings" id="LabelSettings_pntfe"]
+font_color = Color(0.7058824, 0.1254902, 0.16470589, 1)
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vosbp"]
+size = Vector2(100, 40)
+
+[node name="PrizeWheel" type="StaticBody2D"]
+script = ExtResource("1_xo8pa")
+speed = 30.0
+metadata/_custom_type_script = "uid://b1odcrnx3mby"
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, 47)
+shape = SubResource("RectangleShape2D_lp50y")
 
 [node name="Base" type="Sprite2D" parent="."]
 position = Vector2(0, -9)
@@ -33,12 +48,6 @@ position = Vector2(33, -34)
 rotation = 0.7853982
 scale = Vector2(1.9670956, 1.9670956)
 texture = SubResource("AtlasTexture_8mung")
-
-[node name="Shelf" type="Sprite2D" parent="Wheel"]
-position = Vector2(-29, 29)
-rotation = -2.3602843
-scale = Vector2(1.0646662, 1.0646662)
-texture = SubResource("AtlasTexture_xo8pa")
 
 [node name="Chip1" type="Sprite2D" parent="Wheel"]
 position = Vector2(-12, -53)
@@ -103,3 +112,18 @@ position = Vector2(-27, -45)
 rotation = -2.3561945
 scale = Vector2(0.7274177, 0.7274177)
 texture = ExtResource("5_8mung")
+
+[node name="Label" type="Label" parent="Wheel"]
+offset_left = -37.000004
+offset_top = 43.000004
+offset_right = 2.9999962
+offset_bottom = 66.0
+rotation = -2.3561945
+text = "X"
+label_settings = SubResource("LabelSettings_pntfe")
+
+[node name="Interactable" parent="." instance=ExtResource("7_a27hy")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable"]
+position = Vector2(0, 75)
+shape = SubResource("RectangleShape2D_vosbp")

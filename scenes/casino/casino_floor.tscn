@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://cydb0qypcgibl"]
+[gd_scene load_steps=19 format=4 uid="uid://cydb0qypcgibl"]
 
 [ext_resource type="Texture2D" uid="uid://b7jx6m1vn82gh" path="res://assets/interior/casino/casino_tilemap.png" id="1_0k5tk"]
 [ext_resource type="Script" uid="uid://bgfajl2miu8ge" path="res://scenes/casino/casino_floor.gd" id="1_dnyyd"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dp7r8vke6s7c5" path="res://scenes/coin_ui/player_chip.tscn" id="4_ka76d"]
 [ext_resource type="PackedScene" uid="uid://sb6usiw8cw7v" path="res://scenes/npc_alt/cashier_npc.tscn" id="5_a4x82"]
 [ext_resource type="PackedScene" uid="uid://ckd2slmjdifxy" path="res://scenes/coin_ui/player_coin.tscn" id="5_y1lbc"]
+[ext_resource type="PackedScene" uid="uid://cs2gjrwvapnby" path="res://scenes/prize_wheel/prize_wheel.tscn" id="8_lq6rv"]
 [ext_resource type="PackedScene" uid="uid://di6hjmsu64nei" path="res://scenes/npc_alt/npc.tscn" id="9_o5pd2"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_dfl8t"]
@@ -405,6 +406,10 @@ position = Vector2(824, 1063)
 [node name="Camera2D" type="Camera2D" parent="Entities/Player"]
 zoom = Vector2(10, 10)
 
+[node name="PrizeWheel" parent="Entities" instance=ExtResource("8_lq6rv")]
+position = Vector2(752, 626)
+scale = Vector2(0.3, 0.3)
+
 [node name="BlackjackTable" parent="Entities" instance=ExtResource("3_dfl8t")]
 position = Vector2(704, 704)
 
@@ -467,15 +472,6 @@ position = Vector2(664, 635)
 
 [node name="Npc3" parent="Entities" instance=ExtResource("9_o5pd2")]
 position = Vector2(680, 635)
-
-[node name="Npc4" parent="Entities" instance=ExtResource("9_o5pd2")]
-position = Vector2(712, 635)
-
-[node name="Npc5" parent="Entities" instance=ExtResource("9_o5pd2")]
-position = Vector2(728, 635)
-
-[node name="Npc6" parent="Entities" instance=ExtResource("9_o5pd2")]
-position = Vector2(744, 635)
 
 [node name="Npc7" parent="Entities" instance=ExtResource("9_o5pd2")]
 position = Vector2(904, 635)

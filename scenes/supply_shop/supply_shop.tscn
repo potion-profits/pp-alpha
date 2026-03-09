@@ -550,9 +550,6 @@ tile_set = SubResource("TileSet_0ur2j")
 [node name="MoveTownDetection" type="Area2D" parent="StaticAssets"]
 position = Vector2(555, 684)
 
-[node name="PlayerSpawn" type="Marker2D" parent="."]
-position = Vector2(511, 358)
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticAssets/MoveTownDetection"]
 shape = SubResource("RectangleShape2D_cvtoa")
 
@@ -563,6 +560,9 @@ position = Vector2(43, 306)
 position = Vector2(527, 382)
 rotation = 1.5707964
 shape = SubResource("SegmentShape2D_gg4wn")
+
+[node name="PlayerSpawn" type="Marker2D" parent="."]
+position = Vector2(511, 358)
 
 [node name="Static_UI" type="CanvasLayer" parent="."]
 
