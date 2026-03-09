@@ -2,15 +2,19 @@ extends Node
 
 ## Background music for the main_shop, town_menu
 @onready var shop_music: AudioStreamPlayer = $ShopMusic
-## Background music for the casino_floor, blackjack
+## Background music for the first casino floor and casino games
 @onready var casino_music: AudioStreamPlayer = $CasinoMusic
+## Background music for the title screen
+@onready var title_music: AudioStreamPlayer = $TitleMusic
+## Music for the shop that plays after hours (once the shop closes)
+@onready var after_shop_music: AudioStreamPlayer = $ShopAfterMusic
 ## Maps the level scene paths (called from SceneManager) to the song that should play for that scene
 @onready var song_contexts: Dictionary = {
 	"res://scenes/player_shop/main_shop.tscn": shop_music,
 	"res://scenes/town_menu/town_menu.tscn": shop_music,
 	"res://scenes/casino/casino_floor.tscn": casino_music,
 	"res://scenes/casino/black_jack.tscn": casino_music,
-	"res://scenes/ui/start_menu.tscn": shop_music
+	"res://scenes/ui/start_menu.tscn": title_music,
 }
 
 ## A reference to the currently playing song
