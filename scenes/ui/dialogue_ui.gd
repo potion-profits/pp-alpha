@@ -150,3 +150,10 @@ func _input(event: InputEvent) -> void:
 		if index >= 0 and index < choice_list.size() and index < 9:
 			select_choice(index)
 			get_viewport().set_input_as_handled()
+
+## Reopen dialogue if returning from a sub-scene
+func reopen_dialogue() -> void:
+	if DialogueManager.dialogue_open:
+		var file_key : String = DialogueManager.current_scene
+		var dialogue_id : String = DialogueManager.current_dialogue_id
+		open(file_key, dialogue_id)

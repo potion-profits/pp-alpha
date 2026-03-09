@@ -22,12 +22,6 @@ func _ready() -> void:
 	dialogue_ui.action_triggered.connect(_on_dialogue_action)
 	cashier_npc.interactable.interact = open_shopkeeper_dialogue
 	
-	# Reopen dialogue if returning from a sub-scene
-	if DialogueManager.dialogue_open:
-		var file_key : String = DialogueManager.current_scene
-		var dialogue_id : String = DialogueManager.current_dialogue_id
-		dialogue_ui.open(file_key, dialogue_id)
-
 func open_shopkeeper_dialogue() -> void:
 	var last_dir: String = player.last_dir
 	player.animated_sprite.play("idle_" + last_dir)
