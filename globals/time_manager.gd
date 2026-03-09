@@ -11,11 +11,11 @@ extends Node
 ## At any time the player may sleep in the shop bed to advance the in-game day to the next day. [br]
 ## Each real-world second is multiplied by [constant TIME_FACTOR] to obtain the in-game time.
 
-const TIME_FACTOR = 120	# each real-world minute is an in-game hour
+var TIME_FACTOR : int = 120	# each real-world minute is an in-game hour
 #const TIME_FACTOR = 3600 # for testing make it 60 times faster
 
-const HOUR = 3600
-const MIN = 60
+const HOUR : int = 3600
+const MIN : int = 60
 
 ## Represents in-game time in seconds
 var time : float = 0.0
@@ -29,6 +29,9 @@ signal day_end
 func _ready() -> void:
 	TimeManager.set_process(false)
 	SceneManager.scene_ready.connect(_on_scene_ready)
+	
+	if (OS.is_debug_build()):
+		TIME_FACTOR = TIME_FACTOR * 3
 
 func _process(delta: float) -> void:
 	time += delta * TIME_FACTOR
