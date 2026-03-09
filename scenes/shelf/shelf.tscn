@@ -226,7 +226,7 @@ position = Vector2(0, 3.5)
 shape = SubResource("RectangleShape2D_y5jy8")
 
 [node name="Interactable" parent="." instance=ExtResource("3_4pg6k")]
-collision_mask = 1
+collision_mask = 65
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Interactable"]
 position = Vector2(0, 3)
