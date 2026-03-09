@@ -46,6 +46,8 @@ var BARREL_TOOLTIP: String = "Press %s to Fill Bottle" % [interact_key] ## Toolt
 var ml :int = 1_000	## Amount the current barrel has
 @export var barrel_type : String = "empty_barrel"	## Dictates the sprite and item given out
 
+## Signal for successful barrel pull
+signal ingredients_taken()
 
 func _ready() -> void:	
 	set_process(false)
@@ -112,11 +114,13 @@ func _on_interact() -> void:
 		if (selected_slot.amount > 1 && (player.has_empty_slot() || player.can_stack_item(new_bottle))):
 			player.remove_from_selected()
 			player.collect(new_bottle)
+			ingredients_taken.emit()
 			ml -= 100
 			
 		elif (selected_slot.amount == 1):
 			player.remove_from_selected()
 			player.collect(new_bottle)
+			ingredients_taken.emit()
 			ml -= 100
 		
 		check_barrel_capacity()

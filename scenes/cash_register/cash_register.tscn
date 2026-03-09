@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://db2sqxsikj0qr" path="res://scenes/cash_register/cash_register.gd" id="1_otidk"]
 [ext_resource type="PackedScene" uid="uid://fi1qxearbah2" path="res://scenes/interactions/interactable.tscn" id="2_4n5aq"]
-[ext_resource type="Texture2D" uid="uid://cx2xrogaqcboo" path="res://assets/interior/shop/register_cat.png" id="3_7ha27"]
+[ext_resource type="Texture2D" uid="uid://c785qug6k3gl8" path="res://assets/interior/shop/cash_register.png" id="3_q42lh"]
 [ext_resource type="Texture2D" uid="uid://umufb6838i6d" path="res://assets/interior/shop/cust_waiting_icon.png" id="4_7ha27"]
 [ext_resource type="AudioStream" uid="uid://dsasqoxf26an0" path="res://assets/audio/sfx/sale.ogg" id="5_q42lh"]
 
@@ -20,11 +20,11 @@ position = Vector2(0, 12.5)
 shape = SubResource("RectangleShape2D_4n5aq")
 
 [node name="RegisterSprite" type="Sprite2D" parent="."]
-position = Vector2(2, 8)
-texture = ExtResource("3_7ha27")
+position = Vector2(0, 4)
+texture = ExtResource("3_q42lh")
 
 [node name="CustWaitingIcon" type="Sprite2D" parent="."]
-position = Vector2(-2, -11.999999)
+position = Vector2(-1.1920929e-07, -12)
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("4_7ha27")
 
