@@ -41,6 +41,16 @@ const BARREL_ORDER: Array = ["red_barrel", "blue_barrel", "green_barrel", "dark_
 ## Holds the index of the currently cycled through barrel refill type; default to red
 var current_barrel_idx : int = 0
 
+## Keybinds for tooltip labels
+var switch_item_keybind: String = InputMap.get_action_description("inventory").split(" ")[0]
+var SWITCH_ITEM_TOOLTIP: String = "Switch Item: %s" %[switch_item_keybind]
+var refill_item_keybind: String = InputMap.get_action_description("interact").split(" ")[0]
+var REFILL_ITEM_TOOLTIP: String = "Refill: %s" %[refill_item_keybind]
+
+## Tooltip labels
+@onready var switch_item_label: Label = $Controls_UI/HBoxContainer2/SwitchItem
+@onready var refill_item_label: Label = $Controls_UI/HBoxContainer3/RefillItem
+
 func _ready()->void:
 	player.set_physics_process(false) # need gold but dont want to move character
 	
@@ -50,6 +60,11 @@ func _ready()->void:
 	## Needs to first load all the entities to be able to highlight them, 
 	## so we wait a frame
 	await get_tree().process_frame
+	
+	
+	switch_item_label.text = SWITCH_ITEM_TOOLTIP
+	refill_item_label.text = REFILL_ITEM_TOOLTIP
+	
 	
 	## get the initial entity (just the first one to be found)
 	_find_init_target()

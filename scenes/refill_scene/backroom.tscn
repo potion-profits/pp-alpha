@@ -489,6 +489,28 @@ offset_right = 955.0
 offset_bottom = 150.0
 texture = ExtResource("2_idwnr")
 
+[node name="Controls_UI" type="CanvasLayer" parent="."]
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Controls_UI"]
+offset_top = 110.0
+offset_right = 228.0
+offset_bottom = 133.0
+scale = Vector2(2.25, 2.25)
+
+[node name="SwitchItem" type="Label" parent="Controls_UI/HBoxContainer2"]
+layout_mode = 2
+text = "%s Switch Item"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Controls_UI"]
+offset_top = 160.0
+offset_right = 114.0
+offset_bottom = 183.0
+scale = Vector2(2.2, 2.2)
+
+[node name="RefillItem" type="Label" parent="Controls_UI/HBoxContainer3"]
+layout_mode = 2
+text = "%s Place Item"
+
 [node name="Static_UI" type="CanvasLayer" parent="."]
 
 [node name="Coin" parent="Static_UI" node_paths=PackedStringArray("player") instance=ExtResource("4_ng7th")]
