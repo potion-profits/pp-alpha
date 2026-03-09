@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://b0flhrlw7t57t" path="res://scenes/player/player.tscn" id="2_dfl8t"]
 [ext_resource type="PackedScene" uid="uid://m6dvdqtwgruy" path="res://scenes/casino/blackjack_table.tscn" id="3_dfl8t"]
 [ext_resource type="PackedScene" uid="uid://dp7r8vke6s7c5" path="res://scenes/coin_ui/player_chip.tscn" id="4_ka76d"]
+[ext_resource type="PackedScene" uid="uid://c3qqvdemavffu" path="res://scenes/ui/dialogue_ui.tscn" id="4_o5pd2"]
 [ext_resource type="PackedScene" uid="uid://sb6usiw8cw7v" path="res://scenes/npc_alt/cashier_npc.tscn" id="5_a4x82"]
 [ext_resource type="PackedScene" uid="uid://ckd2slmjdifxy" path="res://scenes/coin_ui/player_coin.tscn" id="5_y1lbc"]
 [ext_resource type="PackedScene" uid="uid://cs2gjrwvapnby" path="res://scenes/prize_wheel/prize_wheel.tscn" id="8_lq6rv"]
@@ -208,11 +209,11 @@ texture = ExtResource("1_0k5tk")
 14:0/0 = 0
 14:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 16:1/0 = 0
-16:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -3.9986057, -8, -3.6785054, -8, -3.0992188, -8, -2.1634483, -8, 1.0226259, -8, 0.990407, 8, -8, 8, -8, -7.7525043)
+16:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, -8, 2.0223656, -8, 2.0197144, 2.016275, -3.99292, 1.9982353, -4.0199776, 8, 8, 8)
 16:2/0 = 0
-16:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 1.052988, -8, 1.0229912, 8, -2.006425, 8, -1.9995227, 7.028459, -2.9995227, 7.028459, -2.9985824, 6.015655, -6.006395, 6.0234675, -5.997347, 4.999401, -6.9935856, 5.0065985, -7.0057735, 3.998786, -7.6498356, 3.998786, -8, 4.0065985)
-16:3/0 = 0
+16:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, -8, -4.001219, -8, -4.015117, 2.9826026, -3.0179048, 2.997712, -3.0073304, 4.009705, -2.019207, 3.9834552, -1.9951451, 5.0022, 0.98391736, 5.0375013, 0.98547983, 6.0006075, 1.9932923, 6.00842, 2.0011048, 6.992795, 4.9886036, 7.0215473, 4.993027, 8, 8, 8)
 16:0/0 = 0
+16:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, -8, -3.997672, -8, -4.0020437, 2.020028, -3.0098562, 1.9965906, -3.0020437, 3.004403, -2.0020437, 2.988778, -1.9989119, 3.9956574, -1.0223494, 3.9956574, -0.99984837, 4.9947233, -0.015473366, 5.002536, -0.0170331, 5.9828377, 1.0064044, 5.9984627, 0.9985925, 6.9856434, 2.0064049, 6.9856434, 1.9992185, 8, 8, 8)
 
 [sub_resource type="TileSet" id="TileSet_y1lbc"]
 physics_layer_0/collision_layer = 1
@@ -242,47 +243,47 @@ offset_bottom = 126.0
 scale = Vector2(2, 2)
 player = NodePath("../../Entities/Player")
 
-[node name="ExchangeContainer" type="VBoxContainer" parent="CanvasLayer"]
+[node name="DialogueUI" parent="." instance=ExtResource("4_o5pd2")]
 visible = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 66.0
-offset_top = -302.0
-offset_right = 221.0
-offset_bottom = -166.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(1.5, 1.5)
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/ExchangeContainer"]
+[node name="ExchangeContainer" type="VBoxContainer" parent="DialogueUI"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -77.5
+offset_top = -136.0
+offset_right = 77.5
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(1.5, 1.5)
+pivot_offset = Vector2(0, 200)
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="DialogueUI/ExchangeContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="LessCoins" type="Button" parent="CanvasLayer/ExchangeContainer/HBoxContainer"]
+[node name="LessCoins" type="Button" parent="DialogueUI/ExchangeContainer/HBoxContainer"]
 layout_mode = 2
 text = "-"
 
-[node name="NumCoinsToExchange" type="Label" parent="CanvasLayer/ExchangeContainer/HBoxContainer"]
+[node name="NumCoinsToExchange" type="Label" parent="DialogueUI/ExchangeContainer/HBoxContainer"]
 layout_mode = 2
 text = " 0 Coins"
 label_settings = SubResource("LabelSettings_dfl8t")
 
-[node name="MoreCoins" type="Button" parent="CanvasLayer/ExchangeContainer/HBoxContainer"]
+[node name="MoreCoins" type="Button" parent="DialogueUI/ExchangeContainer/HBoxContainer"]
 layout_mode = 2
 text = "+"
 
-[node name="ConfirmExchange" type="Button" parent="CanvasLayer/ExchangeContainer"]
+[node name="ConfirmExchange" type="Button" parent="DialogueUI/ExchangeContainer"]
 layout_mode = 2
 text = "Exchange for Chips"
 
-[node name="Redeem" type="Button" parent="CanvasLayer/ExchangeContainer"]
-layout_mode = 2
-text = "Redeem Prizes"
-
-[node name="CancelExchange" type="Button" parent="CanvasLayer/ExchangeContainer"]
+[node name="CancelExchange" type="Button" parent="DialogueUI/ExchangeContainer"]
 layout_mode = 2
 text = "Cancel
 "
@@ -306,9 +307,11 @@ position = Vector2(800, 639)
 
 [node name="CashierNpc2" parent="StaticAssets" instance=ExtResource("5_a4x82")]
 position = Vector2(832, 639)
+is_interactable = false
 
 [node name="CashierNpc3" parent="StaticAssets" instance=ExtResource("5_a4x82")]
 position = Vector2(864, 639)
+is_interactable = false
 
 [node name="Walls" type="TileMapLayer" parent="StaticAssets"]
 z_index = -1
@@ -316,7 +319,7 @@ tile_map_data = PackedByteArray("AABAACkAAAAGAAcAAABAACoAAAAGAAcAAABAACsAAAAGAAc
 tile_set = SubResource("TileSet_lxdsy")
 
 [node name="Cashier" type="TileMapLayer" parent="StaticAssets"]
-tile_map_data = PackedByteArray("AAAxACYAAAAJAAAAAAAxACcAAAAHAAEAAAAyACYAAAAKAAAAAAAyACcAAAAHAAEAABAzACYAAAALAAAAAAAzACcAAAAHAAEAAAA0ACYAAAAMAAAAAAA0ACcAAAAHAAEAABA1ACYAAAANAAAAAAA1ACcAAAAHAAEAAAA2ACYAAAAOAAAAAAA2ACcAAAAHAAEAABAxACgAAAAHAAIAAAAyACgAAAAHAAIAABAzACgAAAAHAAIAAAA0ACgAAAAHAAIAABA1ACgAAAAHAAIAAAA2ACgAAAAHAAIAABAwACUAAAAQAAAAAAAwACYAAAAQAAEAAAAwACcAAAAQAAIAAAAwACgAAAAQAAMAAAA3ACUAAAAQAAAAABA3ACYAAAAQAAEAABA3ACcAAAAQAAIAABA3ACgAAAAQAAMAABA=")
+tile_map_data = PackedByteArray("AAAxACYAAAAJAAAAAAAxACcAAAAHAAEAAAAyACYAAAAKAAAAAAAyACcAAAAHAAEAABAzACYAAAALAAAAAAAzACcAAAAHAAEAAAA0ACYAAAAMAAAAAAA0ACcAAAAHAAEAABA1ACYAAAANAAAAAAA1ACcAAAAHAAEAAAA2ACYAAAAOAAAAAAA2ACcAAAAHAAEAABAxACgAAAAHAAIAAAAyACgAAAAHAAIAABAzACgAAAAHAAIAAAA0ACgAAAAHAAIAABA1ACgAAAAHAAIAAAA2ACgAAAAHAAIAABAwACgAAAAQAAIAAAA3ACgAAAAQAAIAABAwACYAAAAQAAAAAAAwACcAAAAQAAEAAAA3ACYAAAAQAAAAABA3ACcAAAAQAAEAABA=")
 tile_set = SubResource("TileSet_y1lbc")
 
 [node name="TownDoorBarrier" type="StaticBody2D" parent="StaticAssets"]
@@ -491,9 +494,14 @@ position = Vector2(984, 635)
 [node name="Npc12" parent="Entities" instance=ExtResource("9_o5pd2")]
 position = Vector2(1000, 635)
 
-[connection signal="pressed" from="CanvasLayer/ExchangeContainer/HBoxContainer/LessCoins" to="." method="_on_less_coins_pressed"]
-[connection signal="pressed" from="CanvasLayer/ExchangeContainer/HBoxContainer/MoreCoins" to="." method="_on_more_coins_pressed"]
-[connection signal="pressed" from="CanvasLayer/ExchangeContainer/ConfirmExchange" to="." method="_on_confirm_exchange_pressed"]
-[connection signal="pressed" from="CanvasLayer/ExchangeContainer/Redeem" to="." method="_on_redeem_pressed"]
-[connection signal="pressed" from="CanvasLayer/ExchangeContainer/CancelExchange" to="." method="_on_cancel_exchange_pressed"]
+[node name="Npc22" parent="Entities" instance=ExtResource("9_o5pd2")]
+position = Vector2(832, 658)
+
+[node name="Npc23" parent="Entities" instance=ExtResource("9_o5pd2")]
+position = Vector2(864, 658)
+
+[connection signal="pressed" from="DialogueUI/ExchangeContainer/HBoxContainer/LessCoins" to="." method="_on_less_coins_pressed"]
+[connection signal="pressed" from="DialogueUI/ExchangeContainer/HBoxContainer/MoreCoins" to="." method="_on_more_coins_pressed"]
+[connection signal="pressed" from="DialogueUI/ExchangeContainer/ConfirmExchange" to="." method="_on_confirm_exchange_pressed"]
+[connection signal="pressed" from="DialogueUI/ExchangeContainer/CancelExchange" to="." method="_on_cancel_exchange_pressed"]
 [connection signal="body_entered" from="StaticAssets/MoveTownArea" to="." method="_on_move_town_area_body_entered"]

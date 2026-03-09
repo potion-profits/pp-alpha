@@ -1,0 +1,86 @@
+[gd_scene load_steps=5 format=3 uid="uid://bsufnqq4jkbjx"]
+
+[ext_resource type="Script" uid="uid://c28pwixi0421f" path="res://scenes/dialogue/tutorial/tutorial.gd" id="1_hs6vr"]
+[ext_resource type="FontFile" uid="uid://djn684cose2cu" path="res://assets/dialogue/fonts/ari-w9500-bold.ttf" id="2_hs6vr"]
+[ext_resource type="Texture2D" uid="uid://cx2xrogaqcboo" path="res://assets/interior/shop/register_cat.png" id="3_hs6vr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oi3ux"]
+bg_color = Color(0.9307845, 0.83566743, 0.71181226, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.57, 0.39140004, 0.0342, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[node name="Tutorial_UI" type="CanvasLayer"]
+script = ExtResource("1_hs6vr")
+
+[node name="DialogueContainer" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -116.0
+offset_top = -10.0
+offset_right = -1186.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="DialoguePanel" type="Panel" parent="DialogueContainer"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -270.0
+offset_top = -289.0
+offset_right = 380.0
+offset_bottom = -39.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_oi3ux")
+
+[node name="MarginContainer" type="MarginContainer" parent="DialogueContainer/DialoguePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="ScrollContainer" type="ScrollContainer" parent="DialogueContainer/DialoguePanel/MarginContainer"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="DialogueLabel" type="Label" parent="DialogueContainer/DialoguePanel/MarginContainer/ScrollContainer"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/paragraph_spacing = -5
+theme_override_fonts/font = ExtResource("2_hs6vr")
+theme_override_font_sizes/font_size = 42
+autowrap_mode = 2
+
+[node name="TutorialCatPortrait" type="TextureRect" parent="DialogueContainer/DialoguePanel"]
+layout_mode = 0
+offset_left = 425.99997
+offset_top = -141.0
+offset_right = 465.99997
+offset_bottom = -101.0
+scale = Vector2(7.5, 7.5)
+texture = ExtResource("3_hs6vr")

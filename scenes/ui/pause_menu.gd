@@ -7,6 +7,7 @@ extends "res://scenes/ui/base_menu.gd"
 func _ready()->void:
 	button_map = {
 		"MarginContainer/VBoxContainer/Resume": "res://assets/ui/play_button.tres",
+		"MarginContainer/VBoxContainer/Options": "res://assets/ui/options_button.tres",
 		"MarginContainer/VBoxContainer/Menu": "res://assets/ui/menu_button.tres"
 	}
 	super._ready()
@@ -14,9 +15,13 @@ func _ready()->void:
 
 func _on_menu_pressed()->void:
 	#save and return to menu!! for now just menu
+	#unpause tree when returning to menu (so menu processes are not paused)
+	get_tree().paused = false
 	SceneManager.change_to("res://scenes/ui/start_menu.tscn")
 	TimeManager.set_process(false)
 
+func _on_options_pressed()->void:
+	SettingsMenu.open("pause_menu")
 
 func _on_resume_pressed()->void:
 	GameManager.unpause()
