@@ -5,7 +5,6 @@ class_name Elevator extends StaticBody2D
 @onready var buttons: Sprite2D = $Buttons
 @onready var doors: AnimatedSprite2D = $ElevatorDoors
 @onready var interactable: Area2D = $Interactable
-@onready var dialogue_ui: CanvasLayer = $DialogueUI
 @onready var button_up: Sprite2D = $ButtonUp
 @onready var button_down: Sprite2D = $ButtonDown
 
@@ -16,9 +15,16 @@ var start_floor : int = 0
 
 const SHEET_PATH = "res://assets/interior/casino/elevator.png"
 
+func set_floor(new_floor: int)->void:
+	start_floor = new_floor
+	floors.frame = 0
+
 func _on_elevator_doors_animation_finished() -> void:
 	collision.disabled = true
-	SceneManager.change_to("res://scenes/elevator/inside.tscn")
+	if start_floor == 0:
+		SceneManager.change_to("res://scenes/elevator/inside.tscn")
+	else:
+		SceneManager.change_to("res://scenes/casino/casino_floor.tscn")
 
 func start_anim() -> void:
 	if start_floor == 0:

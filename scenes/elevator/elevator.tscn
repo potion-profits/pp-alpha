@@ -1,8 +1,7 @@
-[gd_scene load_steps=34 format=3 uid="uid://di38kx2a12yn8"]
+[gd_scene load_steps=33 format=3 uid="uid://di38kx2a12yn8"]
 
 [ext_resource type="Script" uid="uid://dj7khlbvw7fx1" path="res://scenes/elevator/elevator.gd" id="1_7w7uo"]
 [ext_resource type="Texture2D" uid="uid://ndpkiahpuyw0" path="res://assets/interior/casino/elevator.png" id="1_x8gua"]
-[ext_resource type="PackedScene" uid="uid://c3qqvdemavffu" path="res://scenes/ui/dialogue_ui.tscn" id="2_hadwe"]
 [ext_resource type="PackedScene" uid="uid://fi1qxearbah2" path="res://scenes/interactions/interactable.tscn" id="3_21fob"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x8gua"]
@@ -181,15 +180,13 @@ region = Rect2(160, 0, 16, 16)
 size = Vector2(40, 14)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7w7uo"]
-size = Vector2(40, 27)
+size = Vector2(40, 21)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hadwe"]
-size = Vector2(40, 11)
+size = Vector2(40, 17)
 
 [node name="Elevator" type="StaticBody2D"]
 script = ExtResource("1_7w7uo")
-
-[node name="DialogueUI" parent="." instance=ExtResource("2_hadwe")]
 
 [node name="ElevatorInterior" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_x8gua")
@@ -222,13 +219,13 @@ position = Vector2(0, -4)
 shape = SubResource("RectangleShape2D_x8gua")
 
 [node name="ClosedCollision" type="CollisionShape2D" parent="."]
-position = Vector2(0, 2.5)
+position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_7w7uo")
 
 [node name="Interactable" parent="." instance=ExtResource("3_21fob")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable"]
-position = Vector2(0, 21.5)
+position = Vector2(0, 18.5)
 shape = SubResource("RectangleShape2D_hadwe")
 
 [connection signal="animation_finished" from="ElevatorDoors" to="." method="_on_elevator_doors_animation_finished"]

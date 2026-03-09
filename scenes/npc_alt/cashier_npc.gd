@@ -8,3 +8,4 @@ extends Npc
 func _ready() -> void:
 	sprite.sprite_frames = build_sprite_frames(idle_sheet, null)
 	sprite.play("idle_down")
+	interactable.tooltip = ""
