@@ -30,6 +30,7 @@ SettingsMenu="*res://scenes/ui/settings_menu.tscn"
 MusicManager="*res://globals/music_manager.tscn"
 DialogueManager="*res://globals/dialogue_manager.gd"
 TimeManager="*res://globals/time_manager.gd"
+SFXManager="*res://globals/sfx_manager.gd"
 
 [debug]
 

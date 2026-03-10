@@ -295,7 +295,6 @@ shape = SubResource("CapsuleShape2D_y06py")
 stream = ExtResource("6_hsnw7")
 volume_db = -5.042
 pitch_scale = 1.07
-autoplay = true
 max_distance = 224.0
 bus = &"SFX"
 
