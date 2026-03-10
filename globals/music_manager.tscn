@@ -22,12 +22,12 @@ bus = &"Music"
 
 [node name="ShopAfterMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_i6s1y")
-volume_db = -19.281
-pitch_scale = 0.75
+volume_db = -18.655
+pitch_scale = 0.9
 bus = &"Music"
 
 [node name="TitleMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_h5l8h")
-volume_db = -18.816
+volume_db = -19.443
 pitch_scale = 1.09
 bus = &"Music"

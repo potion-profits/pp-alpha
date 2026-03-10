@@ -24,6 +24,9 @@ func _on_interact() -> void:
 		return
 	GameManager.save_scene_runtime_state()
 	GameManager.commit_to_storage()
+	# As bed acts as a next day function, reset day states
+	TimeManager.is_daytime = true
+	TimeManager.workday_end.emit()
 	var cs : Node = SceneManager.current_scene()
 	if cs.name == "MainShop":
 		cs.player_sleep()

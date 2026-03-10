@@ -21,8 +21,12 @@ const MIN : int = 60
 var time : float = 0.0
 ## Represents days since the game started
 var day : int = 0
+## Represents if it is day or night
+var is_daytime: bool = true
 
 signal day_end
+signal workday_end
+signal workday_start
 
 # don't process until the game is running
 # set_process(true) occurs in start_menu.gd when play is pressed
@@ -31,19 +35,26 @@ func _ready() -> void:
 	SceneManager.scene_ready.connect(_on_scene_ready)
 	
 	if (OS.is_debug_build()):
-		TIME_FACTOR = TIME_FACTOR * 3
+		TIME_FACTOR = TIME_FACTOR * 20
 
 func _process(delta: float) -> void:
+	# once time has past 17:00
+	if time >= HOUR * 6 and is_daytime == true:
+		is_daytime = false
+		workday_end.emit()
 	time += delta * TIME_FACTOR
 	if time >= HOUR * 30:
 		# If player doesn't sleep, trigger the pass out feature
 		set_process(false)
 		var cs : Node = SceneManager.current_scene()
 		GameManager.player_passed_out = true
+		is_daytime = true
+		workday_start.emit()
 		if cs.name == "MainShop":
 			_on_scene_ready()
 		else:
 			day_end.emit()
+
 
 ## Returns the format string for the in-game time represented as real-world time
 func get_string_from_time() -> String:
@@ -103,3 +114,6 @@ func _on_scene_ready() -> void:
 		player.position = bed.position + Vector2(-10, 0)
 		cs.check_camera_pos()
 		cs.player_sleep()
+
+func is_currently_daytime() -> bool:
+	return TimeManager.is_daytime

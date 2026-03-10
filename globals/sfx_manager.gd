@@ -1,17 +1,17 @@
 extends Node
 
 
-## Handles non-entity specific sound effects (ex: user clicks, claudron ambience, all scene ambience, time specific sfx)
+## Handles non-entity and global sound effects (ex: user clicks, claudron ambience, all scene ambience, time specific sfx)
 
 # Reference to each cauldron's ambience audio node
 var cauldron_players: Array[AudioStreamPlayer2D] = []
 var cauldron_muted: bool = false
 
-func _ready() -> void:
-	# Only the first cauldon registered will play, the backroom seems small enough to not
-	# Distinguish that only one is playing
-	pass # Replace with function body.
+#func _ready() -> void:
+	#TimeManager.workday_end.connect()
 
+# Only the first cauldon registered will play, the backroom seems small enough to not
+# Distinguish that only one is playing
 func register_cauld(cauld: AudioStreamPlayer2D) -> void:
 	if !cauld or cauld in cauldron_players:
 		return
@@ -25,7 +25,6 @@ func register_cauld(cauld: AudioStreamPlayer2D) -> void:
 	cauldron_players.append(cauld)
 	if !cauld.playing:
 		cauld.play()
-		
 
 func unregister_cauld() -> void:
 	if cauldron_players.size() > 0:

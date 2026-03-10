@@ -16,10 +16,12 @@ extends Node
 	"res://scenes/casino/black_jack.tscn": casino_music,
 	"res://scenes/ui/start_menu.tscn": title_music,
 }
-@onready var scenes_with_night: Array = [
-	"res://scenes/player_shop/main_shop.tscn",
-	"res://scenes/town/town.tscn"
-]
+@onready var night_song_contexts: Dictionary = {
+	"res://scenes/player_shop/main_shop.tscn": after_shop_music,
+	"res://scenes/town/town.tscn": after_shop_music
+}
+
+@onready var night_target_time: int = TimeManager.get_time_from_string('17:00')
 
 var is_night: bool = false
 
@@ -32,7 +34,7 @@ var crossfade: Tween
 ## Starting inaudible volume for fading in
 var silent_db: float = -70.0
 ## Time for crossfade
-var fade_time: float = 1.0
+var fade_time: float = 1.5
 ## Volume level for music
 var full_volume_db: float = -20.0
 
@@ -40,8 +42,13 @@ func _ready() -> void:
 	current_song = song_contexts.get("res://scenes/ui/start_menu.tscn")
 	if current_song:
 		current_song.play()
-	# Signal to track when end of day occurs
-	TimeManager.day_end.connect(_switch_to_night_music)
+	# Signal that emits when end of workday and end of day occurs
+	TimeManager.workday_end.connect(_switch_to_night_music)
+	TimeManager.workday_start.connect(_switch_to_day_music)
+	# Check if loading from save at night
+	var loaded_time: String = TimeManager.get_string_from_time()
+	if TimeManager.get_time_from_string(loaded_time) >= night_target_time:
+		is_night = true
 
 ## Play background music for the given scene [br][br]
 ##
@@ -50,24 +57,33 @@ func _ready() -> void:
 ##
 ## Takes [param scene_path] as file path to the scene [br]
 func play_bg_music(scene_path: String) -> void:
-	var next_scene_song: AudioStreamPlayer = song_contexts.get(scene_path)
-	if next_scene_song:
-		if current_song != next_scene_song:
-			transition_song(next_scene_song)
+	var next_scene_song: AudioStreamPlayer = null
+	# first try night songs
+	if !TimeManager.is_currently_daytime():
+		next_scene_song = night_song_contexts.get(scene_path)
+	# if no night version of the song exists or is daytime, fallback to song_contexts
+	if !next_scene_song:
+		next_scene_song = song_contexts.get(scene_path)
+	# transition song if the next song is different
+	if next_scene_song and current_song != next_scene_song:
+		transition_song(next_scene_song)
 
-## Connected to TimeManager day_end signal that triggers after 5pm in-game [br][br]
+## Connected to TimeManager workday_end signal that triggers after 5pm in-game [br][br]
 ##
-## Some scenes play a different song once the day ends. The current song will be switched
+## Some scenes play a different song once the workday ends. The current song will be switched
 ## and all songs will use the night version (if it exists), and the song will play on call
 func _switch_to_night_music() -> void:
-	# check if current song has a night version via dictionary
-	var cuurent_scene = SceneManager.current_scene()
-	# if night version exists, swap
-	# else keep song
-	print("swaps")
+	var current_scene: String = SceneManager.current_scene().scene_file_path
+	if current_scene:
+		play_bg_music(current_scene)
 
-func _swtich_to_day_music() -> void:
-	print("day")
+## Connected to TimeManager workday_start signal that triggers after 3am in-game [br][br]
+##
+## This sets is_night to false, letting all day_default songs to play. The current song will be switched
+## as the player may be moved to the main_shop when the signal is triggered 
+func _switch_to_day_music() -> void:
+	# Deffered for any scene swaps (ex: player pass out and goes back to main shop)
+	play_bg_music("res://scenes/player_shop/main_shop.tscn")
 
 ## Crossfades from the current song to the new song [br][br]
 ## 
