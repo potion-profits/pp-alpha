@@ -12,7 +12,7 @@ extends Node
 ## Each real-world second is multiplied by [constant TIME_FACTOR] to obtain the in-game time.
 
 var TIME_FACTOR : int = 120	# each real-world minute is an in-game hour
-#const TIME_FACTOR = 3600 # for testing make it 60 times faster
+#var TIME_FACTOR = 3600 # for testing make it 60 times faster
 
 const HOUR : int = 3600
 const MIN : int = 60
@@ -22,12 +22,14 @@ var time : float = 0.0
 ## Represents days since the game started
 var day : int = 0
 
+@onready var last_wheel_spin : int = -1
+
 signal day_end
 
 # don't process until the game is running
 # set_process(true) occurs in start_menu.gd when play is pressed
 func _ready() -> void:
-	TimeManager.set_process(false)
+	set_process(false)
 	SceneManager.scene_ready.connect(_on_scene_ready)
 	
 	if (OS.is_debug_build()):
@@ -102,4 +104,7 @@ func _on_scene_ready() -> void:
 		var bed : Entity = cs.get_node("EntityManager/Bed")
 		player.position = bed.position + Vector2(-10, 0)
 		cs.check_camera_pos()
-		cs.player_sleep()
+		cs.get_node("EntityManager/Bed")._on_interact()
+
+func _on_prize_wheel_spin() -> void:
+	last_wheel_spin = day

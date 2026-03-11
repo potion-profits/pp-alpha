@@ -22,11 +22,9 @@ func _ready() -> void:
 func _on_interact() -> void:
 	if timed_out:
 		return
+	player_sleep()
 	GameManager.save_scene_runtime_state()
 	GameManager.commit_to_storage()
-	var cs : Node = SceneManager.current_scene()
-	if cs.name == "MainShop":
-		cs.player_sleep()
 	_save_timeout()
 	bed_sfx.play()
 
@@ -37,3 +35,28 @@ func _save_timeout() -> void:
 	await t.timeout
 	interactable.tooltip = SAVE_PROMPT
 	timed_out = false
+
+func player_sleep() -> void:
+	var cs : Node = SceneManager.current_scene()
+	GameManager.player_passed_out = false
+	cs.clear_npcs()
+	close_open_shelf(cs)
+	var fade : TextureRect = cs.get_node("SleepFade")
+	fade.visible = true
+	var tween: Tween = create_tween()
+	tween.tween_property(fade, "modulate:a", 1, 0.5).from(0.0)
+	TimeManager.set_process(false)
+	tween.tween_property(fade, "modulate:a", 0.0, 0.5)
+	TimeManager.time = 0
+	TimeManager.day += 1
+	await tween.finished
+	fade.visible = false
+	TimeManager.set_process(true)
+	TimeManager.time = 0.0
+	cs.spawner._ready()
+
+func close_open_shelf(shop: Node) -> void:
+	var em : EntityManager = shop.get_node("EntityManager")
+	for child in em.get_children():
+		if child is Shelf and child.shelf_ui.visible:
+			child.close_shelf()
