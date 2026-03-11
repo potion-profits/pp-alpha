@@ -21,10 +21,12 @@ func set_floor(new_floor: int)->void:
 
 func _on_elevator_doors_animation_finished() -> void:
 	collision.disabled = true
+	var pload : Dictionary
 	if start_floor == 0:
-		SceneManager.change_to("res://scenes/elevator/inside.tscn")
+		pload = {"destination": "res://scenes/penthouse/penthouse.tscn"}
 	else:
-		SceneManager.change_to("res://scenes/casino/casino_floor.tscn")
+		pload = {"destination": "res://scenes/casino/casino_floor.tscn"}
+	SceneManager.change_to("res://scenes/elevator/inside.tscn", pload)
 
 func start_anim() -> void:
 	if start_floor == 0:

@@ -207,9 +207,8 @@ tile_set = SubResource("TileSet_d7fpa")
 
 [node name="Timer" type="Timer" parent="."]
 
-[node name="Player" parent="." node_paths=PackedStringArray("inv_ui") instance=ExtResource("3_rln7j")]
+[node name="Player" parent="." instance=ExtResource("3_rln7j")]
 position = Vector2(408, -22)
-inv_ui = NodePath("")
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(-1, 1)
