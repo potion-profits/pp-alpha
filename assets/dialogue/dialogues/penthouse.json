@@ -1,0 +1,51 @@
+{
+
+	"egg": {
+		"speaker": "Inner Thoughts",
+		"text": "Woah, we are so high up! Is this giant window not a safety hazard?",
+		"choices": [
+			{ "label": "Hmmm...", "next": "fall" },
+	  ]
+	},
+	"fall":{
+		"speaker": "Inner Thoughts",
+		"text": "... I hope I don't trip ...
+		
+		Maybe the sand down below will soften the blow. Looks like it works for the coconuts.",
+		"choices": [
+			{ "label": "Nevermind.", "next": null },
+	  ]
+	},
+	"trophy" : {
+		"speaker": "The plaque",
+		"text": "The plaque reads: 
+		
+		'In loving memory of an associate who thought they could outswim their debt.'",
+		"choices":[
+			{"label": "... gulp ...", "next": null},
+		]
+	},
+	"initial_guards": {
+		"speaker": "Guard1",
+		"text": "HEY!! STOP RIGHT THERE!!",
+		"choices":[
+			{"label": "Huh?", "next": "guard_blocks", "action": "move_to_block"}
+		]
+	},
+	"guard_blocks": {
+		"speaker": "Guard1",
+		"text": "You are not allowed to enter without formal, written permission.",
+		"choices": [
+			{"label": "AHHH! RUN!!", "next": null, "action": "block_office"},
+			{"label": "I received a letter about talking to a loan shark at the top of the casino.", "next": "guard_sorry"},
+		],
+	},
+	"guard_sorry": {
+		"speaker": "Guard2",
+		"text": "Oh! Sorry about that. Please excuse my rude behavior. Go on ahead!",
+		"choices":[
+			{"label": "Thank you!", "next": null, "action": "enter_office"}
+		]
+	}
+	
+}

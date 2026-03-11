@@ -3,14 +3,70 @@ extends Node2D
 @onready var player: Player = $"y-sort/Player"
 @onready var dialogue_ui: CanvasLayer = $DialogueUI
 @onready var camera: Camera2D = $"y-sort/Player/Camera2D"
-@onready var elevator: Elevator = $Elevator
+@onready var elevator: Elevator = $Static/Elevator
+@onready var guard_interact: Area2D = $Static/GuardInteract
+@onready var guard_collide: CollisionShape2D = $Static/Guards/CollisionShape2D2
+@onready var guard: CharacterBody2D = $"y-sort/Guard"
+@onready var limit_marker: Marker2D = $LimitMarker
+
+var egg : bool = false
+var egg_seen : bool = false
+var trophy : bool = false
+var guard_blocking: bool = false
+var move_guard: bool = false
+var post_up : bool = false
+var move_delta : float = 0
+var init_guard1_pos : Vector2 
+var block_limit : float 
 
 func _ready() -> void:
 	camera.reset_smoothing()
 	elevator.set_floor(1)
 	dialogue_ui.action_triggered.connect(_on_dialogue_action)
 	elevator.interactable.interact = open_elevator_dialogue
+	init_guard1_pos = guard.position
+	block_limit = limit_marker.position.x
+	if not player.first_office:
+		guard_collide.disabled = true
+		guard_interact.hide()
 
+func _input(event: InputEvent) -> void:
+	if event.is_action("interact"):
+		if egg and not egg_seen:
+			egg_seen = true
+			prep_dialogue_open()
+			dialogue_ui.open("penthouse", "egg")
+		if trophy:
+			prep_dialogue_open()
+			dialogue_ui.open("penthouse", "trophy")
+	
+
+func _physics_process(delta: float) -> void:
+	if move_guard:
+		var target_x : float = player.position.x
+		if player.position.x < block_limit:
+			target_x = block_limit
+		move_delta += delta
+		var gx : float = guard.position.x
+		guard.position.x = gx + (target_x - gx)*move_delta
+		if guard.position.x == target_x:
+			move_guard = false
+			move_delta = 0
+	
+	if post_up:
+		move_delta += delta
+		var gp : Vector2 = guard.position
+		guard.position = gp + (init_guard1_pos - gp)*move_delta
+		if guard.position == init_guard1_pos:
+			post_up = false
+			move_delta = 0
+
+	if guard_blocking:
+		if player.position.x > block_limit:
+			guard.position.x = player.position.x
+		else:
+			guard.position.x = block_limit
+	
 
 func prep_dialogue_open() ->void:
 	var last_dir: String = player.last_dir
@@ -23,11 +79,61 @@ func open_elevator_dialogue() -> void:
 	dialogue_ui.open("elevator","penthouse_prompt")
 	
 func _on_dialogue_action(action: String, _data: Dictionary) -> void:
-	if action == "elevator_enter":
-		dialogue_ui.close()
-		play_elevator_down()
+	match action:
+		"elevator_enter":
+			dialogue_ui.close()
+			play_elevator_down()
+		"enter_office":
+			move_to_post()
+			dialogue_ui.close()
+			office_checked()
+		"block_office":
+			dialogue_ui.close()
+			guard_blocking = true
+		"move_to_block":
+			move_to_block()
 
+func move_to_block()->void:
+	move_guard = true
 
+func move_to_post()->void:
+	guard_blocking = false
+	post_up = true
+
+func office_checked()->void:
+	player.first_office = false
+	guard_collide.disabled = true
+	guard_interact.hide()
+	
 func play_elevator_down()->void:
 	player.set_physics_process(false)
 	elevator.start_anim()
+
+
+func _on_window_interact_body_entered(body: Node2D) -> void:
+	if( body is Player and 
+	TimeManager.day > 1 and 
+	TimeManager.day % 4 == 0 and 
+	egg_seen == false):
+		egg = true
+
+
+func _on_window_interact_body_exited(body: Node2D) -> void:
+	if body is Player:
+		egg = false
+
+
+func _on_trophy_interact_body_entered(body: Node2D) -> void:
+	if body is Player:
+		trophy = true
+
+
+func _on_trophy_interact_body_exited(body: Node2D) -> void:
+	if body is Player:
+		trophy = false
+
+
+func _on_guard_interact_body_entered(body: Node2D) -> void:
+	if body is Player and player.first_office == true:
+		prep_dialogue_open()
+		dialogue_ui.open("penthouse", "initial_guards")

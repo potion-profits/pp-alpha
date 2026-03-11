@@ -69,6 +69,7 @@ var current_state : movement_state = movement_state.IDLE
 var last_dir := "down"
 var last_flip_h := false
 
+var first_office : bool = true
 
 func _ready() -> void:
 	add_to_group("player")
@@ -80,9 +81,10 @@ func _ready() -> void:
 		inv_ui.allow_hotkeys = true #allows 1-5 use for hotbar-like inv
 	coins = GameManager.player_data["coins"]
 	chips = GameManager.player_data["chips"]
+	first_office = GameManager.player_data["first_office"]
 	GameManager.tutorial_completed = GameManager.player_data.get("tutorial_completed", false)
-	if OS.is_debug_build():
-		SPEED = SPEED * 3.5
+	#if OS.is_debug_build():
+		#SPEED = SPEED * 3.5
 	#_debug_set_player_inv()
 
 #handles toggled and held inventory
@@ -282,6 +284,7 @@ func interact_with_entity(entity: Entity)->void:
 func to_dict()->Dictionary:
 	return{
 		"tutorial_completed": GameManager.tutorial_completed,
+		"first_office": first_office,
 		"inventory": inv.to_dict(),
 		"coins": coins,
 		"chips": chips,
@@ -295,7 +298,7 @@ func from_dict(data:Dictionary)->void:
 	coins = data["coins"]
 	chips = data["chips"]
 	credits = data["credits"]
-	
+	first_office = data["first_office"]
 
 func _debug_set_player_inv()->void:
 	var bottle:InvItem = ItemRegistry.new_item("item_empty_bottle");

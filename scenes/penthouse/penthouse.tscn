@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=4 uid="uid://djfoh7e3ckmhl"]
+[gd_scene load_steps=32 format=4 uid="uid://djfoh7e3ckmhl"]
 
 [ext_resource type="Script" uid="uid://cumfk5t273rap" path="res://scenes/penthouse/penthouse.gd" id="1_cudbf"]
 [ext_resource type="PackedScene" uid="uid://b0flhrlw7t57t" path="res://scenes/player/player.tscn" id="1_fhtrk"]
@@ -271,6 +271,12 @@ texture = ExtResource("3_m8l7e")
 [sub_resource type="TileSet" id="TileSet_k0akc"]
 sources/0 = SubResource("TileSetAtlasSource_hd2vq")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hd2vq"]
+size = Vector2(58, 21)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k0akc"]
+size = Vector2(58, 30)
+
 [node name="Penthouse" type="Node2D"]
 script = ExtResource("1_cudbf")
 
@@ -291,21 +297,23 @@ player = NodePath("../../y-sort/Player")
 
 [node name="DialogueUI" parent="." instance=ExtResource("2_fgrpq")]
 
-[node name="Background" type="TextureRect" parent="."]
+[node name="Static" type="Node2D" parent="."]
+
+[node name="Background" type="TextureRect" parent="Static"]
 offset_left = -120.0
 offset_top = -925.0
 offset_right = 955.0
 offset_bottom = 150.0
 texture = ExtResource("1_g3ws7")
 
-[node name="Sky" type="Parallax2D" parent="."]
+[node name="Sky" type="Parallax2D" parent="Static"]
 scroll_offset = Vector2(-633, -381)
 repeat_size = Vector2(0.001, 0)
 autoscroll = Vector2(10, 0)
 repeat_times = 10
 ignore_camera_scroll = true
 
-[node name="DayGradient" type="TextureRect" parent="Sky"]
+[node name="DayGradient" type="TextureRect" parent="Static/Sky"]
 offset_left = 388.82214
 offset_top = 60.999992
 offset_right = 420.3629
@@ -314,96 +322,123 @@ rotation = 1.5707964
 texture = SubResource("GradientTexture2D_vipbu")
 expand_mode = 4
 
-[node name="MountainsFar" type="Parallax2D" parent="."]
+[node name="MountainsFar" type="Parallax2D" parent="Static"]
 scroll_offset = Vector2(-239, -392)
 repeat_size = Vector2(320, 0)
 repeat_times = 20
 
-[node name="Mountains1" type="TileMapLayer" parent="MountainsFar"]
+[node name="Mountains1" type="TileMapLayer" parent="Static/MountainsFar"]
 position = Vector2(0, 1)
 tile_map_data = PackedByteArray("AAAAAAYAAQAAAAIAAAAAAAcAAQAAAAMAAAABAAYAAQABAAIAAAABAAcAAQABAAMAAAACAAYAAQACAAIAAAACAAcAAQACAAMAAAAFAAUAAQAFAAEAAAAGAAUAAQAGAAEAAAAJAAYAAQAJAAIAAAAJAAcAAQAJAAMAAAAKAAYAAQAAAAIAAAAKAAcAAQAAAAMAAAALAAYAAQABAAIAAAALAAcAAQABAAMAAAAMAAYAAQACAAIAAAAMAAcAAQACAAMAAAANAAYAAQADAAIAAAANAAcAAQADAAMAAAAOAAYAAQAEAAIAAAAOAAcAAQAEAAMAAAAPAAUAAQAFAAEAAAAPAAYAAQAFAAIAAAAPAAcAAQAFAAMAAAAQAAUAAQAGAAEAAAAQAAYAAQAGAAIAAAAQAAcAAQAGAAMAAAARAAYAAQAHAAIAAAARAAcAAQAHAAMAAAASAAYAAQAIAAIAAAASAAcAAQAIAAMAAAATAAYAAQAJAAIAAAATAAcAAQAJAAMAAAAAAAgAAQAAAAQAAAABAAgAAQABAAQAAAACAAgAAQACAAQAAAADAAgAAQADAAQAAAAJAAgAAQAJAAQAAAAKAAgAAQAAAAQAAAALAAgAAQABAAQAAAAMAAgAAQACAAQAAAANAAgAAQADAAQAAAAOAAgAAQAEAAQAAAAPAAgAAQAFAAQAAAAQAAgAAQAGAAQAAAARAAgAAQAHAAQAAAASAAgAAQAIAAQAAAATAAgAAQAJAAQAAAAIAAYAAQAIAAIAAAAIAAcAAQAIAAMAAAAIAAgAAQAIAAQAAAAHAAgAAQAHAAQAAAAGAAgAAQAGAAQAAAAFAAgAAQAFAAQAAAAEAAgAAQAEAAQAAAAEAAcAAQAEAAMAAAAFAAcAAQAFAAMAAAAFAAYAAQAFAAIAAAAGAAYAAQAGAAIAAAAHAAYAAQAHAAIAAAAHAAcAAQAHAAMAAAAGAAcAAQAGAAMAAAAEAAYAAQAEAAIAAAADAAYAAQADAAIAAAADAAcAAQADAAMAAAA=")
 tile_set = SubResource("TileSet_wqhi4")
 
-[node name="MountainsNear" type="Parallax2D" parent="."]
+[node name="MountainsNear" type="Parallax2D" parent="Static"]
 scroll_offset = Vector2(-233, -404)
 repeat_size = Vector2(320, 0)
 repeat_times = 20
 
-[node name="Mountains2" type="TileMapLayer" parent="MountainsNear"]
+[node name="Mountains2" type="TileMapLayer" parent="Static/MountainsNear"]
 position = Vector2(0, 1)
 tile_map_data = PackedByteArray("AAAAAAgAAAAAAAIAAAAAAAkAAAAAAAMAAAABAAgAAAABAAIAAAABAAkAAAABAAMAAAACAAcAAAACAAEAAAACAAgAAAACAAIAAAACAAkAAAACAAMAAAADAAcAAAADAAEAAAADAAgAAAADAAIAAAADAAkAAAADAAMAAAAEAAcAAAAEAAEAAAAEAAgAAAAEAAIAAAAEAAkAAAAEAAMAAAAFAAcAAAAFAAEAAAAFAAgAAAAFAAIAAAAFAAkAAAAFAAMAAAAGAAcAAAAGAAEAAAAGAAgAAAAGAAIAAAAGAAkAAAAGAAMAAAAHAAcAAAAHAAEAAAAHAAgAAAAHAAIAAAAHAAkAAAAHAAMAAAAIAAgAAAAIAAIAAAAIAAkAAAAIAAMAAAAJAAgAAAAJAAIAAAAJAAkAAAAJAAMAAAAJAAoAAAAJAAQAAAAKAAgAAAAAAAIAAAAKAAkAAAAAAAMAAAALAAgAAAABAAIAAAALAAkAAAABAAMAAAAMAAcAAAACAAEAAAAMAAgAAAACAAIAAAAMAAkAAAACAAMAAAANAAcAAAADAAEAAAANAAgAAAADAAIAAAANAAkAAAADAAMAAAAOAAcAAAAEAAEAAAAOAAgAAAAEAAIAAAAOAAkAAAAEAAMAAAAPAAcAAAAFAAEAAAAPAAgAAAAFAAIAAAAPAAkAAAAFAAMAAAAQAAcAAAAGAAEAAAAQAAgAAAAGAAIAAAAQAAkAAAAGAAMAAAARAAcAAAAHAAEAAAARAAgAAAAHAAIAAAARAAkAAAAHAAMAAAASAAgAAAAIAAIAAAASAAkAAAAIAAMAAAATAAgAAAAJAAIAAAATAAkAAAAJAAMAAAATAAoAAAAJAAQAAAAAAAcAAAAAAAEAAAABAAcAAAABAAEAAAACAAYAAAACAAAAAAADAAYAAAADAAAAAAAEAAYAAAAEAAAAAAAFAAYAAAAFAAAAAAAGAAYAAAAGAAAAAAAHAAYAAAAHAAAAAAAIAAcAAAAIAAEAAAAJAAcAAAAJAAEAAAAKAAcAAAAAAAEAAAALAAcAAAABAAEAAAAMAAYAAAACAAAAAAANAAYAAAADAAAAAAAOAAYAAAAEAAAAAAAPAAYAAAAFAAAAAAAQAAYAAAAGAAAAAAARAAYAAAAHAAAAAAASAAcAAAAIAAEAAAATAAcAAAAJAAEAAAA=")
 tile_set = SubResource("TileSet_v62jm")
 
-[node name="Clouds1" type="Parallax2D" parent="."]
+[node name="Clouds1" type="Parallax2D" parent="Static"]
 modulate = Color(1, 1, 1, 0.8862745)
 scroll_offset = Vector2(-1449, -339)
 repeat_size = Vector2(640, 0)
 autoscroll = Vector2(-5, 0)
 repeat_times = 10
 
-[node name="Clouds" type="TileMapLayer" parent="Clouds1"]
+[node name="Clouds" type="TileMapLayer" parent="Static/Clouds1"]
 tile_map_data = PackedByteArray("AAAMAAUAAAAFAAMAAAANAAUAAAAGAAMAAAAaAAIAAAAFAAMAAAAbAAIAAAAGAAMAAAAcAAAAAAAFAAMAAAAdAAAAAAAGAAMAAAD//wMAAAACAAUAABAAAAMAAAABAAUAABABAAMAAAAAAAUAABADAAEAAAAAAAQAAAAEAAEAAAABAAQAAAAFAAEAAAACAAQAAAAGAAMAAAADAAEAAAAHAAMAAAAEAAEAAAAIAAMAAAAFAAEAAAAJAAMAAAAGAAEAAAAKAAUAAAADAAMAAAALAAQAAAAEAAIAAAALAAUAAAAEAAMAAAAMAAAAAAADAAEAAAAMAAQAAAAFAAIAAAASAAQAAAAAAAQAAAATAAQAAAABAAQAAAAUAAQAAAACAAQAAAAVAAIAAAACAAUAABAWAAIAAAABAAUAABAXAAIAAAAAAAUAABAYAAIAAAADAAMAAAAZAAEAAAAEAAIAAAAZAAIAAAAEAAMAAAAaAAAAAAADAAMAAAAaAAEAAAAFAAIAAAAaAAUAAAADAAEAAAAbAP//AAAEAAIAAAAbAAAAAAAEAAMAAAAbAAUAAAAEAAEAAAAcAP//AAAFAAIAAAAcAAUAAAAFAAEAAAAdAAUAAAAGAAEAAAANAAAAAAAEAAEAAAAOAAAAAAAFAAEAAAAPAAAAAAAGAAEAAAAUAAEAAAADAAEAABATAAEAAAAEAAEAABASAAEAAAAFAAEAABARAAEAAAAGAAEAABA=")
 tile_set = SubResource("TileSet_7onh4")
 
-[node name="Clouds3" type="Parallax2D" parent="."]
+[node name="Clouds3" type="Parallax2D" parent="Static"]
 modulate = Color(0.96474224, 0.96474224, 0.9647421, 1)
 scroll_offset = Vector2(-622, -422)
 repeat_size = Vector2(640, 0)
 autoscroll = Vector2(-4.5, 0)
 repeat_times = 10
 
-[node name="Clouds" type="TileMapLayer" parent="Clouds3"]
+[node name="Clouds" type="TileMapLayer" parent="Static/Clouds3"]
 modulate = Color(1, 1, 1, 0.8235294)
 tile_map_data = PackedByteArray("AAACAAYAAAAAAAUAAAADAAYAAAABAAUAAAAGAAQAAAAAAAUAAAAHAAQAAAABAAUAAAAKAAIAAAADAAQAAAALAAIAAAAEAAQAAAANAAcAAAADAAQAAAAOAAcAAAAEAAQAAAAPAAQAAAAAAAUAAAAQAAQAAAABAAUAAAAWAAcAAAADAAEAAAAXAAYAAAACAAUAABAXAAcAAAAEAAEAAAAYAAYAAAABAAUAABAYAAcAAAAFAAEAAAAcAAUAAAADAAQAAAAdAAUAAAAEAAQAAAAgAAcAAAADAAMAAAAhAAMAAAAGAAMAABAhAAYAAAAEAAIAAAAhAAcAAAAEAAMAAAAiAAIAAAAFAAIAABAiAAMAAAAFAAMAABAiAAcAAAAFAAMAAAAjAAMAAAAEAAMAABAlAAUAAAADAAEAAAAmAAUAAAAEAAEAAAAEAAYAAAACAAUAAAAIAAQAAAACAAUAAAAMAAIAAAAFAAQAAAAPAAcAAAAFAAQAAAARAAQAAAACAAUAAAAZAAYAAAAAAAUAABAZAAcAAAAGAAEAAAAeAAUAAAAFAAQAAAAiAAYAAAAFAAIAAAAjAAIAAAAEAAIAABAjAAcAAAAGAAMAAAAkAAMAAAADAAMAABAnAAUAAAAFAAEAAAAdAAMAAAAEAAIAABAcAAMAAAAFAAIAABAeAAQAAAADAAMAABAdAAQAAAAEAAMAABAcAAQAAAAFAAMAABAbAAQAAAAGAAMAABACAAEAAAAFAAQAABADAAEAAAAEAAQAABAEAAEAAAADAAQAABA=")
 tile_set = SubResource("TileSet_a6cep")
 
-[node name="Cover1" type="TextureRect" parent="."]
+[node name="Cover1" type="TextureRect" parent="Static"]
 offset_left = -120.0
 offset_top = -478.0
 offset_right = 320.0
 offset_bottom = -156.0
 texture = ExtResource("1_g3ws7")
 
-[node name="Cover2" type="TextureRect" parent="."]
+[node name="Cover2" type="TextureRect" parent="Static"]
 offset_left = 368.0
 offset_top = -517.0
 offset_right = 808.0
 offset_bottom = -233.0
 texture = ExtResource("1_g3ws7")
 
-[node name="Cover3" type="TextureRect" parent="."]
+[node name="Cover3" type="TextureRect" parent="Static"]
 offset_left = 195.0
 offset_top = -596.0
 offset_right = 635.0
 offset_bottom = -325.0
 texture = ExtResource("1_g3ws7")
 
-[node name="Floor" type="TileMapLayer" parent="."]
+[node name="Floor" type="TileMapLayer" parent="Static"]
 position = Vector2(0, -1)
 tile_map_data = PackedByteArray("AAAPAPb/AAAEAAEAAAAPAPf/AAAEAAAAAAAPAPj/AAAEAAAAAAAPAPn/AAADAAEAAAAPAPr/AAAEAAAAAAAPAPv/AAADAAAAAAAQAPb/AAAEAAAAAAAQAPf/AAADAAAAAAAQAPj/AAADAAAAAAAQAPn/AAAEAAEAAAAQAPr/AAADAAEAAAAQAPv/AAAEAAEAAAARAPb/AAADAAEAAAARAPf/AAAEAAEAAAARAPj/AAAEAAEAAAARAPn/AAADAAAAAAARAPr/AAADAAEAAAARAPv/AAAEAAAAAAASAO7/AAADAAEAAAASAO//AAAEAAEAAAASAPD/AAADAAEAAAASAPH/AAADAAEAAAASAPL/AAADAAAAAAASAPr/AAAEAAAAAAASAPv/AAAEAAEAAAATAO7/AAAEAAAAAAATAO//AAAEAAAAAAATAPD/AAAEAAEAAAATAPH/AAADAAAAAAATAPL/AAADAAEAAAATAPr/AAADAAAAAAATAPv/AAAEAAEAAAAUAO7/AAAEAAAAAAAUAO//AAADAAAAAAAUAPD/AAAEAAEAAAAUAPH/AAAEAAAAAAAUAPL/AAAEAAEAAAAUAPP/AAADAAEAAAAUAPT/AAADAAAAAAAUAPX/AAAEAAEAAAAUAPb/AAADAAAAAAAUAPf/AAADAAAAAAAUAPj/AAADAAEAAAAUAPn/AAAEAAEAAAAUAPr/AAADAAAAAAAUAPv/AAADAAAAAAAVAO7/AAADAAAAAAAVAO//AAAEAAEAAAAVAPD/AAADAAEAAAAVAPH/AAAEAAAAAAAVAPL/AAADAAAAAAAVAPP/AAADAAAAAAAVAPT/AAAEAAAAAAAVAPX/AAAEAAAAAAAVAPb/AAADAAEAAAAVAPf/AAADAAAAAAAVAPj/AAAEAAEAAAAVAPn/AAAEAAEAAAAVAPr/AAAEAAAAAAAVAPv/AAADAAEAAAAWAO7/AAAEAAEAAAAWAO//AAAEAAAAAAAWAPD/AAADAAAAAAAWAPH/AAAEAAAAAAAWAPL/AAAEAAAAAAAWAPP/AAAEAAAAAAAWAPT/AAAEAAEAAAAWAPX/AAAEAAAAAAAWAPb/AAADAAAAAAAWAPf/AAAEAAAAAAAWAPj/AAADAAEAAAAWAPn/AAADAAEAAAAWAPr/AAAEAAEAAAAWAPv/AAADAAAAAAAXAO7/AAAEAAEAAAAXAO//AAADAAAAAAAXAPD/AAAEAAEAAAAXAPH/AAADAAEAAAAXAPL/AAAEAAAAAAAYAO7/AAAEAAEAAAAYAO//AAAEAAEAAAAYAPD/AAADAAEAAAAYAPH/AAAEAAEAAAAYAPL/AAAEAAAAAAA=")
 tile_set = SubResource("TileSet_0tkbc")
 
-[node name="Walls" type="TileMapLayer" parent="."]
+[node name="Walls" type="TileMapLayer" parent="Static"]
 position = Vector2(0, -1)
 tile_map_data = PackedByteArray("AAAPAPT/AAAFAAAAAAAPAPX/AAAFAAEAAAAQAPT/AAAFAAAAAAAQAPX/AAAFAAEAAAARAPT/AAAFAAAAAAARAPX/AAAFAAEAAAASAOz/AAAFAAAAAAASAO3/AAAFAAEAAAASAPj/AAAFAAAAAAASAPn/AAAFAAEAAAATAOz/AAAFAAAAAAATAO3/AAAFAAEAAAATAPj/AAAFAAAAAAATAPn/AAAFAAEAAAAWAOz/AAAGAAQAAAAWAO3/AAAGAAUAAAAXAOz/AAAFAAAAAAAXAO3/AAAFAAEAAAAYAOz/AAAFAAAAAAAYAO3/AAAFAAEAAAAUAOz/AAAEAAQAAAAUAO3/AAAEAAUAAAAVAOz/AAAFAAQAAAAVAO3/AAAFAAUAAAA=")
 tile_set = SubResource("TileSet_0tkbc")
 
-[node name="RoomBorder" type="TileMapLayer" parent="."]
+[node name="RoomBorder" type="TileMapLayer" parent="Static"]
 position = Vector2(0, -1)
 tile_map_data = PackedByteArray("AAARAOv/AAABAAIAAAARAOz/AAABAAMAAAARAO3/AAABAAMAAAARAO7/AAABAAMAAAARAO//AAABAAMAAAARAPD/AAABAAMAAAARAPH/AAABAAMAAAARAPL/AAABAAMAAAARAPP/AAABAAQAAAASAOv/AAACAAIAAAASAPP/AAACAAQAAAATAOv/AAACAAIAAAATAPP/AAACAAYAAAAUAOv/AAACAAIAAAAVAOv/AAACAAIAAAAWAOv/AAACAAIAAAAXAOv/AAACAAIAAAAXAPP/AAABAAYAAAAYAOv/AAACAAIAAAAYAPP/AAACAAQAAAAZAOv/AAADAAIAAAAZAOz/AAADAAMAAAAZAO3/AAADAAMAAAAZAO7/AAADAAMAAAAZAO//AAADAAMAAAAZAPD/AAADAAMAAAAZAPH/AAADAAMAAAAZAPL/AAADAAMAAAAZAPP/AAADAAQAAAA=")
 tile_set = SubResource("TileSet_0tkbc")
 
-[node name="HallBorder" type="TileMapLayer" parent="."]
+[node name="HallBorder" type="TileMapLayer" parent="Static"]
 position = Vector2(0, -1)
 tile_map_data = PackedByteArray("AAAOAPP/AAABAAIAAAAOAPT/AAABAAMAAAAOAPX/AAABAAMAAAAOAPb/AAABAAMAAAAOAPf/AAABAAMAAAAOAPj/AAABAAMAAAAOAPn/AAABAAMAAAAOAPr/AAABAAMAAAAOAPv/AAABAAMAAAAOAPz/AAABAAQAAAAPAPP/AAACAAIAAAAPAPz/AAACAAQAAAAQAPP/AAACAAIAAAAQAPz/AAACAAQAAAARAPP/AAACAAIAAAARAPz/AAACAAQAAAASAPP/AAADAAIAAAASAPT/AAADAAMAAAASAPX/AAADAAMAAAASAPb/AAADAAMAAAASAPf/AAABAAcAAAASAPz/AAACAAQAAAATAPT/AAABAAMAAAATAPX/AAABAAMAAAATAPb/AAABAAMAAAATAPf/AAACAAcAAAATAPz/AAACAAQAAAAUAPz/AAACAAQAAAAVAPz/AAACAAQAAAAWAPz/AAACAAQAAAAXAPT/AAADAAMAAAAXAPX/AAADAAMAAAAXAPb/AAADAAMAAAAXAPf/AAADAAMAAAAXAPj/AAADAAMAAAAXAPn/AAADAAMAAAAXAPr/AAADAAMAAAAXAPv/AAADAAMAAAAXAPz/AAADAAQAAAA=")
 tile_set = SubResource("TileSet_0tkbc")
 
-[node name="Decoration" type="TileMapLayer" parent="."]
+[node name="Decoration" type="TileMapLayer" parent="Static"]
 tile_map_data = PackedByteArray("AAAXAOz/AAADAAYAAAAXAO3/AAADAAcAAAAYAOz/AAAEAAYAAAAYAO3/AAAEAAcAAAA=")
 tile_set = SubResource("TileSet_k0akc")
 
-[node name="Elevator" parent="." instance=ExtResource("4_unbf8")]
+[node name="Elevator" parent="Static" instance=ExtResource("4_unbf8")]
 position = Vector2(261, -177)
+
+[node name="WindowInteract" type="Area2D" parent="Static"]
+position = Vector2(343, -299)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Static/WindowInteract"]
+position = Vector2(1, 0.5)
+shape = SubResource("RectangleShape2D_hd2vq")
+
+[node name="GuardInteract" type="Area2D" parent="Static"]
+position = Vector2(343, -299)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Static/GuardInteract"]
+position = Vector2(2, 94)
+shape = SubResource("RectangleShape2D_k0akc")
+
+[node name="TrophyInteract" type="Area2D" parent="Static"]
+position = Vector2(383, -299)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Static/TrophyInteract"]
+position = Vector2(1, 0.5)
+shape = SubResource("RectangleShape2D_hd2vq")
+
+[node name="Guards" type="StaticBody2D" parent="Static"]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Static/Guards"]
+position = Vector2(345, -203)
+shape = SubResource("RectangleShape2D_hd2vq")
 
 [node name="y-sort" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -419,7 +454,7 @@ position = Vector2(264, -160)
 
 [node name="Camera2D" type="Camera2D" parent="y-sort/Player"]
 position = Vector2(-1, 1)
-zoom = Vector2(15, 15)
+zoom = Vector2(12.5, 12.5)
 limit_left = 196
 limit_top = -327
 limit_right = 441
@@ -439,3 +474,13 @@ position = Vector2(361, -201)
 
 [node name="Guard2" parent="y-sort" instance=ExtResource("6_d3ceu")]
 position = Vector2(327, -201)
+
+[node name="LimitMarker" type="Marker2D" parent="."]
+position = Vector2(342, -202)
+
+[connection signal="body_entered" from="Static/WindowInteract" to="." method="_on_window_interact_body_entered"]
+[connection signal="body_exited" from="Static/WindowInteract" to="." method="_on_window_interact_body_exited"]
+[connection signal="body_entered" from="Static/GuardInteract" to="." method="_on_guard_interact_body_entered"]
+[connection signal="body_exited" from="Static/GuardInteract" to="." method="_on_guard_interact_body_exited"]
+[connection signal="body_entered" from="Static/TrophyInteract" to="." method="_on_trophy_interact_body_entered"]
+[connection signal="body_exited" from="Static/TrophyInteract" to="." method="_on_trophy_interact_body_exited"]
