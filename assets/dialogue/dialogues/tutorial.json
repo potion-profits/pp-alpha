@@ -71,7 +71,7 @@
 	{
 	  "id": "stock_shelf",
 	  "marker": "ShelfMarker",
-	  "text": "Shift+Click or Click+Drag your potion to stock it on the shelf!",
+	  "text": "Shift+Click or Click+Drop your potion to stock it on the shelf!",
 	  "wait_for": "item_stocked"
 	},
 	{
