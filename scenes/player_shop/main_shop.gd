@@ -92,30 +92,6 @@ func _on_move_town_detection_body_entered(body: Node2D) -> void:
 			payload["player_position"] = spawn_marker.global_position
 			SceneManager.change_to("res://scenes/town/town.tscn", payload)
 
-func player_sleep() -> void:
-	GameManager.player_passed_out = false
-	clear_npcs()
-	close_open_shelf()
-	var fade : TextureRect = self.get_node("SleepFade")
-	fade.visible = true
-	var tween: Tween = create_tween()
-	tween.tween_property(fade, "modulate:a", 1, 0.5).from(0.0)
-	TimeManager.set_process(false)
-	tween.tween_property(fade, "modulate:a", 0.0, 0.5)
-	TimeManager.time = 0
-	TimeManager.day += 1
-	await tween.finished
-	fade.visible = false
-	TimeManager.set_process(true)
-	TimeManager.time = 0.0
-	spawner._ready()
-
-func close_open_shelf() -> void:
-	var em : EntityManager = get_node("EntityManager")
-	for child in em.get_children():
-		if child is Shelf and child.shelf_ui.visible:
-			child.close_shelf()
-
 func clear_npcs() -> void:
 	var em : EntityManager = get_node("EntityManager")
 	var return_basket : ReturnBasket = get_node("EntityManager/ReturnBasket")

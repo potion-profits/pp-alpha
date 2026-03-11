@@ -64,7 +64,8 @@ func commit_to_storage()->void:
 	var save_payload:Dictionary = {
 		"version": default_state_version,
 		"player": player_data,
-		"scenes": runtime_entities
+		"scenes": runtime_entities,
+		"day": TimeManager.day
 	}
 	var json_text : String = JSON.stringify(save_payload, "\t")
 	var file: FileAccess = FileAccess.open("user://savegame.save",FileAccess.WRITE)
@@ -108,7 +109,7 @@ func load_from_storage()->void:
 		
 	runtime_entities = json["scenes"]
 	player_data = json["player"]
-	
+	TimeManager.day = json['day']
 	#print("Game Loaded with : ",player_data,"\n", runtime_entities)
 
 ## Stores current scene's and player's state into the runtime memory.[br][br]
