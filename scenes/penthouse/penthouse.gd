@@ -8,6 +8,7 @@ extends Node2D
 @onready var guard_collide: CollisionShape2D = $Static/Guards/CollisionShape2D2
 @onready var guard: CharacterBody2D = $"y-sort/Guard"
 @onready var limit_marker: Marker2D = $LimitMarker
+@onready var shark_desk: StaticBody2D = $"y-sort/SharkDesk"
 
 var egg : bool = false
 var egg_seen : bool = false
@@ -18,17 +19,19 @@ var post_up : bool = false
 var move_delta : float = 0
 var init_guard1_pos : Vector2 
 var block_limit : float 
-
+var first_shark : bool
 func _ready() -> void:
 	camera.reset_smoothing()
 	elevator.set_floor(1)
 	dialogue_ui.action_triggered.connect(_on_dialogue_action)
 	elevator.interactable.interact = open_elevator_dialogue
+	shark_desk.interactable.interact = open_shark_dialogue
 	init_guard1_pos = guard.position
 	block_limit = limit_marker.position.x
 	if not player.first_office:
 		guard_collide.disabled = true
 		guard_interact.hide()
+	first_shark = player.first_office
 
 func _input(event: InputEvent) -> void:
 	if event.is_action("interact"):
@@ -76,7 +79,17 @@ func prep_dialogue_open() ->void:
 
 func open_elevator_dialogue() -> void:
 	prep_dialogue_open()
-	dialogue_ui.open("elevator","penthouse_prompt")
+	if first_shark:
+		dialogue_ui.open("penthouse", "no_leaving")
+	else:
+		dialogue_ui.open("elevator","penthouse_prompt")
+	
+func open_shark_dialogue() -> void:
+	prep_dialogue_open()
+	if first_shark:
+		dialogue_ui.open("penthouse", "init_shark")
+	else:
+		dialogue_ui.open("penthouse", "shark_prompt")
 	
 func _on_dialogue_action(action: String, _data: Dictionary) -> void:
 	match action:
