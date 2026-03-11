@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=4 uid="uid://djfoh7e3ckmhl"]
+[gd_scene load_steps=33 format=4 uid="uid://djfoh7e3ckmhl"]
 
 [ext_resource type="Script" uid="uid://cumfk5t273rap" path="res://scenes/penthouse/penthouse.gd" id="1_cudbf"]
 [ext_resource type="PackedScene" uid="uid://b0flhrlw7t57t" path="res://scenes/player/player.tscn" id="1_fhtrk"]
@@ -15,6 +15,10 @@
 [ext_resource type="PackedScene" uid="uid://cm7huruy0ypld" path="res://scenes/penthouse/shark_desk.tscn" id="7_ju0ue"]
 [ext_resource type="Texture2D" uid="uid://ce23et5q4rtxr" path="res://assets/exterior/town_scene_nature/mountain_02.png" id="7_k0akc"]
 [ext_resource type="Texture2D" uid="uid://4ib6u5f80hwq" path="res://assets/exterior/town_scene_nature/sky_clouds.png" id="8_jkv41"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_hd2vq"]
+outline_size = 5
+outline_color = Color(1, 0, 0, 1)
 
 [sub_resource type="Gradient" id="Gradient_6g2qn"]
 offsets = PackedFloat32Array(0, 0.9927273)
@@ -297,6 +301,49 @@ player = NodePath("../../y-sort/Player")
 
 [node name="DialogueUI" parent="." instance=ExtResource("2_fgrpq")]
 
+[node name="PayContainer" type="VBoxContainer" parent="DialogueUI"]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -77.5
+offset_top = -136.0
+offset_right = 77.5
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(1.5, 1.5)
+pivot_offset = Vector2(0, 200)
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="DialogueUI/PayContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="LessCoins" type="Button" parent="DialogueUI/PayContainer/HBoxContainer"]
+layout_mode = 2
+text = "-"
+
+[node name="NumCoinsToPay" type="Label" parent="DialogueUI/PayContainer/HBoxContainer"]
+layout_mode = 2
+text = " 0 Coins"
+label_settings = SubResource("LabelSettings_hd2vq")
+
+[node name="MoreCoins" type="Button" parent="DialogueUI/PayContainer/HBoxContainer"]
+layout_mode = 2
+text = "+"
+
+[node name="ConfirmPay" type="Button" parent="DialogueUI/PayContainer"]
+layout_mode = 2
+text = "Pay"
+
+[node name="CancelPay" type="Button" parent="DialogueUI/PayContainer"]
+layout_mode = 2
+text = "Cancel
+"
+
 [node name="Static" type="Node2D" parent="."]
 
 [node name="Background" type="TextureRect" parent="Static"]
@@ -478,6 +525,10 @@ position = Vector2(327, -201)
 [node name="LimitMarker" type="Marker2D" parent="."]
 position = Vector2(342, -202)
 
+[connection signal="pressed" from="DialogueUI/PayContainer/HBoxContainer/LessCoins" to="." method="_on_less_coins_pressed"]
+[connection signal="pressed" from="DialogueUI/PayContainer/HBoxContainer/MoreCoins" to="." method="_on_more_coins_pressed"]
+[connection signal="pressed" from="DialogueUI/PayContainer/ConfirmPay" to="." method="_on_confirm_pay_pressed"]
+[connection signal="pressed" from="DialogueUI/PayContainer/CancelPay" to="." method="_on_cancel_pay_pressed"]
 [connection signal="body_entered" from="Static/WindowInteract" to="." method="_on_window_interact_body_entered"]
 [connection signal="body_exited" from="Static/WindowInteract" to="." method="_on_window_interact_body_exited"]
 [connection signal="body_entered" from="Static/GuardInteract" to="." method="_on_guard_interact_body_entered"]

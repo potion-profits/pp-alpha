@@ -25,9 +25,13 @@ signal action_triggered(action: String, data: Dictionary)
 func _ready() -> void:
 	visible = false
 
+func _exit_tree() -> void:
+	close()
+
 ## Opens the dialogue UI starting at the given dialogue node
 func open(file_key: String, dialogue_id: String) -> void:
-	
+	if DialogueManager.dialogue_open:
+		return
 	## forcce player to stop walking
 	var player : Player = get_tree().get_first_node_in_group("player")
 	var last_dir: String = player.last_dir
@@ -123,7 +127,8 @@ func close() -> void:
 	
 	# allow player to move and time to continue
 	DialogueManager.dialogue_open = false
-	player.set_physics_process(true)
+	if player:
+		player.set_physics_process(true)
 	TimeManager.set_process(true)
 
 ## Handles keyboard input selecting choices

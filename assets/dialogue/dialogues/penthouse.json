@@ -1,5 +1,4 @@
 {
-
 	"egg": {
 		"speaker": "Inner Thoughts",
 		"text": "Woah, we are so high up! Is this giant window not a safety hazard?",
@@ -13,7 +12,7 @@
 		
 		Maybe the sand down below will soften the blow. Looks like it works for the coconuts.",
 		"choices": [
-			{ "label": "Nevermind.", "next": null },
+			{ "label": "Nevermind.", "next": null},
 	  ]
 	},
 	"trophy" : {
@@ -59,7 +58,7 @@
 		"text": "Huh? What is this child doing in my office? Guards?",
 		"choices": [
 			{"label": "Hey! I'm no child!", "next": "tease1"},
-			{"label": "I found this letter that I think belongs to you.", "next": "letter_received", "action": "letter_received"},
+			{"label": "I found this letter that I think belongs to you.", "next": "letter_received"},
 			{"label": "Oop, gotta run!", "next": null}
 		]
 	},
@@ -81,7 +80,7 @@
 		"text": "You're dressed like an elf. Plus you have that annoyingly high pitched voi-",
 		"choices":[
 			{"label": "ENOUGH! You're not even wearing a real shirt!", "next": "laugh_reset"},
-			{"label": "I'm not from around here but I found this letter that I think belongs to you.", "next": "letter_received", "action": "letter_received"},
+			{"label": "I'm not from around here but I found this letter that I think belongs to you.", "next": "letter_received"},
 			{"label": "you're being mean [sad]", "next": "laugh_ignore"}
 		]
 	},
@@ -89,7 +88,7 @@
 		"speaker": "Shark",
 		"text": "Heh heh heh. You sure are brave to be talking to me like that. Why are you here?",
 		"choices":[
-			{"label": "I found this lettter that I think belongs to you.", "next": "letter_received", "action": "letter_received"},
+			{"label": "I found this lettter that I think belongs to you.", "next": "letter_received"},
 			{"label": "Nevermind...","next":null}
 		]
 	},
@@ -97,7 +96,7 @@
 		"speaker": "Shark",
 		"text": "Heh heh heh. Why are you here?",
 		"choices":[
-			{"label": "I found this lettter that I think belongs to you. [sniffling]", "next": "letter_received", "action": "letter_received"},
+			{"label": "I found this lettter that I think belongs to you. [sniffling]", "next": "letter_received"},
 			{"label": "Nevermind... [sobbing]", "next":null}
 		]
 	},
@@ -127,7 +126,7 @@
 		Failure to pay the debt in full may lead to unfortunate outcomes...",
 		"choices":[
 			{"label":"Hold on! How am I even supposed to pay? I have no coins.", "next": "loan_starting_coins", "action": "coins_100"},
-			{"label":"Okay, I'm going to need a small loan and a way to make money. [skips intro]", "next": "short_option"}
+			{"label":"Okay, I'm going to need a small loan and a way to make money. [skips intro]", "next": "short_option", "action": "coins_100"}
 		]
 	},
 	"loan_starting_coins":{
@@ -200,6 +199,24 @@
 		Coins can be converted to chips at the cashier counter. ",
 		"choices":[
 			{"label": "Right, of course...", "next": null, "action":"first_shark_done"}
+		]
+	},
+	"shark_prompt":{
+		"speaker": "Shark",
+		"text": "What can I do you for?",
+		"choices":[
+			{"label": "I want to pay off some debt.", "next": null, "action": "pay_debt"},
+			{"label": "I want to take out a loan.", "next": null, "action": "get_loan"},
+			{"label": "Nevermind...", "next": null}
+		]
+	},
+	"anything_else":{
+		"speaker": "Shark",
+		"text": "You're still here?",
+		"choices":[
+			{"label": "I want to pay off some debt.", "next": null, "action": "pay_debt"},
+			{"label": "I want to take out a loan.", "next": null, "action": "get_loan"},
+			{"label": "Nevermind...", "next": null}
 		]
 	}
 }

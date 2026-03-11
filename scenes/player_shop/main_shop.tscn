@@ -682,7 +682,6 @@ position = Vector2(479, -220)
 rotation = 1.5707964
 shape = SubResource("SegmentShape2D_1jnhp")
 
-
 [node name="PlayerSpawn" type="Marker2D" parent="FrontRoom"]
 position = Vector2(416, -4)
 

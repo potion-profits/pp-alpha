@@ -24,6 +24,7 @@ var credits : Dictionary = {
 	"shelf": 0,
 	"cauldron" : 0
 }
+var debt : int = 0
 
 ## Tracks whether the player is currently dashing or not
 var is_dashing : bool = false
@@ -70,6 +71,7 @@ var last_dir := "down"
 var last_flip_h := false
 
 var first_office : bool = true
+var first_shark : bool = true
 
 func _ready() -> void:
 	add_to_group("player")
@@ -82,6 +84,9 @@ func _ready() -> void:
 	coins = GameManager.player_data["coins"]
 	chips = GameManager.player_data["chips"]
 	first_office = GameManager.player_data["first_office"]
+	debt = GameManager.player_data["debt"]
+	first_shark = GameManager.player_data["first_shark"]
+	
 	GameManager.tutorial_completed = GameManager.player_data.get("tutorial_completed", false)
 	if OS.is_debug_build():
 		SPEED = SPEED * 3.5
@@ -288,7 +293,9 @@ func to_dict()->Dictionary:
 		"inventory": inv.to_dict(),
 		"coins": coins,
 		"chips": chips,
-		"credits": credits
+		"credits": credits,
+		"debt": debt,
+		"first_shark": first_shark
 	}
 
 ## Translates save state data into player inventory, coins, and chips
@@ -299,6 +306,8 @@ func from_dict(data:Dictionary)->void:
 	chips = data["chips"]
 	credits = data["credits"]
 	first_office = data["first_office"]
+	first_shark = data["first_shark"]
+	debt = data["debt"]
 
 func _debug_set_player_inv()->void:
 	var bottle:InvItem = ItemRegistry.new_item("item_empty_bottle");

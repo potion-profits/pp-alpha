@@ -9,6 +9,9 @@ extends Node2D
 @onready var guard: CharacterBody2D = $"y-sort/Guard"
 @onready var limit_marker: Marker2D = $LimitMarker
 @onready var shark_desk: StaticBody2D = $"y-sort/SharkDesk"
+@onready var pay_container: VBoxContainer = $DialogueUI/PayContainer
+@onready var num_coins_to_pay: Label = $DialogueUI/PayContainer/HBoxContainer/NumCoinsToPay
+@onready var confirm_pay: Button = $DialogueUI/PayContainer/ConfirmPay
 
 var egg : bool = false
 var egg_seen : bool = false
@@ -19,7 +22,9 @@ var post_up : bool = false
 var move_delta : float = 0
 var init_guard1_pos : Vector2 
 var block_limit : float 
-var first_shark : bool
+var exchange_amt : int = 0
+var loan_action :bool = false
+
 func _ready() -> void:
 	camera.reset_smoothing()
 	elevator.set_floor(1)
@@ -31,7 +36,6 @@ func _ready() -> void:
 	if not player.first_office:
 		guard_collide.disabled = true
 		guard_interact.hide()
-	first_shark = player.first_office
 
 func _input(event: InputEvent) -> void:
 	if event.is_action("interact"):
@@ -79,14 +83,14 @@ func prep_dialogue_open() ->void:
 
 func open_elevator_dialogue() -> void:
 	prep_dialogue_open()
-	if first_shark:
+	if player.first_shark:
 		dialogue_ui.open("penthouse", "no_leaving")
 	else:
 		dialogue_ui.open("elevator","penthouse_prompt")
 	
 func open_shark_dialogue() -> void:
 	prep_dialogue_open()
-	if first_shark:
+	if player.first_shark:
 		dialogue_ui.open("penthouse", "init_shark")
 	else:
 		dialogue_ui.open("penthouse", "shark_prompt")
@@ -105,6 +109,22 @@ func _on_dialogue_action(action: String, _data: Dictionary) -> void:
 			guard_blocking = true
 		"move_to_block":
 			move_to_block()
+		"coins_100":
+			player.set_coins(+100)
+		"first_shark_done":
+			player.first_shark = false
+			dialogue_ui.close()
+			player.debt = 2100
+		"pay_debt":
+			loan_action = false
+			confirm_pay.text = "Pay"
+			dialogue_ui.show_text("Your loan balance is : "+ str(player.debt) +". How much do you want to pay?")
+			pay_container.visible = true
+		"get_loan":
+			loan_action = true
+			confirm_pay.text = "Borrow"
+			dialogue_ui.show_text("Your loan balance is : "+ str(player.debt) + ". How much do you want to borrow?")
+			pay_container.visible = true
 
 func move_to_block()->void:
 	move_guard = true
@@ -150,3 +170,47 @@ func _on_guard_interact_body_entered(body: Node2D) -> void:
 	if body is Player and player.first_office == true:
 		prep_dialogue_open()
 		dialogue_ui.open("penthouse", "initial_guards")
+
+
+func _on_confirm_pay_pressed() -> void:
+	if loan_action:
+		exchange_amt *= -1
+	player.set_coins(-exchange_amt)
+	player.debt -= exchange_amt
+	exchange_amt = 0
+	_update_exchange_label(exchange_amt)
+	if loan_action:
+		dialogue_ui.show_text("Your loan balance is : "+ str(player.debt) +". How much do you want to borrow?")
+	else:
+		dialogue_ui.show_text("Your loan balance is : "+ str(player.debt) +". How much do you want to pay?")
+
+func _on_cancel_pay_pressed() -> void:
+	exchange_amt = 0
+	_update_exchange_label(exchange_amt)
+	pay_container.visible = false
+	dialogue_ui.show_node("anything_else")
+
+func _on_less_coins_pressed() -> void:
+	if Input.is_action_pressed("dash"):
+		exchange_amt -= 100
+	else:
+		exchange_amt -= 10
+	if exchange_amt <= 0:
+		exchange_amt = 0
+	_update_exchange_label(exchange_amt)
+
+func _on_more_coins_pressed() -> void:
+	var current : int = player.get_coins()
+	if Input.is_action_pressed("dash"):
+		exchange_amt += 100
+	else:
+		exchange_amt += 10
+	if exchange_amt >= current and not loan_action:
+		exchange_amt = current - (current % 10)
+	if exchange_amt > player.debt and not loan_action:
+		exchange_amt = player.debt
+		# not enough coins label
+	_update_exchange_label(exchange_amt)
+
+func _update_exchange_label(new_amt : int) -> void:
+	num_coins_to_pay.text = str(new_amt) + " Coins"

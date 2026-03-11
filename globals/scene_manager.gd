@@ -11,7 +11,9 @@ var pausable_scenes : Array = [
 	'res://scenes/town/town.tscn',
 	'res://scenes/supply_shop/supply_shop.tscn',
 	'res://scenes/player_shop/main_shop.tscn',
-	'res://scenes/casino/casino_floor.tscn'
+	'res://scenes/casino/casino_floor.tscn',
+	'res://scenes/elevator/inside.tscn',
+	'res://scenes/penthouse/penthouse.tscn'
 ]
 ## Holds any information that the previous scene wants the new scene to have.
 var scene_payload: Dictionary = {}

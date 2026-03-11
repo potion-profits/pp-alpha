@@ -2,7 +2,9 @@
 	"player": {
 		"chips": 0,
 		"coins": 0,
+		"debt": 0,
 		"first_office": true,
+		"first_shark": true,
 		"credits": {
 			"barrel": 0,
 			"basket": 0,
