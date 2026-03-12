@@ -1,0 +1,96 @@
+[gd_scene load_steps=8 format=3 uid="uid://ihfg5mvm0f0k"]
+
+[ext_resource type="Script" uid="uid://bhxx0ortsx6xn" path="res://scenes/slot_machine/slot_machine.gd" id="1_5rdto"]
+[ext_resource type="Shader" uid="uid://o07uu5xwfucj" path="res://scenes/slot_machine/spin_tex.gdshader" id="1_axjpe"]
+[ext_resource type="StyleBox" uid="uid://jrp7v6wn5iv8" path="res://dialogue_panel.tres" id="1_qyhcg"]
+[ext_resource type="Texture2D" uid="uid://cq4mo6l3w2oka" path="res://assets/interior/shop/background.png" id="2_hmf0v"]
+[ext_resource type="Texture2D" uid="uid://cayis85ln5fll" path="res://assets/casino/slot_machine/slot_tape.png" id="2_qyhcg"]
+[ext_resource type="FontFile" uid="uid://djn684cose2cu" path="res://assets/dialogue/fonts/ari-w9500-bold.ttf" id="3_5rdto"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hmf0v"]
+shader = ExtResource("1_axjpe")
+shader_parameter/tex = ExtResource("2_qyhcg")
+shader_parameter/n_rows = 6.0
+shader_parameter/y_offset = 0.0
+
+[node name="SlotMachine" type="Control" node_paths=PackedStringArray("spinners")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_5rdto")
+spinners = [NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Slot1/Tex"), NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Slot2/Tex"), NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Slot3/Tex")]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = ExtResource("2_hmf0v")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 0
+offset_left = 468.0
+offset_top = 27.0
+offset_right = 1468.0
+offset_bottom = 1027.0
+
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(600, 600)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("1_qyhcg")
+
+[node name="Background" type="NinePatchRect" parent="CenterContainer/PanelContainer"]
+visible = false
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="_Spacer" type="Control" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Slot1" type="PanelContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+
+[node name="Tex" type="ColorRect" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Slot1"]
+material = SubResource("ShaderMaterial_hmf0v")
+layout_mode = 2
+
+[node name="Slot2" type="PanelContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+
+[node name="Tex" type="ColorRect" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Slot2"]
+material = SubResource("ShaderMaterial_hmf0v")
+layout_mode = 2
+
+[node name="Slot3" type="PanelContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+
+[node name="Tex" type="ColorRect" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Slot3"]
+material = SubResource("ShaderMaterial_hmf0v")
+layout_mode = 2
+
+[node name="_Spacer2" type="Control" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="SpinButton" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_5rdto")
+text = "Spin"
+
+[connection signal="pressed" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/SpinButton" to="." method="spin"]

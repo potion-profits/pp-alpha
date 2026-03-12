@@ -2,19 +2,8 @@
 
 [ext_resource type="Script" uid="uid://c28pwixi0421f" path="res://scenes/dialogue/tutorial/tutorial.gd" id="1_hs6vr"]
 [ext_resource type="FontFile" uid="uid://djn684cose2cu" path="res://assets/dialogue/fonts/ari-w9500-bold.ttf" id="2_hs6vr"]
+[ext_resource type="StyleBox" uid="uid://jrp7v6wn5iv8" path="res://dialogue_panel.tres" id="2_oi3ux"]
 [ext_resource type="Texture2D" uid="uid://cx2xrogaqcboo" path="res://assets/interior/shop/register_cat.png" id="3_hs6vr"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oi3ux"]
-bg_color = Color(0.9307845, 0.83566743, 0.71181226, 1)
-border_width_left = 10
-border_width_top = 10
-border_width_right = 10
-border_width_bottom = 10
-border_color = Color(0.57, 0.39140004, 0.0342, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
 
 [node name="Tutorial_UI" type="CanvasLayer"]
 script = ExtResource("1_hs6vr")
@@ -47,7 +36,7 @@ grow_horizontal = 2
 grow_vertical = 0
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_styles/panel = SubResource("StyleBoxFlat_oi3ux")
+theme_override_styles/panel = ExtResource("2_oi3ux")
 
 [node name="MarginContainer" type="MarginContainer" parent="DialogueContainer/DialoguePanel"]
 layout_mode = 1
