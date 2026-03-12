@@ -532,6 +532,8 @@ offset_right = 955.0
 offset_bottom = 150.0
 texture = ExtResource("1_g3ws7")
 
+[node name="Timer" type="Timer" parent="."]
+
 [connection signal="pressed" from="DialogueUI/PayContainer/HBoxContainer/LessCoins" to="." method="_on_less_coins_pressed"]
 [connection signal="pressed" from="DialogueUI/PayContainer/HBoxContainer/MoreCoins" to="." method="_on_more_coins_pressed"]
 [connection signal="pressed" from="DialogueUI/PayContainer/ConfirmPay" to="." method="_on_confirm_pay_pressed"]
@@ -542,3 +544,4 @@ texture = ExtResource("1_g3ws7")
 [connection signal="body_exited" from="Static/GuardInteract" to="." method="_on_guard_interact_body_exited"]
 [connection signal="body_entered" from="Static/TrophyInteract" to="." method="_on_trophy_interact_body_entered"]
 [connection signal="body_exited" from="Static/TrophyInteract" to="." method="_on_trophy_interact_body_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

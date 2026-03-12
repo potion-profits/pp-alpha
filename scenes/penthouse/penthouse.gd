@@ -13,6 +13,7 @@ extends Node2D
 @onready var num_coins_to_pay: Label = $DialogueUI/PayContainer/HBoxContainer/NumCoinsToPay
 @onready var confirm_pay: Button = $DialogueUI/PayContainer/ConfirmPay
 @onready var black: TextureRect = $BlackScreen
+@onready var timer: Timer = $Timer
 
 var egg : bool = false
 var egg_seen : bool = false
@@ -38,6 +39,7 @@ func _ready() -> void:
 		guard_collide.disabled = true
 		guard_interact.hide()
 	black.visible = false
+
 
 func _input(event: InputEvent) -> void:
 	if event.is_action("interact"):
@@ -85,6 +87,7 @@ func prep_dialogue_open() ->void:
 
 func open_elevator_dialogue() -> void:
 	prep_dialogue_open()
+		
 	if player.first_shark:
 		dialogue_ui.open("penthouse", "no_leaving")
 	else:
@@ -92,6 +95,9 @@ func open_elevator_dialogue() -> void:
 	
 func open_shark_dialogue() -> void:
 	prep_dialogue_open()
+	if OS.is_debug_build():
+		dialogue_ui.open("penthouse", "not_paid")
+		return 
 	if player.first_shark:
 		dialogue_ui.open("penthouse", "init_shark")
 	else:
@@ -133,8 +139,7 @@ func _on_dialogue_action(action: String, _data: Dictionary) -> void:
 		"lose_state":
 			black.visible = true
 			dialogue_ui.show_text("*CHOMP*")
-			dialogue_ui.close()
-			get_tree().change_scene_to_file("res://scenes/game_over/game_over.tscn")
+			timer.start(3)
 
 func move_to_block()->void:
 	move_guard = true
@@ -234,3 +239,7 @@ func _on_more_coins_pressed() -> void:
 
 func _update_exchange_label(new_amt : int) -> void:
 	num_coins_to_pay.text = str(new_amt) + " Coins"
+
+func _on_timer_timeout() -> void:
+	dialogue_ui.close()
+	get_tree().change_scene_to_file("res://scenes/game_over/game_over.tscn")
