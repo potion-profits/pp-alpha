@@ -19,7 +19,7 @@ var initial_play : bool = false
 
 # PLEASE UPDATE THIS IF THE DEFAULT STATE NEEDS TO BE UPDATED
 # format is MM.DD.YR/Version
-const default_state_version: String = "3.05.26/1"
+const default_state_version: String = "3.12.26/1"
 
 func _ready()->void:
 	pause_menu.layer = 200
