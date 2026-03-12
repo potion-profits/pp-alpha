@@ -1,0 +1,141 @@
+[gd_scene load_steps=8 format=3 uid="uid://oo63ucpu7lfd"]
+
+[ext_resource type="Texture2D" uid="uid://cq4mo6l3w2oka" path="res://assets/interior/shop/background.png" id="1_3j056"]
+[ext_resource type="Script" uid="uid://dq00ewkc8kevy" path="res://scenes/game_over/game_over.gd" id="1_vtso4"]
+[ext_resource type="Script" uid="uid://dpkk2a80yc8a4" path="res://scenes/game_over/scroll.gd" id="2_p1tbv"]
+[ext_resource type="FontFile" uid="uid://djn684cose2cu" path="res://assets/dialogue/fonts/ari-w9500-bold.ttf" id="2_sseyc"]
+[ext_resource type="PackedScene" uid="uid://c3qqvdemavffu" path="res://scenes/ui/dialogue_ui.tscn" id="5_p1tbv"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_anb0t"]
+line_spacing = 10.0
+font_size = 150
+outline_size = 40
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 50
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_vtso4"]
+line_spacing = 10.0
+font = ExtResource("2_sseyc")
+font_size = 78
+shadow_size = 40
+shadow_color = Color(0, 0, 0, 1)
+
+[node name="GameOver" type="Node2D"]
+script = ExtResource("1_vtso4")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource("2_p1tbv")
+
+[node name="Background" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_3j056")
+
+[node name="GameOver" type="Label" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -231.5
+offset_top = -156.0
+offset_right = 231.5
+offset_bottom = 156.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_sseyc")
+theme_override_font_sizes/font_size = 128
+text = "GAME
+OVER"
+label_settings = SubResource("LabelSettings_anb0t")
+
+[node name="CreditContainer" type="VBoxContainer" parent="CanvasLayer"]
+offset_left = -75.0
+offset_top = 1300.0
+offset_right = 1997.0
+offset_bottom = 7728.0
+size_flags_vertical = 3
+theme_override_constants/separation = 400
+alignment = 1
+
+[node name="CreditText" type="Label" parent="CanvasLayer/CreditContainer"]
+layout_mode = 2
+text = "POTION PROFITS
+
+
+
+
+Developed By 
+CEJJO Studios
+
+
+
+
+Project Lead
+Connor Villanueva
+
+
+Visual Lead
+Jazzy De Los Santos
+
+
+Audio Director & Engineer
+Elijah Villanueva
+
+
+Programming
+Connor Villanueva
+Elijah Villanueva
+Jazzy De Los Santos
+Jonathan Dees 
+Ozcar Cayetano
+
+
+Art & Animation
+Connor Villanueva
+Elijah Villanueva
+Jazzy De Los Santos
+Jonathan Dees 
+Ozcar Cayetano
+
+
+Advisor
+Lucas Pierce
+
+Special Thanks to
+Our classmates, friends, and families
+Everyone who playtested the game
+The Cal Poly CSSE Department
+
+
+
+Tools Used
+Github
+Itch.io
+Godot Engine 4.5
+Aseprite
+Ableton Live 11
+BBC Audio Library
+
+
+Made as part of a senior project at 
+California Polytechnic State University, 
+San Luis Obispo
+
+
+
+Thank you!"
+label_settings = SubResource("LabelSettings_vtso4")
+horizontal_alignment = 1
+
+[node name="DialogueUI" parent="." instance=ExtResource("5_p1tbv")]
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
