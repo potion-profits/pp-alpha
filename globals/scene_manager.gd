@@ -110,6 +110,7 @@ func change_to(scene_path: String, payload: Dictionary = {}) -> void:
 	# Change scene (deferred for safety)
 	get_tree().call_deferred("change_scene_to_file", scene_path)
 	MusicManager.play_bg_music(scene_path)
+	MusicManager.play_ambience(scene_path)
 	
 	if scene_path in pausable_scenes:
 		if not GameManager.pause_menu.get_parent():

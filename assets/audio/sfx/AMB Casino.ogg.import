@@ -12,7 +12,7 @@ dest_files=["res://.godot/imported/AMB Casino.ogg-6918a3bdd6b6f6746fffed4d1a1234
 
 [params]
 
-loop=false
+loop=true
 loop_offset=0
 bpm=0
 beat_count=0

@@ -27,17 +27,6 @@ extends Node
 	"npc": npc_dialouge
 }
 
-## References to ambient related sounds
-@onready var casino_ambience: AudioStreamPlayer = $CasinoAmbience
-@onready var daytown_ambience: AudioStreamPlayer = $DayTownAmbience
-@onready var nighttown_ambience: AudioStreamPlayer = $NightTownAmbience
-@onready var ambience_directory: Dictionary = {
-	"casino": casino_ambience,
-	"day_town": daytown_ambience,
-	"night_town": nighttown_ambience
-}
-
-
 # Reference to each cauldron's ambience audio node
 var cauldron_players: Array[AudioStreamPlayer2D] = []
 var cauldron_muted: bool = false

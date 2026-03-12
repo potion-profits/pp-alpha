@@ -22,10 +22,12 @@ extends Node
 	"res://scenes/player_shop/main_shop.tscn": after_shop_music,
 	"res://scenes/town/town.tscn": after_shop_music
 }
-
 @onready var night_target_time: int = TimeManager.get_time_from_string('17:00')
 
-var is_night: bool = false
+## References to ambient related sounds
+@onready var casino_ambience: AudioStreamPlayer = $CasinoAmbience
+@onready var daytown_ambience: AudioStreamPlayer = $DayTownAmbience
+@onready var nighttown_ambience: AudioStreamPlayer = $NightTownAmbience
 
 ## A reference to the currently playing song
 var current_song: AudioStreamPlayer
@@ -40,6 +42,9 @@ var fade_time: float = 1.5
 ## Volume level for music
 var full_volume_db: float = -20.0
 
+## A reference to the currently playing ambience
+var current_ambience: AudioStreamPlayer
+
 func _ready() -> void:
 	current_song = song_contexts.get("res://scenes/ui/start_menu.tscn")
 	if current_song:
@@ -47,10 +52,6 @@ func _ready() -> void:
 	# Signal that emits when end of workday and end of day occurs
 	TimeManager.workday_end.connect(_switch_to_night_music)
 	TimeManager.workday_start.connect(_switch_to_day_music)
-	# Check if loading from save at night
-	var loaded_time: String = TimeManager.get_string_from_time()
-	if TimeManager.get_time_from_string(loaded_time) >= night_target_time:
-		is_night = true
 
 ## Play background music for the given scene [br][br]
 ##
@@ -70,6 +71,21 @@ func play_bg_music(scene_path: String) -> void:
 	if next_scene_song and current_song != next_scene_song:
 		transition_song(next_scene_song)
 
+func play_ambience(scene_path: String) -> void:
+	# stop and dereference currently playing ambience
+	current_ambience = null
+	# first try night ambience
+	if scene_path == "res://scenes/town/town.tscn":
+		if TimeManager.is_currently_daytime():
+			current_ambience = daytown_ambience
+		else:
+			current_ambience = nighttown_ambience
+	if scene_path == "res://scenes/casino/casino_floor.tscn":
+		current_ambience = casino_ambience
+	# if ambience was ever assigned, play it
+	if current_ambience:
+		current_ambience.play()
+
 ## Connected to TimeManager workday_end signal that triggers after 5pm in-game [br][br]
 ##
 ## Some scenes play a different song once the workday ends. The current song will be switched
@@ -78,6 +94,7 @@ func _switch_to_night_music() -> void:
 	var current_scene: String = SceneManager.current_scene().scene_file_path
 	if current_scene:
 		play_bg_music(current_scene)
+		play_ambience(current_scene)
 
 ## Connected to TimeManager workday_start signal that triggers after 3am in-game [br][br]
 ##

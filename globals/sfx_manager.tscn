@@ -18,15 +18,6 @@ volume_db = -16.29
 
 [node name="WorkdayEndSFX" type="AudioStreamPlayer" parent="."]
 
-[node name="CasinoAmbience" type="AudioStreamPlayer" parent="."]
-bus = &"Ambience"
-
-[node name="DayTownAmbience" type="AudioStreamPlayer" parent="."]
-bus = &"Ambience"
-
-[node name="NightTownAmbience" type="AudioStreamPlayer" parent="."]
-bus = &"Ambience"
-
 [node name="SharkDialouge" type="AudioStreamPlayer" parent="."]
 
 [node name="CatDialouge" type="AudioStreamPlayer" parent="."]

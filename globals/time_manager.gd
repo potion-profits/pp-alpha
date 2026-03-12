@@ -35,7 +35,7 @@ func _ready() -> void:
 	SceneManager.scene_ready.connect(_on_scene_ready)
 	
 	if (OS.is_debug_build()):
-		TIME_FACTOR = TIME_FACTOR * 3
+		TIME_FACTOR = TIME_FACTOR * 10
 
 func _process(delta: float) -> void:
 	# once time has past 17:00
