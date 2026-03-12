@@ -1,4 +1,5 @@
 # Potion Profits
+
 ### About:
 Potion Profits is a game where the main player is tasked with running a potion shop. Throughout the core game loop, the player is tasked with running, managing, brewing, and stocking their store for customer purchases. Facing rounds of perusing customers, they must sell their inventory and produce a daily profit. During any down time, the shop-owner can invest currency into new equipment or refilling stock to maintain an active customer base. In an effort to faster scale the profitability of their store, the player may also gamble at the local casino for a chance to quickly turn their hard-earned coins into prizes redeemed with casino chips. The player must carefully manage their time to ensure maximum profits and reconcile any debts with the local casino mogul.
 
@@ -73,3 +74,5 @@ Our classmates, friends, and families. Everyone who playtested the game. The Cal
 **External Assets Used**
 
 Cute Card Deck - Dani Maccari
+
+### [PLAY POTION PROFITS NOW!](https://potion-profits.itch.io/potion-profits)
