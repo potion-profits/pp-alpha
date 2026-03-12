@@ -24,9 +24,9 @@ var inv_size: int = 12 ## The size of the shelf's inventory
 var potion_visuals : Array[Sprite2D] = []
 var fill_visuals : Array[Sprite2D] = []
 
-var interact_key: String = InputMap.get_action_description("interact").split(" ")[0]
-var SHELF_OPEN_TOOLTIP: String = "Press %s to Open" %[interact_key]
-var SHELF_CLOSE_TOOLTIP: String = "Press %s to Close" %[interact_key]
+var player_in_area: Player
+var SHELF_OPEN_TOOLTIP: String = "Press %s to Open"
+var SHELF_CLOSE_TOOLTIP: String = "Press %s to Close"
 
 ## Successful action signals
 signal shelf_opened
@@ -45,7 +45,7 @@ const visual_color_map = {
 func _ready()-> void:
 	#links interactable template to shelf specific method (needed for all interactables)
 	interactable.interact = _on_interact
-	interactable.tooltip = SHELF_OPEN_TOOLTIP
+	interactable.is_interactable = false
 	#sets up entity info 
 	super._ready()
 	#used to find out what actual scene to place in entity manager
@@ -86,11 +86,11 @@ func _on_interact()->void:
 		# play sound effect on open
 		shelf_sfx.pitch_scale = 1
 		shelf_sfx.play()
-		interactable.tooltip = SHELF_CLOSE_TOOLTIP
+		interactable.set_tooltip_label(SHELF_CLOSE_TOOLTIP)
 	# close on "e" 
 	elif shelf_ui.visible:
 		close_shelf()
-		interactable.tooltip = SHELF_OPEN_TOOLTIP
+		interactable.set_tooltip_label(SHELF_OPEN_TOOLTIP)
 
 func _input(event: InputEvent) -> void:
 	# close on "esc"
@@ -196,6 +196,9 @@ func _on_interactable_body_entered(body: Node2D) -> void:
 			if !body.item_found:	# If not found, waiting queue
 				queue.push_back(body)
 			inv.lock = false
+	elif body is Player:
+		player_in_area = body
+		set_process(true)
 
 # Removes the NPC that exited from the queue
 func _on_interactable_body_exited(body: Node2D) -> void:
@@ -203,9 +206,23 @@ func _on_interactable_body_exited(body: Node2D) -> void:
 		var idx : int = queue.find(body)
 		if (idx != -1):
 			queue.pop_at(idx)
+	elif body is Player:
+		player_in_area = null
+		set_process(false)
 
 ## Empties the queue and every NPC in the queue checks the shelf
 func clear_queue()->void:
 	while queue.size() > 0:
 		var body : Npc = queue.pop_front()
 		body.check_shelf(self)
+
+func _process(_delta: float) -> void:
+	if player_in_area:
+		if (!inv.lock):
+			interactable.set_tooltip_label(SHELF_OPEN_TOOLTIP)
+		else:
+			interactable.set_tooltip_label(SHELF_CLOSE_TOOLTIP)
+		
+		interactable.is_interactable = true
+	else:
+		interactable.is_interactable = false

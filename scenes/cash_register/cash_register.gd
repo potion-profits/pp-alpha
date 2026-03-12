@@ -16,14 +16,13 @@ var bob_height: float = 2.0	## How much the icon should bob
 @onready var sale_sfx : AudioStreamPlayer2D = $SaleSFX ## Reference to audio stream for sound effects
 @onready var interactable : Area2D = $Interactable ## Reference to component used for interaction
 
-var interact_key: String = InputMap.get_action_description("interact").split(" ")[0]
-var REGISTER_TOOLTIP : String = "Press %s to Checkout" %[interact_key]
+var REGISTER_TOOLTIP : String = "Press %s to Checkout"
 
 func _ready() -> void:
 	cust_waiting_icon.visible = false
 	base_icon_y = cust_waiting_icon.position.y
 	
-	interactable.tooltip = REGISTER_TOOLTIP
+	interactable.is_interactable = false
 
 func _process(delta: float) -> void:
 	if cust_waiting_icon.visible:
@@ -31,6 +30,7 @@ func _process(delta: float) -> void:
 		cust_waiting_icon.position.y = base_icon_y + sin(bob_time * bob_speed) * bob_height
 	
 	if (len(queue) > 0 and !interactable.is_interactable):
+		interactable.set_tooltip_label(REGISTER_TOOLTIP)
 		interactable.is_interactable = true
 	elif (interactable.is_interactable):
 		interactable.is_interactable = false

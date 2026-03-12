@@ -17,12 +17,11 @@ class_name Cauldron extends Entity	#will help store placement and inventory info
 @onready var flame_animation: AnimatedSprite2D = $FlameAnim
 
 var player_in_area: Player
-var interact_key: String = InputMap.get_action_description("interact").split(" ")[0]
 
 var mixing: bool = false	## Keeps track of the cauldron's state
 const MIX_DURATION : float = 3.0
-var CAULDRON_MIXABLE_TOOLTIP : String = "Press %s to Brew Potion" %[interact_key]
-var CAULDRON_COLLECTABLE_TOOLTIP : String = "Press %s to Collect Potion" %[interact_key]
+var CAULDRON_MIXABLE_TOOLTIP : String = "Press %s to Brew Potion"
+var CAULDRON_COLLECTABLE_TOOLTIP : String = "Press %s to Collect Potion"
 const NUM_FLAME_FRAMES : int = 15
 const MAX_PROGRESS : int = 100
 const MIN_PROGRESS : int = 0
@@ -134,7 +133,7 @@ func _process(_delta: float) -> void:
 			# Must be non-mixable & sellable
 			if (!potion.mixable and potion.sellable and player_in_area.has_empty_slot()):
 				# Item is ready to be collected
-				interactable.tooltip = CAULDRON_COLLECTABLE_TOOLTIP
+				interactable.set_tooltip_label(CAULDRON_COLLECTABLE_TOOLTIP)
 				interactable.is_interactable = true
 			
 			return
@@ -150,7 +149,7 @@ func _process(_delta: float) -> void:
 		# Item must be mixable & non-sellable
 		if (selected_slot.item.mixable and !selected_slot.item.sellable):
 			# Held item is a mixable potion
-			interactable.tooltip = CAULDRON_MIXABLE_TOOLTIP
+			interactable.set_tooltip_label(CAULDRON_MIXABLE_TOOLTIP)
 			interactable.is_interactable = true
 			return
 		

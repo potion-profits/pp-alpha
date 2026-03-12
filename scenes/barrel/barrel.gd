@@ -39,10 +39,9 @@ const barrel_bottle_map = {
 }
 
 var player_in_area: Player
-var interact_key: String = InputMap.get_action_description("interact").split(" ")[0]
 
 const MAX_ML :int = 1_000 ## Amount to refill to, may change with different sized barrels
-var BARREL_TOOLTIP: String = "Press %s to Fill Bottle" % [interact_key] ## Tooltip for interactable
+var BARREL_TOOLTIP: String = "Press %s to Fill Bottle" ## Tooltip for interactable
 var ml :int = 1_000	## Amount the current barrel has
 @export var barrel_type : String = "empty_barrel"	## Dictates the sprite and item given out
 
@@ -215,7 +214,6 @@ func _on_interactable_body_exited(body: Node2D) -> void:
 
 # Decides when to show tooltip based on player and barrel conditions
 func _process(_delta: float) -> void:
-	interactable.is_interactable = false
 	if player_in_area:
 		
 		var selected_slot: InvSlot = player_in_area.get_selected_slot()
@@ -224,4 +222,8 @@ func _process(_delta: float) -> void:
 			return
 			
 		if (selected_slot.item.texture_code == "item_empty_bottle" and ml > 0):
+			interactable.set_tooltip_label(BARREL_TOOLTIP)
 			interactable.is_interactable = true
+			return
+	
+	interactable.is_interactable = false
