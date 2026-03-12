@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bd35p3hb6ti81"
-path="res://.godot/imported/casino_temp.jpg-d9fbd4924a24062dfd8e53e666d0f684.ctex"
+uid="uid://buxabbtjphmfm"
+path="res://.godot/imported/marker.png-49bd92df455d166705381521847e5c71.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/casino/temp/casino_temp.jpg"
-dest_files=["res://.godot/imported/casino_temp.jpg-d9fbd4924a24062dfd8e53e666d0f684.ctex"]
+source_file="res://assets/interior/casino/marker.png"
+dest_files=["res://.godot/imported/marker.png-49bd92df455d166705381521847e5c71.ctex"]
 
 [params]
 
