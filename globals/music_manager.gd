@@ -73,6 +73,8 @@ func play_bg_music(scene_path: String) -> void:
 
 func play_ambience(scene_path: String) -> void:
 	# stop and dereference currently playing ambience
+	if current_ambience:
+		current_ambience.stop()
 	current_ambience = null
 	# first try night ambience
 	if scene_path == "res://scenes/town/town.tscn":
