@@ -18,6 +18,7 @@ extends Node
 	"res://scenes/casino/casino_floor.tscn": casino_music,
 	"res://scenes/casino/black_jack.tscn": casino_music,
 	"res://scenes/ui/start_menu.tscn": title_music,
+	"res://scenes/penthouse/penthouse.tscn": penthouse_music
 }
 @onready var night_song_contexts: Dictionary = {
 	"res://scenes/player_shop/main_shop.tscn": after_shop_music,
