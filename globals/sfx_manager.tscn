@@ -1,5 +1,26 @@
-[gd_scene format=3 uid="uid://cqpubg8j6e4lx"]
+[gd_scene load_steps=2 format=3 uid="uid://cqpubg8j6e4lx"]
+
+[ext_resource type="Script" uid="uid://b2uje3pp8winn" path="res://globals/sfx_manager.gd" id="1_lnq87"]
 
 [node name="SfxManager" type="Node2D"]
+script = ExtResource("1_lnq87")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="AlarmSFX" type="AudioStreamPlayer" parent="."]
+
+[node name="ClickSFX" type="AudioStreamPlayer" parent="."]
+
+[node name="ShelfClickSFX" type="AudioStreamPlayer" parent="."]
+
+[node name="TransitionSFX" type="AudioStreamPlayer" parent="."]
+
+[node name="WorkdayEndSFX" type="AudioStreamPlayer" parent="."]
+
+[node name="CasinoAmbience" type="AudioStreamPlayer" parent="."]
+
+[node name="TownAmbience" type="AudioStreamPlayer" parent="."]
+
+[node name="SharkDialouge" type="AudioStreamPlayer" parent="."]
+
+[node name="CatDialouge" type="AudioStreamPlayer" parent="."]
+
+[node name="NPCDialouge" type="AudioStreamPlayer" parent="."]

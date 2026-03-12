@@ -29,8 +29,8 @@ SettingSaveManager="*res://globals/setting_save_manager.gd"
 SettingsMenu="*res://scenes/ui/settings_menu.tscn"
 DialogueManager="*res://globals/dialogue_manager.gd"
 TimeManager="*res://globals/time_manager.gd"
-SFXManager="*res://globals/sfx_manager.gd"
 MusicManager="*res://globals/music_manager.tscn"
+SFXManager="*res://globals/sfx_manager.tscn"
 
 [debug]
 
@@ -41,6 +41,7 @@ gdscript/warnings/untyped_declaration=1
 window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/size/resizable=false
+window/stretch/mode="viewport"
 
 [editor_plugins]
 
