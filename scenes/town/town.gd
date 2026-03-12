@@ -19,10 +19,6 @@ func _ready() -> void:
 	for location : Marker2D in spawn_locations.get_children():
 		spawn_location_pos.append(location.position)
 	spawn_town_npcs()
-	if GameManager.credits_flag:
-		credit_zone.visible = true
-	else:
-		credit_zone.visible = false
 
 func _process(_delta: float) -> void:
 	if player.position.y > bot_bound.position.y and not below:
@@ -34,11 +30,11 @@ func _process(_delta: float) -> void:
 		trees.modulate.a = 1
 
 func _input(event: InputEvent) -> void:
-	if in_credits and event.is_action_pressed("interact"):
+	if in_credits and event.is_action_pressed("interact") and GameManager.credits_flag:
 		roll_credits()
 
 func roll_credits()->void:
-	SceneManager.change_to("res://scenes/credits/credits.tscn")
+	get_tree().change_scene_to_file("res://scenes/credits/credits.tscn")
 
 func spawn_npc(loc: Vector2) -> void:
 	var t_npc : RoamingNpc = town_npc_scene.instantiate()

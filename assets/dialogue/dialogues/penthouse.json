@@ -112,7 +112,7 @@
 		"speaker": "Shark",
 		"text": "It used to belong to an old... associate... if you will. Finders keepers. 
 		
-		The letter is an acknowledgement of debt. That means you owe me 20,000 coins.",
+		The letter is an acknowledgement of debt. That means you owe me 1,000 coins.",
 		"choices":[
 			{"label":"WHAT!?!?", "next": "terms"},
 			{"label":"You must be mistaken.", "next": "terms"},
@@ -121,7 +121,7 @@
 	},
 	"terms":{
 		"speaker": "Shark",
-		"text": "You will have 30 days to pay this debt. Every 5 days, your balance will incur 5% interest on the balance.
+		"text": "You will have 7 days to pay this debt. Every day, your balance will incur 5% interest on the balance.
 		
 		Failure to pay the debt in full may lead to unfortunate outcomes...",
 		"choices":[
@@ -132,7 +132,7 @@
 	"loan_starting_coins":{
 		"speaker": "Shark",
 		"text": "Worry not child. Not only do I collect your debts, but I can also loan you coins. 
-		Here's 100 to begin. I will just add it to your total. You now owe : 20,100 coins! Anytime you need some more, come to me.",
+		Here's 100 to begin. I will just add it to your total. You now owe : 1,600 coins! Anytime you need some more, come to me.",
 		"choices":[
 			{"label": "Well that seems like a bad idea. How am I supposed to make coins for myself?", "next": "shop_offer"},
 		]
@@ -140,7 +140,7 @@
 	"shop_offer":{
 		"speaker": "Shark",
 		"text": "This associate of mine used to run a potion shop in town. You may have seen it on your way here.
-		Since the associate is no longer around, you are free to use it and boost the town's economy. For the low, low price of 5,000 coins!",
+		Since the associate is no longer around, you are free to use it and boost the town's economy. For the low, low price of 500 coins!",
 		"choices":[
 			{"label": "Woah! Why are you charging me for an abandoned shop?", "next": "town_explained"},
 			{"label": "Okay, so im stuck with this shop.", "next": "conclude"}
@@ -179,7 +179,7 @@
 	"short_option":{
 		"speaker":"Shark",
 		"text": "There's an abandoned potion shop in town you can use.
-		After the shop's rental fee, a 100 coin loan, and the initial sum of 20,000, your total balance is 25,100.",
+		After the shop's rental fee, a 100 coin loan, and the initial sum of 1,500, your total balance is 2,100.",
 		"choices":[
 			{"label": "Got it! I am so ready!", "next": null, "action": "first_shark_done"}
 		]
@@ -261,6 +261,24 @@
 		"text": "Congratulations on completing your end of the deal. I'll be around if you're ever in a pinch.",
 		"choices": [
 			{"label": "See you around!", "next": null, "action": "unlock_barrier"}
+		]
+	},
+	"not_paid":{
+		"speaker":"Shark",
+		"text": "HEY! WHERE IS THE MONEY, PIPSQUEAK! 
+		I GAVE YOU 7 DAYS AND YOU COULDN'T DO IT!",
+		"choices":[
+			{"label": "I'm sorry...", "next": "not_paid2"},
+			{"label": "Can I get more time?", "next": "not_paid2"}
+		]
+	},
+	"not_paid2":{
+		"speaker":"Shark",
+		"text": "I TOLD YOU THERE WOULD BE REPRECUSSIONS TO NOT PAYING IN FULL!
+		
+		GUARDS!! TAKE THIS TRASH OUT.",
+		"choices":[
+			{"label": "What's going on???", "action":"lose_state"}
 		]
 	}
 }

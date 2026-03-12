@@ -12,6 +12,7 @@ extends Node2D
 @onready var pay_container: VBoxContainer = $DialogueUI/PayContainer
 @onready var num_coins_to_pay: Label = $DialogueUI/PayContainer/HBoxContainer/NumCoinsToPay
 @onready var confirm_pay: Button = $DialogueUI/PayContainer/ConfirmPay
+@onready var black: TextureRect = $BlackScreen
 
 var egg : bool = false
 var egg_seen : bool = false
@@ -36,6 +37,7 @@ func _ready() -> void:
 	if not player.first_office:
 		guard_collide.disabled = true
 		guard_interact.hide()
+	black.visible = false
 
 func _input(event: InputEvent) -> void:
 	if event.is_action("interact"):
@@ -127,6 +129,12 @@ func _on_dialogue_action(action: String, _data: Dictionary) -> void:
 			pay_container.visible = true
 		"unlock_barrier":
 			GameManager.credits_flag = true
+			dialogue_ui.close()
+		"lose_state":
+			black.visible = true
+			dialogue_ui.show_text("*CHOMP*")
+			dialogue_ui.close()
+			get_tree().change_scene_to_file("res://scenes/game_over/game_over.tscn")
 
 func move_to_block()->void:
 	move_guard = true

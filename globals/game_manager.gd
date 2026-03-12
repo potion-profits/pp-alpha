@@ -171,3 +171,10 @@ func load_scene_runtime_state()->void:
 func connect_scene_load_callback()->void:
 	if not get_tree().is_connected("scene_changed", Callable(self, "load_scene_runtime_state")):
 		get_tree().connect("scene_changed", Callable(self, "load_scene_runtime_state"), CONNECT_ONE_SHOT)
+
+
+func delete_save()->void:
+	var exists :bool = FileAccess.file_exists("user://savegame.save")
+	if exists:
+		DirAccess.remove_absolute("user://savegame.save")
+	load_from_storage()

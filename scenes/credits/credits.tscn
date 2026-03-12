@@ -1,8 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://t3ix6p6in8ws"]
+[gd_scene load_steps=13 format=3 uid="uid://t3ix6p6in8ws"]
 
 [ext_resource type="Shader" uid="uid://cl0hp4d55y6de" path="res://scenes/credits/credits.gdshader" id="1_8n0nl"]
+[ext_resource type="Script" uid="uid://r1l12wlpg0wy" path="res://scenes/credits/credits.gd" id="1_17l06"]
 [ext_resource type="Texture2D" uid="uid://ceobjrkpsbkb3" path="res://assets/ui/cambria_backyard.jpg" id="1_dr3ri"]
 [ext_resource type="Script" uid="uid://bke1w1cqpntog" path="res://scenes/credits/scroll.gd" id="1_huu5m"]
+[ext_resource type="PackedScene" uid="uid://c3qqvdemavffu" path="res://scenes/ui/dialogue_ui.tscn" id="2_t15ab"]
 [ext_resource type="Texture2D" uid="uid://cagvqh6awoqew" path="res://assets/ui/main_background.png" id="3_c8xcy"]
 [ext_resource type="FontFile" uid="uid://djn684cose2cu" path="res://assets/dialogue/fonts/ari-w9500-bold.ttf" id="5_icb2l"]
 
@@ -13,24 +15,8 @@ shader_parameter/pixel_image = ExtResource("3_c8xcy")
 shader_parameter/transition = 0.0
 shader_parameter/pixel_size = 10000.0
 
-[sub_resource type="Animation" id="Animation_8ggla"]
-resource_name = "fade_to_pixel"
-length = 60.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:material:shader_parameter/transition")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 60),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, 1.0]
-}
-
 [sub_resource type="Animation" id="Animation_huu5m"]
-length = 0.001
+length = 0.01
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -42,6 +28,22 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_8ggla"]
+resource_name = "fade_to_pixel"
+length = 30.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/transition")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 30),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_icb2l"]
@@ -58,6 +60,7 @@ shadow_size = 40
 shadow_color = Color(0, 0, 0, 1)
 
 [node name="Credits" type="Node2D"]
+script = ExtResource("1_17l06")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 script = ExtResource("1_huu5m")
@@ -110,6 +113,13 @@ Audio Director & Engineer
 Elijah Villanueva
 
 
+Senior Game Developer
+Ozcar Cayetano
+
+\"Senior\" Game Developer
+Jonathan Dees
+
+
 Programming
 Connor Villanueva
 Elijah Villanueva
@@ -144,6 +154,9 @@ Aseprite
 Ableton Live 11
 BBC Audio Library
 
+External Assets Used
+Cute Card Deck - Dani Maccari
+Character Templates Pack  - ErisEsra
 
 Made as part of a senior project at 
 California Polytechnic State University, 
@@ -154,5 +167,7 @@ San Luis Obispo
 Thank you!"
 label_settings = SubResource("LabelSettings_17l06")
 horizontal_alignment = 1
+
+[node name="DialogueUI" parent="." instance=ExtResource("2_t15ab")]
 
 [connection signal="animation_finished" from="CanvasLayer/Background/AnimationPlayer" to="CanvasLayer" method="_on_animation_player_animation_finished"]
