@@ -16,8 +16,13 @@ script = ExtResource("1_lnq87")
 [node name="WorkdayEndSFX" type="AudioStreamPlayer" parent="."]
 
 [node name="CasinoAmbience" type="AudioStreamPlayer" parent="."]
+bus = &"Ambience"
 
-[node name="TownAmbience" type="AudioStreamPlayer" parent="."]
+[node name="DayTownAmbience" type="AudioStreamPlayer" parent="."]
+bus = &"Ambience"
+
+[node name="NightTownAmbience" type="AudioStreamPlayer" parent="."]
+bus = &"Ambience"
 
 [node name="SharkDialouge" type="AudioStreamPlayer" parent="."]
 

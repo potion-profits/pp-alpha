@@ -27,16 +27,23 @@ extends Node
 
 ## References to ambient related sounds
 @onready var casino_ambience: AudioStreamPlayer = $CasinoAmbience
-@onready var town_ambience: AudioStreamPlayer = $TownAmbience
+@onready var daytown_ambience: AudioStreamPlayer = $DayTownAmbience
+@onready var nighttown_ambience: AudioStreamPlayer = $NightTownAmbience
 @onready var ambience_directory: Dictionary = {
 	"casino": casino_ambience,
-	"town": town_ambience
+	"day_town": daytown_ambience,
+	"night_town": nighttown_ambience
 }
 
 
 # Reference to each cauldron's ambience audio node
 var cauldron_players: Array[AudioStreamPlayer2D] = []
 var cauldron_muted: bool = false
+
+# Trackers for resume times for all dialouge
+var cat_resume: float = 0.0
+var shark_resume: float = 0.0
+var npc_resume: float = 0.0
 
 func _ready() -> void:
 	handle_signals()
@@ -76,19 +83,34 @@ func unmute_ambience() -> void:
 
 func play_sfx(sound_name: String) -> void:
 	var sound_to_play: AudioStreamPlayer = sfx_directory.get(sound_name)
-	if sound_to_play:
-		if !sound_to_play.playing:
-			sound_to_play.play()
-		else:
-			sound_to_play.stop()
+	if !sound_to_play:
+		return
+	if !sound_to_play.playing:
+		sound_to_play.play()
+	else:
+		sound_to_play.stop()
 
 ## Dialouge sound effects is simply a 40-50 second stream that plays 2-4 seconds
 ## proportional to text 
-#func play_dialouge(dialouge_name: String, dialouge: String) -> void:
-	## function that determines how long a sound should play (temp)
-	#var how_long_to_play: int = 3
-	
+func play_dialouge(dialouge_name: String, message: String) -> void:
+	var dial_to_play: AudioStreamPlayer = dialouge_directory.get(dialouge_name)
+	if !dial_to_play:
+		return
+	if !dial_to_play.playing:
+		dial_to_play.play()
+		var how_long_to_play: int = get_dialouge_time(message)
+		# Timer for how long the song should play
+		await get_tree().create_timer(how_long_to_play).timeout
+		# track time to resume from and stop audio
+		dial_to_play.get_playback_position()
+		dial_to_play.stop()
+
+# function that determines how long a sound should play (temp)
+func get_dialouge_time(dialouge: String) -> int:
+	return 3
 
 func handle_signals() -> void:
+	# alarm sounds plays when player "wakes up"
 	TimeManager.workday_start.connect(play_sfx.bind("alarm"))
+	# indicator that the work day has ended
 	TimeManager.workday_end.connect(play_sfx.bind("workday_end"))
