@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cqpubg8j6e4lx"]
+[gd_scene load_steps=3 format=3 uid="uid://cqpubg8j6e4lx"]
 
 [ext_resource type="Script" uid="uid://b2uje3pp8winn" path="res://globals/sfx_manager.gd" id="1_lnq87"]
+[ext_resource type="AudioStream" uid="uid://dx0ekjuirmbuf" path="res://assets/audio/sfx/transition.ogg" id="2_xtk05"]
 
 [node name="SfxManager" type="Node2D"]
 script = ExtResource("1_lnq87")
@@ -12,6 +13,8 @@ script = ExtResource("1_lnq87")
 [node name="ShelfClickSFX" type="AudioStreamPlayer" parent="."]
 
 [node name="TransitionSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_xtk05")
+volume_db = -16.29
 
 [node name="WorkdayEndSFX" type="AudioStreamPlayer" parent="."]
 

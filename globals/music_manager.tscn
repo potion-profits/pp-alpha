@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://dgxv3iwdgerek"]
+[gd_scene load_steps=7 format=3 uid="uid://dgxv3iwdgerek"]
 
 [ext_resource type="Script" uid="uid://7gdm86pb8vil" path="res://globals/music_manager.gd" id="1_gq8vl"]
 [ext_resource type="AudioStream" uid="uid://beql7yrtdrqdt" path="res://assets/audio/music/in-shop loop.ogg" id="1_h5l8h"]
 [ext_resource type="AudioStream" uid="uid://cthrn1k11us3u" path="res://assets/audio/music/casino loop.ogg" id="1_i6s1y"]
 [ext_resource type="AudioStream" uid="uid://bnjubkadqvk7j" path="res://assets/audio/music/in-shop after hours loop.ogg" id="4_i6s1y"]
 [ext_resource type="AudioStream" uid="uid://cfnbq8bldfyvg" path="res://assets/audio/music/title loop.ogg" id="5_h5l8h"]
+[ext_resource type="AudioStream" uid="uid://ddtdlt62l7xjk" path="res://assets/audio/music/town_day_loop.ogg" id="6_iui2q"]
 
 [node name="MusicManager" type="Node2D"]
 process_mode = 3
@@ -30,4 +31,9 @@ bus = &"Music"
 stream = ExtResource("5_h5l8h")
 volume_db = -19.443
 pitch_scale = 1.09
+bus = &"Music"
+
+[node name="TownDayMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_iui2q")
+volume_db = -18.795
 bus = &"Music"

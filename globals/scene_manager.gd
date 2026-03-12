@@ -65,6 +65,8 @@ func fade_out(seconds: float = 0.5) -> void:
 	if player:
 		player.set_physics_process(false)
 	is_transitioning = true
+	# Play transition scene
+	SFXManager.play_sfx("transition")
 	var tw: Tween = create_tween()
 	tw.tween_property(transition_rect, "color:a", 1.0, seconds)
 	await tw.finished

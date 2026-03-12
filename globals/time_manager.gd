@@ -35,11 +35,11 @@ func _ready() -> void:
 	SceneManager.scene_ready.connect(_on_scene_ready)
 	
 	if (OS.is_debug_build()):
-		TIME_FACTOR = TIME_FACTOR * 20
+		TIME_FACTOR = TIME_FACTOR * 3
 
 func _process(delta: float) -> void:
 	# once time has past 17:00
-	if time >= HOUR * 6 and is_daytime == true:
+	if time >= HOUR * 10 and is_daytime == true:
 		is_daytime = false
 		workday_end.emit()
 	time += delta * TIME_FACTOR
