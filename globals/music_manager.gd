@@ -10,6 +10,7 @@ extends Node
 @onready var title_music: AudioStreamPlayer = $TitleMusic
 ## Music for the shop that plays after hours (once the shop closes)
 @onready var after_shop_music: AudioStreamPlayer = $ShopAfterMusic
+@onready var penthouse_music: AudioStreamPlayer = $PenthouseMusic
 ## Maps the level scene paths (called from SceneManager) to the song that should play for that scene
 @onready var song_contexts: Dictionary = {
 	"res://scenes/player_shop/main_shop.tscn": shop_music,
