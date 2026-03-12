@@ -64,7 +64,7 @@ func _ready() -> void:
 func play_bg_music(scene_path: String) -> void:
 	var next_scene_song: AudioStreamPlayer = null
 	# first try night songs
-	if !TimeManager.is_currently_daytime():
+	if !TimeManager.is_daytime:
 		next_scene_song = night_song_contexts.get(scene_path)
 	# if no night version of the song exists or is daytime, fallback to song_contexts
 	if !next_scene_song:
