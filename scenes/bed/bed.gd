@@ -3,8 +3,10 @@ extends Entity
 ## The bed is an interactable entity that saves the game.
 
 @onready var interactable : Area2D = $Interactable ## Reference to component used for interactions
-@onready var bed_sfx : AudioStreamPlayer2D = $BedSFX ## Reference to audio stream 
-const SAVE_PROMPT = "Press E to save the game"
+@onready var bed_sfx : AudioStreamPlayer2D = $BedSFX ## Reference to audio stream
+
+var player_in_area: Player
+var SAVE_PROMPT: String = "Press %s to save the game"
 const SAVE_OK = "Game saved successfully"
 
 var timed_out: bool = false
@@ -12,7 +14,8 @@ var timed_out: bool = false
 func _ready() -> void:
 	# Links interactable template to bed specific method
 	interactable.interact = _on_interact
-	interactable.tooltip = SAVE_PROMPT
+	interactable.is_interactable = false
+	
 	# Sets up entity info
 	super._ready()
 	
@@ -35,6 +38,25 @@ func _save_timeout() -> void:
 	await t.timeout
 	interactable.tooltip = SAVE_PROMPT
 	timed_out = false
+
+
+func _on_interactable_body_entered(body: Node2D) -> void:
+	if body is Player:
+		player_in_area = body
+		set_process(true)
+
+
+func _on_interactable_body_exited(body: Node2D) -> void:
+	if body is Player:
+		player_in_area = null
+		set_process(false)
+		
+func _process(_delta: float) -> void:
+	if player_in_area:
+		interactable.set_tooltip_label(SAVE_PROMPT)
+		interactable.is_interactable = true
+	else:
+		interactable.is_interactable = false
 
 func player_sleep() -> void:
 	var cs : Node = SceneManager.current_scene()

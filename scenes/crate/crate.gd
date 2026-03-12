@@ -18,6 +18,8 @@ class_name Crate extends Entity	#will help store placement and inventory informa
 
 # default vars
 const MAX_AMT: int = 8	## Max amount crates can hold
+var CRATE_TOOLTIP: String = "Press %s for Bottle" ## Tooltip for interactable
+var player_in_area: Player
 var crate_inv_amt : int = 0	## Current amount this crate has
 
 ## Successful interact
@@ -26,6 +28,9 @@ signal bottle_taken()
 func _ready()-> void:
 	#links interactable template to cauldron specific method (needed for all interactables)
 	interactable.interact = _on_interact
+	interactable.tooltip = CRATE_TOOLTIP
+	interactable.is_interactable = false
+	
 	#sets up entity info 
 	super._ready()
 	#used to find out what actual scene to place in entity manager
@@ -107,3 +112,29 @@ func refill()->void:
 	inv.slots[0].item = bottle
 	inv.slots[0].amount = MAX_AMT
 	update_crate(true)
+
+# Adds player for processing and enables process
+#
+# Note: This is only used to decide whether to show tooltip
+func _on_interactable_body_entered(body: Node2D) -> void:
+	if body is Player:
+		player_in_area = body
+		set_process(true)
+
+# Removes player from processing and disables process
+#
+# Note: This is only used to decide whether to show tooltip
+func _on_interactable_body_exited(body: Node2D) -> void:
+	if body is Player:
+		player_in_area = null
+		set_process(false)
+		interactable.is_interactable = false
+
+# Decides when to show tooltip based on player and crate conditions	
+func _process(_delta: float) -> void:
+	if player_in_area:
+		if (player_in_area.has_empty_slot() and inv.slots[0].amount > 0):
+			interactable.set_tooltip_label(CRATE_TOOLTIP)
+			interactable.is_interactable = true
+		else:
+			interactable.is_interactable = false

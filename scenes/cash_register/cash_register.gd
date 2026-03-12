@@ -14,15 +14,26 @@ var bob_height: float = 2.0	## How much the icon should bob
 
 @onready var cust_waiting_icon: Sprite2D = $CustWaitingIcon	## Ready to checkout icon
 @onready var sale_sfx : AudioStreamPlayer2D = $SaleSFX ## Reference to audio stream for sound effects
+@onready var interactable : Area2D = $Interactable ## Reference to component used for interaction
+
+var REGISTER_TOOLTIP : String = "Press %s to Checkout"
 
 func _ready() -> void:
 	cust_waiting_icon.visible = false
 	base_icon_y = cust_waiting_icon.position.y
+	
+	interactable.is_interactable = false
 
 func _process(delta: float) -> void:
 	if cust_waiting_icon.visible:
 		bob_time += delta
 		cust_waiting_icon.position.y = base_icon_y + sin(bob_time * bob_speed) * bob_height
+	
+	if (len(queue) > 0 and !interactable.is_interactable):
+		interactable.set_tooltip_label(REGISTER_TOOLTIP)
+		interactable.is_interactable = true
+	elif (interactable.is_interactable):
+		interactable.is_interactable = false
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact") and len(queue) > 0 and player: # and curr_npc and player and not curr_npc.is_checked_out:
@@ -47,7 +58,7 @@ func _input(event: InputEvent) -> void:
 
 
 func _on_interactable_body_entered(body: Node2D) -> void:
-	if body is Player:
+	if body is Player:			
 		player = body
 	if body is Npc and body.current_action == body.action.CHECKOUT and not body.is_checked_out:
 		queue.push_back(body)

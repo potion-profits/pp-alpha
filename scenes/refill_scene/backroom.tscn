@@ -1,7 +1,8 @@
-[gd_scene load_steps=21 format=4 uid="uid://boosny1gly5cp"]
+[gd_scene load_steps=23 format=4 uid="uid://boosny1gly5cp"]
 
 [ext_resource type="Script" uid="uid://bscltagfnjtrv" path="res://scenes/refill_scene/backroom.gd" id="1_e5qh1"]
 [ext_resource type="Texture2D" uid="uid://cq4mo6l3w2oka" path="res://assets/interior/shop/background.png" id="2_idwnr"]
+[ext_resource type="FontFile" uid="uid://djn684cose2cu" path="res://assets/dialogue/fonts/ari-w9500-bold.ttf" id="4_idwnr"]
 [ext_resource type="PackedScene" uid="uid://ckd2slmjdifxy" path="res://scenes/coin_ui/player_coin.tscn" id="4_ng7th"]
 [ext_resource type="Texture2D" uid="uid://4c4v2xp0o710" path="res://assets/interior/shop/inshop01.png" id="5_poyl6"]
 [ext_resource type="Script" uid="uid://v2b04jaxuakv" path="res://globals/entity_manager.gd" id="6_noiia"]
@@ -11,8 +12,24 @@
 [ext_resource type="PackedScene" uid="uid://c13ewv50qvs46" path="res://scenes/crate/crate.tscn" id="10_fg38m"]
 [ext_resource type="PackedScene" uid="uid://b0flhrlw7t57t" path="res://scenes/player/player.tscn" id="11_egyl4"]
 [ext_resource type="PackedScene" uid="uid://g1ngeh7fhfwq" path="res://scenes/bed/bed.tscn" id="12_5xger"]
-[ext_resource type="PackedScene" uid="uid://ydlnke6gesg1" path="res://scenes/cash_register/cash_register.tscn" id="12_evep0"]
 [ext_resource type="Script" uid="uid://348byftoo3e7" path="res://globals/direction_hold_controller.gd" id="13_idwnr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_idwnr"]
+bg_color = Color(0.9307845, 0.83566743, 0.71181226, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.57, 0.39140004, 0.0342, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_ng7th"]
+font = ExtResource("4_idwnr")
+font_size = 11
+font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6w02k"]
 texture = ExtResource("5_poyl6")
@@ -525,6 +542,52 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
 text = "-10"
 
+[node name="HBoxControlsContainer" type="HBoxContainer" parent="Static_UI"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = -165.0
+offset_right = 422.0
+offset_bottom = -1.0
+grow_vertical = 0
+
+[node name="ControlPanel" type="Panel" parent="Static_UI/HBoxControlsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 14.5
+theme_override_styles/panel = SubResource("StyleBoxFlat_idwnr")
+
+[node name="SwitchItem" type="Label" parent="Static_UI/HBoxControlsContainer/ControlPanel"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 19.0
+offset_right = 148.66667
+offset_bottom = 59.0
+scale = Vector2(3, 3)
+text = "Switch Item:"
+label_settings = SubResource("LabelSettings_ng7th")
+
+[node name="RefillItem" type="Label" parent="Static_UI/HBoxControlsContainer/ControlPanel"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 62.0
+offset_right = 148.66667
+offset_bottom = 107.0
+scale = Vector2(3, 3)
+text = "Place Item:"
+label_settings = SubResource("LabelSettings_ng7th")
+
+[node name="Controls" type="Label" parent="Static_UI/HBoxControlsContainer/ControlPanel"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 107.0
+offset_right = 148.33333
+offset_bottom = 152.0
+scale = Vector2(3, 3)
+text = "Move:"
+label_settings = SubResource("LabelSettings_ng7th")
+
 [node name="BackRoom" type="Node2D" parent="."]
 position = Vector2(0, 229)
 
@@ -558,44 +621,8 @@ tile_set = SubResource("TileSet_s7qt3")
 y_sort_enabled = true
 script = ExtResource("6_noiia")
 
-[node name="shelf" parent="EntityManager" instance=ExtResource("7_0ui02")]
-position = Vector2(275, -199)
-
-[node name="shelf2" parent="EntityManager" instance=ExtResource("7_0ui02")]
-position = Vector2(367, -199)
-
-[node name="shelf3" parent="EntityManager" instance=ExtResource("7_0ui02")]
-position = Vector2(275, -103)
-
-[node name="Barrel" parent="EntityManager" instance=ExtResource("8_ccx10")]
-position = Vector2(353, -433)
-
-[node name="Barrel2" parent="EntityManager" instance=ExtResource("8_ccx10")]
-position = Vector2(378, -425)
-
-[node name="Barrel3" parent="EntityManager" instance=ExtResource("8_ccx10")]
-position = Vector2(399, -415)
-
-[node name="Barrel4" parent="EntityManager" instance=ExtResource("8_ccx10")]
-position = Vector2(422, -406)
-
-[node name="Cauldron" parent="EntityManager" instance=ExtResource("9_ph7cv")]
-y_sort_enabled = true
-position = Vector2(383, -353)
-
-[node name="Crate" parent="EntityManager" instance=ExtResource("10_fg38m")]
-position = Vector2(325, -397)
-scale = Vector2(1.2, 1.2)
-
-[node name="Crate2" parent="EntityManager" instance=ExtResource("10_fg38m")]
-position = Vector2(325, -369.00003)
-scale = Vector2(1.2, 1.2)
-
 [node name="Player" parent="EntityManager" instance=ExtResource("11_egyl4")]
 position = Vector2(410, -37)
-
-[node name="CashRegister" parent="EntityManager" instance=ExtResource("12_evep0")]
-position = Vector2(448, -145)
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 visible = false
