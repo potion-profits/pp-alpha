@@ -13,10 +13,13 @@ var runtime_entities:Dictionary = {} ## Holds all the entities in every scene. S
 var player_data:Dictionary = {}	## Holds the player's data. See [Player].
 var tutorial_completed: bool = false ## Tutorial bool so only runs on first instance
 var pause_enabled : bool = false
+var credits_flag : bool  = false
+var initial_play : bool = false
+
 
 # PLEASE UPDATE THIS IF THE DEFAULT STATE NEEDS TO BE UPDATED
 # format is MM.DD.YR/Version
-const default_state_version: String = "3.05.26/1"
+const default_state_version: String = "3.12.26/1"
 
 func _ready()->void:
 	pause_menu.layer = 200
@@ -85,6 +88,7 @@ func load_from_storage()->void:
 	var save_file:FileAccess = null
 	if not FileAccess.file_exists("user://savegame.save"):
 		save_file = FileAccess.open("res://globals/default_state.txt", FileAccess.READ)
+		initial_play = true
 	else:
 		save_file = FileAccess.open("user://savegame.save",FileAccess.READ)
 	
@@ -100,6 +104,7 @@ func load_from_storage()->void:
 		print("Incorrect version, has ", json.get("version", "no version"), " but expects ", default_state_version)
 		print("Using default state instead")
 		save_file = FileAccess.open("res://globals/default_state.txt", FileAccess.READ)
+		initial_play = true
 		json_text = save_file.get_as_text()
 		save_file.close()
 		json = JSON.parse_string(json_text)
@@ -155,6 +160,10 @@ func load_scene_runtime_state()->void:
 		for data:Dictionary in runtime_entities[scene_name]:
 			em.load_from_dict(data)
 			#print("loaded: ", data)
+	
+	if cs.has_node("DialogueUI"):
+		var cs_dialogue : CanvasLayer = cs.get_node("DialogueUI")
+		cs_dialogue.reopen_dialogue()
 
 ## Creates a callback to load the next scene's state. [br][br]
 ##
@@ -170,3 +179,10 @@ func load_scene_runtime_state()->void:
 func connect_scene_load_callback()->void:
 	if not get_tree().is_connected("scene_changed", Callable(self, "load_scene_runtime_state")):
 		get_tree().connect("scene_changed", Callable(self, "load_scene_runtime_state"), CONNECT_ONE_SHOT)
+
+
+func delete_save()->void:
+	var exists :bool = FileAccess.file_exists("user://savegame.save")
+	if exists:
+		DirAccess.remove_absolute("user://savegame.save")
+	load_from_storage()

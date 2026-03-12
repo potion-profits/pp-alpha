@@ -25,15 +25,20 @@ signal action_triggered(action: String, data: Dictionary)
 func _ready() -> void:
 	visible = false
 
+func _exit_tree() -> void:
+	close()
+
 ## Opens the dialogue UI starting at the given dialogue node
 func open(file_key: String, dialogue_id: String) -> void:
-	
+	if DialogueManager.dialogue_open:
+		return
 	## forcce player to stop walking
 	var player : Player = get_tree().get_first_node_in_group("player")
-	var last_dir: String = player.last_dir
-	var player_idle_dir: String = "idle_" + last_dir
-	if last_dir:
-		player.animated_sprite.play(player_idle_dir)
+	if player:
+		var last_dir: String = player.last_dir
+		var player_idle_dir: String = "idle_" + last_dir
+		if last_dir:
+			player.animated_sprite.play(player_idle_dir)
 	
 	current_file_key = file_key
 	current_node_id = dialogue_id
@@ -44,7 +49,8 @@ func open(file_key: String, dialogue_id: String) -> void:
 	visible = true
 	show_node(dialogue_id)
 	DialogueManager.dialogue_open = true
-	player.set_physics_process(false)
+	if player:
+		player.set_physics_process(false)
 	TimeManager.set_process(false)
 
 ## Displays a dialogue node by ID — sets text and creates choice buttons
@@ -123,7 +129,8 @@ func close() -> void:
 	
 	# allow player to move and time to continue
 	DialogueManager.dialogue_open = false
-	player.set_physics_process(true)
+	if player:
+		player.set_physics_process(true)
 	TimeManager.set_process(true)
 
 ## Handles keyboard input selecting choices
@@ -149,4 +156,12 @@ func _input(event: InputEvent) -> void:
 		var index: int = event.keycode - KEY_1
 		if index >= 0 and index < choice_list.size() and index < 9:
 			select_choice(index)
-			get_viewport().set_input_as_handled()
+			if get_viewport():
+				get_viewport().set_input_as_handled()
+
+## Reopen dialogue if returning from a sub-scene
+func reopen_dialogue() -> void:
+	if DialogueManager.dialogue_open:
+		var file_key : String = DialogueManager.current_scene
+		var dialogue_id : String = DialogueManager.current_dialogue_id
+		open(file_key, dialogue_id)

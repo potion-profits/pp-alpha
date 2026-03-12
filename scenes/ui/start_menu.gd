@@ -16,16 +16,18 @@ func _ready()->void:
 	# debug mode defaults the buttons to original position
 	else:
 		animation.play("RESET")
-	button_map = {
-		"MarginContainer/VBoxContainer/Play": "res://assets/ui/play_button.tres",
-		"MarginContainer/VBoxContainer/Options": "res://assets/ui/options_button.tres",
-		"MarginContainer/VBoxContainer/Quit": "res://assets/ui/quit_button.tres"
-	}
+	#button_map = {
+		#"MarginContainer/VBoxContainer/Play": "res://assets/ui/play_button.tres",
+		#"MarginContainer/VBoxContainer/Options": "res://assets/ui/options_button.tres",
+		#"MarginContainer/VBoxContainer/Quit": "res://assets/ui/quit_button.tres"
+	#}
 	super._ready()
 
 func _on_play_pressed()->void:
 	var last_scene : String = SceneManager.last_known_scene
-	if last_scene:
+	if GameManager.initial_play:
+		SceneManager.change_to("res://scenes/cinematics/introduction.tscn")
+	elif last_scene:
 		SceneManager.change_to(last_scene)
 	else:
 		SceneManager.change_to("res://scenes/player_shop/main_shop.tscn")

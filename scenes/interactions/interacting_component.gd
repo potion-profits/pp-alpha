@@ -12,6 +12,9 @@ func _ready() -> void:
 
 # handles pressing interact by interacting if possible
 func _input(event: InputEvent) -> void:
+	if (!SettingDataContainer.tooltip_enabled):
+		return
+		
 	if event.is_action_pressed("interact") and can_interact:
 		if current_interactions:
 			can_interact = false
@@ -28,6 +31,9 @@ func _process(_delta: float) -> void:
 		if current_interactions[0].is_interactable:
 			interact_label.text = current_interactions[0].tooltip
 			interact_label.show()
+		else:
+			# An entity may change its `is_interactable`
+			interact_label.hide()
 	else:
 		interact_label.hide()
 

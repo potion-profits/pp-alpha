@@ -1,0 +1,13 @@
+{
+
+	"prompt": {
+		"speaker": "Credits",
+		"text": "What would you like to do?",
+		"choices": [
+			{ "label": "Delete Save File and Start Over.", "action": "Restart" },
+			{ "label": "Continue in Endless Mode", "action": "Continue" },
+			
+	  ]
+	},
+
+}

@@ -57,6 +57,7 @@ rotation = 1.5707964
 shape = SubResource("RectangleShape2D_s15th")
 
 [node name="Interactable" parent="." instance=ExtResource("3_s15th")]
+collision_mask = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable"]
 position = Vector2(0.125, -0.125)
@@ -73,3 +74,5 @@ frame_progress = 0.061206102
 stream = ExtResource("4_mgwd7")
 volume_db = 1.26
 bus = &"SFX"
+[connection signal="body_entered" from="Interactable" to="." method="_on_interactable_body_entered"]
+[connection signal="body_exited" from="Interactable" to="." method="_on_interactable_body_exited"]

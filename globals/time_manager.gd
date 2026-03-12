@@ -29,6 +29,7 @@ var is_daytime: bool = true
 signal day_end
 signal workday_end
 signal workday_start
+signal not_paid
 
 # don't process until the game is running
 # set_process(true) occurs in start_menu.gd when play is pressed

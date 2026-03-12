@@ -19,6 +19,22 @@ extends Node2D
 ## Reference to the smooth movement handler
 @onready var hold_controller: DirectionalHoldController = $DirectionalHoldController
 
+## Keybinds for tooltip labels
+var switch_room_keybind: String = InputMap.get_action_description("inventory").split(" ")[0]
+var SWITCH_ROOM_TOOLTIP: String = "Switch Room: %s" %[switch_room_keybind]
+var remove_item_keybind: String = InputMap.get_action_description("interact").split(" ")[0]
+var REMOVE_ITEM_TOOLTIP: String = "Remove Item: %s" %[remove_item_keybind]
+
+var move_up_keybind: String = InputMap.get_action_description("move_up").split(" ")[0]
+var move_left_keybind: String = InputMap.get_action_description("move_left").split(" ")[0]
+var move_down_keybind: String = InputMap.get_action_description("move_down").split(" ")[0]
+var move_right_keybind: String = InputMap.get_action_description("move_right").split(" ")[0]
+var CONTROL_TOOLTIP: String = "Move: %s%s%s%s" %[move_up_keybind, move_left_keybind, move_down_keybind, move_right_keybind]
+
+@onready var switch_room_label: Label = $Static_UI/HBoxControlsContainer/ControlPanel/SwitchRoom
+@onready var remove_item_label: Label = $Static_UI/HBoxControlsContainer/ControlPanel/RemoveItem
+@onready var controls_label: Label = $Static_UI/HBoxControlsContainer/ControlPanel/Controls
+
 ## Holds the position of the currently hovered tile
 var current_tile: Vector2i = Vector2i.ZERO
 ## Holds the floor of the current room accessed
@@ -72,6 +88,11 @@ func _ready() -> void:
 	# wait a frame so the entities load properly
 	await get_tree().process_frame
 	# places the entities on the proper tile
+	
+	# Set proper tooltips
+	switch_room_label.text = SWITCH_ROOM_TOOLTIP
+	remove_item_label.text = REMOVE_ITEM_TOOLTIP
+	controls_label.text = CONTROL_TOOLTIP
 	
 	player.set_physics_process(false) # need gold but dont want to move charactser
 	if SceneManager.last_known_positions.has(cs.name):

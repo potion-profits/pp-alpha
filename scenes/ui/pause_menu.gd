@@ -5,11 +5,6 @@ extends "res://scenes/ui/base_menu.gd"
 ## Has the option to unpause the game and to return to the main menu.
 
 func _ready()->void:
-	button_map = {
-		"MarginContainer/VBoxContainer/Resume": "res://assets/ui/play_button.tres",
-		"MarginContainer/VBoxContainer/Options": "res://assets/ui/options_button.tres",
-		"MarginContainer/VBoxContainer/Menu": "res://assets/ui/menu_button.tres"
-	}
 	super._ready()
 
 

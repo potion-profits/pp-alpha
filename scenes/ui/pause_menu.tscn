@@ -1,19 +1,44 @@
-[gd_scene load_steps=8 format=3 uid="uid://c6avp17g1kgas"]
+[gd_scene load_steps=14 format=3 uid="uid://c6avp17g1kgas"]
 
 [ext_resource type="Script" uid="uid://072o1pqfsudo" path="res://scenes/ui/pause_menu.gd" id="1_ca42k"]
 [ext_resource type="Texture2D" uid="uid://uhdybuaqdi46" path="res://assets/ui/play_button.tres" id="2_o7t8k"]
 [ext_resource type="Texture2D" uid="uid://brnutn3s0x71a" path="res://assets/ui/options_button.tres" id="3_8uki6"]
-[ext_resource type="Texture2D" uid="uid://bntl7fv41g75j" path="res://assets/ui/menu_button.tres" id="3_y0nb3"]
+[ext_resource type="Texture2D" uid="uid://b6tuw3r1x4wff" path="res://assets/ui/menu_buttons.png" id="4_8uki6"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5d2l8"]
 texture = ExtResource("2_o7t8k")
-region_rect = Rect2(0, 0, 46.708675, 15)
+region_rect = Rect2(0, 0, 46, 14)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8uki6"]
+texture = ExtResource("4_8uki6")
+region_rect = Rect2(49, 0, 46, 14)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4inpj"]
+texture = ExtResource("4_8uki6")
+region_rect = Rect2(1, 0, 46, 14)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0bnpd"]
 texture = ExtResource("3_8uki6")
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8fwbo"]
+texture = ExtResource("4_8uki6")
+region_rect = Rect2(49, 16, 46, 14)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2rlsb"]
+texture = ExtResource("4_8uki6")
+region_rect = Rect2(1, 16, 46, 14)
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7l7mv"]
-texture = ExtResource("3_y0nb3")
+texture = ExtResource("4_8uki6")
+region_rect = Rect2(1, 32, 46, 14)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_coo1x"]
+texture = ExtResource("4_8uki6")
+region_rect = Rect2(49, 32, 46, 14)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2jkta"]
+texture = ExtResource("4_8uki6")
+region_rect = Rect2(1, 32, 46, 14)
 
 [node name="PauseMenu" type="CanvasLayer"]
 
@@ -49,16 +74,22 @@ alignment = 1
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/normal = SubResource("StyleBoxTexture_5d2l8")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8uki6")
+theme_override_styles/hover = SubResource("StyleBoxTexture_4inpj")
 
 [node name="Options" type="Button" parent="PauseMenuControl/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/normal = SubResource("StyleBoxTexture_0bnpd")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8fwbo")
+theme_override_styles/hover = SubResource("StyleBoxTexture_2rlsb")
 
 [node name="Menu" type="Button" parent="PauseMenuControl/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/normal = SubResource("StyleBoxTexture_7l7mv")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_coo1x")
+theme_override_styles/hover = SubResource("StyleBoxTexture_2jkta")
 
 [connection signal="pressed" from="PauseMenuControl/MarginContainer/VBoxContainer/Resume" to="PauseMenuControl" method="_on_resume_pressed"]
 [connection signal="pressed" from="PauseMenuControl/MarginContainer/VBoxContainer/Options" to="PauseMenuControl" method="_on_options_pressed"]

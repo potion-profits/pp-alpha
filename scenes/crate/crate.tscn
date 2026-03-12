@@ -130,6 +130,7 @@ shape = SubResource("RectangleShape2D_3v208")
 [node name="Interactable" parent="." instance=ExtResource("5_rym3a")]
 visible = false
 collision_mask = 1
+tooltip = "Press E for Bottle"
 
 [node name="InteractableShape" type="CollisionShape2D" parent="Interactable"]
 visible = false
@@ -151,3 +152,6 @@ pitch_scale = 1.4
 [node name="empty_crate" type="Sprite2D" parent="."]
 visible = false
 texture = SubResource("AtlasTexture_lddwh")
+
+[connection signal="body_entered" from="Interactable" to="." method="_on_interactable_body_entered"]
+[connection signal="body_exited" from="Interactable" to="." method="_on_interactable_body_exited"]

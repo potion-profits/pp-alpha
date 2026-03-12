@@ -282,6 +282,7 @@ frame_progress = 0.057780802
 
 [node name="Interactable" parent="." instance=ExtResource("7_y06py")]
 position = Vector2(8, -2)
+collision_mask = 1
 
 [node name="InteractableShape" type="CollisionShape2D" parent="Interactable"]
 position = Vector2(-8, 1.9999999)
@@ -304,4 +305,6 @@ volume_db = 17.018
 pitch_scale = 0.8
 bus = &"SFX"
 
+[connection signal="body_entered" from="Interactable" to="." method="_on_interactable_body_entered"]
+[connection signal="body_exited" from="Interactable" to="." method="_on_interactable_body_exited"]
 [connection signal="timeout" from="MixTimer" to="." method="_on_mix_timer_timeout"]

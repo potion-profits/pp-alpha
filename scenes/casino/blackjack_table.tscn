@@ -27,6 +27,7 @@ rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_nhoem")
 
 [node name="Interactable" parent="." instance=ExtResource("3_evk2f")]
+collision_mask = 1
 
 [node name="InteractableArea" type="CollisionShape2D" parent="Interactable"]
 position = Vector2(0, 8)
@@ -37,3 +38,5 @@ debug_color = Color(0.8905801, 0.28393316, 0.4187386, 0.41960785)
 [node name="BlackjackSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_nhoem")
 volume_db = -9.1
+[connection signal="body_entered" from="Interactable" to="." method="_on_interactable_body_entered"]
+[connection signal="body_exited" from="Interactable" to="." method="_on_interactable_body_exited"]
