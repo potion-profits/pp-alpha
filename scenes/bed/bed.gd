@@ -78,6 +78,7 @@ func player_sleep() -> void:
 	cs.spawner._ready()
 	
 	if TimeManager.day >= 8 and not GameManager.credits_flag:
+		GameManager.lost_game = true
 		TimeManager.not_paid.emit()
 	
 func close_open_shelf(shop: Node) -> void:

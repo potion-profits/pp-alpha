@@ -116,7 +116,14 @@
 		"choices":[
 			{"label":"WHAT!?!?", "next": "terms"},
 			{"label":"You must be mistaken.", "next": "terms"},
-			{"label":"Surely you're joking... right?...", "next": "terms"}
+			{"label":"Surely you're joking... right?...", "next": "surely"}
+		]
+	},
+	"surely":{
+		"speaker": "Shark",
+		"text": "My name's not Shirley, and I never joke.",
+		"choices":[
+			{"label": "...", "next": "terms"}
 		]
 	},
 	"terms":{

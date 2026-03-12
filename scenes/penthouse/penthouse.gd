@@ -95,6 +95,10 @@ func open_elevator_dialogue() -> void:
 	
 func open_shark_dialogue() -> void:
 	prep_dialogue_open()
+	
+	if GameManager.lost_game:
+		dialogue_ui.open("penthouse","not_paid")
+	
 	if player.first_shark:
 		dialogue_ui.open("penthouse", "init_shark")
 	else:
@@ -239,4 +243,5 @@ func _update_exchange_label(new_amt : int) -> void:
 
 func _on_timer_timeout() -> void:
 	dialogue_ui.close()
+	GameManager.lost_game = false
 	get_tree().change_scene_to_file("res://scenes/game_over/game_over.tscn")

@@ -15,7 +15,7 @@ var tutorial_completed: bool = false ## Tutorial bool so only runs on first inst
 var pause_enabled : bool = false
 var credits_flag : bool  = false
 var initial_play : bool = false
-
+var lost_game : bool = false
 
 # PLEASE UPDATE THIS IF THE DEFAULT STATE NEEDS TO BE UPDATED
 # format is MM.DD.YR/Version
