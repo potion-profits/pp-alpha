@@ -83,22 +83,22 @@ func play_sfx(sound_name: String) -> void:
 
 ## Dialouge sound effects is simply a 40-50 second stream that plays 2-4 seconds
 ## proportional to text 
-func play_dialouge(dialouge_name: String, message: String) -> void:
-	var dial_to_play: AudioStreamPlayer = dialouge_directory.get(dialouge_name)
-	if !dial_to_play:
-		return
-	if !dial_to_play.playing:
-		dial_to_play.play()
-		var how_long_to_play: int = get_dialouge_time(message)
-		# Timer for how long the song should play
-		await get_tree().create_timer(how_long_to_play).timeout
-		# track time to resume from and stop audio
-		dial_to_play.get_playback_position()
-		dial_to_play.stop()
-
-# function that determines how long a sound should play (temp)
-func get_dialouge_time(dialouge: String) -> int:
-	return 3
+#func play_dialouge(dialouge_name: String, message: String) -> void:
+	#var dial_to_play: AudioStreamPlayer = dialouge_directory.get(dialouge_name)
+	#if !dial_to_play:
+		#return
+	#if !dial_to_play.playing:
+		#dial_to_play.play()
+		#var how_long_to_play: int = get_dialouge_time(message)
+		## Timer for how long the song should play
+		#await get_tree().create_timer(how_long_to_play).timeout
+		## track time to resume from and stop audio
+		#dial_to_play.get_playback_position()
+		#dial_to_play.stop()
+#
+## function that determines how long a sound should play (temp)
+#func get_dialouge_time(dialouge: String) -> int:
+	#return 3
 
 func handle_signals() -> void:
 	# alarm sounds plays when player "wakes up"
