@@ -7,8 +7,8 @@ extends Npc
 @export var is_interactable: bool = true
 
 var player_in_area: Player
-var CASINO_CASHIER_TOOLTIP: String = "Press %s to Exchange Shit"
-var SUPPLYSHOP_CASHIER_TOOLTIP: String = "Press %s to Buy Shit"
+var CASINO_CASHIER_TOOLTIP: String = "Press %s to Exchange Coins"
+var SUPPLYSHOP_CASHIER_TOOLTIP: String = "Press %s to Buy"
 
 func _ready() -> void:
 	sprite.sprite_frames = build_sprite_frames(idle_sheet, null)
