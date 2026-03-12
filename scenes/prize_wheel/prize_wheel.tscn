@@ -1,0 +1,179 @@
+[gd_scene load_steps=16 format=3 uid="uid://cs2gjrwvapnby"]
+
+[ext_resource type="Texture2D" uid="uid://bjcjb6u0wo1jd" path="res://assets/interior/casino/base.png" id="1_8mung"]
+[ext_resource type="Texture2D" uid="uid://kl0jyh6mljkc" path="res://assets/interior/casino/wheel.png" id="1_tpkrs"]
+[ext_resource type="Script" uid="uid://bvyo68wwukdy1" path="res://scenes/prize_wheel/prize_wheel.gd" id="1_xo8pa"]
+[ext_resource type="Texture2D" uid="uid://do1mxhb4uqurj" path="res://assets/interior/shop/all_barrels01.png" id="2_qdw0i"]
+[ext_resource type="Texture2D" uid="uid://cv55asmmy332" path="res://assets/casino/chip.png" id="4_pntfe"]
+[ext_resource type="Texture2D" uid="uid://c65en4lls4b8o" path="res://assets/inventory/simple_gold_coin.png" id="5_8mung"]
+[ext_resource type="PackedScene" uid="uid://fi1qxearbah2" path="res://scenes/interactions/interactable.tscn" id="7_a27hy"]
+[ext_resource type="Texture2D" uid="uid://buxabbtjphmfm" path="res://assets/interior/casino/marker.png" id="7_vosbp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a27hy"]
+bg_color = Color(0.33333334, 0.9372549, 0.02745098, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lp50y"]
+size = Vector2(87, 66)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8mung"]
+atlas = ExtResource("2_qdw0i")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a27hy"]
+atlas = ExtResource("4_pntfe")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="LabelSettings" id="LabelSettings_pntfe"]
+font_color = Color(0.7058824, 0.1254902, 0.16470589, 1)
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lp50y"]
+atlas = ExtResource("7_vosbp")
+region = Rect2(176, 64, 16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vosbp"]
+size = Vector2(100, 40)
+
+[node name="PrizeWheel" type="StaticBody2D"]
+script = ExtResource("1_xo8pa")
+metadata/_custom_type_script = "uid://b1odcrnx3mby"
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+visible = false
+offset_left = 68.0
+offset_top = 86.0
+offset_right = 217.0
+offset_bottom = 113.0
+rotation = -1.5707964
+theme_override_styles/fill = SubResource("StyleBoxFlat_a27hy")
+show_percentage = false
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, 47)
+shape = SubResource("RectangleShape2D_lp50y")
+
+[node name="Base" type="Sprite2D" parent="."]
+position = Vector2(0, -9)
+texture = ExtResource("1_8mung")
+
+[node name="Wheel" type="Sprite2D" parent="."]
+texture = ExtResource("1_tpkrs")
+
+[node name="PrizeMarkers" type="Node2D" parent="Wheel"]
+
+[node name="Prize1" type="Marker2D" parent="Wheel/PrizeMarkers"]
+position = Vector2(0, -49)
+
+[node name="Prize2" type="Marker2D" parent="Wheel/PrizeMarkers"]
+position = Vector2(34.66626, -34.630196)
+
+[node name="Prize3" type="Marker2D" parent="Wheel/PrizeMarkers"]
+position = Vector2(48.999283, 0.2658882)
+
+[node name="Prize4" type="Marker2D" parent="Wheel/PrizeMarkers"]
+position = Vector2(34.64823, 34.648235)
+
+[node name="Prize5" type="Marker2D" parent="Wheel/PrizeMarkers"]
+position = Vector2(-3.8146973e-06, 49)
+
+[node name="Prize6" type="Marker2D" parent="Wheel/PrizeMarkers"]
+position = Vector2(-34.648235, 34.648224)
+
+[node name="Prize7" type="Marker2D" parent="Wheel/PrizeMarkers"]
+position = Vector2(-49, 0)
+
+[node name="Prize8" type="Marker2D" parent="Wheel/PrizeMarkers"]
+position = Vector2(-34.64822, -34.648247)
+
+[node name="Entity" type="Sprite2D" parent="Wheel"]
+position = Vector2(33, -34)
+rotation = 0.7853982
+scale = Vector2(1.9670956, 1.9670956)
+texture = SubResource("AtlasTexture_8mung")
+
+[node name="Chip1" type="Sprite2D" parent="Wheel"]
+position = Vector2(-12, -53)
+texture = SubResource("AtlasTexture_a27hy")
+
+[node name="Chip2" type="Sprite2D" parent="Wheel"]
+position = Vector2(12, -53)
+texture = SubResource("AtlasTexture_a27hy")
+
+[node name="Chip3" type="Sprite2D" parent="Wheel"]
+position = Vector2(-52, 10)
+rotation = -1.5707964
+texture = SubResource("AtlasTexture_a27hy")
+
+[node name="Chip4" type="Sprite2D" parent="Wheel"]
+position = Vector2(-52, -12)
+rotation = -1.5707964
+texture = SubResource("AtlasTexture_a27hy")
+
+[node name="Chip5" type="Sprite2D" parent="Wheel"]
+position = Vector2(28, 44.999996)
+rotation = -3.926991
+texture = SubResource("AtlasTexture_a27hy")
+
+[node name="Chip6" type="Sprite2D" parent="Wheel"]
+position = Vector2(44, 27.999996)
+rotation = -3.926991
+texture = SubResource("AtlasTexture_a27hy")
+
+[node name="Coin1" type="Sprite2D" parent="Wheel"]
+position = Vector2(51, -11)
+rotation = -1.5707964
+scale = Vector2(0.7274177, 0.7274177)
+texture = ExtResource("5_8mung")
+
+[node name="Coin2" type="Sprite2D" parent="Wheel"]
+position = Vector2(51, 10)
+rotation = -1.5707964
+scale = Vector2(0.7274177, 0.7274177)
+texture = ExtResource("5_8mung")
+
+[node name="Coin3" type="Sprite2D" parent="Wheel"]
+position = Vector2(10.000001, 51)
+rotation = -3.1415927
+scale = Vector2(0.7274177, 0.7274177)
+texture = ExtResource("5_8mung")
+
+[node name="Coin4" type="Sprite2D" parent="Wheel"]
+position = Vector2(-11, 51)
+rotation = -3.1415927
+scale = Vector2(0.7274177, 0.7274177)
+texture = ExtResource("5_8mung")
+
+[node name="Coin5" type="Sprite2D" parent="Wheel"]
+position = Vector2(-44, -28)
+rotation = -2.3561945
+scale = Vector2(0.7274177, 0.7274177)
+texture = ExtResource("5_8mung")
+
+[node name="Coin6" type="Sprite2D" parent="Wheel"]
+position = Vector2(-27, -45)
+rotation = -2.3561945
+scale = Vector2(0.7274177, 0.7274177)
+texture = ExtResource("5_8mung")
+
+[node name="Label" type="Label" parent="Wheel"]
+offset_left = -37.000004
+offset_top = 43.000004
+offset_right = 2.9999962
+offset_bottom = 66.0
+rotation = -2.3561945
+text = "X"
+label_settings = SubResource("LabelSettings_pntfe")
+
+[node name="Marker" type="Sprite2D" parent="."]
+position = Vector2(0, -57)
+texture = SubResource("AtlasTexture_lp50y")
+
+[node name="Marker2D" type="Marker2D" parent="Marker"]
+position = Vector2(0, 8)
+
+[node name="Interactable" parent="." instance=ExtResource("7_a27hy")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable"]
+position = Vector2(0, 75)
+shape = SubResource("RectangleShape2D_vosbp")
