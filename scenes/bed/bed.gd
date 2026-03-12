@@ -28,9 +28,6 @@ func _on_interact() -> void:
 	# As bed acts as a next day function, reset day states
 	TimeManager.is_daytime = true
 	TimeManager.workday_end.emit()
-	var cs : Node = SceneManager.current_scene()
-	if cs.name == "MainShop":
-		cs.player_sleep()
 	_save_timeout()
 	bed_sfx.play()
 
