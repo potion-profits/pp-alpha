@@ -219,6 +219,7 @@ func _process(_delta: float) -> void:
 		var selected_slot: InvSlot = player_in_area.get_selected_slot()
 		
 		if (!selected_slot or !selected_slot.item):
+			interactable.is_interactable = false
 			return
 			
 		if (selected_slot.item.texture_code == "item_empty_bottle" and ml > 0):
