@@ -47,14 +47,22 @@ var SWITCH_ITEM_TOOLTIP: String = "Switch Item: %s" %[switch_item_keybind]
 var refill_item_keybind: String = InputMap.get_action_description("interact").split(" ")[0]
 var REFILL_ITEM_TOOLTIP: String = "Refill: %s" %[refill_item_keybind]
 
+var move_up_keybind: String = InputMap.get_action_description("move_up").split(" ")[0]
+var move_left_keybind: String = InputMap.get_action_description("move_left").split(" ")[0]
+var move_down_keybind: String = InputMap.get_action_description("move_down").split(" ")[0]
+var move_right_keybind: String = InputMap.get_action_description("move_right").split(" ")[0]
+var CONTROL_TOOLTIP: String = "Move: %s%s%s%s" %[move_up_keybind, move_left_keybind, move_down_keybind, move_right_keybind]
+
 ## Tooltip labels
-@onready var switch_item_label: Label = $Controls_UI/HBoxContainer2/SwitchItem
-@onready var refill_item_label: Label = $Controls_UI/HBoxContainer3/RefillItem
+@onready var switch_item_label: Label = $Static_UI/HBoxControlsContainer/ControlPanel/SwitchItem
+@onready var refill_item_label: Label = $Static_UI/HBoxControlsContainer/ControlPanel/RefillItem
+@onready var controls_item_label: Label = $Static_UI/HBoxControlsContainer/ControlPanel/Controls
 @onready var cs : Node = SceneManager.current_scene()
 var saved_position : Vector2 = Vector2.ZERO
 
 func _ready()->void:
-	player.set_physics_process(false) # need gold but dont want to move charactser
+	player.set_physics_process(false) # need gold but dont want to move character
+	
 	if SceneManager.last_known_positions.has(cs.name):
 		saved_position = SceneManager.last_known_positions[cs.name]
 	player.global_position = Vector2.ZERO
@@ -66,9 +74,9 @@ func _ready()->void:
 	## so we wait a frame
 	await get_tree().process_frame
 	
-	
 	switch_item_label.text = SWITCH_ITEM_TOOLTIP
 	refill_item_label.text = REFILL_ITEM_TOOLTIP
+	controls_item_label.text = CONTROL_TOOLTIP
 	
 	
 	## get the initial entity (just the first one to be found)

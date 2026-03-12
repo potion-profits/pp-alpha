@@ -6,6 +6,8 @@ extends Node2D
 @onready var player: Player = $Entities/Player
 @onready var dialogue_ui: CanvasLayer = $DialogueUI
 
+const PLAYER_SHOP: String = "MainShop"
+
 func _ready() -> void:
 	for child in entities.get_children():
 		if child is Npc or child is Player:
@@ -38,8 +40,15 @@ func _on_dialogue_action(action: String, _data: Dictionary) -> void:
 	var payload: Dictionary = {
 		"with_transition": false
 	}
-	if action == "refill":
+	
+	var shop_entities: Array = GameManager.runtime_entities[PLAYER_SHOP]
+	
+	if !action:
+		dialogue_ui.open("supply_shop", "shopkeeper_greeting")
+	elif action == "refill" and len(shop_entities) > 2:
 		SceneManager.change_to("res://scenes/refill_scene/backroom.tscn", payload)
+	elif action == "refill":
+		dialogue_ui.open("supply_shop", "empty_shop")
 	elif action == "storage":
 		SceneManager.change_to("res://scenes/entity_storing/entity_storing.tscn", payload)
 	elif action == "placement":
