@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://80151ujktixb" path="res://scenes/credit_overlay/credit_overlay.tscn" id="4_tu3xx"]
 [ext_resource type="Texture2D" uid="uid://4c4v2xp0o710" path="res://assets/interior/shop/inshop01.png" id="4_vmht1"]
 [ext_resource type="Texture2D" uid="uid://b6sxxon0bv8sh" path="res://assets/interior/shop/counter_all01.png" id="5_fpmwk"]
-[ext_resource type="FontFile" uid="uid://cw8oj1vo0thiu" path="res://assets/vhs-vcr-osd.ttf" id="5_y8302"]
+[ext_resource type="FontFile" uid="uid://djn684cose2cu" path="res://assets/dialogue/fonts/ari-w9500-bold.ttf" id="5_y8302"]
 [ext_resource type="PackedScene" uid="uid://nfogt8087sfy" path="res://scenes/barrel/barrel.tscn" id="6_wxjbm"]
 [ext_resource type="PackedScene" uid="uid://g1ngeh7fhfwq" path="res://scenes/bed/bed.tscn" id="7_tu3xx"]
 [ext_resource type="PackedScene" uid="uid://c13ewv50qvs46" path="res://scenes/crate/crate.tscn" id="8_qajh6"]
@@ -34,7 +34,7 @@ corner_radius_bottom_left = 20
 
 [sub_resource type="LabelSettings" id="LabelSettings_pgdk6"]
 font = ExtResource("5_y8302")
-font_size = 8
+font_size = 11
 font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fq01t"]
@@ -814,9 +814,9 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_w7g5k")
 [node name="SwitchRoom" type="Label" parent="Static_UI/HBoxControlsContainer/ControlPanel"]
 layout_mode = 0
 offset_left = 20.0
-offset_top = 19.0
+offset_top = 27.0
 offset_right = 148.66667
-offset_bottom = 42.0
+offset_bottom = 50.0
 scale = Vector2(3, 3)
 text = "Switch Room:"
 label_settings = SubResource("LabelSettings_pgdk6")
@@ -824,9 +824,9 @@ label_settings = SubResource("LabelSettings_pgdk6")
 [node name="SwitchItem" type="Label" parent="Static_UI/HBoxControlsContainer/ControlPanel"]
 layout_mode = 0
 offset_left = 20.0
-offset_top = 69.0
+offset_top = 77.0
 offset_right = 148.66667
-offset_bottom = 109.0
+offset_bottom = 117.0
 scale = Vector2(3, 3)
 text = "Switch Item:"
 label_settings = SubResource("LabelSettings_pgdk6")
@@ -834,9 +834,9 @@ label_settings = SubResource("LabelSettings_pgdk6")
 [node name="PlaceItem" type="Label" parent="Static_UI/HBoxControlsContainer/ControlPanel"]
 layout_mode = 0
 offset_left = 20.0
-offset_top = 119.0
+offset_top = 127.0
 offset_right = 148.66669
-offset_bottom = 164.0
+offset_bottom = 172.0
 scale = Vector2(3, 3)
 text = "Place Item:"
 label_settings = SubResource("LabelSettings_pgdk6")
@@ -844,9 +844,9 @@ label_settings = SubResource("LabelSettings_pgdk6")
 [node name="Controls" type="Label" parent="Static_UI/HBoxControlsContainer/ControlPanel"]
 layout_mode = 0
 offset_left = 20.0
-offset_top = 169.0
+offset_top = 177.0
 offset_right = 148.33333
-offset_bottom = 214.0
+offset_bottom = 222.0
 scale = Vector2(3, 3)
 text = "Move:"
 label_settings = SubResource("LabelSettings_pgdk6")

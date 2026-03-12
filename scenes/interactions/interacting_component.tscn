@@ -1,11 +1,12 @@
 [gd_scene load_steps=5 format=3 uid="uid://b54ms70wtbbo1"]
 
 [ext_resource type="Script" uid="uid://gg0bhcl7dfsc" path="res://scenes/interactions/interacting_component.gd" id="1_tpfe0"]
-[ext_resource type="FontFile" uid="uid://cw8oj1vo0thiu" path="res://assets/vhs-vcr-osd.ttf" id="2_ibb44"]
+[ext_resource type="FontFile" uid="uid://djn684cose2cu" path="res://assets/dialogue/fonts/ari-w9500-bold.ttf" id="2_ibb44"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sil8h"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_tpfe0"]
+font = ExtResource("2_ibb44")
 font_size = 40
 outline_size = 10
 outline_color = Color(0, 0, 0, 1)
@@ -21,13 +22,11 @@ collision_mask = 2
 shape = SubResource("CircleShape2D_sil8h")
 
 [node name="InteractLabel" type="Label" parent="."]
-offset_left = -29.0
-offset_top = -90.0
-offset_right = 520.99994
-offset_bottom = 1299.0
+offset_left = -27.0
+offset_top = -81.0
+offset_right = 522.99994
+offset_bottom = 1308.0
 scale = Vector2(0.1, 0.1)
-theme_override_fonts/font = ExtResource("2_ibb44")
-theme_override_font_sizes/font_size = 4
 text = "Press E To Save the Game!!!!!!!!!!!!!! ! Elijah said he was doing this so I cant work on anything more than the bed text just for user enjoyment but he will handle it dont worry :Dadf"
 label_settings = SubResource("LabelSettings_tpfe0")
 horizontal_alignment = 1
