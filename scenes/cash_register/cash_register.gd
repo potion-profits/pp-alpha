@@ -26,11 +26,18 @@ func _process(delta: float) -> void:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact") and len(queue) > 0 and player: # and curr_npc and player and not curr_npc.is_checked_out:
-		var curr_npc : Npc = queue.pop_front()
+		var curr_npc : ShopNpc = queue.pop_front()
 		
 		curr_npc.is_checked_out = true
 		curr_npc.checkout_timer.timeout.emit()
-		player.set_coins(50)
+		
+		# Get NPC's potion
+		var potion: String = curr_npc.get_preferred_item()
+		
+		# Get sell price of the potion
+		var gold: int = ItemRegistry.get_item_price(potion)
+		
+		player.set_coins(gold)
 		
 		# play sound effect on interact
 		sale_sfx.play()
