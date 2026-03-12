@@ -1,0 +1,35 @@
+{
+
+	"shopkeeper_greeting": {
+		"speaker": "Shopkeeper",
+		"text": "Welcome to the supply shop! Let me know how I can help!",
+		"choices": [
+			{ "label": "Tell me how this place works please.", "next": "explanation" },
+			{ "label": "Refill supplies", "next": null, "action": "refill" },
+			{ "label": "Storage", "next": null, "action": "storage" },
+			{ "label": "Placement", "next": null, "action": "placement" },
+			{ "label": "Nevermind...", "next": null }
+		]
+	},
+	
+	"explanation": {
+		"speaker": "Shopkeeper",
+		"text": "In this shop, you can refill your crates and barrels, buy new shelves or crates or barrels or cauldrons, and place any existing furniture you have!",
+		"choices": [
+			{ "label": "Refill supplies", "next": "shopkeeper_greeting", "action": "refill" },
+			{ "label": "Storage", "action": "storage" },
+			{ "label": "Placement", "action": "placement" },
+			{ "label": "I think I saw you at the casino...", "next": "casino" },
+			{ "label": "Nevermind...", "next": null }
+		]
+	},
+	
+	"casino": {
+		"speaker": "Shopkeeper",
+		"text": "Casino, huh... Never heard of it! Must have been someone else.",
+		"choices": [
+			{ "label": "Right... anyway.", "next": "shopkeeper_greeting" }
+		]
+	}
+
+}

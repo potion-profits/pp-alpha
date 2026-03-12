@@ -1,15 +1,18 @@
-[gd_scene load_steps=23 format=4 uid="uid://c0wgfjbxk58k0"]
+[gd_scene load_steps=27 format=4 uid="uid://c0wgfjbxk58k0"]
 
 [ext_resource type="Script" uid="uid://cyi5m0rhrv7o2" path="res://scenes/player_shop/main_shop.gd" id="1_47hg3"]
 [ext_resource type="Texture2D" uid="uid://cq4mo6l3w2oka" path="res://assets/interior/shop/background.png" id="2_ixtpo"]
 [ext_resource type="Script" uid="uid://dfnny774vqx3t" path="res://scenes/player_shop/astar.gd" id="3_85e8s"]
+[ext_resource type="PackedScene" uid="uid://bsufnqq4jkbjx" path="res://scenes/dialogue/tutorial/tutorial.tscn" id="3_g5kt7"]
 [ext_resource type="Texture2D" uid="uid://4c4v2xp0o710" path="res://assets/interior/shop/inshop01.png" id="4_85e8s"]
 [ext_resource type="PackedScene" uid="uid://ckd2slmjdifxy" path="res://scenes/coin_ui/player_coin.tscn" id="4_g03oc"]
 [ext_resource type="PackedScene" uid="uid://ctf43uq3ex4w7" path="res://scenes/clock/clock.tscn" id="5_1jnhp"]
 [ext_resource type="Script" uid="uid://v2b04jaxuakv" path="res://globals/entity_manager.gd" id="5_41gid"]
 [ext_resource type="Texture2D" uid="uid://b6sxxon0bv8sh" path="res://assets/interior/shop/counter_all01.png" id="5_47hg3"]
 [ext_resource type="PackedScene" uid="uid://b0flhrlw7t57t" path="res://scenes/player/player.tscn" id="6_b6yhm"]
+[ext_resource type="PackedScene" uid="uid://c3qqvdemavffu" path="res://scenes/ui/dialogue_ui.tscn" id="7_g03oc"]
 [ext_resource type="PackedScene" uid="uid://dk76x6o356j3i" path="res://scenes/player_shop/npc_spawner.tscn" id="12_47hg3"]
+[ext_resource type="PackedScene" uid="uid://20651jic501l" path="res://scenes/cat/cat.tscn" id="14_g03oc"]
 [ext_resource type="PackedScene" uid="uid://bk1hol15q64bh" path="res://scenes/inventory/inv_ui.tscn" id="14_paag6"]
 [ext_resource type="PackedScene" uid="uid://ydlnke6gesg1" path="res://scenes/cash_register/cash_register.tscn" id="14_ylhot"]
 
@@ -550,6 +553,8 @@ offset_right = 955.0
 offset_bottom = 150.0
 texture = ExtResource("2_ixtpo")
 
+[node name="Tutorial_UI" parent="." instance=ExtResource("3_g5kt7")]
+
 [node name="Static_UI" type="CanvasLayer" parent="."]
 
 [node name="Inv_UI" parent="Static_UI" instance=ExtResource("14_paag6")]
@@ -574,6 +579,25 @@ player = NodePath("../../EntityManager/Player")
 
 [node name="Clock" parent="Static_UI" instance=ExtResource("5_1jnhp")]
 
+[node name="DialogueUI" parent="." instance=ExtResource("7_g03oc")]
+
+[node name="TutorialMarkers" type="Node" parent="."]
+
+[node name="WelcomeMarker" type="Marker2D" parent="TutorialMarkers"]
+position = Vector2(483, -142)
+
+[node name="BackroomMarker" type="Marker2D" parent="TutorialMarkers"]
+position = Vector2(432, -377)
+
+[node name="CrateMarker" type="Marker2D" parent="TutorialMarkers"]
+position = Vector2(298, -390)
+
+[node name="BarrelMarker" type="Marker2D" parent="TutorialMarkers"]
+position = Vector2(330, -429)
+
+[node name="CauldronMarker" type="Marker2D" parent="TutorialMarkers"]
+position = Vector2(408, -349)
+
 [node name="FrontRoom" type="Node2D" parent="."]
 
 [node name="AstarTilemap" type="Node2D" parent="FrontRoom"]
@@ -588,7 +612,7 @@ tile_map_data = PackedByteArray("AAAeAPf/AQAGAAIAAAAbAPf/AQAGAAYAAAAcAPf/AQABAAE
 tile_set = SubResource("TileSet_bg63s")
 
 [node name="Spawn" type="Marker2D" parent="FrontRoom/AstarTilemap"]
-position = Vector2(421, 5)
+position = Vector2(424, 8)
 
 [node name="Checkout" type="Marker2D" parent="FrontRoom/AstarTilemap"]
 position = Vector2(448, -122)
@@ -643,6 +667,7 @@ position = Vector2(394, -3)
 shape = SubResource("RectangleShape2D_g03oc")
 
 [node name="TownDoorBarrier" type="StaticBody2D" parent="FrontRoom"]
+collision_layer = 32768
 
 [node name="Barrier" type="CollisionShape2D" parent="FrontRoom/TownDoorBarrier"]
 position = Vector2(431, 14)
@@ -650,11 +675,14 @@ rotation = 1.5707964
 shape = SubResource("SegmentShape2D_1jnhp")
 
 [node name="StorageDoorBarrier" type="StaticBody2D" parent="FrontRoom"]
+collision_layer = 32768
 
 [node name="Barrier" type="CollisionShape2D" parent="FrontRoom/StorageDoorBarrier"]
 position = Vector2(479, -220)
 rotation = 1.5707964
 shape = SubResource("SegmentShape2D_1jnhp")
+
+
 [node name="PlayerSpawn" type="Marker2D" parent="FrontRoom"]
 position = Vector2(416, -4)
 
@@ -693,6 +721,7 @@ position = Vector2(394, -289)
 shape = SubResource("RectangleShape2D_g03oc")
 
 [node name="FrontRoomDoorBarrier" type="StaticBody2D" parent="BackRoom"]
+collision_layer = 32768
 
 [node name="Barrier" type="CollisionShape2D" parent="BackRoom/FrontRoomDoorBarrier"]
 position = Vector2(479, -290)
@@ -728,6 +757,9 @@ position_smoothing_speed = 3.0
 position = Vector2(448, -145)
 
 [node name="NpcSpawner" parent="EntityManager" instance=ExtResource("12_47hg3")]
+
+[node name="TutorialCat" parent="EntityManager" instance=ExtResource("14_g03oc")]
+position = Vector2(483, -142)
 
 [connection signal="body_entered" from="FrontRoom/MoveTownDetection" to="." method="_on_move_town_detection_body_entered"]
 [connection signal="body_entered" from="FrontRoom/MoveStorageRoomDetection" to="." method="_on_move_storage_room_detection_body_entered"]

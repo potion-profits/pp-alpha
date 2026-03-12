@@ -3,17 +3,10 @@ extends Node2D
 @onready var entities: Node2D = $Entities
 @onready var cashier_npc: CharacterBody2D = $Entities/CashierNpc
 @onready var spawn_marker: Marker2D = $PlayerSpawn
-
-var saved_position : Vector2
+@onready var player: Player = $Entities/Player
+@onready var dialogue_ui: CanvasLayer = $DialogueUI
 
 func _ready() -> void:
-	# ----- Necessary for pause menu in scene -----
-	var pause_scene : Resource = preload("res://scenes/ui/pause_menu.tscn")
-	var menu_instance : Node = pause_scene.instantiate()
-	add_child(menu_instance)
-	GameManager.set_pause_menu(menu_instance.get_node("PauseMenuControl"))
-	# ----------------------------------------------
-	
 	for child in entities.get_children():
 		if child is Npc or child is Player:
 			continue
@@ -26,12 +19,31 @@ func _ready() -> void:
 		interactable.tooltip = ""
 		update_sprite(child)
 	
-	cashier_npc.interactable.interact = open_purchase_scene
+	dialogue_ui.action_triggered.connect(_on_dialogue_action)
+	cashier_npc.interactable.interact = open_shopkeeper_dialogue
+	
+	# Reopen dialogue if returning from a sub-scene
+	if DialogueManager.dialogue_open:
+		var file_key : String = DialogueManager.current_scene
+		var dialogue_id : String = DialogueManager.current_dialogue_id
+		dialogue_ui.open(file_key, dialogue_id)
 
-func open_purchase_scene() -> void:
-	# link to Ozcar's code here
-	SceneManager.change_to("res://scenes/town_menu/town_menu.tscn")
-	pass
+func open_shopkeeper_dialogue() -> void:
+	var last_dir: String = player.last_dir
+	player.animated_sprite.play("idle_" + last_dir)
+	player.set_physics_process(false)
+	dialogue_ui.open("supply_shop", "shopkeeper_greeting")
+
+func _on_dialogue_action(action: String, _data: Dictionary) -> void:
+	var payload: Dictionary = {
+		"with_transition": false
+	}
+	if action == "refill":
+		SceneManager.change_to("res://scenes/refill_scene/backroom.tscn", payload)
+	elif action == "storage":
+		SceneManager.change_to("res://scenes/entity_storing/entity_storing.tscn", payload)
+	elif action == "placement":
+		SceneManager.change_to("res://scenes/grid_placement/grid_placement.tscn", payload)
 
 func _on_move_town_detection_body_entered(body: Node2D) -> void:
 	if body is Player:

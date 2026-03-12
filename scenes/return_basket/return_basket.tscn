@@ -20,6 +20,7 @@ atlas = ExtResource("3_mp8pv")
 region = Rect2(0, 0, 16, 16)
 
 [node name="ReturnBasket" type="StaticBody2D"]
+collision_mask = 65
 script = ExtResource("1_q5mwc")
 metadata/_custom_type_script = "uid://b1odcrnx3mby"
 

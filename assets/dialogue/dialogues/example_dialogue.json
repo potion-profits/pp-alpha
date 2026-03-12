@@ -1,0 +1,23 @@
+{
+
+	"dialogue_tag": {
+		"speaker": "ArbitrarySpeakerName",
+		"text": "Whatever you want the speaker to say.",
+		"choices": [
+			{ "label": "Player speech", "next": "next_choice" },
+			{ "label": "Indicating some out of dialogue action (like a menu)", "action": "action_tag_for_script" },
+			{ "label": "End of conversation phrase", "next": null },
+			
+	  ]
+	},
+	
+	"next_choice": {
+		"speaker": "ArbitrarySpeakerName",
+		"text": "Next branch of dialogue from previous conversation",
+		"choices": [
+			{ "label": "Player speech", "next": null },
+			
+		]
+	}
+
+}

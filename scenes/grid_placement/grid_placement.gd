@@ -23,7 +23,6 @@ extends Node2D
 ## Reference to the smooth movement handler
 @onready var hold_controller: DirectionalHoldController = $DirectionalHoldController
 
-var original_pos : Vector2
 
 ## Holds the position of the currently hovered tile
 var current_tile: Vector2i = Vector2i.ZERO
@@ -98,6 +97,10 @@ const INVALID_COLOR : Color = Color("Red")
 ## Used to modulate on valid placement
 const VALID_COLOR : Color = Color("White")
 
+## current scene 
+@onready var cs : Node = SceneManager.current_scene()
+var saved_position : Vector2 = Vector2.ZERO
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# Connects the movement signal from controller to on step
@@ -117,9 +120,10 @@ func _ready() -> void:
 	# places the entities on the proper tile
 	
 	player.set_physics_process(false) # need gold but dont want to move charactser
-	original_pos = player.global_position
+	if SceneManager.last_known_positions.has(cs.name):
+		saved_position = SceneManager.last_known_positions[cs.name]
 	player.global_position = Vector2.ZERO
-	
+		
 	_restore_entities_to_tilemap()
 	update_price()
 
@@ -310,10 +314,13 @@ func can_place_entity(tile : Vector2i) -> bool:
 	
 	return true
 
-# returns to menu, should change to shop when merged
+## Changes the scene back to the supply shop.[br][br]
+## Passes the payload through so the supply shop can restore player position
+## and reopen the dialogue.
 func _menu()->void:
-	player.global_position = original_pos
-	SceneManager.change_to("res://scenes/town_menu/town_menu.tscn")
+	var payload: Dictionary = SceneManager.get_payload()
+	payload["player_position"] = saved_position
+	SceneManager.change_to("res://scenes/supply_shop/supply_shop.tscn", payload)
 	
 ## Returns the info of the current entity from ENTITIES
 func entity_info() -> Dictionary:
