@@ -41,8 +41,8 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2els"]
-radius = 4.0
-height = 14.0
+radius = 11.0
+height = 22.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ic0sc"]
 radius = 21.0
@@ -57,7 +57,7 @@ autoplay = "idle_down"
 frame_progress = 0.7215677
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 9)
+position = Vector2(0, 11)
 shape = SubResource("CapsuleShape2D_g2els")
 
 [node name="Camera2D" type="Camera2D" parent="."]

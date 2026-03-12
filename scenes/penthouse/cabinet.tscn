@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://fva1gxsi7q7m"]
+
+[ext_resource type="Texture2D" uid="uid://cr78ufidceb3l" path="res://assets/interior/penthouse/office.png" id="1_efvq2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cnmy6"]
+atlas = ExtResource("1_efvq2")
+region = Rect2(0, 32, 16, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ng33o"]
+size = Vector2(16, 27)
+
+[node name="Cabinet" type="StaticBody2D"]
+
+[node name="CabinetSprite" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_cnmy6")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_ng33o")

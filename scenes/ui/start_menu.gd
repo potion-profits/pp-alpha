@@ -25,7 +25,9 @@ func _ready()->void:
 
 func _on_play_pressed()->void:
 	var last_scene : String = SceneManager.last_known_scene
-	if last_scene:
+	if GameManager.initial_play:
+		SceneManager.change_to("res://scenes/cinematics/introduction.tscn")
+	elif last_scene:
 		SceneManager.change_to(last_scene)
 	else:
 		SceneManager.change_to("res://scenes/player_shop/main_shop.tscn")

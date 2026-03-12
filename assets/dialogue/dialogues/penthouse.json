@@ -1,0 +1,284 @@
+{
+	"egg": {
+		"speaker": "Inner Thoughts",
+		"text": "Woah, we are so high up! Is this giant window not a safety hazard?",
+		"choices": [
+			{ "label": "Hmmm...", "next": "fall" },
+	  ]
+	},
+	"fall":{
+		"speaker": "Inner Thoughts",
+		"text": "... I hope I don't trip ...
+		
+		Maybe the sand down below will soften the blow. Looks like it works for the coconuts.",
+		"choices": [
+			{ "label": "Nevermind.", "next": null},
+	  ]
+	},
+	"trophy" : {
+		"speaker": "The plaque",
+		"text": "The plaque reads: 
+		
+		'In loving memory of an associate who thought they could outswim their debt.'",
+		"choices":[
+			{"label": "... gulp ...", "next": null},
+		]
+	},
+	"initial_guards": {
+		"speaker": "Guard1",
+		"text": "HEY!! STOP RIGHT THERE!!",
+		"choices":[
+			{"label": "Huh?", "next": "guard_blocks", "action": "move_to_block"}
+		]
+	},
+	"guard_blocks": {
+		"speaker": "Guard1",
+		"text": "You are not allowed to enter without formal, written permission.",
+		"choices": [
+			{"label": "AHHH! RUN!!", "next": null, "action": "block_office"},
+			{"label": "I received a letter about talking to a loan shark at the top of the casino.", "next": "guard_sorry"},
+		],
+	},
+	"guard_sorry": {
+		"speaker": "Guard2",
+		"text": "Oh! Sorry about that. Please excuse my rude behavior. Go on ahead!",
+		"choices":[
+			{"label": "Thank you!", "next": null, "action": "enter_office"}
+		]
+	},
+	"no_leaving":{
+		"speaker": "Inner Thoughts",
+		"text": "I can't leave now. I haven't finished talking  to the lender...",
+		"choices": [
+			{"label": "I gotta go back to that office.", "next": null}
+		]
+	},
+	"init_shark":{
+		"speaker": "Shark",
+		"text": "Huh? What is this child doing in my office? Guards?",
+		"choices": [
+			{"label": "Hey! I'm no child!", "next": "tease1"},
+			{"label": "I found this letter that I think belongs to you.", "next": "letter_received"},
+			{"label": "Oop, gotta run!", "next": null}
+		]
+	},
+	"tease1":{
+		"speaker": "Shark",
+		"text": "Well you're no adventurer, that's for sure.",
+		"choices":[
+			{"label": "...", "next": "tease2"},
+		]
+	},"tease2":{
+		"speaker": "Shark",
+		"text": "You have no weapons and you don't look bright enough to cast a spell.",
+		"choices":[
+			{"label": "...", "next": "tease3"},
+		]
+	},
+	"tease3":{
+		"speaker": "Shark",
+		"text": "You're dressed like an elf. Plus you have that annoyingly high pitched voi-",
+		"choices":[
+			{"label": "ENOUGH! You're not even wearing a real shirt!", "next": "laugh_reset"},
+			{"label": "I'm not from around here but I found this letter that I think belongs to you.", "next": "letter_received"},
+			{"label": "you're being mean [sad]", "next": "laugh_ignore"}
+		]
+	},
+	"laugh_reset": {
+		"speaker": "Shark",
+		"text": "Heh heh heh. You sure are brave to be talking to me like that. Why are you here?",
+		"choices":[
+			{"label": "I found this lettter that I think belongs to you.", "next": "letter_received"},
+			{"label": "Nevermind...","next":null}
+		]
+	},
+	"laugh_ignore":{
+		"speaker": "Shark",
+		"text": "Heh heh heh. Why are you here?",
+		"choices":[
+			{"label": "I found this lettter that I think belongs to you. [sniffling]", "next": "letter_received"},
+			{"label": "Nevermind... [sobbing]", "next":null}
+		]
+	},
+	"letter_received":{
+		"speaker": "Shark",
+		"text": "Ahhhh, you see child, that's where you are wrong. This letter belongs to YOU now. ",
+		
+		"choices":[
+			{"label": "To me?", "next": "associate"}
+		]
+	},
+	"associate":{
+		"speaker": "Shark",
+		"text": "It used to belong to an old... associate... if you will. Finders keepers. 
+		
+		The letter is an acknowledgement of debt. That means you owe me 1,000 coins.",
+		"choices":[
+			{"label":"WHAT!?!?", "next": "terms"},
+			{"label":"You must be mistaken.", "next": "terms"},
+			{"label":"Surely you're joking... right?...", "next": "terms"}
+		]
+	},
+	"terms":{
+		"speaker": "Shark",
+		"text": "You will have 7 days to pay this debt. Every day, your balance will incur 5% interest on the balance.
+		
+		Failure to pay the debt in full may lead to unfortunate outcomes...",
+		"choices":[
+			{"label":"Hold on! How am I even supposed to pay? I have no coins.", "next": "loan_starting_coins", "action": "coins_100"},
+			{"label":"Okay, I'm going to need a small loan and a way to make money. [skips intro]", "next": "short_option", "action": "coins_100"}
+		]
+	},
+	"loan_starting_coins":{
+		"speaker": "Shark",
+		"text": "Worry not child. Not only do I collect your debts, but I can also loan you coins. 
+		Here's 100 to begin. I will just add it to your total. You now owe : 1,600 coins! Anytime you need some more, come to me.",
+		"choices":[
+			{"label": "Well that seems like a bad idea. How am I supposed to make coins for myself?", "next": "shop_offer"},
+		]
+	},
+	"shop_offer":{
+		"speaker": "Shark",
+		"text": "This associate of mine used to run a potion shop in town. You may have seen it on your way here.
+		Since the associate is no longer around, you are free to use it and boost the town's economy. For the low, low price of 500 coins!",
+		"choices":[
+			{"label": "Woah! Why are you charging me for an abandoned shop?", "next": "town_explained"},
+			{"label": "Okay, so im stuck with this shop.", "next": "conclude"}
+		]
+	},
+	"town_explained":{
+		"speaker": "Shark",
+		"text": "Well you see, I and my associates own all the buildings in town under the Potion Profits Inc. umbrella. 
+		We also manufacture all types of magical resources, including potion making equipment.",
+		"choices": [
+			{"label": "...","next": "town_explained2"}
+		]
+	},
+	
+	"town_explained2":{
+		"speaker": "Shark",
+		"text":"You can get equipment from daily spins on the first floor or purchase them at the supply shop in town.",
+		"choices":[
+			{"label": "Soooo... a monopoly?", "next": "not_monopoly"}
+		]
+	},
+	"not_monopoly": {
+		"speaker": "Shark",
+		"text": "Heh heh heh. It's not like that, anyone is able to start a business here at no cost. We own the buildings, not the land.",
+		"choices":[
+			{"label": "Then why is there no other companies around?","next":"barrier_explained"}
+		]
+	},
+	"barrier_explained":{
+		"speaker": "Shark",
+		"text": "Heh. Well you see, there is a strange, magical barrier that surrounds this town. It is unknown how it got there... heh. It prevents anyone from leaving.",
+		"choices":[
+			{"label": "WHAT!! Does that mean I am stuck here!?!?", "next": "conclude"}
+		]
+	},
+	"short_option":{
+		"speaker":"Shark",
+		"text": "There's an abandoned potion shop in town you can use.
+		After the shop's rental fee, a 100 coin loan, and the initial sum of 1,500, your total balance is 2,100.",
+		"choices":[
+			{"label": "Got it! I am so ready!", "next": null, "action": "first_shark_done"}
+		]
+	},
+	"conclude":{
+		"speaker": "Shark",
+		"text": "You sure are. So make the most of it and pay your debts. 
+		After the shop's rental fee, the 100 coin loan, and the initial sum of 20,000, your total balance is 25,100.",
+		"choices":[
+			{"label": "Is there anything else I should know?", "next": "casino_explained"},
+			{"label": "I suppose there's nothing to it but to do it.", "next": null, "action": "first_shark_done"}
+		]
+	},
+	"casino_explained": {
+		"speaker":"Shark",
+		"text":"Since you are new around here, I have registered you for a membership at the casino. You are free to spin daily and play any of the games. 
+		Coins can be converted to chips at the cashier counter. ",
+		"choices":[
+			{"label": "Right, of course...", "next": null, "action":"first_shark_done"}
+		]
+	},
+	"shark_prompt":{
+		"speaker": "Shark",
+		"text": "What can I do you for?",
+		"choices":[
+			{"label": "I want to pay off some debt.", "next": null, "action": "pay_debt"},
+			{"label": "I want to take out a loan.", "next": null, "action": "get_loan"},
+			{"label": "Nevermind...", "next": null}
+		]
+	},
+	"anything_else":{
+		"speaker": "Shark",
+		"text": "You're still here?",
+		"choices":[
+			{"label": "I want to pay off some debt.", "next": null, "action": "pay_debt"},
+			{"label": "I want to take out a loan.", "next": null, "action": "get_loan"},
+			{"label": "Nevermind...", "next": null}
+		]
+	},
+	"loan_complete":{
+		"speaker": "Shark",
+		"text": "You really did it. I didn't think you had it in you, pipsqueak!",
+		"choices":[
+			{"label": "YIPPEE!!! So... what now?", "next": "what_next"},
+		]
+	},
+	"what_next":{
+		"speaker":"Shark",
+		"text": "You've actually proven to be pretty useful. The casino has been busier since you've arrived. 
+		How about you stay around and continue running the potion shop?",
+		"choices":[
+			{"label": "I don't want to be stuck here forever!", "next": "reluctant_unlock_barrier"},
+			{"label": "Yay! I would be glad to! I love it here!", "next": "enthusiastic_unlock_barrier"}
+		]
+	},
+	"reluctant_unlock_barrier":{
+		"speaker":"Shark",
+		"text" : "You won't be stuck here anymore. I will make some calls to let you through the magical barrier.",
+		"choices": [
+			{"label": "Wait, you could do that the whole time?","next":"barrier_unlock"}
+		]
+	},
+	"enthusiastic_unlock_barrier":{
+		"speaker": "Shark",
+		"text": "Great! For your hard work, I'll let you go past the magic barrier.",
+		"choices": [
+			{"label": "Were you always able to do that?", "next":"barrier_unlock"}
+		]
+	},
+	"barrier_unlock":{
+		"speaker": "Shark",
+		"text": "Only the barrier on the potion shop side... Atleast it will give you a nice view to enjoy.",
+		"choices":[
+			{"label": "Thats great! Thanks!", "next": "congrats"}
+		]
+	},
+	"congrats":{
+		"speaker":"Shark",
+		"text": "Congratulations on completing your end of the deal. I'll be around if you're ever in a pinch.",
+		"choices": [
+			{"label": "See you around!", "next": null, "action": "unlock_barrier"}
+		]
+	},
+	"not_paid":{
+		"speaker":"Shark",
+		"text": "HEY! WHERE IS THE MONEY, PIPSQUEAK! 
+		I GAVE YOU 7 DAYS AND YOU COULDN'T DO IT!",
+		"choices":[
+			{"label": "I'm sorry...", "next": "not_paid2"},
+			{"label": "Can I get more time?", "next": "not_paid2"}
+		]
+	},
+	"not_paid2":{
+		"speaker":"Shark",
+		"text": "I TOLD YOU THERE WOULD BE REPRECUSSIONS TO NOT PAYING IN FULL!
+		
+		GUARDS!! TAKE THIS TRASH OUT.",
+		"choices":[
+			{"label": "What's going on???", "action":"lose_state"}
+		]
+	}
+}

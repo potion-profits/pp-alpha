@@ -8,9 +8,12 @@ var spawn_location_pos : Array = []
 @onready var bot_bound: Marker2D = $ForegroundMarker
 @onready var player: Player = $BuildingsBoundaries/Player
 @onready var trees: TileMapLayer = $BuildingsBoundaries/TopBottomBoundaries/TreesForeground
+@onready var credit_zone: Area2D = $BuildingsBoundaries/CreditZone
 
 const town_npc_scene : PackedScene = preload("res://scenes/npc_alt/roaming_npc.tscn")
 var below : bool = false
+var in_credits : bool = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	for location : Marker2D in spawn_locations.get_children():
@@ -25,6 +28,13 @@ func _process(_delta: float) -> void:
 	if player.position.y < bot_bound.position.y and below:
 		below = false
 		trees.modulate.a = 1
+
+func _input(event: InputEvent) -> void:
+	if in_credits and event.is_action_pressed("interact") and GameManager.credits_flag:
+		roll_credits()
+
+func roll_credits()->void:
+	get_tree().change_scene_to_file("res://scenes/credits/credits.tscn")
 
 func spawn_npc(loc: Vector2) -> void:
 	var t_npc : RoamingNpc = town_npc_scene.instantiate()
@@ -43,3 +53,13 @@ func squib(loc : Vector2) -> Vector2:
 	var off2 : int = randi_range(-15,15)
 	
 	return loc + Vector2(off1, off2)
+
+
+func _on_credit_zone_body_entered(body: Node2D) -> void:
+	if body is Player:
+		in_credits = true
+
+
+func _on_credit_zone_body_exited(body: Node2D) -> void:
+	if body is Player:
+		in_credits = false

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ceobjrkpsbkb3"
-path="res://.godot/imported/cambria_backyard.jpg-1c521f0e7f397cd1b3f7b9b523e73421.ctex"
+uid="uid://ndpkiahpuyw0"
+path="res://.godot/imported/elevator.png-7c6b1928fc80b632b778049c3012ab91.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/cambria_backyard.jpg"
-dest_files=["res://.godot/imported/cambria_backyard.jpg-1c521f0e7f397cd1b3f7b9b523e73421.ctex"]
+source_file="res://assets/interior/casino/elevator.png"
+dest_files=["res://.godot/imported/elevator.png-7c6b1928fc80b632b778049c3012ab91.ctex"]
 
 [params]
 
@@ -21,7 +21,7 @@ compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
-compress/normal_map=1
+compress/normal_map=0
 compress/channel_pack=0
 mipmaps/generate=false
 mipmaps/limit=-1

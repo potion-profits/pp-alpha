@@ -1,0 +1,173 @@
+[gd_scene load_steps=13 format=3 uid="uid://t3ix6p6in8ws"]
+
+[ext_resource type="Shader" uid="uid://cl0hp4d55y6de" path="res://scenes/credits/credits.gdshader" id="1_8n0nl"]
+[ext_resource type="Script" uid="uid://r1l12wlpg0wy" path="res://scenes/credits/credits.gd" id="1_17l06"]
+[ext_resource type="Texture2D" uid="uid://ceobjrkpsbkb3" path="res://assets/ui/cambria_backyard.jpg" id="1_dr3ri"]
+[ext_resource type="Script" uid="uid://bke1w1cqpntog" path="res://scenes/credits/scroll.gd" id="1_huu5m"]
+[ext_resource type="PackedScene" uid="uid://c3qqvdemavffu" path="res://scenes/ui/dialogue_ui.tscn" id="2_t15ab"]
+[ext_resource type="Texture2D" uid="uid://cagvqh6awoqew" path="res://assets/ui/main_background.png" id="3_c8xcy"]
+[ext_resource type="FontFile" uid="uid://djn684cose2cu" path="res://assets/dialogue/fonts/ari-w9500-bold.ttf" id="5_icb2l"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_c8xcy"]
+shader = ExtResource("1_8n0nl")
+shader_parameter/base_image = ExtResource("1_dr3ri")
+shader_parameter/pixel_image = ExtResource("3_c8xcy")
+shader_parameter/transition = 0.0
+shader_parameter/pixel_size = 10000.0
+
+[sub_resource type="Animation" id="Animation_huu5m"]
+length = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/transition")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_8ggla"]
+resource_name = "fade_to_pixel"
+length = 30.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/transition")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 30),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_icb2l"]
+_data = {
+&"RESET": SubResource("Animation_huu5m"),
+&"fade_to_pixel": SubResource("Animation_8ggla")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_17l06"]
+line_spacing = 10.0
+font = ExtResource("5_icb2l")
+font_size = 78
+shadow_size = 40
+shadow_color = Color(0, 0, 0, 1)
+
+[node name="Credits" type="Node2D"]
+script = ExtResource("1_17l06")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource("1_huu5m")
+
+[node name="Background" type="TextureRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_c8xcy")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_dr3ri")
+expand_mode = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Background"]
+libraries = {
+&"": SubResource("AnimationLibrary_icb2l")
+}
+
+[node name="CreditContainer" type="VBoxContainer" parent="CanvasLayer"]
+offset_left = -75.0
+offset_top = 1300.0
+offset_right = 1997.0
+offset_bottom = 7728.0
+size_flags_vertical = 3
+alignment = 1
+
+[node name="CreditText" type="Label" parent="CanvasLayer/CreditContainer"]
+layout_mode = 2
+text = "POTION PROFITS
+
+
+
+
+Developed By 
+CEJJO Studios
+
+
+
+
+Project Lead
+Connor Villanueva
+
+
+Visual Lead
+Jazzy De Los Santos
+
+
+Audio Director & Engineer
+Elijah Villanueva
+
+
+Senior Game Developer
+Ozcar Cayetano
+
+\"Senior\" Game Developer
+Jonathan Dees
+
+
+Programming
+Connor Villanueva
+Elijah Villanueva
+Jazzy De Los Santos
+Jonathan Dees 
+Ozcar Cayetano
+
+
+Art & Animation
+Connor Villanueva
+Elijah Villanueva
+Jazzy De Los Santos
+Jonathan Dees 
+Ozcar Cayetano
+
+
+Advisor
+Lucas Pierce
+
+Special Thanks to
+Our classmates, friends, and families
+Everyone who playtested the game
+The Cal Poly CSSE Department
+
+
+
+Tools Used
+Github
+Itch.io
+Godot Engine 4.5
+Aseprite
+Ableton Live 11
+BBC Audio Library
+
+External Assets Used
+Cute Card Deck - Dani Maccari
+Character Templates Pack  - ErisEsra
+
+Made as part of a senior project at 
+California Polytechnic State University, 
+San Luis Obispo
+
+
+
+Thank you!"
+label_settings = SubResource("LabelSettings_17l06")
+horizontal_alignment = 1
+
+[node name="DialogueUI" parent="." instance=ExtResource("2_t15ab")]
+
+[connection signal="animation_finished" from="CanvasLayer/Background/AnimationPlayer" to="CanvasLayer" method="_on_animation_player_animation_finished"]

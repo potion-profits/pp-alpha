@@ -1,0 +1,18 @@
+{
+	"elevator_prompt":{
+		"speaker": "Inner Thoughts",
+		"text": "I wonder where this leads to...",
+		"choices":[
+			{"label": "Go to top floor", "next": null, "action": "elevator_enter"},
+			{"label": "Nevermind...", "next": null},
+		]
+	},
+	"penthouse_prompt":{
+		"speaker": "Inner Thoughts",
+		"text": "Should I go back down?",
+		"choices":[
+			{"label": "Go to bottom floor", "next": null, "action": "elevator_enter"},
+			{"label": "Nevermind...", "next": null},
+		]
+	}
+}

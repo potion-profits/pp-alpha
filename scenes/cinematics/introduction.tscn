@@ -1,0 +1,135 @@
+[gd_scene load_steps=5 format=3 uid="uid://dui2l8sfecl67"]
+
+[ext_resource type="Texture2D" uid="uid://34qujko3oi2j" path="res://assets/cinematics/letter.png" id="1_kvkag"]
+[ext_resource type="Script" uid="uid://cudfwhjlwfwvp" path="res://scenes/cinematics/introduction.gd" id="1_sf0us"]
+[ext_resource type="FontFile" uid="uid://djn684cose2cu" path="res://assets/dialogue/fonts/ari-w9500-bold.ttf" id="2_7fk5b"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7fk5b"]
+atlas = ExtResource("1_kvkag")
+region = Rect2(0, 16, 64, 48)
+
+[node name="Introduction" type="Node2D"]
+script = ExtResource("1_sf0us")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color(0, 0, 0, 1)
+
+[node name="Letter" type="Sprite2D" parent="CanvasLayer"]
+position = Vector2(914, 515)
+rotation = -0.20943952
+scale = Vector2(15, 15)
+texture = SubResource("AtlasTexture_7fk5b")
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer"]
+offset_right = 500.0
+offset_bottom = 500.0
+
+[node name="Header" type="Label" parent="CanvasLayer"]
+offset_left = 488.0
+offset_top = 349.0
+offset_right = 1258.0
+offset_bottom = 404.0
+rotation = -0.20943952
+theme_override_colors/font_color = Color(0.18717614, 0.18717614, 0.18717614, 1)
+theme_override_fonts/font = ExtResource("2_7fk5b")
+theme_override_font_sizes/font_size = 54
+text = "DEBT ACKNOWLEDGEMENT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Body" type="Label" parent="CanvasLayer"]
+offset_left = 483.0
+offset_top = 406.0
+offset_right = 1273.8307
+offset_bottom = 619.0
+rotation = -0.20943952
+theme_override_colors/font_color = Color(0.18717614, 0.18717614, 0.18717614, 1)
+theme_override_fonts/font = ExtResource("2_7fk5b")
+theme_override_font_sizes/font_size = 40
+text = "You hereby owe                  coins to Potion Profits Incorporated for tampering with the slot machines. "
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Body3" type="Label" parent="CanvasLayer"]
+offset_left = 852.99994
+offset_top = 359.0
+offset_right = 1075.2317
+offset_bottom = 435.2025
+rotation = -0.20943952
+theme_override_colors/font_color = Color(0.50980395, 0.14901961, 0.14901961, 1)
+theme_override_fonts/font = ExtResource("2_7fk5b")
+theme_override_font_sizes/font_size = 50
+text = "1,500"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Body2" type="Label" parent="CanvasLayer"]
+offset_left = 507.0
+offset_top = 571.97144
+offset_right = 1084.0308
+offset_bottom = 838.97144
+rotation = -0.20943952
+theme_override_colors/font_color = Color(0.18717614, 0.18717614, 0.18717614, 1)
+theme_override_fonts/font = ExtResource("2_7fk5b")
+theme_override_font_sizes/font_size = 30
+text = "Direct any further inquires to your lender at the  penthouse within the                ."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Body4" type="Label" parent="CanvasLayer"]
+offset_left = 731.9999
+offset_top = 655.9714
+offset_right = 954.2317
+offset_bottom = 732.1739
+rotation = -0.20943952
+theme_override_colors/font_color = Color(0.50980395, 0.14901961, 0.14901961, 1)
+theme_override_fonts/font = ExtResource("2_7fk5b")
+theme_override_font_sizes/font_size = 30
+text = "casino"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Signature" type="Label" parent="CanvasLayer"]
+offset_left = 483.0
+offset_top = 676.0
+offset_right = 1105.249
+offset_bottom = 943.0
+rotation = -0.20943952
+theme_override_colors/font_color = Color(0.18717614, 0.18717614, 0.18717614, 1)
+theme_override_fonts/font = ExtResource("2_7fk5b")
+theme_override_font_sizes/font_size = 20
+text = "Lender Signature : ______________________"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Signature2" type="Label" parent="CanvasLayer"]
+offset_left = 494.0
+offset_top = 710.0
+offset_right = 1116.249
+offset_bottom = 977.0
+rotation = -0.20943952
+theme_override_colors/font_color = Color(0.18717614, 0.18717614, 0.18717614, 1)
+theme_override_fonts/font = ExtResource("2_7fk5b")
+theme_override_font_sizes/font_size = 20
+text = "Borrower Signature :_____________________"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
