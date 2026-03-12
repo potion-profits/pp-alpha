@@ -80,7 +80,7 @@ func play_ambience(scene_path: String) -> void:
 	current_ambience = null
 	# first try night ambience
 	if scene_path == "res://scenes/town/town.tscn":
-		if TimeManager.is_currently_daytime():
+		if TimeManager.is_daytime:
 			current_ambience = daytown_ambience
 		else:
 			current_ambience = nighttown_ambience
