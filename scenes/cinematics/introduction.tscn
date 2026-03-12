@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dui2l8sfecl67"]
+[gd_scene load_steps=5 format=3 uid="uid://dui2l8sfecl67"]
 
 [ext_resource type="Texture2D" uid="uid://34qujko3oi2j" path="res://assets/cinematics/letter.png" id="1_kvkag"]
+[ext_resource type="Script" uid="uid://cudfwhjlwfwvp" path="res://scenes/cinematics/introduction.gd" id="1_sf0us"]
 [ext_resource type="FontFile" uid="uid://djn684cose2cu" path="res://assets/dialogue/fonts/ari-w9500-bold.ttf" id="2_7fk5b"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7fk5b"]
@@ -8,6 +9,7 @@ atlas = ExtResource("1_kvkag")
 region = Rect2(0, 16, 64, 48)
 
 [node name="Introduction" type="Node2D"]
+script = ExtResource("1_sf0us")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -127,3 +129,7 @@ text = "Borrower Signature :_____________________"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

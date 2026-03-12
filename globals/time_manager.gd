@@ -25,6 +25,7 @@ var day : int = 0
 @onready var last_wheel_spin : int = -1
 
 signal day_end
+signal not_paid
 
 # don't process until the game is running
 # set_process(true) occurs in start_menu.gd when play is pressed

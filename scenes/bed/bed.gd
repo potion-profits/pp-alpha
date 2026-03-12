@@ -20,7 +20,7 @@ func _ready() -> void:
 	entity_code = "bed"
 
 func _on_interact() -> void:
-	if timed_out:
+	if timed_out or not GameManager.tutorial_completed:
 		return
 	player_sleep()
 	GameManager.save_scene_runtime_state()
@@ -54,7 +54,10 @@ func player_sleep() -> void:
 	TimeManager.set_process(true)
 	TimeManager.time = 0.0
 	cs.spawner._ready()
-
+	
+	if TimeManager.day >= 8 and not GameManager.credits_flag:
+		TimeManager.not_paid.emit()
+	
 func close_open_shelf(shop: Node) -> void:
 	var em : EntityManager = shop.get_node("EntityManager")
 	for child in em.get_children():

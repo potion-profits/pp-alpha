@@ -1,0 +1,12 @@
+{
+
+	"shop_start": {
+		"speaker": "Shark",
+		"text": "GET THEM! THEY SHOULD BE IN THE BACK AT THE BED!",
+		"choices": [
+			{ "label": "huh? [sleepy]", "action":"napped"},
+			
+	  ]
+	},
+
+}

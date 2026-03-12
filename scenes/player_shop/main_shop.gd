@@ -66,11 +66,15 @@ func _ready()->void:
 		TimeManager.set_process(true)
 		if tutorial_cat.has_node("SpeechBubble"):
 			tutorial_cat.get_node("SpeechBubble").visible = false
+		
+		TimeManager.not_paid.connect(_on_not_paid)
 	
 	viewport_size = get_viewport_rect().size
 	check_camera_pos()
 	_on_viewport_size_changed() # initalize inv UI position
 	dialogue_ui.action_triggered.connect(_on_dialogue_action)
+	if OS.is_debug_build():
+		TimeManager.day = 5
 
 func check_camera_pos() -> void:
 	if player.global_position.y <= b_bottom_right.global_position.y:
@@ -210,6 +214,14 @@ func _on_dialogue_action(action: String, _data: Dictionary) -> void:
 		if tutorial:
 			tutorial.visible = true
 		inv_ui.visible = true
+	if action == "napped":
+		dialogue_ui.close()
+		SceneManager.change_to("res://scenes/penthouse/penthouse.tscn")
+
+func _on_not_paid()->void:
+	dialogue_ui.open("game_over", "shop_start")
+	
+
 
 func skip_tutorial() -> void:
 	tutorial.visible = false

@@ -14,6 +14,8 @@ var player_data:Dictionary = {}	## Holds the player's data. See [Player].
 var tutorial_completed: bool = false ## Tutorial bool so only runs on first instance
 var pause_enabled : bool = false
 var credits_flag : bool  = false
+var initial_play : bool = false
+
 
 # PLEASE UPDATE THIS IF THE DEFAULT STATE NEEDS TO BE UPDATED
 # format is MM.DD.YR/Version
@@ -86,6 +88,7 @@ func load_from_storage()->void:
 	var save_file:FileAccess = null
 	if not FileAccess.file_exists("user://savegame.save"):
 		save_file = FileAccess.open("res://globals/default_state.txt", FileAccess.READ)
+		initial_play = true
 	else:
 		save_file = FileAccess.open("user://savegame.save",FileAccess.READ)
 	
@@ -101,6 +104,7 @@ func load_from_storage()->void:
 		print("Incorrect version, has ", json.get("version", "no version"), " but expects ", default_state_version)
 		print("Using default state instead")
 		save_file = FileAccess.open("res://globals/default_state.txt", FileAccess.READ)
+		initial_play = true
 		json_text = save_file.get_as_text()
 		save_file.close()
 		json = JSON.parse_string(json_text)
