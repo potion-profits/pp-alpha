@@ -12,6 +12,9 @@ func _ready() -> void:
 
 # handles pressing interact by interacting if possible
 func _input(event: InputEvent) -> void:
+	if (!SettingDataContainer.tooltip_enabled):
+		return
+		
 	if event.is_action_pressed("interact") and can_interact:
 		if current_interactions:
 			can_interact = false
