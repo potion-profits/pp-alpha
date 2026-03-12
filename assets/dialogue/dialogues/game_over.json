@@ -1,0 +1,11 @@
+{
+
+	"game_over": {
+		"speaker": "Narrator",
+		"text": "You got eaten by a shark... Save file deleted.",
+		"choices": [
+			{ "label": "Continue...", "action": "roll_credits" }
+	  ]
+	}
+
+}
