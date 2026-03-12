@@ -125,6 +125,8 @@ func _on_dialogue_action(action: String, _data: Dictionary) -> void:
 			confirm_pay.text = "Borrow"
 			dialogue_ui.show_text("Your loan balance is : "+ str(player.debt) + ". How much do you want to borrow?")
 			pay_container.visible = true
+		"unlock_barrier":
+			GameManager.credits_flag = true
 
 func move_to_block()->void:
 	move_guard = true
@@ -179,10 +181,20 @@ func _on_confirm_pay_pressed() -> void:
 	player.debt -= exchange_amt
 	exchange_amt = 0
 	_update_exchange_label(exchange_amt)
+	if player.debt <= 0:
+		player.debt = 0
+		loan_paid_off()
+		return
 	if loan_action:
 		dialogue_ui.show_text("Your loan balance is : "+ str(player.debt) +". How much do you want to borrow?")
 	else:
 		dialogue_ui.show_text("Your loan balance is : "+ str(player.debt) +". How much do you want to pay?")
+
+func loan_paid_off()->void:
+	exchange_amt = 0
+	_update_exchange_label(exchange_amt)
+	pay_container.visible = false
+	dialogue_ui.show_node("loan_complete")
 
 func _on_cancel_pay_pressed() -> void:
 	exchange_amt = 0

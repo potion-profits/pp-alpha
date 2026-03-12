@@ -1,0 +1,59 @@
+[gd_scene load_steps=5 format=3 uid="uid://t3ix6p6in8ws"]
+
+[ext_resource type="Texture2D" uid="uid://ceobjrkpsbkb3" path="res://assets/ui/cambria_backyard.jpg" id="1_dr3ri"]
+
+[sub_resource type="Animation" id="Animation_dr3ri"]
+resource_name = "new_animation"
+step = 10.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Background:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1.0666667),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_dr3ri")]
+}
+
+[sub_resource type="Animation" id="Animation_8n0nl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Background:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_dr3ri")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_c8xcy"]
+_data = {
+&"RESET": SubResource("Animation_8n0nl"),
+&"new_animation": SubResource("Animation_dr3ri")
+}
+
+[node name="Credits" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Background" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_dr3ri")
+expand_mode = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer"]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_c8xcy")
+}

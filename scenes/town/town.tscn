@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=4 uid="uid://bc7xnfuae1kt7"]
+[gd_scene load_steps=36 format=4 uid="uid://bc7xnfuae1kt7"]
 
 [ext_resource type="Script" uid="uid://dmcbeilcgcd2y" path="res://scenes/town/town.gd" id="1_yr8sw"]
 [ext_resource type="Texture2D" uid="uid://4ib6u5f80hwq" path="res://assets/exterior/town_scene_nature/sky_clouds.png" id="2_06row"]
@@ -311,6 +311,9 @@ b = Vector2(-7.6293945e-05, 1637)
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_5ya6w"]
 b = Vector2(0, 420)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yr8sw"]
+size = Vector2(20, 224)
+
 [node name="Town" type="Node2D"]
 script = ExtResource("1_yr8sw")
 
@@ -529,6 +532,12 @@ limit_bottom = 350
 script = ExtResource("8_5vpkg")
 target = NodePath("../Player")
 
+[node name="CreditZone" type="Area2D" parent="BuildingsBoundaries"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BuildingsBoundaries/CreditZone"]
+position = Vector2(0, 264)
+shape = SubResource("RectangleShape2D_yr8sw")
+
 [node name="SpawnLocations" type="Node2D" parent="."]
 
 [node name="SpawnLocation" type="Marker2D" parent="SpawnLocations"]
@@ -563,3 +572,6 @@ position = Vector2(1384, 280)
 
 [node name="ForegroundMarker" type="Marker2D" parent="."]
 position = Vector2(0, 294)
+
+[connection signal="body_entered" from="BuildingsBoundaries/CreditZone" to="." method="_on_credit_zone_body_entered"]
+[connection signal="body_exited" from="BuildingsBoundaries/CreditZone" to="." method="_on_credit_zone_body_exited"]

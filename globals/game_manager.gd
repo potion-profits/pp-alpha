@@ -13,6 +13,7 @@ var runtime_entities:Dictionary = {} ## Holds all the entities in every scene. S
 var player_data:Dictionary = {}	## Holds the player's data. See [Player].
 var tutorial_completed: bool = false ## Tutorial bool so only runs on first instance
 var pause_enabled : bool = false
+var credits_flag : bool  = false
 
 # PLEASE UPDATE THIS IF THE DEFAULT STATE NEEDS TO BE UPDATED
 # format is MM.DD.YR/Version
