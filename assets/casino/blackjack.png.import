@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bd35p3hb6ti81"
-path="res://.godot/imported/casino_temp.jpg-d9fbd4924a24062dfd8e53e666d0f684.ctex"
+uid="uid://bp3ymfk2i5xuk"
+path="res://.godot/imported/blackjack.png-cf606a9a95e5365594e0482d61c9a5ea.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/casino/temp/casino_temp.jpg"
-dest_files=["res://.godot/imported/casino_temp.jpg-d9fbd4924a24062dfd8e53e666d0f684.ctex"]
+source_file="res://assets/casino/blackjack.png"
+dest_files=["res://.godot/imported/blackjack.png-cf606a9a95e5365594e0482d61c9a5ea.ctex"]
 
 [params]
 

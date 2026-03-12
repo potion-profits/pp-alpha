@@ -160,6 +160,10 @@ func load_scene_runtime_state()->void:
 		for data:Dictionary in runtime_entities[scene_name]:
 			em.load_from_dict(data)
 			#print("loaded: ", data)
+	
+	if cs.has_node("DialogueUI"):
+		var cs_dialogue : CanvasLayer = cs.get_node("DialogueUI")
+		cs_dialogue.reopen_dialogue()
 
 ## Creates a callback to load the next scene's state. [br][br]
 ##

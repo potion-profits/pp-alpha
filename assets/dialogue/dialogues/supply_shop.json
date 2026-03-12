@@ -24,6 +24,14 @@
 		]
 	},
 	
+	"empty_shop": {
+		"speaker": "Shopkeeper",
+		"text": "You can't refill anything when there's nothing to refill...",
+		"choices": [
+			{ "label": "Oh yeah, that's right...", "next": "shopkeeper_greeting"}
+		]
+	},
+	
 	"casino": {
 		"speaker": "Shopkeeper",
 		"text": "Casino, huh... Never heard of it! Must have been someone else.",

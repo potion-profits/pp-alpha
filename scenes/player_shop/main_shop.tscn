@@ -655,10 +655,10 @@ position = Vector2(464, -193)
 [node name="FrontRoomEdges" type="Node2D" parent="FrontRoom"]
 
 [node name="TopLeft" type="Marker2D" parent="FrontRoom/FrontRoomEdges"]
-position = Vector2(251, -246)
+position = Vector2(224, -246)
 
 [node name="BottomRight" type="Marker2D" parent="FrontRoom/FrontRoomEdges"]
-position = Vector2(533, 17)
+position = Vector2(556, 17)
 
 [node name="BottomCollision" type="Area2D" parent="FrontRoom/FrontRoomEdges"]
 
@@ -708,10 +708,10 @@ position = Vector2(464, -313)
 [node name="BackRoomEdges" type="Node2D" parent="BackRoom"]
 
 [node name="TopLeft" type="Marker2D" parent="BackRoom/BackRoomEdges"]
-position = Vector2(251, -502)
+position = Vector2(224, -502)
 
 [node name="BottomRight" type="Marker2D" parent="BackRoom/BackRoomEdges"]
-position = Vector2(533, -288)
+position = Vector2(556, -288)
 
 [node name="BottomCollision" type="Area2D" parent="BackRoom/BackRoomEdges"]
 
@@ -744,9 +744,9 @@ inv_ui = NodePath("../../Static_UI/Inv_UI")
 [node name="Camera2D" type="Camera2D" parent="EntityManager/Player"]
 position = Vector2(-1, 1)
 zoom = Vector2(10.5, 10.5)
-limit_left = 249
+limit_left = 224
 limit_top = -247
-limit_right = 531
+limit_right = 556
 limit_bottom = 16
 limit_smoothed = true
 position_smoothing_enabled = true

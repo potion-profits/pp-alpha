@@ -8,3 +8,7 @@ extends Area2D
 ## Links the entity's interact function
 var interact: Callable = func() -> void:
 	pass
+
+func set_tooltip_label(format_tooltip: String, action: String = "interact") -> void:
+	tooltip = format_tooltip % [InputMap.get_action_description(action).split(" ")[0]]
+	

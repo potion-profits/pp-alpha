@@ -358,7 +358,11 @@ position = Vector2(0, 4)
 shape = SubResource("CapsuleShape2D_3rlc5")
 
 [node name="Interactable" parent="." instance=ExtResource("3_81xb5")]
+collision_mask = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable"]
 position = Vector2(0, 11)
 shape = SubResource("RectangleShape2D_bf6og")
+
+[connection signal="body_entered" from="Interactable" to="." method="_on_interactable_body_entered"]
+[connection signal="body_exited" from="Interactable" to="." method="_on_interactable_body_exited"]
