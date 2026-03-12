@@ -95,9 +95,6 @@ func open_elevator_dialogue() -> void:
 	
 func open_shark_dialogue() -> void:
 	prep_dialogue_open()
-	if OS.is_debug_build():
-		dialogue_ui.open("penthouse", "not_paid")
-		return 
 	if player.first_shark:
 		dialogue_ui.open("penthouse", "init_shark")
 	else:

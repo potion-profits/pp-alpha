@@ -7,7 +7,10 @@ func _ready() -> void:
 	play_intro()
 	
 func play_intro()->void:
-	timer.start(10)
+	if OS.is_debug_build():
+		timer.start(2)
+	else:
+		timer.start(10)
 
 func _on_timer_timeout() -> void:
-	SceneManager.change_to("res://scenes/casino_floor/penthouse.tscn")
+	SceneManager.change_to("res://scenes/penthouse/penthouse.tscn")

@@ -410,7 +410,7 @@ y_sort_enabled = true
 
 [node name="Player" parent="BuildingsBoundaries" instance=ExtResource("6_v00pm")]
 z_index = 201
-position = Vector2(209, 219)
+position = Vector2(848, 232)
 
 [node name="Casino" parent="BuildingsBoundaries" instance=ExtResource("8_jil70")]
 z_index = 201

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=4 uid="uid://cydb0qypcgibl"]
+[gd_scene load_steps=23 format=4 uid="uid://cydb0qypcgibl"]
 
 [ext_resource type="Texture2D" uid="uid://b7jx6m1vn82gh" path="res://assets/interior/casino/casino_tilemap.png" id="1_0k5tk"]
 [ext_resource type="Script" uid="uid://bgfajl2miu8ge" path="res://scenes/casino/casino_floor.gd" id="1_dnyyd"]
@@ -530,7 +530,7 @@ position = Vector2(1002, 916)
 y_sort_enabled = true
 
 [node name="Player" parent="Entities" instance=ExtResource("2_dfl8t")]
-position = Vector2(824, 1063)
+position = Vector2(671, 645)
 
 [node name="Camera2D" type="Camera2D" parent="Entities/Player"]
 zoom = Vector2(10, 10)
