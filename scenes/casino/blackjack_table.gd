@@ -2,6 +2,7 @@ extends Entity
 
 @onready var interactable : Area2D = $Interactable
 @onready var table_sprite: Sprite2D = $TableSprite
+@onready var blackjack_sfx: AudioStreamPlayer2D = $BlackjackSFX
 
 func _ready() -> void:	
 	# Links interactable template to barrel specific method
@@ -12,6 +13,8 @@ func _ready() -> void:
 
 func _on_interact() -> void:
 	var player : Player = get_tree().get_first_node_in_group("player")
+	if blackjack_sfx:
+		blackjack_sfx.play()
 	if player:
 		if player.chips == 0:
 			# invalid chip amount to play blackjack

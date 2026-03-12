@@ -93,10 +93,10 @@ func play_ambience(scene_path: String) -> void:
 ## Some scenes play a different song once the workday ends. The current song will be switched
 ## and all songs will use the night version (if it exists), and the song will play on call
 func _switch_to_night_music() -> void:
-	var current_scene: String = SceneManager.current_scene().scene_file_path
+	var current_scene: = SceneManager.current_scene()
 	if current_scene:
-		play_bg_music(current_scene)
-		play_ambience(current_scene)
+		play_bg_music(current_scene.scene_file_path)
+		play_ambience(current_scene.scene_file_path)
 
 ## Connected to TimeManager workday_start signal that triggers after 3am in-game [br][br]
 ##

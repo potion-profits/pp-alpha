@@ -3,6 +3,7 @@ class_name ReturnBasket extends Entity
 @onready var interactable: Area2D = $Interactable
 @onready var basket_sprite: Sprite2D = $BasketSprite
 @onready var empty_basket_sprite: Sprite2D = $EmptyBasketSprite
+@onready var recycle_sfx: AudioStreamPlayer2D = $RecycleSFX
 
 var all_items : Array = []
 
@@ -16,6 +17,8 @@ func _ready()-> void:
 	entity_code = "basket"
 
 func _on_interact()->void:
+	if recycle_sfx:
+		recycle_sfx.play()
 	var player:Player = get_tree().get_first_node_in_group("player")
 	if player:
 		if all_items:
