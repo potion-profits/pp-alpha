@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="KeybindContainer" load_steps=13 format=3 uid="uid://gc4rdhhhfqrl"]
 
-[ext_resource type="Script" path="res://scenes/ui/keybind_container.gd" id="1_0ob0h"]
+[ext_resource type="Script" uid="uid://bi2j0a5ewelke" path="res://scenes/ui/keybind_container.gd" id="1_0ob0h"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_50lrp"]
 device = -1
