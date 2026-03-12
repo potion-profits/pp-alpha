@@ -90,6 +90,7 @@ func _on_move_town_detection_body_entered(body: Node2D) -> void:
 		else:
 			var payload : Dictionary = SceneManager.get_payload()
 			payload["player_position"] = spawn_marker.global_position
+			clear_npcs()
 			SceneManager.change_to("res://scenes/town/town.tscn", payload)
 
 func clear_npcs() -> void:
