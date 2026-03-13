@@ -38,7 +38,7 @@ func _ready() -> void:
 	SceneManager.scene_ready.connect(_on_scene_ready)
 	
 	if (OS.is_debug_build()):
-		TIME_FACTOR = TIME_FACTOR * 20
+		TIME_FACTOR = TIME_FACTOR * 40
 
 func _process(delta: float) -> void:
 	time += delta * TIME_FACTOR
@@ -50,14 +50,13 @@ func _process(delta: float) -> void:
 		# If player doesn't sleep, trigger the pass out feature
 		set_process(false)
 		var cs : Node = SceneManager.current_scene()
-		if cs:
-			GameManager.player_passed_out = true
-			is_daytime = true
-			workday_start.emit()
-			if cs.name == "MainShop":
-				_on_scene_ready()
-			else:
-				day_end.emit()
+		GameManager.player_passed_out = true
+		is_daytime = true
+		workday_start.emit()
+		if cs.name == "MainShop":
+			_on_scene_ready()
+		else:
+			day_end.emit()
 
 ## Returns the format string for the in-game time represented as real-world time
 func get_string_from_time() -> String:

@@ -171,7 +171,6 @@ func _on_scene_changed() -> void:
 ## Handles various payload keys
 func handle_payload(payload: Dictionary) -> void:
 	save_player_position() ## always save player global pos by default
-	with_transition = true
 	if not payload:
 		return
 	for key:String in payload:
