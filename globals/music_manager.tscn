@@ -44,7 +44,8 @@ bus = &"Music"
 
 [node name="PenthouseMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_f0kqc")
-volume_db = -13.783
+volume_db = -15.036
+pitch_scale = 0.93
 bus = &"Music"
 
 [node name="CasinoAmbience" type="AudioStreamPlayer" parent="."]
