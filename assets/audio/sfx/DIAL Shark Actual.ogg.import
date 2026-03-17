@@ -12,7 +12,7 @@ dest_files=["res://.godot/imported/DIAL Shark Actual.ogg-49b0be1e021398a1897a146
 
 [params]
 
-loop=false
+loop=true
 loop_offset=0
 bpm=0
 beat_count=0

@@ -53,6 +53,9 @@ func show_dialogue(file_key: String, dialogue_id: String) -> Dictionary:
 	var dialogue: Dictionary = get_dialogue(file_key, dialogue_id)
 	if dialogue:
 		var speaker: String = dialogue.get("speaker", "")
+		if speaker:
+			print(speaker)
+			SFXManager.play_dialogue(speaker)
 		var text: String = dialogue.get("text", "")
 		dialogue_shown.emit(text, speaker)
 	return dialogue

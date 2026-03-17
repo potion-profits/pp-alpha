@@ -17,24 +17,23 @@ extends Node
 	"transition": transition_sfx
 }
 
-## References to dialouge related sounds
-@onready var cat_dialouge: AudioStreamPlayer = $CatDialouge
-@onready var npc_dialouge: AudioStreamPlayer = $NPCDialouge
-@onready var shark_dialouge: AudioStreamPlayer = $SharkDialouge
-@onready var dialouge_directory: Dictionary = {
-	"cat": cat_dialouge,
-	"shark": shark_dialouge,
-	"npc": npc_dialouge
+## References to dialogue related sounds
+@onready var cat_dialogue: AudioStreamPlayer = $CatDialogue
+@onready var npc_dialogue: AudioStreamPlayer = $NPCDialogue
+@onready var shark_dialogue: AudioStreamPlayer = $SharkDialogue
+# Originally was going to map from speaker in JSON to sfx to be played
+@onready var dialogue_directory: Dictionary = {
+	"cat": cat_dialogue,
+	"shark": shark_dialogue,
+	"npc": npc_dialogue
 }
 
 # Reference to each cauldron's ambience audio node
 var cauldron_players: Array[AudioStreamPlayer2D] = []
 var cauldron_muted: bool = false
 
-# Trackers for resume times for all dialouge
-var cat_resume: float = 0.0
-var shark_resume: float = 0.0
-var npc_resume: float = 0.0
+# Trackers for resume times for all dialogue
+var dial_resume: float = 0.0
 
 func _ready() -> void:
 	handle_signals()
@@ -81,24 +80,19 @@ func play_sfx(sound_name: String) -> void:
 	else:
 		sound_to_play.stop()
 
-## Dialouge sound effects is simply a 40-50 second stream that plays 2-4 seconds
-## proportional to text 
-#func play_dialouge(dialouge_name: String, message: String) -> void:
-	#var dial_to_play: AudioStreamPlayer = dialouge_directory.get(dialouge_name)
-	#if !dial_to_play:
-		#return
-	#if !dial_to_play.playing:
-		#dial_to_play.play()
-		#var how_long_to_play: int = get_dialouge_time(message)
-		## Timer for how long the song should play
-		#await get_tree().create_timer(how_long_to_play).timeout
-		## track time to resume from and stop audio
-		#dial_to_play.get_playback_position()
-		#dial_to_play.stop()
-#
-## function that determines how long a sound should play (temp)
-#func get_dialouge_time(dialouge: String) -> int:
-	#return 3
+## dialogue is simply a ~10 second stream that plays 1 second per dialogue box
+func play_dialogue(speaker: String) -> void:
+	var dial_to_play: AudioStreamPlayer = dialogue_directory.get(speaker)
+	var how_long_to_play: float = 1.1
+	if !dial_to_play:
+		return
+	if !dial_to_play.playing:
+		dial_to_play.play(dial_resume)
+		# Timer for how long the song should play
+		await get_tree().create_timer(how_long_to_play).timeout
+		# track time to resume from and stop audio
+		dial_resume = dial_to_play.get_playback_position()
+		dial_to_play.stop()
 
 func handle_signals() -> void:
 	# alarm sounds plays when player "wakes up"

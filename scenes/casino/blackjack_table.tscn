@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://m6dvdqtwgruy"]
+[gd_scene load_steps=6 format=3 uid="uid://m6dvdqtwgruy"]
 
 [ext_resource type="Script" uid="uid://cy5b6cr0v78an" path="res://scenes/casino/blackjack_table.gd" id="1_evk2f"]
 [ext_resource type="Texture2D" uid="uid://8mcxpfgiccdj" path="res://assets/interior/casino/blackjack_table.png" id="2_evk2f"]
 [ext_resource type="PackedScene" uid="uid://fi1qxearbah2" path="res://scenes/interactions/interactable.tscn" id="3_evk2f"]
-[ext_resource type="AudioStream" uid="uid://crx6m48e443vm" path="res://assets/audio/sfx/blackjack.ogg" id="4_nhoem"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nhoem"]
 radius = 11.0
@@ -34,10 +33,6 @@ position = Vector2(0, 8)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_khue6")
 debug_color = Color(0.8905801, 0.28393316, 0.4187386, 0.41960785)
-
-[node name="BlackjackSFX" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("4_nhoem")
-volume_db = -9.1
 
 [connection signal="body_entered" from="Interactable" to="." method="_on_interactable_body_entered"]
 [connection signal="body_exited" from="Interactable" to="." method="_on_interactable_body_exited"]

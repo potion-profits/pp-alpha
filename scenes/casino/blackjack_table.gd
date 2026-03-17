@@ -2,7 +2,6 @@ extends Entity
 
 @onready var interactable : Area2D = $Interactable
 @onready var table_sprite: Sprite2D = $TableSprite
-@onready var blackjack_sfx: AudioStreamPlayer2D = $BlackjackSFX
 
 var player_in_area: Player
 var BLACKJACK_TOOLTIP: String = "Press %s to Play Blackjack"
@@ -17,8 +16,6 @@ func _ready() -> void:
 
 func _on_interact() -> void:
 	var player : Player = get_tree().get_first_node_in_group("player")
-	if blackjack_sfx:
-		blackjack_sfx.play()
 	if player:
 		if player.chips == 0:
 			# invalid chip amount to play blackjack

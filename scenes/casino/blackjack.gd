@@ -38,6 +38,8 @@ extends Control
 @onready var exit: Button = $CanvasLayer/GameOver/Exit
 ## Button added to make Ozcar happy since betting with zero is not intuitive
 @onready var exit_bet: Button = $CanvasLayer/BetMenu/ExitBet
+## Audio node to play SFX
+@onready var blackjack_sfx: AudioStreamPlayer2D = $BlackjackSFX
 ## Represents bet amount
 var bet : int = 0
 ## Represents number of player cards for dynamic positioning
@@ -80,6 +82,8 @@ signal game_over_decision	## Idicates that the player is playing again or is exi
 func _ready() -> void:
 	player.set_physics_process(false)
 	play_blackjack()
+	if !blackjack_sfx.playing:
+		blackjack_sfx.play()
 
 ## Main game loop handled by a state machine utilizing [enum blackjack_state]
 func play_blackjack() -> void:

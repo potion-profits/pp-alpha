@@ -38,7 +38,7 @@ func _ready() -> void:
 	SceneManager.scene_ready.connect(_on_scene_ready)
 	
 	if (OS.is_debug_build()):
-		TIME_FACTOR = TIME_FACTOR * 40
+		TIME_FACTOR = TIME_FACTOR * 3
 
 func _process(delta: float) -> void:
 	time += delta * TIME_FACTOR
