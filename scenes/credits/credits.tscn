@@ -2,7 +2,7 @@
 
 [ext_resource type="Shader" uid="uid://cl0hp4d55y6de" path="res://scenes/credits/credits.gdshader" id="1_8n0nl"]
 [ext_resource type="Script" uid="uid://r1l12wlpg0wy" path="res://scenes/credits/credits.gd" id="1_17l06"]
-[ext_resource type="Texture2D" uid="uid://ceobjrkpsbkb3" path="res://assets/ui/cambria_backyard.jpg" id="1_dr3ri"]
+[ext_resource type="Texture2D" uid="uid://ceobjrkpsbkb3" path="res://assets/ui/main_back_source.jpg" id="1_dr3ri"]
 [ext_resource type="Script" uid="uid://bke1w1cqpntog" path="res://scenes/credits/scroll.gd" id="1_huu5m"]
 [ext_resource type="PackedScene" uid="uid://c3qqvdemavffu" path="res://scenes/ui/dialogue_ui.tscn" id="2_t15ab"]
 [ext_resource type="Texture2D" uid="uid://cagvqh6awoqew" path="res://assets/ui/main_background.png" id="3_c8xcy"]

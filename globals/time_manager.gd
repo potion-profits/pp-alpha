@@ -38,9 +38,11 @@ func _ready() -> void:
 	SceneManager.scene_ready.connect(_on_scene_ready)
 	
 	if (OS.is_debug_build()):
-		TIME_FACTOR = TIME_FACTOR * 3
+		TIME_FACTOR = TIME_FACTOR * 10
 
 func _process(delta: float) -> void:
+	if not GameManager.tutorial_completed:
+		return
 	time += delta * TIME_FACTOR
 	# once time has past 17:00
 	if time >= HOUR * 10 and is_daytime == true:
