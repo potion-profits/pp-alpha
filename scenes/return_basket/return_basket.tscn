@@ -46,6 +46,7 @@ texture = SubResource("AtlasTexture_ad36x")
 [node name="RecycleSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_ad36x")
 volume_db = -11.7
+pitch_scale = 0.85
 
 [connection signal="body_entered" from="Interactable" to="." method="_on_interactable_body_entered"]
 [connection signal="body_exited" from="Interactable" to="." method="_on_interactable_body_exited"]

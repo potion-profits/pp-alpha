@@ -67,6 +67,8 @@ func prep_dialogue_open() ->void:
 
 ## Opens dialogue with cashier, branches to exchange or info
 func open_cashier_dialogue() -> void:
+	# When dialogue opens, play dialogue SFX
+	SFXManager.play_dialogue("npc")
 	prep_dialogue_open()
 	dialogue_ui.open("casino", "cashier_greeting")
 
