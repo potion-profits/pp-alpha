@@ -10,6 +10,7 @@ extends Node
 @onready var title_music: AudioStreamPlayer = $TitleMusic
 ## Music for the shop that plays after hours (once the shop closes)
 @onready var after_shop_music: AudioStreamPlayer = $ShopAfterMusic
+## Music for the shark's penthouse
 @onready var penthouse_music: AudioStreamPlayer = $PenthouseMusic
 ## Maps the level scene paths (called from SceneManager) to the song that should play for that scene
 @onready var song_contexts: Dictionary = {
@@ -18,12 +19,15 @@ extends Node
 	"res://scenes/casino/casino_floor.tscn": casino_music,
 	"res://scenes/casino/black_jack.tscn": casino_music,
 	"res://scenes/ui/start_menu.tscn": title_music,
-	"res://scenes/penthouse/penthouse.tscn": penthouse_music
+	"res://scenes/penthouse/penthouse.tscn": penthouse_music,
+	"res://scenes/credits/credits.tscn": title_music
 }
+## Same mapping as song_contexts, but only for scenes with night specific songs
 @onready var night_song_contexts: Dictionary = {
 	"res://scenes/player_shop/main_shop.tscn": after_shop_music,
 	"res://scenes/town/town.tscn": after_shop_music
 }
+## integer representation of 17:00
 @onready var night_target_time: int = TimeManager.get_time_from_string('17:00')
 
 ## References to ambient related sounds
@@ -60,7 +64,7 @@ func _ready() -> void:
 ## Finds the relavent song to play for the given scene. Songs will change if the 
 ## given scene has a different song from the current song that needs to be switched to. [br][br]
 ##
-## Takes [param scene_path] as file path to the scene [br]
+## Takes [param scene_path] as file path to the scene [br], called within SceneManager
 func play_bg_music(scene_path: String) -> void:
 	var next_scene_song: AudioStreamPlayer = null
 	# first try night songs
@@ -73,6 +77,12 @@ func play_bg_music(scene_path: String) -> void:
 	if next_scene_song and current_song != next_scene_song:
 		transition_song(next_scene_song)
 
+## Play background music for the given scene [br][br]
+##
+## Finds the relavent song to play for the given scene. Songs will change if the 
+## given scene has a different song from the current song that needs to be switched to. [br][br]
+##
+## Takes [param scene_path] as file path to the scene [br], called within SceneManager
 func play_ambience(scene_path: String) -> void:
 	# stop and dereference currently playing ambience
 	if current_ambience:
@@ -84,9 +94,10 @@ func play_ambience(scene_path: String) -> void:
 			current_ambience = daytown_ambience
 		else:
 			current_ambience = nighttown_ambience
+	# casino ambience is not time dependant
 	if scene_path == "res://scenes/casino/casino_floor.tscn":
 		current_ambience = casino_ambience
-	# if ambience was ever assigned, play it
+	# if ambience was assigned, play it
 	if current_ambience:
 		current_ambience.play()
 
