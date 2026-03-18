@@ -26,9 +26,15 @@ func _on_elevator_doors_animation_finished() -> void:
 		pload = {"destination": "res://scenes/penthouse/penthouse.tscn"}
 	else:
 		pload = {"destination": "res://scenes/casino/casino_floor.tscn"}
+	if OS.is_debug_build():
+		SceneManager.change_to(pload['destination'])
+		return
 	SceneManager.change_to("res://scenes/elevator/inside.tscn", pload)
 
 func start_anim() -> void:
+	if OS.is_debug_build():
+		_on_elevator_doors_animation_finished()
+		return
 	if start_floor == 0:
 		show_button_up()
 		floors.play_backwards()

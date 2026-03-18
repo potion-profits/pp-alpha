@@ -7,7 +7,7 @@ var player_in_area: Player
 var BLACKJACK_TOOLTIP: String = "Press %s to Play Blackjack"
 
 func _ready() -> void:	
-	# Links interactable template to barrel specific method
+	# Links interactable template to specific method
 	interactable.interact = _on_interact
 	interactable.is_interactable = false
 	

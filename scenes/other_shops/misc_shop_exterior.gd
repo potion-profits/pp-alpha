@@ -6,7 +6,8 @@ extends Entity
 
 var interact_key: String = InputMap.get_action_description("interact").split(" ")[0]
 var DOOR_TOOLTIP: String = "Press %s to Enter" %[interact_key]
-
+var block_flag : bool = false
+signal block_dial
 func _ready() -> void:
 	interactable.interact = _on_interact
 	interactable.tooltip = DOOR_TOOLTIP
@@ -16,4 +17,7 @@ func _ready() -> void:
 
 ## Transitions to the town menu scene on interaction.
 func _on_interact() -> void:
-	SceneManager.change_to("res://scenes/supply_shop/supply_shop.tscn")
+	if block_flag:
+		block_dial.emit()
+	else:
+		SceneManager.change_to("res://scenes/supply_shop/supply_shop.tscn")

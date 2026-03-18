@@ -1,8 +1,9 @@
-[gd_scene load_steps=36 format=4 uid="uid://bc7xnfuae1kt7"]
+[gd_scene load_steps=37 format=4 uid="uid://bc7xnfuae1kt7"]
 
 [ext_resource type="Script" uid="uid://dmcbeilcgcd2y" path="res://scenes/town/town.gd" id="1_yr8sw"]
 [ext_resource type="Texture2D" uid="uid://4ib6u5f80hwq" path="res://assets/exterior/town_scene_nature/sky_clouds.png" id="2_06row"]
 [ext_resource type="Texture2D" uid="uid://ce23et5q4rtxr" path="res://assets/exterior/town_scene_nature/mountain_02.png" id="2_v00pm"]
+[ext_resource type="PackedScene" uid="uid://c3qqvdemavffu" path="res://scenes/ui/dialogue_ui.tscn" id="2_w25xm"]
 [ext_resource type="Texture2D" uid="uid://b2r2yjdlvysn4" path="res://assets/exterior/town_scene_nature/mountain_01.png" id="3_v00pm"]
 [ext_resource type="Texture2D" uid="uid://boy7r65rfllsa" path="res://assets/exterior/town_scene_nature/grass_trees_01.png" id="4_6g2qn"]
 [ext_resource type="Texture2D" uid="uid://cdayuk0mpceyk" path="res://assets/exterior/town_scene_nature/oak_tree_strip.png" id="5_5vpkg"]
@@ -317,6 +318,8 @@ size = Vector2(20, 224)
 [node name="Town" type="Node2D"]
 script = ExtResource("1_yr8sw")
 
+[node name="DialogueUI" parent="." instance=ExtResource("2_w25xm")]
+
 [node name="Background" type="Node2D" parent="."]
 
 [node name="Sky" type="Parallax2D" parent="Background"]
@@ -572,6 +575,8 @@ position = Vector2(1384, 280)
 
 [node name="ForegroundMarker" type="Marker2D" parent="."]
 position = Vector2(0, 294)
+
+[node name="Timer" type="Timer" parent="."]
 
 [connection signal="body_entered" from="BuildingsBoundaries/CreditZone" to="." method="_on_credit_zone_body_entered"]
 [connection signal="body_exited" from="BuildingsBoundaries/CreditZone" to="." method="_on_credit_zone_body_exited"]
