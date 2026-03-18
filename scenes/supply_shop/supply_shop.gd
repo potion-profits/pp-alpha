@@ -25,6 +25,8 @@ func _ready() -> void:
 	cashier_npc.interactable.interact = open_shopkeeper_dialogue
 	
 func open_shopkeeper_dialogue() -> void:
+	# When dialogue opens, play dialogue SFX
+	SFXManager.play_dialogue("npc")
 	var last_dir: String = player.last_dir
 	player.animated_sprite.play("idle_" + last_dir)
 	player.set_physics_process(false)

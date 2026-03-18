@@ -35,6 +35,8 @@ func start_anim() -> void:
 	if OS.is_debug_build():
 		_on_elevator_doors_animation_finished()
 		return
+	# Play elevator SFX
+	SFXManager.play_sfx("elevator")
 	if start_floor == 0:
 		show_button_up()
 		floors.play_backwards()

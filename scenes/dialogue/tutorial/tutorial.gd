@@ -129,7 +129,8 @@ func advance(trigger: String = "") -> void:
 			can_advance = true
 			return
 	# Per Step, play Dialogue SFX
-	SFXManager.play_dialogue("cat")
+	if current_step_index < tutorial_steps.size() - 1:
+		SFXManager.play_dialogue("cat")
 	can_advance = false
 	current_step_index += 1
 	show_current_step()

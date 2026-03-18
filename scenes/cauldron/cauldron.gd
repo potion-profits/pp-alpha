@@ -193,6 +193,7 @@ func _restore_timer(time_left: float)->void:
 func _exit_tree() -> void:
 	SFXManager.unregister_cauld()
 
+
 func _on_interactable_body_entered(body: Node2D) -> void:
 	if body is Player:
 		player_in_area = body

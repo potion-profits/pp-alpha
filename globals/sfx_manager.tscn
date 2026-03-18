@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cqpubg8j6e4lx"]
+[gd_scene load_steps=7 format=3 uid="uid://cqpubg8j6e4lx"]
 
 [ext_resource type="Script" uid="uid://b2uje3pp8winn" path="res://globals/sfx_manager.gd" id="1_lnq87"]
 [ext_resource type="AudioStream" uid="uid://dx0ekjuirmbuf" path="res://assets/audio/sfx/transition.ogg" id="2_xtk05"]
+[ext_resource type="AudioStream" uid="uid://cq7hxdjaqg78d" path="res://assets/audio/sfx/elevator.ogg" id="3_hiihm"]
 [ext_resource type="AudioStream" uid="uid://bqfib7k40sgv8" path="res://assets/audio/sfx/DIAL Shark Actual.ogg" id="3_wi0r0"]
 [ext_resource type="AudioStream" uid="uid://dx2omhttcxa0v" path="res://assets/audio/sfx/DIAL Meow.ogg" id="4_hiihm"]
 [ext_resource type="AudioStream" uid="uid://dq36smqngr1f6" path="res://assets/audio/sfx/DIAL NPC.ogg" id="5_iymdy"]
@@ -9,18 +10,16 @@
 [node name="SfxManager" type="Node2D"]
 script = ExtResource("1_lnq87")
 
-[node name="AlarmSFX" type="AudioStreamPlayer" parent="."]
-
-[node name="ClickSFX" type="AudioStreamPlayer" parent="."]
-
-[node name="ShelfClickSFX" type="AudioStreamPlayer" parent="."]
-
 [node name="TransitionSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_xtk05")
 volume_db = -16.29
 bus = &"SFX"
 
-[node name="WorkdayEndSFX" type="AudioStreamPlayer" parent="."]
+[node name="ElevatorSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_hiihm")
+volume_db = -16.916
+pitch_scale = 1.43
+bus = &"SFX"
 
 [node name="SharkDialogue" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_wi0r0")

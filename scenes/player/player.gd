@@ -270,12 +270,23 @@ func collect(item: InvItem) -> bool:
 func close_inv_ui() -> void:
 	if inv_ui and inv_ui.is_open:
 		inv_ui.close()
-		can_move = false
+		restrict_movement()
 
 func open_inv_ui() -> void:
 	if inv_ui and !inv_ui.is_open:
 		inv_ui.open()
 		can_move = true
+
+func restrict_movement() -> void:
+	can_move = false
+	current_state = movement_state.IDLE
+	var player_idle_dir: String = "idle_" + last_dir
+	if last_dir:
+		animated_sprite.play(player_idle_dir)
+
+func unrestrict_movement() -> void: 
+	set_physics_process(false)
+	can_move = true
 
 ## Retrieves items from entity inventories[br]
 ## i.e.: bottles from crates or brewed potion from cauldron
@@ -325,5 +336,5 @@ func _debug_set_player_inv()->void:
 func _on_animated_sprite_2d_frame_changed() -> void:
 	if current_state != movement_state.WALK:
 		return
-	if animated_sprite and animated_sprite.frame in step_frames:
+	if animated_sprite and animated_sprite.frame in step_frames and can_move:
 		walk_sfx.play()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dgxv3iwdgerek"]
+[gd_scene load_steps=12 format=3 uid="uid://dgxv3iwdgerek"]
 
 [ext_resource type="Script" uid="uid://7gdm86pb8vil" path="res://globals/music_manager.gd" id="1_gq8vl"]
 [ext_resource type="AudioStream" uid="uid://beql7yrtdrqdt" path="res://assets/audio/music/in-shop loop.ogg" id="1_h5l8h"]
@@ -10,6 +10,7 @@
 [ext_resource type="AudioStream" uid="uid://15j8g22qnb8q" path="res://assets/audio/music/shark.ogg" id="7_f0kqc"]
 [ext_resource type="AudioStream" uid="uid://bplkiqo2qx4vg" path="res://assets/audio/sfx/AMB Day.ogg" id="8_f0kqc"]
 [ext_resource type="AudioStream" uid="uid://c1s7dj8r7yfkg" path="res://assets/audio/sfx/AMB Night.ogg" id="9_0qjp3"]
+[ext_resource type="AudioStream" uid="uid://set4i4notcp8" path="res://assets/audio/sfx/AMB Elevator.ogg" id="11_0qjp3"]
 
 [node name="MusicManager" type="Node2D"]
 process_mode = 3
@@ -61,4 +62,10 @@ bus = &"Ambience"
 [node name="NightTownAmbience" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("9_0qjp3")
 volume_db = -5.012
+bus = &"Ambience"
+
+[node name="ElevatorAmbience" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_0qjp3")
+volume_db = -15.663
+pitch_scale = 1.29
 bus = &"Ambience"
