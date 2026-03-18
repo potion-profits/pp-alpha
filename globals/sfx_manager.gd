@@ -10,12 +10,14 @@ extends Node
 @onready var shelf_click_sfx: AudioStreamPlayer = $AlarmSFX
 @onready var workday_end_sfx: AudioStreamPlayer = $WorkdayEndSFX
 @onready var transition_sfx: AudioStreamPlayer = $TransitionSFX
+@onready var elevator_sfx: AudioStreamPlayer = $ElevatorSFX
 @onready var sfx_directory: Dictionary = {
 	"alarm": alarm_sfx,
 	"click": click_sfx,
 	"shelf_click": shelf_click_sfx,
 	"workday_end": workday_end_sfx,
-	"transition": transition_sfx
+	"transition": transition_sfx,
+	"elevator": elevator_sfx
 }
 
 ## References to dialogue related sounds

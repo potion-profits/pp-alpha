@@ -34,6 +34,7 @@ extends Node
 @onready var casino_ambience: AudioStreamPlayer = $CasinoAmbience
 @onready var daytown_ambience: AudioStreamPlayer = $DayTownAmbience
 @onready var nighttown_ambience: AudioStreamPlayer = $NightTownAmbience
+@onready var elevator_ambience: AudioStreamPlayer = $ElevatorAmbience
 
 ## A reference to the currently playing song
 var current_song: AudioStreamPlayer
@@ -94,9 +95,11 @@ func play_ambience(scene_path: String) -> void:
 			current_ambience = daytown_ambience
 		else:
 			current_ambience = nighttown_ambience
-	# casino ambience is not time dependant
+	# casino and elevator ambience is not time dependant
 	if scene_path == "res://scenes/casino/casino_floor.tscn":
 		current_ambience = casino_ambience
+	if scene_path == "res://scenes/elevator/inside.tscn":
+		current_ambience = elevator_ambience
 	# if ambience was assigned, play it
 	if current_ambience:
 		current_ambience.play()

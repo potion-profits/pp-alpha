@@ -29,6 +29,8 @@ func _on_elevator_doors_animation_finished() -> void:
 	SceneManager.change_to("res://scenes/elevator/inside.tscn", pload)
 
 func start_anim() -> void:
+	# Play elevator SFX
+	SFXManager.play_sfx("elevator")
 	if start_floor == 0:
 		show_button_up()
 		floors.play_backwards()
