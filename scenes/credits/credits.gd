@@ -14,8 +14,9 @@ func _on_action(action: String, _data: Dictionary) ->void:
 	if action == "Restart":
 		dialogue_ui.close()
 		GameManager.delete_save()
-		#get_tree().change_scene_to_file("res://scenes/ui/start_menu.tscn")
-		SceneManager.change_to("res://scenes/ui/start_menu.tscn")
+		get_tree().change_scene_to_file("res://scenes/ui/start_menu.tscn")
+		MusicManager.play_bg_music("res://scenes/ui/start_menu.tscn")
+		MusicManager.play_ambience("res://scenes/ui/start_menu.tscn")
 
 	if action == "Continue":
 		dialogue_ui.close()
