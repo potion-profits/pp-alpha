@@ -17,6 +17,7 @@ class_name Casino extends Node2D
 	)
 	
 @onready var elevator: Elevator = $StaticAssets/Elevator
+@onready var entities: Node2D = $Entities
 
 const roaming_npc_scene : PackedScene = preload("res://scenes/npc_alt/roaming_npc.tscn")
 const squib_amt : int = 2
@@ -49,6 +50,11 @@ func _ready() -> void:
 	for location : Marker2D in spawn_locations.get_children():
 		spawn_location_pos.append(location.position)
 	spawn_roaming_npcs()
+	
+	if not GameManager.tutorial_completed:
+		for table : Node in entities.get_children():
+			if table is Entity:
+				table.interactable.interact = open_cashier_dialogue
 
 """
 # I want the player to be able to use buttons to signal, but process runs faster than the interact
@@ -67,8 +73,12 @@ func prep_dialogue_open() ->void:
 
 ## Opens dialogue with cashier, branches to exchange or info
 func open_cashier_dialogue() -> void:
+	# When dialogue opens, play dialogue SFX
 	prep_dialogue_open()
-	dialogue_ui.open("casino", "cashier_greeting")
+	if not GameManager.tutorial_completed:
+		dialogue_ui.open("cant_do", "start_block")
+	else:
+		dialogue_ui.open("casino", "cashier_greeting")
 
 func open_elevator_dialogue() -> void:
 	prep_dialogue_open()

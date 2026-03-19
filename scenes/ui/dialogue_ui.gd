@@ -35,10 +35,7 @@ func open(file_key: String, dialogue_id: String) -> void:
 	## forcce player to stop walking
 	var player : Player = get_tree().get_first_node_in_group("player")
 	if player:
-		var last_dir: String = player.last_dir
-		var player_idle_dir: String = "idle_" + last_dir
-		if last_dir:
-			player.animated_sprite.play(player_idle_dir)
+		player.restrict_movement()
 	
 	current_file_key = file_key
 	current_node_id = dialogue_id
@@ -50,7 +47,7 @@ func open(file_key: String, dialogue_id: String) -> void:
 	show_node(dialogue_id)
 	DialogueManager.dialogue_open = true
 	if player:
-		player.set_physics_process(false)
+		player.unrestrict_movement()
 	TimeManager.set_process(false)
 
 ## Displays a dialogue node by ID — sets text and creates choice buttons
@@ -68,7 +65,8 @@ func show_node(dialogue_id: String) -> void:
 	choice_list = choices
 
 	dialogue_label.text = node.get("text", "")
-
+	var speaker : String = node.get("speaker","")
+	SFXManager.play_dialogue(speaker)
 	# If no choices, wait for player to dismiss with interact key
 	if choices.is_empty():
 		waiting_for_dismiss = true

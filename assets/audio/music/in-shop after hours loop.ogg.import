@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bnjubkadqvk7j"
+path="res://.godot/imported/in-shop after hours loop.ogg-fa4d6b4423fa49976e3ded019ee48fad.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/music/in-shop after hours loop.ogg"
+dest_files=["res://.godot/imported/in-shop after hours loop.ogg-fa4d6b4423fa49976e3ded019ee48fad.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

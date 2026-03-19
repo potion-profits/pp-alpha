@@ -7,6 +7,7 @@ class_name Barrel extends Entity
 
 @onready var interactable : Area2D = $Interactable ## Reference to component used for interactions
 @onready var barrel_sprite: Sprite2D = $BarrelSprite ## Sprite reference
+@onready var fill_sfx: AudioStreamPlayer2D = $FillSFX ## Reference to SFX
 @onready var select_sprite: AnimatedSprite2D = $SelectionAnimation ## Animation Reference
 @export var animation_name: String = "default" ## Name of animation to play
 
@@ -122,6 +123,9 @@ func _on_interact() -> void:
 			ingredients_taken.emit()
 			ml -= 100
 		
+		# Play fill SFX once fill is confirmed
+		if fill_sfx:
+			fill_sfx.play()
 		check_barrel_capacity()
 			
 

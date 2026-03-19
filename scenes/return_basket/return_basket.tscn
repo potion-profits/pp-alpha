@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://8e0u14t36rob"]
+[gd_scene load_steps=9 format=3 uid="uid://8e0u14t36rob"]
 
 [ext_resource type="Script" uid="uid://do5xkvbcxra1o" path="res://scenes/return_basket/return_basket.gd" id="1_q5mwc"]
 [ext_resource type="PackedScene" uid="uid://fi1qxearbah2" path="res://scenes/interactions/interactable.tscn" id="2_mp8pv"]
 [ext_resource type="Texture2D" uid="uid://dys2rb18fl24r" path="res://assets/interior/shop/return_basket.png" id="3_mp8pv"]
+[ext_resource type="AudioStream" uid="uid://do2sq35ase3y2" path="res://assets/audio/sfx/recycle.ogg" id="4_ad36x"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mp8pv"]
 radius = 7.0
@@ -41,6 +42,11 @@ texture = SubResource("AtlasTexture_mp8pv")
 
 [node name="BasketSprite" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_ad36x")
+
+[node name="RecycleSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_ad36x")
+volume_db = -11.7
+pitch_scale = 0.85
 
 [connection signal="body_entered" from="Interactable" to="." method="_on_interactable_body_entered"]
 [connection signal="body_exited" from="Interactable" to="." method="_on_interactable_body_exited"]

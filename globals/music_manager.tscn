@@ -1,8 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://dgxv3iwdgerek"]
+[gd_scene load_steps=12 format=3 uid="uid://dgxv3iwdgerek"]
 
 [ext_resource type="Script" uid="uid://7gdm86pb8vil" path="res://globals/music_manager.gd" id="1_gq8vl"]
 [ext_resource type="AudioStream" uid="uid://beql7yrtdrqdt" path="res://assets/audio/music/in-shop loop.ogg" id="1_h5l8h"]
 [ext_resource type="AudioStream" uid="uid://cthrn1k11us3u" path="res://assets/audio/music/casino loop.ogg" id="1_i6s1y"]
+[ext_resource type="AudioStream" uid="uid://bnjubkadqvk7j" path="res://assets/audio/music/in-shop after hours loop.ogg" id="4_i6s1y"]
+[ext_resource type="AudioStream" uid="uid://cfnbq8bldfyvg" path="res://assets/audio/music/title loop.ogg" id="5_h5l8h"]
+[ext_resource type="AudioStream" uid="uid://ddtdlt62l7xjk" path="res://assets/audio/music/town_day_loop.ogg" id="6_iui2q"]
+[ext_resource type="AudioStream" uid="uid://bd2ql4ke4dcvh" path="res://assets/audio/sfx/AMB Casino.ogg" id="7_3sain"]
+[ext_resource type="AudioStream" uid="uid://15j8g22qnb8q" path="res://assets/audio/music/shark.ogg" id="7_f0kqc"]
+[ext_resource type="AudioStream" uid="uid://bplkiqo2qx4vg" path="res://assets/audio/sfx/AMB Day.ogg" id="8_f0kqc"]
+[ext_resource type="AudioStream" uid="uid://c1s7dj8r7yfkg" path="res://assets/audio/sfx/AMB Night.ogg" id="9_0qjp3"]
+[ext_resource type="AudioStream" uid="uid://set4i4notcp8" path="res://assets/audio/sfx/AMB Elevator.ogg" id="11_0qjp3"]
 
 [node name="MusicManager" type="Node2D"]
 process_mode = 3
@@ -17,3 +25,47 @@ bus = &"Music"
 stream = ExtResource("1_h5l8h")
 volume_db = -20.678
 bus = &"Music"
+
+[node name="ShopAfterMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_i6s1y")
+volume_db = -18.655
+pitch_scale = 0.9
+bus = &"Music"
+
+[node name="TitleMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_h5l8h")
+volume_db = -19.443
+pitch_scale = 1.09
+bus = &"Music"
+
+[node name="TownDayMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_iui2q")
+volume_db = -18.795
+bus = &"Music"
+
+[node name="PenthouseMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_f0kqc")
+volume_db = -15.036
+pitch_scale = 0.93
+bus = &"Music"
+
+[node name="CasinoAmbience" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_3sain")
+volume_db = -11.277
+bus = &"Ambience"
+
+[node name="DayTownAmbience" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_f0kqc")
+volume_db = -4.386
+bus = &"Ambience"
+
+[node name="NightTownAmbience" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_0qjp3")
+volume_db = -5.012
+bus = &"Ambience"
+
+[node name="ElevatorAmbience" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_0qjp3")
+volume_db = -15.663
+pitch_scale = 1.29
+bus = &"Ambience"

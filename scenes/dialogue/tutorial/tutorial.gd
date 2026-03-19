@@ -76,6 +76,9 @@ func start(steps: Array) -> void:
 	can_advance = true
 	visible = true
 	show_current_step()
+	
+	# Initial Step, play Dialogue SFX
+	SFXManager.play_dialogue("cat")
 
 
 ## Enact all needed actions for current tutorial step
@@ -125,7 +128,9 @@ func advance(trigger: String = "") -> void:
 		if trigger != current_step["wait_for"]:
 			can_advance = true
 			return
-
+	# Per Step, play Dialogue SFX
+	if current_step_index < tutorial_steps.size() - 1:
+		SFXManager.play_dialogue("cat")
 	can_advance = false
 	current_step_index += 1
 	show_current_step()

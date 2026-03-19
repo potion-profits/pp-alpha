@@ -13,4 +13,5 @@ func play_intro()->void:
 		timer.start(10)
 
 func _on_timer_timeout() -> void:
+	GameManager.initial_play = false
 	SceneManager.change_to("res://scenes/penthouse/penthouse.tscn")

@@ -148,7 +148,10 @@ func _ready() -> void:
 	if SceneManager.last_known_positions.has(cs.name):
 		saved_position = SceneManager.last_known_positions[cs.name]
 	player.global_position = Vector2.ZERO
-		
+	
+	# prevents any ambient noise to play in placement 
+	SFXManager.mute_ambience()
+	
 	_restore_entities_to_tilemap()
 	update_price()
 
@@ -215,6 +218,8 @@ func _input(event: InputEvent) -> void:
 		_cycle()
 		
 	if event.is_action_pressed("ui_cancel"):
+		# unmute ambience on exit
+		SFXManager.unmute_ambience()
 		_menu()
 		get_viewport().set_input_as_handled()
 		

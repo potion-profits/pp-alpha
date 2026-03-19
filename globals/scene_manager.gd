@@ -67,6 +67,8 @@ func fade_out(seconds: float = 0.5) -> void:
 	if player:
 		player.set_physics_process(false)
 	is_transitioning = true
+	# Play transition scene
+	SFXManager.play_sfx("transition")
 	var tw: Tween = create_tween()
 	tw.tween_property(transition_rect, "color:a", 1.0, seconds)
 	await tw.finished
@@ -110,6 +112,7 @@ func change_to(scene_path: String, payload: Dictionary = {}) -> void:
 	# Change scene (deferred for safety)
 	get_tree().call_deferred("change_scene_to_file", scene_path)
 	MusicManager.play_bg_music(scene_path)
+	MusicManager.play_ambience(scene_path)
 	
 	if scene_path in pausable_scenes:
 		if not GameManager.pause_menu.get_parent():

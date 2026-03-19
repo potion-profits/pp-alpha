@@ -27,9 +27,10 @@ SettingManager="*res://globals/setting_manager.gd"
 SettingDataContainer="*res://globals/setting_data_container.gd"
 SettingSaveManager="*res://globals/setting_save_manager.gd"
 SettingsMenu="*res://scenes/ui/settings_menu.tscn"
-MusicManager="*res://globals/music_manager.tscn"
 DialogueManager="*res://globals/dialogue_manager.gd"
 TimeManager="*res://globals/time_manager.gd"
+MusicManager="*res://globals/music_manager.tscn"
+SFXManager="*res://globals/sfx_manager.tscn"
 
 [debug]
 

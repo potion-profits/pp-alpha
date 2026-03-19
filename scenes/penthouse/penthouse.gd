@@ -90,11 +90,15 @@ func open_elevator_dialogue() -> void:
 		
 	if player.first_shark:
 		dialogue_ui.open("penthouse", "no_leaving")
+	elif GameManager.lost_game:
+		dialogue_ui.open("cant_do", "end_block")
 	else:
 		dialogue_ui.open("elevator","penthouse_prompt")
 	
 func open_shark_dialogue() -> void:
 	prep_dialogue_open()
+	
+	# Play SFX on dialogue open only
 	
 	if GameManager.lost_game:
 		dialogue_ui.open("penthouse","not_paid")

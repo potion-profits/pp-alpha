@@ -1,0 +1,19 @@
+{
+
+	"start_block": {
+		"speaker": "Inner Thoughts",
+		"text": "I should check out the shop first.",
+		"choices": [
+			{ "label": "Nevermind...","next": null }
+	  ]
+	},
+	
+	"end_block": {
+		"speaker": "Inner Thoughts",
+		"text": "I can't leave, they'll just chase me down.",
+		"choices": [
+			{ "label": "Nevermind...","next": null }
+	  ]
+	},
+
+}

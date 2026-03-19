@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://set4i4notcp8"
+path="res://.godot/imported/AMB Elevator.ogg-6c55f79b2a52ec87f635e532d647bc74.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/sfx/AMB Elevator.ogg"
+dest_files=["res://.godot/imported/AMB Elevator.ogg-6c55f79b2a52ec87f635e532d647bc74.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=3.54
+bpm=0.0
+beat_count=0
+bar_beats=4

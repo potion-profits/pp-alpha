@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bqfib7k40sgv8"
+path="res://.godot/imported/DIAL Shark Actual.ogg-49b0be1e021398a1897a1464ee944f48.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/sfx/DIAL Shark Actual.ogg"
+dest_files=["res://.godot/imported/DIAL Shark Actual.ogg-49b0be1e021398a1897a1464ee944f48.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

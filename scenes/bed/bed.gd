@@ -28,6 +28,9 @@ func _on_interact() -> void:
 	player_sleep()
 	GameManager.save_scene_runtime_state()
 	GameManager.commit_to_storage()
+	# As bed acts as a next day function, reset day states
+	TimeManager.is_daytime = true
+	TimeManager.workday_end.emit()
 	_save_timeout()
 	bed_sfx.play()
 

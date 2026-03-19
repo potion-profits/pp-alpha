@@ -21,10 +21,14 @@ const MIN : int = 60
 var time : float = 0.0
 ## Represents days since the game started
 var day : int = 0
+## Represents if it is day or night
+var is_daytime: bool = true
 
 @onready var last_wheel_spin : int = -1
 
 signal day_end
+signal workday_end
+signal workday_start
 signal not_paid
 
 # don't process until the game is running
@@ -34,15 +38,23 @@ func _ready() -> void:
 	SceneManager.scene_ready.connect(_on_scene_ready)
 	
 	if (OS.is_debug_build()):
-		TIME_FACTOR = TIME_FACTOR * 3
+		TIME_FACTOR = TIME_FACTOR * 10
 
 func _process(delta: float) -> void:
+	if not GameManager.tutorial_completed:
+		return
 	time += delta * TIME_FACTOR
+	# once time has past 17:00
+	if time >= HOUR * 10 and is_daytime == true:
+		is_daytime = false
+		workday_end.emit()
 	if time >= HOUR * 30:
 		# If player doesn't sleep, trigger the pass out feature
 		set_process(false)
 		var cs : Node = SceneManager.current_scene()
 		GameManager.player_passed_out = true
+		is_daytime = true
+		workday_start.emit()
 		if cs.name == "MainShop":
 			_on_scene_ready()
 		else:

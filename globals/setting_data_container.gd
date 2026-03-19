@@ -121,7 +121,6 @@ func on_music_vol_set(value: float) -> void:
 func on_sfx_vol_set(value: float) -> void:
 	sfx_volume = value
 
-# I DO NOT LIKE THIS AT ALL (Works but ugly), fuck ass tutorial
 ## Loads keybind overrides from a saved dictionary.[br][br]
 ##
 ## For each supported action, reads the saved physical_keycode integer and

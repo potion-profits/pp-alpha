@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ceobjrkpsbkb3"
-path="res://.godot/imported/cambria_backyard.jpg-1c521f0e7f397cd1b3f7b9b523e73421.ctex"
+path="res://.godot/imported/main_back_source.jpg-70373d11e9ce3eb368f197918d528e7f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/cambria_backyard.jpg"
-dest_files=["res://.godot/imported/cambria_backyard.jpg-1c521f0e7f397cd1b3f7b9b523e73421.ctex"]
+source_file="res://assets/ui/main_back_source.jpg"
+dest_files=["res://.godot/imported/main_back_source.jpg-70373d11e9ce3eb368f197918d528e7f.ctex"]
 
 [params]
 

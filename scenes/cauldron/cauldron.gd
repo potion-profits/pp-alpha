@@ -13,6 +13,7 @@ class_name Cauldron extends Entity	#will help store placement and inventory info
 @onready var mix_timer: Timer = $MixTimer	## Reference to mixing timer
 @onready var progress_bar: TextureProgressBar = $ProgressBar	## Reference to progress bar
 @onready var mix_sfx: AudioStreamPlayer2D = $MixSFX ## Reference to audio stream for sound effects
+@onready var ambience_sfx: AudioStreamPlayer2D = $AmbienceSFX ## Reference to ambience audio stream
 @export var animation_name: String = "default"	## Cauldron animation name
 @onready var flame_animation: AnimatedSprite2D = $FlameAnim
 
@@ -42,6 +43,9 @@ func _ready()-> void:
 	
 	#Selects random frame to start flame animation
 	flame_animation.frame = randi() % NUM_FLAME_FRAMES
+	
+	# Register the cauldron with the SFX Manager
+	SFXManager.register_cauld(ambience_sfx)
 	
 	if !inv:
 		inv = Inv.new(1)
@@ -184,6 +188,10 @@ func _restore_timer(time_left: float)->void:
 		progress_bar.visible = true
 		mix_timer.stop()
 		mix_timer.start(time_left)
+
+# Behavior once a cauldron exits a scene (gets deleted)
+func _exit_tree() -> void:
+	SFXManager.unregister_cauld()
 
 
 func _on_interactable_body_entered(body: Node2D) -> void:

@@ -9,6 +9,10 @@ var spawn_location_pos : Array = []
 @onready var player: Player = $BuildingsBoundaries/Player
 @onready var trees: TileMapLayer = $BuildingsBoundaries/TopBottomBoundaries/TreesForeground
 @onready var credit_zone: Area2D = $BuildingsBoundaries/CreditZone
+@onready var dialogue_ui: CanvasLayer = $DialogueUI
+@onready var misc_shop_exterior: StaticBody2D = $BuildingsBoundaries/MiscShopExterior
+@onready var casino: StaticBody2D = $BuildingsBoundaries/Casino
+@onready var timer: Timer = $Timer
 
 const town_npc_scene : PackedScene = preload("res://scenes/npc_alt/roaming_npc.tscn")
 var below : bool = false
@@ -19,6 +23,14 @@ func _ready() -> void:
 	for location : Marker2D in spawn_locations.get_children():
 		spawn_location_pos.append(location.position)
 	spawn_town_npcs()
+	
+	if not GameManager.tutorial_completed:
+		casino.block_flag = true
+		misc_shop_exterior.block_flag = true
+	
+	casino.block_dial.connect(_on_block)
+	misc_shop_exterior.block_dial.connect(_on_block)
+	
 
 func _process(_delta: float) -> void:
 	if player.position.y > bot_bound.position.y and not below:
@@ -63,3 +75,6 @@ func _on_credit_zone_body_entered(body: Node2D) -> void:
 func _on_credit_zone_body_exited(body: Node2D) -> void:
 	if body is Player:
 		in_credits = false
+
+func _on_block()->void:
+	dialogue_ui.open("cant_do", "start_block")

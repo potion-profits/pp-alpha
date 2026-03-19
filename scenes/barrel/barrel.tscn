@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://nfogt8087sfy"]
+[gd_scene load_steps=12 format=3 uid="uid://nfogt8087sfy"]
 
 [ext_resource type="Script" uid="uid://drft0hprjmxwe" path="res://scenes/barrel/barrel.gd" id="1_8tcro"]
 [ext_resource type="Texture2D" uid="uid://do1mxhb4uqurj" path="res://assets/interior/shop/all_barrels01.png" id="2_miycq"]
 [ext_resource type="PackedScene" uid="uid://fi1qxearbah2" path="res://scenes/interactions/interactable.tscn" id="3_s15th"]
+[ext_resource type="AudioStream" uid="uid://cc3qtc2ggbnc0" path="res://assets/audio/sfx/fill.ogg" id="4_mgwd7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s15th"]
 atlas = ExtResource("2_miycq")
@@ -68,6 +69,11 @@ position = Vector2(0, 1)
 sprite_frames = SubResource("SpriteFrames_8kr5j")
 frame = 2
 frame_progress = 0.061206102
+
+[node name="FillSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_mgwd7")
+volume_db = 1.26
+bus = &"SFX"
 
 [connection signal="body_entered" from="Interactable" to="." method="_on_interactable_body_entered"]
 [connection signal="body_exited" from="Interactable" to="." method="_on_interactable_body_exited"]
