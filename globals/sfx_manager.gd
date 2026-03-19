@@ -19,7 +19,7 @@ extends Node
 # Originally was going to map from speaker in JSON to sfx to be played
 @onready var dialogue_directory: Dictionary = {
 	"cat": cat_dialogue,
-	"shark": shark_dialogue,
+	"Shark": shark_dialogue,
 	"npc": npc_dialogue
 }
 

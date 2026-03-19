@@ -65,7 +65,8 @@ func show_node(dialogue_id: String) -> void:
 	choice_list = choices
 
 	dialogue_label.text = node.get("text", "")
-
+	var speaker : String = node.get("speaker","")
+	SFXManager.play_dialogue(speaker)
 	# If no choices, wait for player to dismiss with interact key
 	if choices.is_empty():
 		waiting_for_dismiss = true

@@ -25,14 +25,14 @@
 		]
 	},
 	"initial_guards": {
-		"speaker": "Guard1",
+		"speaker": "npc",
 		"text": "HEY!! STOP RIGHT THERE!!",
 		"choices":[
 			{"label": "Huh?", "next": "guard_blocks", "action": "move_to_block"}
 		]
 	},
 	"guard_blocks": {
-		"speaker": "Guard1",
+		"speaker": "npc",
 		"text": "You are not allowed to enter without formal, written permission.",
 		"choices": [
 			{"label": "AHHH! RUN!!", "next": null, "action": "block_office"},
@@ -40,7 +40,7 @@
 		],
 	},
 	"guard_sorry": {
-		"speaker": "Guard2",
+		"speaker": "npc",
 		"text": "Oh! Sorry about that. Please excuse my rude behavior. Go on ahead!",
 		"choices":[
 			{"label": "Thank you!", "next": null, "action": "enter_office"}

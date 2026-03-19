@@ -1,7 +1,7 @@
 {
 
 	"cashier_greeting": {
-		"speaker": "Cashier",
+		"speaker": "npc",
 		"text": "Welcome to the casino! Let me know how to help!",
 		"choices": [
 			{ "label": "Exchange coins for chips", "next": null, "action": "open_exchange" },
@@ -12,7 +12,7 @@
 	},
 	
 	"prizes": {
-		"speaker": "Cashier",
+		"speaker": "npc",
 		"text": "Select a prize to redeem with your hard-earned chips!",
 		"choices": [
 			{ "label": "I'll take an extra cauldron.    [150 chips]", "next": null, "action": "exchange_prize", "price": 150, "entity_code": "cauldron" },
@@ -24,7 +24,7 @@
 	},
 
 	"rules": {
-		"speaker": "Cashier",
+		"speaker": "npc",
 		"text": "Buy chips from me, then head to the tables to play. Win more chips, then redeem them here for prizes!",
 		"choices": [
 			{ "label": "Let me exchange some coins", "next": null, "action": "open_exchange" },
@@ -35,7 +35,7 @@
 	
 	
 	"games_info": {
-	  "speaker": "Cashier",
+	  "speaker": "npc",
 	  "text": "Right now we've got a couple blackjack tables set up for you. More games coming soon!",
 	  "choices": [
 		{ "label": "Let me exchange some coins.", "next": null, "action": "open_exchange" },
@@ -44,7 +44,7 @@
 	},
 	
 	"anything_else": {
-		"speaker": "Cashier",
+		"speaker": "npc",
 		"text": "Let me know if there's anything else you need!",
 		"choices": [
 			{ "label": "Exchange coins for chips", "next": null, "action": "open_exchange" },
@@ -57,7 +57,7 @@
 	
 	
 	"bald": {
-		"speaker": "Cashier",
+		"speaker": "npc",
 		"text": "... Yeah.",
 		"choices": [
 			{ "label": "You have twins around...", "next": "twins" },
@@ -66,7 +66,7 @@
 	},
 	
 	"twins": {
-		"speaker": "Cashier",
+		"speaker": "npc",
 		"text": "... Thanks for coming by! Mr. Shark will come see you sometime soon. :)",
 		"choices": [
 			{ "label": "Right. Sounds ominous!", "next": null }
@@ -74,7 +74,7 @@
 	},
 	
 	"not_enough_coins": {
-		"speaker": "Cashier",
+		"speaker": "npc",
 		"text": "Oooh, you don't have enough for that. \nMinimum buy in around here is 10 coins! \nMaybe try being successful and come back.",
 		"choices": [
 			{ "label": "It's rough out here, okay...", "next": "anything_else" }
@@ -82,7 +82,7 @@
 	},
 	
 	"not_enough_chips": {
-		"speaker": "Cashier",
+		"speaker": "npc",
 		"text": "Oooh, you don't have enough chips for that prize. \nGo gamble some more and come back when you have some chips to brag about.",
 		"choices": [
 			{ "label": "This casino will be the ruin of me.", "next": "anything_else" }
@@ -90,7 +90,7 @@
 	},
 	
 	"exchange_success": {
-		"speaker": "Cashier",
+		"speaker": "npc",
 		"text": "OK, we have provided you an in-store credit for the prize you have selected with our prize-sponsor Crate & Barrel.\n 
 			Head next door when you want to place your prize.",
 		"choices": [

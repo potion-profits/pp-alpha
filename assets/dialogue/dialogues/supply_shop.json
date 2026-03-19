@@ -1,7 +1,7 @@
 {
 
 	"shopkeeper_greeting": {
-		"speaker": "Shopkeeper",
+		"speaker": "npc",
 		"text": "Welcome to the supply shop! Let me know how I can help!",
 		"choices": [
 			{ "label": "Tell me how this place works please.", "next": "explanation" },
@@ -13,7 +13,7 @@
 	},
 	
 	"explanation": {
-		"speaker": "Shopkeeper",
+		"speaker": "npc",
 		"text": "In this shop, you can refill your crates and barrels, buy new shelves or crates or barrels or cauldrons, and place any existing furniture you have!",
 		"choices": [
 			{ "label": "Refill supplies", "next": "shopkeeper_greeting", "action": "refill" },
@@ -25,7 +25,7 @@
 	},
 	
 	"empty_shop": {
-		"speaker": "Shopkeeper",
+		"speaker": "npc",
 		"text": "You can't refill anything when there's nothing to refill...",
 		"choices": [
 			{ "label": "Oh yeah, that's right...", "next": "shopkeeper_greeting"}
@@ -33,7 +33,7 @@
 	},
 	
 	"casino": {
-		"speaker": "Shopkeeper",
+		"speaker": "npc",
 		"text": "Casino, huh... Never heard of it! Must have been someone else.",
 		"choices": [
 			{ "label": "Right... anyway.", "next": "shopkeeper_greeting" }

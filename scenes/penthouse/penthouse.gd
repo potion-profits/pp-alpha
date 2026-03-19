@@ -99,7 +99,6 @@ func open_shark_dialogue() -> void:
 	prep_dialogue_open()
 	
 	# Play SFX on dialogue open only
-	SFXManager.play_dialogue("shark")
 	
 	if GameManager.lost_game:
 		dialogue_ui.open("penthouse","not_paid")
@@ -191,8 +190,6 @@ func _on_guard_interact_body_entered(body: Node2D) -> void:
 	if body is Player and player.first_office == true:
 		prep_dialogue_open()
 		dialogue_ui.open("penthouse", "initial_guards")
-		# Play SFX on dialogue open only
-		SFXManager.play_dialogue("npc")
 
 
 func _on_confirm_pay_pressed() -> void:
